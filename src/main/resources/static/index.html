@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Seguradora</title>
+    <link rel="stylesheet" href="/css/Inicial.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<header class="topo">
+    <div class="logo">
+        <i class="fa-solid fa-shield-halved"></i>
+        Seguradora mais
+    </div>
+
+    <div class="perfis">
+        <button onclick="irLogin('cliente')">
+            Cliente
+            <i class="fa-solid fa-circle-user"></i>
+        </button>
+        <button onclick="irLogin('corretor')">
+            Corretor
+            <i class="fa-solid fa-circle-user"></i>
+        </button>
+        <button onclick="irLogin('admin')">
+            Admin
+            <i class="fa-solid fa-circle-user"></i>
+        </button>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="conteudo">
+        <h1>Proteja o que realmente importa</h1>
+        <p>Simule, compare e contrate seu seguro de forma rápida.</p>
+
+        <button class="cta" onclick="irLogin('cliente')">
+            <i class="fa-solid fa-money-bill"></i>
+            Fazer cotação
+        </button>
+        <a class="cadastroBtn" href="/cadastro-cliente.html">
+            Não tem uma conta? <span>Cadastre-se</span>
+        </a>
+
+    </div>
+</section>
+
+<section id="coberturas" class="coberturas">
+
+    <h2>Nossas coberturas</h2>
+
+    <div class="grid-coberturas">
+
+        <div class="card">
+            <i class="fa-solid fa-car"></i>
+            <h3>Seguro Auto</h3>
+            <p>Proteção completa para seu veículo.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-house"></i>
+            <h3>Residencial</h3>
+            <p>Proteção para sua casa.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <h3>Saúde</h3>
+            <p>Proteção finaceira contra despesas medicas.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-plane"></i>
+            <h3>Viagem</h3>
+            <p>Proteção para seus investimentos em viagens.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-user-shield"></i>
+            <h3>Vida</h3>
+            <p>Proteção financeira.</p>
+        </div>
+
+        <!-- LINHA 2 -->
+        <div class="card">
+            <i class="fa-solid fa-building"></i>
+            <h3>Empresarial</h3>
+            <p>Segurança para empresas.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-motorcycle"></i>
+            <h3>Moto</h3>
+            <p>Proteção para sua moto.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-city"></i>
+            <h3>Condomínio</h3>
+            <p>Proteção coletiva.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <h3>Educacional</h3>
+            <p>Invista no futuro.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-paw"></i>
+            <h3>Pet</h3>
+            <p>Gestão de custos e assistência veterinaria.</p>
+        </div>
+
+
+        <!-- LINHA 3 -->
+        <div class="card">
+            <i class="fa-solid fa-tooth"></i>
+            <h3>Odonto</h3>
+            <p>Previsiilidade e cobertura para gastos bucais.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-mobile"></i>
+            <h3>Celular</h3>
+            <p>Contra roubo e danos.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-laptop"></i>
+            <h3>Equipamentos</h3>
+            <p>Proteção de dispositivos.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-tractor"></i>
+            <h3>Rural</h3>
+            <p>Proteção no campo.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-truck"></i>
+            <h3>Carga</h3>
+            <p>Transporte seguro.</p>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    function irLogin(perfil) {
+        localStorage.setItem("perfil", perfil);
+        window.location.href = "/login.html";
+    }
+
+    function irCadastro(){
+        window.location.href = "/cadastro-cliente.html";
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url("../imagesInicial/tech.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.login-box {
+    width: 350px;
+    padding: 40px 30px;
+    border-radius: 20px;
+    background: rgba(15, 30, 45, 0.9);
+    box-shadow: 0 0 25px rgba(0,0,0,0.6);
+    text-align: center;
+}
+
+.logo i {
+    font-size: 30px;
+    color: #f5b942;
+    margin-bottom: 15px;
+}
+
+h2 {
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+p {
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 40px;
+    border-radius: 10px;
+    border: none;
+    background: #0f2538;
+    color: #fff;
+    outline: none;
+}
+
+.input-group i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.input-group i:first-child {
+    left: 10px;
+}
+
+.input-group i:last-child {
+    right: 10px;
+    cursor: pointer;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+.options a {
+    color: #f5b942;
+    text-decoration: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #f5b942, #e09e2a);
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.footer {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #aaa;
+}
+
+.footer a {
+    color: #f5b942;
+    text-decoration: none;
+    margin-left: 5px;
+}

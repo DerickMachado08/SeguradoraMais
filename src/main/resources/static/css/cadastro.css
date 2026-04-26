@@ -1,0 +1,119 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url("../imagesInicial/tech.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* CONTAINER */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* LADO ESQUERDO */
+.left {
+    width: 40%;
+    padding: 60px;
+    color: white;
+}
+
+.left h1 {
+    color: #ffd54f;
+}
+
+.left h2 {
+    font-size: 32px;
+}
+
+.left i{
+    margin-left: 35px;
+    font-size: 120px;
+    color: #f69e06;
+}
+
+.left span{
+    font-size: 40px;
+    color: #234088;
+}
+
+/* LADO DIREITO */
+.right {
+    width: 60%;
+    padding: 40px;
+    background: rgb(15, 30, 45, 0.9);
+    color: #594444;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* CAMPOS */
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.full {
+    grid-column: span 2;
+}
+
+/* INPUT BOX */
+.input-box {
+    display: flex;
+    align-items: center;
+    background: #132f4c;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.input-box i {
+    color: #ffd54f;
+    margin-right: 10px;
+}
+
+input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    width: 100%;
+}
+
+/* ERROS */
+small {
+    color: red;
+    font-size: 12px;
+}
+
+/* BOTÃO */
+button {
+    grid-column: span 2;
+    padding: 15px;
+    background: #ffd54f;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #e6c200;
+}
+
+/* LINK LOGIN */
+.login-link {
+    grid-column: span 2;
+    text-align: center;
+}
+
+.login-link a {
+    color: #ffd54f;
+    text-decoration: none;
+}

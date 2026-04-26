@@ -1,0 +1,68 @@
+package com.mais.seguradora.services;
+
+import com.mais.seguradora.Repositories.ClienteRepository;
+import com.mais.seguradora.model.Cliente;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class ClienteService {
+
+    @Autowired
+    private ClienteRepository repository;
+
+    public boolean existsByEmail;
+
+    public Cliente cadastrar(Cliente cliente){
+        if(repository.existsByCpf(cliente.getCpf())){
+            throw new RuntimeException("CPF ja cadastrado");
+        }
+        if (repository.existsByEmail(cliente.getEmail())){
+            throw new RuntimeException("Email ja cadastrado");
+        }
+        if(cliente.getDataNascimento().isAfter(LocalDate.now().minusYears(18))){
+            throw new RuntimeException("menor de idade não permitido");
+        }
+
+        return repository.save(cliente);
+    }
+
+    public Cliente autenticar(String email, String senha) {
+
+        Optional<Cliente> cliente = repository.findByEmail(email);
+
+        System.out.println("Encontrou usuário? " + cliente.isPresent());
+
+        if (cliente.isPresent()) {
+            System.out.println("Senha banco: " + cliente.get().getSenha());
+            System.out.println("Senha digitada: " + senha);
+        }
+
+        return cliente
+                .filter(c -> c.getSenha().equals(senha))
+                .orElse(null);
+    }
+
+    public List<Cliente> listar(){
+        return repository.findAll();
+    }
+
+    public Cliente buscar(Integer id){
+        return repository.findById(id).orElseThrow();
+    }
+
+    public void deletar(Integer id){
+        repository.deleteById(id);
+    }
+
+    public Cliente atualizar(Integer id, Cliente cliente) {
+        Cliente existente = repository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+        BeanUtils.copyProperties(cliente, existente, "id");
+        return repository.save(existente);
+    }
+}

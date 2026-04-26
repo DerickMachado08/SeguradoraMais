@@ -1,0 +1,167 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+/* HEADER */
+.topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #000000;
+}
+
+.logo {
+    font-weight: bold;
+    color: #ffd54f;
+    font-size: 20px;
+
+}
+
+.logo i{
+    font-size: 40px;
+    margin-right: 10px;
+}
+
+.perfis button {
+    margin-left: 10px;
+    padding: 18px 38px;
+    background: transparent;
+    border: 1px solid #fdd44f;
+    color: #fdd44f;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.perfis button:hover {
+    margin-left: 10px;
+    background: linear-gradient(135deg, #ffd54f, #f49c23);
+    border: 1px solid #000000;
+    color: #000000;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.9s;
+}
+
+/* HERO */
+.hero {
+    min-height: 83vh;
+    display: flex;
+    align-items: center;
+    padding: 50px;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url("../imagesInicial/tech.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.conteudo {
+    max-width: 500px;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+p {
+    color: #ccc;
+}
+
+.cta {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    padding: 12px 110px;
+    background: linear-gradient(135deg, #fdd44f, #f49c23);
+    border: none;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+    font-size: 20px;
+}
+
+.cta:hover{
+    transition: 0.9s;
+    box-shadow: -3px -5px 10px #000000, 3px 5px 10px #ac6600;
+}
+
+.cadastroBtn{
+    color: white;
+    margin-left: 40px;
+    text-decoration: none;
+}
+
+.cadastroBtn span{
+    color: #fbd34f;
+    font-weight: bold;
+}
+
+
+/* VANTAGENS */
+.vantagens {
+    margin-top: 40px;
+    display: flex;
+    gap: 10px;
+}
+
+.vantagens div {
+    background: rgba(255,255,255,0.1);
+    padding: 30px 150px;
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+}
+
+.coberturas {
+    background: #f4f6f9;
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.coberturas h2 {
+    color: #0b1d2a;
+    margin-bottom: 40px;
+    font-size: 28px;
+}
+
+.grid-coberturas {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 por linha */
+    gap: 20px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    color: #0b1d2a;
+    margin-bottom: 10px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    color: #fbd34f;
+}
+
+.card i{
+    font-size: 30px;
+}
+
+.card h3 {
+    color: #0b1d2a;
+}
+
+.card p {
+    color: #555;
+    font-size: 14px;
+}
+
+
