@@ -5,6 +5,7 @@
     <title>Sistema Seguradora</title>
     <link rel="stylesheet" href="/css/Inicial.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -30,9 +31,9 @@
     </div>
 </header>
 
-<section class="hero">
+<section id="hero" class="hero">
     <div class="conteudo">
-        <h1>Proteja o que realmente importa</h1>
+        <h1>Proteja os seus bens</h1>
         <p>Simule, compare e contrate seu seguro de forma rápida.</p>
 
         <button class="cta" onclick="irLogin('cliente')">
@@ -147,6 +148,72 @@
 
     </div>
 </section>
+
+<footer class="bg-dark text-light pt-5 pb-3 mt-5">
+    <div class="container">
+        <div class="row">
+
+            <!-- Marca / Sobre -->
+            <div class="col-md-4 mb-4">
+                <h5 class="fw-bold">Seguradora +</h5>
+                <p class="small">
+                    Protegendo os seus bens, confiança no nosso trabalho.
+                </p>
+            </div>
+
+            <!-- Links -->
+            <div class="col-md-2 mb-4">
+                <h6 class="fw-bold">Links</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#hero" class="text-light text-decoration-none">Home</a></li>
+                    <li><a href="#coberturas" class="text-light text-decoration-none">Coberturas</a></li>
+                    <li><a href="#" class="text-light text-decoration-none">Planos</a></li>
+                    <li><a href="#" class="text-light text-decoration-none">Contato</a></li>
+                </ul>
+            </div>
+
+            <!-- Contato -->
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold">Contato</h6>
+                <p class="small mb-1"><i class="fa-solid fa-location-dot"></i> Rio de Janeiro</p>
+                <p class="small mb-1"><i class="fa-solid fa-phone-flip"></i> (21) 99999-9999</p>
+                <p class="small"><i class="fa-solid fa-envelope"></i> seguramais.corretora.seguros@gmail.com</p>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold">Newsletter</h6>
+                <p class="small">Receba novidades</p>
+                <form>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Seu email">
+                        <button class="btn btn-primary">OK</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Linha inferior -->
+        <hr class="border-light">
+
+        <div class="d-flex justify-content-between flex-column flex-md-row align-items-center">
+
+            <p class="mb-2 mb-md-0 small">
+                © 2026 Seguradora + - Todos os direitos reservados
+            </p>
+
+            <!-- Redes sociais -->
+            <div>
+                <a href="#" class="text-light me-3 fs-5"><i class="fa-solid fa-globe"></i></a>
+                <a href="#" class="text-light me-3 fs-5"><i class="fa-solid fa-book"></i></a>
+                <a href="#" class="text-light me-3 fs-5"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="text-light fs-5"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+
+        </div>
+    </div>
+</footer>
 
 <script>
     function irLogin(perfil) {
