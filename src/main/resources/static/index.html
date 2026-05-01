@@ -9,11 +9,22 @@
 </head>
 <body>
 
+<!-- Header -->
+
 <header class="topo">
     <div class="logo">
         <i class="fa-solid fa-shield-halved"></i>
         Seguradora mais
     </div>
+
+    <nav class="menu">
+        <a href="#hero">Home</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#TipoSeguro">Seguros</a>
+        <a href="#">Planos</a>
+        <a href="#">Contatos</a>
+        <a href="#">Sobre</a>
+    </nav>
 
     <div class="perfis">
         <button onclick="irLogin('cliente')">
@@ -33,9 +44,8 @@
 
 <section id="hero" class="hero">
     <div class="conteudo">
-        <h1>Proteja os seus bens</h1>
+        <h1 class="texto"> Proteja o que realmente<span> importa. </span></h1>
         <p>Simule, compare e contrate seu seguro de forma rápida.</p>
-
         <button class="cta" onclick="irLogin('cliente')">
             <i class="fa-solid fa-money-bill"></i>
             Fazer cotação
@@ -94,9 +104,10 @@
 
 <!-- TIpo de Seguros -->
 
-    <h2>Nossas coberturas</h2>
+<section id="TipoSeguro" class="TipoSeguro">
+    <span>Nossos seguros</span>
 
-    <div class="grid-coberturas">
+    <div class="grid-seguradora">
 
         <div class="card">
             <i class="fa-solid fa-car"></i>
@@ -194,6 +205,8 @@
     </div>
 </section>
 
+<!-- Footer -->
+
 <footer class="bg-dark text-light pt-5 pb-3 mt-5">
     <div class="container">
         <div class="row">
@@ -211,8 +224,10 @@
                 <h6 class="fw-bold">Links</h6>
                 <ul class="list-unstyled">
                     <li><a href="#hero" class="text-light text-decoration-none">Home</a></li>
-                    <li><a href="#coberturas" class="text-light text-decoration-none">Coberturas</a></li>
+                    <li><a href="#beneficios" class="text-light text-decoration-none">Beneficios</a></li>
+                    <li><a href="#TipoSeguro" class="text-light text-decoration-none">Seguros</a></li>
                     <li><a href="#" class="text-light text-decoration-none">Planos</a></li>
+                    <li><a href="#" class="text-light text-decoration-none">Sobre</a></li>
                     <li><a href="#" class="text-light text-decoration-none">Contato</a></li>
                 </ul>
             </div>
