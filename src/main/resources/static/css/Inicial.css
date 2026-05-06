@@ -2,11 +2,18 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     color: white;
+
 }
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
 
 /* HEADER */
 
 .topo {
+    height: 95px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -16,12 +23,13 @@ body {
     position: fixed;
     width: 100%;
     z-index: 1;
+    position: fixed;
 }
 
 .logo {
-    font-weight: bold;
-    color: #ffd54f;
-    font-size: 20px;
+    margin-top: 60px;
+    height: 400px;
+
 }
 
 .logo i{
@@ -35,6 +43,7 @@ body {
 }
 
 .menu a{
+    position: relative;
     text-decoration: none;
     color: #cccccc;
     transition: 0.3s;
@@ -43,6 +52,23 @@ body {
 .menu a:hover{
     color: #f5b942;
 }
+
+.menu a::after{
+    content: "";
+    background-color: #f5b942;
+    width: 0;
+    height: 2px;
+    transition: 1s;
+    bottom: -4px;
+    position: absolute;
+    left: 0;
+}
+
+.menu a:hover::after{
+    width: 100%;
+    transition: 1s;
+}
+
 
 .perfis button {
     margin-left: 10px;
