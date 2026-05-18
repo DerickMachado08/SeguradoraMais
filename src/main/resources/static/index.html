@@ -2,10 +2,11 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Sistema Seguradora</title>
+    <title>Seguros</title>
     <link rel="stylesheet" href="/css/Inicial.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="imagesInicial/android-chrome-512x512.png">
 </head>
 <body>
 
@@ -13,7 +14,7 @@
 
 <header class="topo">
 
-        <img src="imagesInicial/SEGURADORA-removebg-preview.png" class="logo">
+        <img src="imagesInicial/SEGURADORA-removebg.png" class="logo">
 
     <nav class="menu">
         <a href="#hero">Home</a>
@@ -24,6 +25,10 @@
         <a href="#">Sobre</a>
     </nav>
 
+    <div class="menu-mobile-btn">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
     <div class="perfis">
         <button onclick="irLogin('cliente')">
             Cliente
@@ -31,33 +36,97 @@
         </button>
         <button onclick="irLogin('corretor')">
             Corretor
-            <i class="fa-solid fa-circle-user"></i>
+            <i class="fa-solid fa-user-tie"></i>
         </button>
         <button onclick="irLogin('admin')">
             Admin
-            <i class="fa-solid fa-circle-user"></i>
+            <i class="fa-solid fa-users-gear"></i>
         </button>
     </div>
 </header>
 
-<section id="hero" class="hero">
-    <div class="conteudo">
-        <h1 class="texto"> Proteja o que realmente<span> importa. </span></h1>
-        <p>Simule, compare e contrate seu seguro de forma rápida.</p>
+<section id="hero" class="section hero">
+
+    <!-- CARROSSEL -->
+
+    <div class="slides">
+
+        <!-- SLIDE 1 -->
+
+        <div class="slide active"
+             style="
+        background-image:
+        linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
+        url('../imagesInicial/tech.jpg');
+        ">
+        </div>
+
+        <!-- SLIDE 2 -->
+
+        <div class="slide"
+             style="
+        background-image:
+        linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
+        url('../imagesInicial/city.jpg');
+        ">
+        </div>
+
+        <!-- SLIDE 3 -->
+
+        <div class="slide"
+             style="
+        background-image:
+        linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
+        url('../imagesInicial/car.jpg');
+        ">
+        </div>
+
+    </div>
+
+    <!-- CONTEÚDO -->
+
+    <div class="hero-left">
+
+        <h1 class="texto">
+            Proteja o que realmente
+            <span>importa.</span>
+        </h1>
+
+        <p>
+            Simule, compare e contrate seu seguro de forma rápida.
+        </p>
+
         <button class="cta" onclick="irLogin('cliente')">
+
             <i class="fa-solid fa-money-bill"></i>
+
             Fazer cotação
+
         </button>
+
         <a class="cadastroBtn" href="/cadastro-cliente.html">
-            Não tem uma conta? <span>Cadastre-se</span>
+
+            Não tem uma conta?
+            <span>Cadastre-se</span>
+
         </a>
 
     </div>
-</section>
 
+    <!-- INDICADORES -->
+
+    <div class="indicadores">
+
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+
+    </div>
+
+</section>
 <!-- Beneficios -->
 
-<section id="beneficios" class="beneficios">
+<section id="beneficios" class="section beneficios">
     <div class="conteudoB">
     <span class="tag">NOSSOS BENEFICIOS</span>
 
@@ -102,7 +171,7 @@
 
 <!-- TIpo de Seguros -->
 
-<section id="TipoSeguro" class="TipoSeguro">
+<section id="TipoSeguro" class="section TipoSeguro">
     <span>Nossos seguros</span>
 
     <div class="grid-seguradora">
@@ -274,14 +343,73 @@
 </footer>
 
 <script>
-    function irLogin(perfil) {
+    function irLogin(perfil){
+
         localStorage.setItem("perfil", perfil);
+
         window.location.href = "/login.html";
     }
 
-    function irCadastro(){
-        window.location.href = "/cadastro-cliente.html";
+    /* ANIMAÇÃO */
+
+    const sections = document.querySelectorAll('.section');
+
+    const observer = new IntersectionObserver((entries) => {
+
+        entries.forEach(entry => {
+
+            if(entry.isIntersecting){
+
+                entry.target.classList.add('show');
+
+            }
+
+        });
+
+    }, {
+        threshold: 0.2
+    });
+
+    sections.forEach(sec => observer.observe(sec));
+
+    /* MENU MOBILE */
+
+    const menu = document.querySelector(".menu");
+    const btn = document.querySelector(".menu-mobile-btn");
+
+    btn.addEventListener("click", () => {
+
+        menu.classList.toggle("active");
+
+    });
+
+    /* CARROSSEL */
+
+    const slides = document.querySelectorAll(".slide");
+    const dots = document.querySelectorAll(".dot");
+
+    let index = 0;
+
+    function trocarSlide(){
+
+        slides[index].classList.remove("active");
+        dots[index].classList.remove("active");
+
+        index++;
+
+        if(index >= slides.length){
+
+            index = 0;
+
+        }
+
+        slides[index].classList.add("active");
+        dots[index].classList.add("active");
+
     }
+
+    setInterval(trocarSlide, 5000);
+
 </script>
 
 </body>

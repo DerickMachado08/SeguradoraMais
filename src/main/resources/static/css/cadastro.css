@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: Arial;
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    background: linear-gradient(rgba(10,10,30,0.85), rgba(5,5,20,0.9)),
     url("../imagesInicial/tech.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -21,7 +21,7 @@ body {
 }
 
 .left h1 {
-    color: #ffd54f;
+    color: #8a7dff;
 }
 
 .left h2 {
@@ -31,20 +31,22 @@ body {
 .left i{
     margin-left: 35px;
     font-size: 120px;
-    color: #f69e06;
+    color: #6c63ff;
 }
 
 .left span{
     font-size: 40px;
-    color: #234088;
+    color: #3a8dff;
 }
 
 /* LADO DIREITO */
 .right {
     width: 60%;
     padding: 40px;
-    background: rgb(15, 30, 45, 0.9);
+    background: rgba(15, 15, 40, 0.75);
     color: #ffffff;
+    backdrop-filter: blur(15px);
+    border-left: 1px solid rgba(120,120,255,0.2);
 }
 
 /* GRID */
@@ -68,13 +70,20 @@ body {
 .input-box {
     display: flex;
     align-items: center;
-    background: #132f4c;
+    background: #1a1a3a;
     padding: 10px;
     border-radius: 10px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.input-box:focus-within {
+    border: 1px solid #6c63ff;
+    box-shadow: 0 0 10px #6c63ff55;
 }
 
 .input-box i {
-    color: #ffd54f;
+    color: #6c63ff;
     margin-right: 10px;
 }
 
@@ -88,7 +97,7 @@ input {
 
 /* ERROS */
 small {
-    color: red;
+    color: #ff6b6b;
     font-size: 12px;
 }
 
@@ -96,15 +105,18 @@ small {
 button {
     grid-column: span 2;
     padding: 15px;
-    background: #ffd54f;
+    background: linear-gradient(90deg, #6c63ff, #3a8dff);
     border: none;
     border-radius: 10px;
     font-weight: bold;
+    color: white;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #e6c200;
+    transform: scale(1.03);
+    box-shadow: 0 0 15px #6c63ff88;
 }
 
 /* LINK LOGIN */
@@ -114,6 +126,59 @@ button:hover {
 }
 
 .login-link a {
-    color: #ffd54f;
+    color: #8a7dff;
     text-decoration: none;
 }
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+/* NOTEBOOK */
+
+@media(max-width: 1200px){
+
+    .left{
+        padding: 40px;
+    }
+
+    .left h2{
+        font-size: 26px;
+    }
+
+    .left i{
+        font-size: 90px;
+    }
+
+}
+
+/* TABLET */
+
+@media(max-width: 950px){
+
+    .container{
+        flex-direction: column;
+    }
+
+    .left{
+        width: 100%;
+
+        text-align: center;
+
+        padding: 50px 30px;
+    }
+
+    .left i{
+        margin-left: 0;
+    }
+
+    .right{
+        width: 100%;
+
+        border-left: none;
+
+        border-top: 1px solid rgba(120,120,255,0.2);
+    }
+
+}
+

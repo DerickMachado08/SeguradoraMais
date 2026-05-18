@@ -15,7 +15,6 @@ import java.util.Map;
 @RequestMapping("/cliente")
 public class ClienteController {
 
-    private static final String admin = "admin@gmail.com";
 
     @Autowired
     private ClienteService service;

@@ -2,13 +2,22 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     color: white;
-
 }
 
 body::-webkit-scrollbar{
     display: none;
 }
 
+.section{
+    opacity: 0;
+    transform: translateY(80px);
+    transition: all 0.8s ease;
+}
+
+.section.show{
+    opacity: 1;
+    transform: translateY(0);
+}
 
 /* HEADER */
 
@@ -17,13 +26,12 @@ body::-webkit-scrollbar{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 40px;
-    background-color: rgb(0, 0, 0, 0.6);
+    padding: 15px 70px;
+    background-color: rgba(0, 0, 3, 0.6);
     backdrop-filter: blur(10px);
     position: fixed;
     width: 100%;
     z-index: 1;
-    position: fixed;
 }
 
 .logo {
@@ -37,31 +45,49 @@ body::-webkit-scrollbar{
     margin-right: 10px;
 }
 
-.menu{
+.menu {
     display: flex;
-    gap: 25px;
+    gap: 55px;
+    align-items: center;
+    padding: 12px 25px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
 }
 
-.menu a{
+.menu a {
     position: relative;
     text-decoration: none;
-    color: #cccccc;
+    color: #ffffff;
+    font-size: 16px; /* levemente menor pra caber melhor */
     transition: 0.3s;
+    padding: 6px 0;
 }
 
-.menu a:hover{
-    color: #f5b942;
+.menu-mobile-btn{
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
 }
 
-.menu a::after{
+.menu a::after {
     content: "";
-    background-color: #f5b942;
+    background: linear-gradient(135deg, #6C5CE7, #00D4FF);
     width: 0;
     height: 2px;
-    transition: 1s;
-    bottom: -4px;
+
     position: absolute;
     left: 0;
+    bottom: -4px;
+
+    transition: width 0.35s ease;
+}
+
+.menu a:hover::after {
+    width: 100%;
 }
 
 .menu a:hover::after{
@@ -74,8 +100,8 @@ body::-webkit-scrollbar{
     margin-left: 10px;
     padding: 18px 38px;
     background: transparent;
-    border: 1px solid #fdd44f;
-    color: #fdd44f;
+    border: 1px solid #6c5ce7;
+    color: #ffffff;
     border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
@@ -83,7 +109,7 @@ body::-webkit-scrollbar{
 
 .perfis button:hover {
     margin-left: 10px;
-    background: linear-gradient(135deg, #ffd54f, #f49c23);
+    background: linear-gradient(135deg, #6C5CE7, #00D4FF);
     border: 1px solid #000000;
     color: #000000;
     border-radius: 10px;
@@ -93,75 +119,192 @@ body::-webkit-scrollbar{
 
 /* HERO */
 
-.hero {
-    min-height: 105vh;
+.hero{
+    position: relative;
+
+    min-height: 100vh;
+
     display: flex;
     align-items: center;
-    padding: 50px;
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-    url("../imagesInicial/tech.jpg");
-    background-repeat: no-repeat;
+
+    padding: 60px 80px;
+
+    overflow: hidden;
+}
+
+/* SLIDES */
+
+.slides{
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    left: 0;
+}
+
+.slide{
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
     background-size: cover;
+    background-position: center;
+
+    opacity: 0;
+
+    transform: scale(1.05);
+
+    transition:
+            opacity 1.2s ease,
+            transform 6s ease;
 }
 
-.conteudo {
-    max-width: 500px;
-    margin-left: 20px;
+.slide.active{
+    opacity: 1;
+    transform: scale(1);
 }
 
-.texto {
-    color: white;
-    font-size: 70px;
+/* CONTEÚDO */
+
+.hero-left{
+    position: relative;
+    z-index: 2;
+
+    max-width: 550px;
+}
+
+.texto{
+    color: #ffffff;
+
+    font-size: 75px;
+    line-height: 1.1;
+
+    font-weight: bold;
 }
 
 .texto span{
-    color: #f5b942;
+    color: #00D4FF;
 }
 
-p {
-    color: #ccc;
-}
+.hero p{
+    color: #d3d3d3;
 
-.cta {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-    margin-bottom: 10px;
+    font-size: 19px;
+
     margin-top: 20px;
-    padding: 12px 110px;
-    background: linear-gradient(135deg, #fdd44f, #f49c23);
+    margin-bottom: 30px;
+
+    line-height: 1.6;
+}
+
+/* BOTÃO */
+
+.cta{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+    padding: 18px 45px;
+
+    background:
+            linear-gradient(135deg,#6C5CE7,#00D4FF);
+
     border: none;
-    border-radius: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: box-shadow 0.3s;
+    border-radius: 14px;
+
+    color: white;
+
     font-size: 20px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.4s;
 }
 
 .cta:hover{
-    transition: 0.9s;
-    box-shadow: -3px -5px 10px #000000, 3px 5px 10px #ac6600;
+
+    transform: translateY(-4px);
+
+    box-shadow:
+            0 0 15px #6C5CE7,
+            0 0 25px #00D4FF;
+
 }
 
+/* LINK */
+
 .cadastroBtn{
+    display: inline-block;
+
+    margin-top: 22px;
+
     color: white;
-    margin-left: 40px;
+
     text-decoration: none;
+
+    font-size: 15px;
 }
 
 .cadastroBtn span{
-    color: #fbd34f;
+    color: #00D4FF;
     font-weight: bold;
+}
+
+/* INDICADORES */
+
+.indicadores{
+    position: absolute;
+
+    bottom: 35px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+    gap: 12px;
+
+    z-index: 2;
+}
+
+.dot{
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.35);
+
+    cursor: pointer;
+
+    transition: 0.4s;
+}
+
+.dot.active{
+
+    background: #00D4FF;
+
+    box-shadow:
+            0 0 10px #00D4FF,
+            0 0 20px #00D4FF;
+
 }
 
 /* BENEFICIOS */
 
 .beneficios {
-    background: radial-gradient(circle, #f5b942 0%, #000000 25%);
+    background: radial-gradient(circle, #6b5be5 0%, #000000 25%);
     color: white;
     padding: 100px 20px;
     text-align: center;
-    min-height: 90vh;
+    min-height: 80vh;
 }
 
 .conteudoB{
@@ -171,8 +314,8 @@ p {
 
 .tag {
     display: inline-block;
-    border: 1px solid #f5b942;
-    color: #f5b942;
+    border: 1px solid #6C5CE7;
+    color: #6C5CE7;
     padding: 6px 14px;
     border-radius: 20px;
     font-size: 12px;
@@ -185,7 +328,7 @@ p {
 }
 
 .beneficios h2 span {
-    color: #f5b942;
+    color: #00D4FF;
 }
 
 .subtitulo {
@@ -210,14 +353,14 @@ p {
 
 .cardB:hover {
     transform: translateY(-5px);
-    border-color: #f5b942;
-    box-shadow: 0 0 20px rgba(245,185,66,0.2);
+    border-color: #6C5CE7;
+    box-shadow: 0 0 20px rgb(107 91 229);
 }
 
 .icon {
     font-size: 30px;
     margin-bottom: 15px;
-    color: #f5b942;
+    color: #01fdfd;
 }
 
 .cardB h3 {
@@ -273,13 +416,13 @@ p {
     padding: 20px;
     transition: 0.3s;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    color: #0b1d2a;
+    color: #ffffff;
     margin-bottom: 10px;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    color: #fbd34f;
+    color: #6C5CE7;
 }
 
 .card i{
@@ -287,7 +430,7 @@ p {
 }
 
 .card h3 {
-    color: #0b1d2a;
+    color: #000000;
 }
 
 .card p {
@@ -295,6 +438,80 @@ p {
     font-size: 14px;
 }
 
+/* =========================
+   RESPONSIVIDADE GERAL
+========================= */
 
+/* NOTEBOOKS */
 
+@media(max-width: 1400px){
+
+    .menu{
+        gap: 25px;
+    }
+
+    .perfis button{
+        padding: 14px 22px;
+        font-size: 15px;
+    }
+
+    .texto{
+        font-size: 55px;
+    }
+
+    .grid-Beneficios{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-seguradora{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+/* TABLETS */
+
+@media(max-width: 1100px){
+
+    .topo{
+        padding: 15px 30px;
+    }
+
+    .menu{
+        gap: 15px;
+        padding: 10px 15px;
+    }
+
+    .menu a{
+        font-size: 14px;
+    }
+
+    .perfis{
+        display: flex;
+        gap: 10px;
+    }
+
+    .perfis button{
+        padding: 12px 18px;
+        font-size: 14px;
+    }
+
+    .hero{
+        padding: 40px;
+        gap: 100px;
+    }
+
+    .texto{
+        font-size: 50px;
+    }
+
+    .grid-Beneficios{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-seguradora{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
 

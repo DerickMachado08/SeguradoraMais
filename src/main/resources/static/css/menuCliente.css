@@ -1,0 +1,215 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+
+    background: #081120;
+
+    color: white;
+}
+
+/* CONTAINER */
+
+.container{
+    display: flex;
+
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width: 260px;
+
+    background: #0b1729;
+
+    padding: 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+}
+
+.logo h2{
+    margin-bottom: 5px;
+}
+
+.logo span{
+    font-size: 12px;
+}
+
+.menu{
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-top: 40px;
+}
+
+.menu a{
+    text-decoration: none;
+
+    color: white;
+
+    padding: 12px;
+
+    border-radius: 8px;
+}
+
+.sidebar-footer{
+    margin-top: 40px;
+}
+
+/* CONTENT */
+
+.content{
+    flex: 1;
+
+    padding: 30px;
+}
+
+/* TOPBAR */
+
+.topbar{
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+/* GRID */
+
+.dashboard-grid{
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+/* BOX */
+
+.box{
+    background: #0d1b31;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    min-height: 300px;
+}
+
+.box-header{
+    margin-bottom: 20px;
+}
+
+/* RESUMO */
+
+.resumo .box-content{
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+.mini-card{
+    height: 120px;
+
+    background: #132540;
+
+    border-radius: 12px;
+}
+
+/* PAGAMENTOS */
+
+.pagamentos .box-content{
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+/* SINISTROS */
+
+.sinistros .box-content{
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+/* HISTÓRICO */
+
+.historico .box-content{
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+/* ITENS */
+
+.item{
+    height: 80px;
+
+    background: #132540;
+
+    border-radius: 12px;
+}
+
+.large-item{
+    height: 140px;
+}
+
+.history-item{
+    height: 70px;
+
+    background: #132540;
+
+    border-radius: 12px;
+}
+
+/* RESPONSIVO */
+
+@media(max-width: 1100px){
+
+    .dashboard-grid{
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media(max-width: 800px){
+
+    .container{
+        flex-direction: column;
+    }
+
+    .sidebar{
+        width: 100%;
+    }
+
+}
+
+@media(max-width: 600px){
+
+    .resumo .box-content{
+        grid-template-columns: 1fr;
+    }
+
+}
