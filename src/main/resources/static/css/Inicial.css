@@ -37,7 +37,6 @@ body::-webkit-scrollbar{
 .logo {
     margin-top: 60px;
     height: 400px;
-
 }
 
 .logo i{
@@ -84,6 +83,10 @@ body::-webkit-scrollbar{
     bottom: -4px;
 
     transition: width 0.35s ease;
+}
+
+.menu a:hover{
+    color: #00add0;
 }
 
 .menu a:hover::after {
