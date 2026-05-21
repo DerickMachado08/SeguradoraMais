@@ -25,7 +25,7 @@ public class ClienteController {
             Cliente clienteSalvo = service.cadastrar(cliente);
             return ResponseEntity.ok(clienteSalvo);
         } catch (RuntimeException e) {
-            // Isso envia um JSON com a mensagem para o seu JavaScript capturar no .catch()
+            // Isso envia um JSON com a mensagem para o JavaScript capturar no .catch()
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         }
     }
