@@ -1,6 +1,7 @@
 package com.mais.seguradora.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity(name = "corretor")
 @Table(name = "corretor")
@@ -17,6 +18,9 @@ public class Corretor {
     private String email;
     @Column(name = "telefone", length = 20)
     private String telefone;
+    @NotBlank
+    @Column(name = "senha", length = 50)
+    private String senha;
 
     public Corretor() {
     }

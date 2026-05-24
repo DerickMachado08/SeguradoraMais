@@ -22,7 +22,7 @@
         <a href="#TipoSeguro">Seguros</a>
         <a href="#">Planos</a>
         <a href="#">Contatos</a>
-        <a href="#">Sobre</a>
+        <a href="#sobre">Sobre</a>
     </nav>
 
     <div class="menu-mobile-btn">
@@ -77,7 +77,7 @@
              style="
         background-image:
         linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
-        url('./imagesInicial/car.jpg');
+        url('./imagesInicial/slide3.png');
         ">
         </div>
 
@@ -272,6 +272,61 @@
     </div>
 </section>
 
+<section id="sobre" class="section sobre">
+
+    <div class="sobre-container">
+
+        <div class="sobre-texto">
+
+            <span class="tag-sobre">SOBRE NÓS</span>
+
+            <h2>
+                Protegendo pessoas e patrimônios com
+                <span>confiança e tecnologia</span>
+            </h2>
+
+            <p>
+                A Seguradora+ foi criada com o objetivo de oferecer
+                soluções modernas para quem busca segurança e
+                tranquilidade. Nossa plataforma conecta clientes
+                e corretores de forma simples, rápida e segura.
+            </p>
+
+            <p>
+                Trabalhamos com diversos tipos de seguros,
+                proporcionando proteção para veículos,
+                residências, empresas, viagens e muito mais.
+            </p>
+
+        </div>
+
+        <div class="sobre-numeros">
+
+            <div class="numero-card">
+                <h3>Muitos clientes atendidos</h3>
+                <p>Clientes Atendidos</p>
+            </div>
+
+            <div class="numero-card">
+                <h3>15</h3>
+                <p>Tipos de Seguro</p>
+            </div>
+
+            <div class="numero-card">
+                <h3>24h</h3>
+                <p>Suporte Online</p>
+            </div>
+
+            <div class="numero-card">
+                <h3>Muitos clientes satisfeito</h3>
+                <p>Satisfação</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 <!-- Footer -->
 
 <footer class="bg-dark text-light pt-5 pb-3 mt-5">
@@ -294,7 +349,7 @@
                     <li><a href="#beneficios" class="text-light text-decoration-none">Beneficios</a></li>
                     <li><a href="#TipoSeguro" class="text-light text-decoration-none">Seguros</a></li>
                     <li><a href="#" class="text-light text-decoration-none">Planos</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">Sobre</a></li>
+                    <li><a href="#sobre" class="text-light text-decoration-none">Sobre</a></li>
                     <li><a href="#" class="text-light text-decoration-none">Contato</a></li>
                 </ul>
             </div>
@@ -342,75 +397,7 @@
     </div>
 </footer>
 
-<script>
-    function irLogin(perfil){
-
-        localStorage.setItem("perfil", perfil);
-
-        window.location.href = "/login.html";
-    }
-
-    /* ANIMAÇÃO */
-
-    const sections = document.querySelectorAll('.section');
-
-    const observer = new IntersectionObserver((entries) => {
-
-        entries.forEach(entry => {
-
-            if(entry.isIntersecting){
-
-                entry.target.classList.add('show');
-
-            }
-
-        });
-
-    }, {
-        threshold: 0.2
-    });
-
-    sections.forEach(sec => observer.observe(sec));
-
-    /* MENU MOBILE */
-
-    const menu = document.querySelector(".menu");
-    const btn = document.querySelector(".menu-mobile-btn");
-
-    btn.addEventListener("click", () => {
-
-        menu.classList.toggle("active");
-
-    });
-
-    /* CARROSSEL */
-
-    const slides = document.querySelectorAll(".slide");
-    const dots = document.querySelectorAll(".dot");
-
-    let index = 0;
-
-    function trocarSlide(){
-
-        slides[index].classList.remove("active");
-        dots[index].classList.remove("active");
-
-        index++;
-
-        if(index >= slides.length){
-
-            index = 0;
-
-        }
-
-        slides[index].classList.add("active");
-        dots[index].classList.add("active");
-
-    }
-
-    setInterval(trocarSlide, 5000);
-
-</script>
+<script src="./js/inicial.js"></script>
 
 </body>
 </html>

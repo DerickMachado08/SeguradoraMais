@@ -32,8 +32,9 @@
                 <label>Nome</label>
                 <div class="input-box">
                     <i class="fa-solid fa-user"></i>
-                    <input type="text" id="nome" placeholder="Digite seu nome completo">
+                    <input type="text" id="nome">
                 </div>
+                <small id="nomeError"></small>
             </div>
 
             <div class="campo">
@@ -75,8 +76,9 @@
                 <label>Senha</label>
                 <div class="input-box">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="senha" placeholder="Digite sua  senha">>
+                    <input type="password" id="senha" placeholder="Digite sua senha">
                 </div>
+                <small id="senhaError"></small>
             </div>
 
             <h3 class="full">Endereço</h3>
@@ -167,90 +169,7 @@
     </div>
 </div>
 
-     <script>
-         function cadastrar(){
-             fetch("http://localhost:8080/cliente",{
-                 method: "POST", headers:{
-                     "Content-Type": "application/json"
-                 },
-                 body: JSON.stringify({
-                     nome: document.getElementById("nome").value,
-                     email: document.getElementById("email").value,
-                     cpf: document.getElementById("cpf").value,
-                     senha: document.getElementById("senha").value,
-                     dataNascimento: document.getElementById("dataNascimento").value,
-                     telefone: document.getElementById("telefone").value,
-                     logradouro: document.getElementById("logradouro").value,
-                     numero: document.getElementById("numero").value,
-                     bairro: document.getElementById("bairro").value,
-                     cidade: document.getElementById("cidade").value,
-                     estado: document.getElementById("estado").value,
-                     cep: document.getElementById("cep").value
-                 })
-             })
-                 .then(async res => {
-                     if (!res.ok) {
-                         // Se o status não for 2xx (ex: 400 Bad Request), pegamos o JSON de erro
-                         const errorData = await res.json();
-                         // Lançamos um erro com a mensagem que veio do Java ("CPF ja cadastrado", etc)
-                         throw new Error(errorData.message);
-                     }
-                     return res.json();
-                 })
-                 .then(() => {
-                     alert("Cadastro realizado com sucesso!");
-                     window.location.href = "/login.html";
-                 })
-                 .catch(error => {
-                     // Aqui o 'error.message' será exatamente o texto que você enviou do Java
-                     const msg = error.message;
-
-                     // Limpa erros anteriores antes de mostrar os novos
-                     document.getElementById("cpfError").innerText = "";
-                     document.getElementById("emailError").innerText = "";
-                     document.getElementById("idadeError").innerText = "";
-
-                     if (msg.includes("CPF")) {
-                         document.getElementById("cpfError").innerText = msg;
-                     }
-                     if (msg.includes("Email")) {
-                         document.getElementById("emailError").innerText = msg;
-                     }
-                     if (msg.includes("menor")) {
-                         document.getElementById("idadeError").innerText = msg;
-                     }
-
-                     console.error("Erro capturado:", msg);
-                 });
-         }
-             // CPF
-             const cpfInput = document.getElementById("cpf");
-             cpfInput.addEventListener("input", () => {
-                 let value = cpfInput.value.replace(/\D/g, "");
-
-                 value = value.slice(0, 11);
-
-                 value = value.replace(/(\d{3})(\d)/, "$1.$2");
-                 value = value.replace(/(\d{3})(\d)/, "$1.$2");
-                 value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-
-                 cpfInput.value = value;
-             });
-
-             // TELEFONE
-             const telefoneInput = document.getElementById("telefone");
-             telefoneInput.addEventListener("input", () => {
-                 let value = telefoneInput.value.replace(/\D/g, "");
-
-                 value = value.slice(0, 11);
-
-                 value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
-                 value = value.replace(/(\d{5})(\d{4})$/, "$1-$2");
-
-                 telefoneInput.value = value;
-             });
-
-     </script>
+     <script src="./js/cadastro-cliente.js"></script>
 
 </body>
 </html>

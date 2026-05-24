@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -17,18 +18,20 @@ public class Cliente {
     @Column(name = "id_cliente", nullable = false)
     private Integer id;
 
-    @NotBlank(message = "Nome Obrigatorio")
+    @NotBlank(message = "Nome obrigatório")
     @Column(name = "nome", nullable = false, length = 80)
     private String nome;
 
-    @CPF(message = "cpf invalido")
+    @NotBlank(message = "CPF obrigatório")
+    @CPF(message = "CPF inválido")
     @Column(name = "cpf", nullable = false, length = 14, unique = true)
     private String cpf;
 
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @Email(message = "Email Invvalido")
+    @NotBlank(message = "Email obrigatório")
+    @Email(message = "Email inválido")
     @Column(name = "email", length = 100)
     private String email;
 
@@ -53,7 +56,12 @@ public class Cliente {
     @Column(name = "cep", length = 10)
     private String cep;
 
-    @NotBlank
+    @NotBlank(message = "Senha obrigatória")
+    @Size(min = 8, message = "A senha deve ter pelo menos 8 caracteres")
+    @Pattern(
+            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).+$",
+            message = "A senha deve conter letra maiúscula, minúscula, número e caractere especial"
+    )
     @Column(name = "senha", length = 50)
     private String senha;
 

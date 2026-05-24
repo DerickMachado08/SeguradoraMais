@@ -5,6 +5,7 @@ import com.mais.seguradora.services.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -20,30 +21,41 @@ public class ClienteController {
     private ClienteService service;
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@Valid @RequestBody Cliente cliente) {
+    public ResponseEntity<?> cadastrar(
+            @Valid @RequestBody Cliente cliente,
+            BindingResult result) {
+        Map<String, String> erros = new HashMap<>();
+        if (result.hasErrors()) {
+            result.getFieldErrors().forEach(erro ->
+                    erros.put(
+                            erro.getField(),
+                            erro.getDefaultMessage()
+                    )
+            );
+            return ResponseEntity.badRequest().body(erros);
+        }
         try {
+
             Cliente clienteSalvo = service.cadastrar(cliente);
+
             return ResponseEntity.ok(clienteSalvo);
         } catch (RuntimeException e) {
-            // Isso envia um JSON com a mensagem para o JavaScript capturar no .catch()
-            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
+            String msg = e.getMessage();
+            if (msg.contains("CPF")) {
+                erros.put("cpf", msg);
+            }
+            else if (msg.contains("Email")) {
+                erros.put("email", msg);
+            }
+            else if (msg.contains("idade")) {
+                erros.put("dataNascimento", msg);
+            }
+            else {
+                erros.put("geral", msg);
+            }
+
+            return ResponseEntity.badRequest().body(erros);
         }
-    }
-
-    @PostMapping("/login")
-    public Map<String, String> login(@RequestBody Cliente cliente) {
-
-        Cliente c = service.autenticar(cliente.getEmail(), cliente.getSenha());
-
-        Map<String, String> resposta = new HashMap<>();
-
-        if (c != null) {
-            resposta.put("status", "ok");
-        } else {
-            resposta.put("status", "erro");
-        }
-
-        return resposta;
     }
 
     @GetMapping
