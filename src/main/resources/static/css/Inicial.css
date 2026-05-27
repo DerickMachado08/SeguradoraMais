@@ -349,54 +349,109 @@ body::-webkit-scrollbar{
     display: flex;
 }
 
-.TipoSeguro {
-    background: #ffffff;
-    padding: 60px 40px;
-    text-align: center;
+.tipo-seguro{
+    background:#f8f9fb;
+    padding:120px 5%;
+    text-align:center;
 }
 
-.TipoSeguro span {
-    display: inline-block;
-    border: 1px solid #000000;
-    color: #000000;
-    padding: 9px 21px;
-    border-radius: 20px;
-    font-size: 12px;
-    margin-bottom: 20px;
+.tag-seguro{
+    display:inline-block;
+    padding:8px 18px;
+    border-radius:30px;
+    border:1px solid #6C5CE7;
+    color:#6C5CE7;
+    margin-bottom:20px;
 }
 
-.grid-seguradora {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 por linha */
-    gap: 20px;
+.tipo-seguro h2{
+    color:#111;
+    font-size:3rem;
+    margin-bottom:15px;
 }
 
-.card {
-    background: #ffffff;
-    border-radius: 15px;
-    padding: 20px;
-    transition: 0.3s;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    color: #ffffff;
-    margin-bottom: 10px;
+.tipo-seguro h2 span{
+    color:#00D4FF;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    color: #6C5CE7;
+.subtitulo-seguro{
+    color:#666;
+    margin-bottom:60px;
 }
 
-.card i{
-    font-size: 30px;
+.carousel{
+    display:flex;
+    gap:25px;
+    overflow-x:auto;
+    scroll-behavior:smooth;
+    scrollbar-width:none;
 }
 
-.card h3 {
-    color: #000000;
+.carousel::-webkit-scrollbar{
+    display:none;
 }
 
-.card p {
-    color: #555;
-    font-size: 14px;
+.carousel-wrapper{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+    max-width:1700px;
+    margin:auto;
+}
+
+.seguro-card{
+    min-width:310px;
+    max-width:380px;
+    background:white;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.seguro-card img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+}
+
+.conteudo-card{
+    padding:25px;
+    text-align:left;
+}
+
+.conteudo-card{
+    padding:25px;
+    display:flex;
+    flex-direction:column;
+    height:280px;
+}
+
+.conteudo-card h3{
+    color:#111;
+    margin-bottom:10px;
+}
+
+.conteudo-card p{
+    color:#666;
+    margin-bottom:15px;
+}
+.conteudo-card a{
+    margin-top:auto;
+    text-decoration:none;
+    color:#0d6efd;
+    font-weight:600;
+}
+
+.btn-nav{
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:#0d2b5c;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
 }
 
 /* SOBRE */
