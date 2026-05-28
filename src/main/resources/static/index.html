@@ -1,34 +1,29 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Seguros</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguros - Proteja o que importa</title>
     <link rel="stylesheet" href="./css/Inicial.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="imagesInicial/android-chrome-512x512.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
-<!-- Header -->
-
+<!-- HEADER -->
 <header class="topo">
-
-        <img src="imagesInicial/Logo-removebg-preview.png"class="logo">
-
+    <div class="logo">
+        <img src="./imagesInicial/LogoSeguradora-removebg-preview.png">
+    </div>
     <nav class="menu">
-        <a href="#hero">Home</a>
-        <a href="#beneficios">Beneficios</a>
-        <a href="#TipoSeguro">Seguros</a>
-        <a href="#">Planos</a>
-        <a href="#">Contatos</a>
+        <a href="#hero">Início</a>
+        <a href="#beneficios">Benefícios</a>
+        <a href="#seguros">Seguros</a>
         <a href="#sobre">Sobre</a>
     </nav>
-
-    <div class="menu-mobile-btn">
-        <i class="fa-solid fa-bars"></i>
-    </div>
-
     <div class="perfis">
         <button onclick="irLogin('cliente')">
             Cliente
@@ -43,280 +38,249 @@
             <i class="fa-solid fa-users-gear"></i>
         </button>
     </div>
+    <div class="menu-mobile-btn">
+        <i class="fas fa-bars"></i>
+    </div>
 </header>
 
-<section id="hero" class="section hero">
+<!-- HERO SECTION -->
 
-    <!-- CARROSSEL -->
-
-    <div class="slides">
-
-        <!-- SLIDE 1 -->
-
-        <div class="slide active"
-             style="
-        background-image:
-        linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
-        url('./imagesInicial/tech.jpg');
-        ">
-        </div>
-
-        <!-- SLIDE 2 -->
-
-        <div class="slide"
-             style="
-        background-image:
-        linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
-        url('./imagesInicial/city.jpg');
-        ">
-        </div>
-
-        <!-- SLIDE 3 -->
-
-        <div class="slide"
-             style="
-        background-image:
-        linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
-        url('./imagesInicial/slide3.png');
-        ">
-        </div>
-
-    </div>
-
-    <!-- CONTEÚDO -->
+<section id="hero" class="hero">
+    <canvas id="hero-particles"></canvas>
+    <div class="hero-overlay"></div>
 
     <div class="hero-left">
+        <div class="mini-tag reveal" data-delay="0">
+            <i class="fas fa-shield-alt"></i>
+            PROTEÇÃO E SEGURANÇA
+        </div>
 
-        <h1 class="texto">
-            Proteja o que realmente
-            <span>importa.</span>
+        <h1 class="hero-title reveal" data-delay="120">
+            Proteja o que realmente <span>importa.</span>
         </h1>
 
-        <p>
-            Simule, compare e contrate seu seguro de forma rápida.
+        <p class="hero-desc reveal" data-delay="220">
+            Soluções modernas em seguros para proteger sua família, patrimônio e futuro com segurança, confiança e praticidade.
         </p>
 
-        <button class="cta" onclick="irLogin('cliente')">
+        <div class="hero-buttons reveal" data-delay="340">
+            <button class="cta" onclick="irLogin('cliente')">
+                <i class="fa-solid fa-money-bill"></i>
+                Fazer cotação
+            </button>
+            <a href="/cadastro-cliente.html" class="cadastroBtn">
+                Não tem uma conta?<span>Cadastre-se</span>
+            </a>
+        </div>
 
-            <i class="fa-solid fa-money-bill"></i>
-
-            Fazer cotação
-
-        </button>
-
-        <a class="cadastroBtn" href="/cadastro-cliente.html">
-
-            Não tem uma conta?
-            <span>Cadastre-se</span>
-
-        </a>
-
+        <div class="hero-benefits reveal" data-delay="460">
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div>
+                    <h4>Mais proteção</h4>
+                    <p>Segurança completa</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div>
+                    <h4>Atendimento rápido</h4>
+                    <p>Suporte eficiente</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div>
+                    <h4>Dados seguros</h4>
+                    <p>Proteção avançada</p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- INDICADORES -->
-
-    <div class="indicadores">
-
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-
+    <div class="hero-right">
+        <div class="family-frame reveal-img">
+            <img src="https://customer-assets.emergentagent.com/job_0826bf97-1bc2-441b-9a9d-1df9792b60fc/artifacts/ieniuu6k_Design%20sem%20nome.png" alt="Família protegida pela Seguradora">
+        </div>
+        <div class="floating-badge">
+            <i class="fas fa-calendar-check"></i>
+            <div>
+                <strong>Proteção para voce</strong>
+                <span>Sempre cuidando de você</span>
+            </div>
+        </div>
     </div>
-
 </section>
-<!-- Beneficios -->
 
-<section id="beneficios" class="section beneficios">
+<!-- BENEFÍCIOS -->
+<section id="beneficios" class="beneficios section">
     <div class="conteudoB">
-    <span class="tag">NOSSOS BENEFICIOS</span>
+        <span class="tag">NOSSOS BENEFICIOS</span>
+        <h2>Beneficios que fazem a diferença <span>para você</span></h2>
+        <p class="subtitulo">Menos falhas, mais controles, agilidade, segurança e melhores atendimentos.</p>
 
-    <h2> Beneficios que fazem a diferença <span> para você</span> </h2>
-    <p class="subtitulo">Menos falhas, mais controles, agilidade, segurança e melhores atendimentos.</p>
-
-    <div class="grid-Beneficios">
-
-        <div class="cardB">
-            <div class="icon"><i class="fa-solid fa-check"></i></div>
-            <h3>Menos falhas</h3>
-            <p>Processos automatizados e inteligentes que reduzem erros e aumentam a confiabilidade em cada etapa.</p>
+        <div class="grid-Beneficios">
+            <div class="cardB">
+                <div class="icon"><i class="fas fa-check-circle"></i></div>
+                <h3>Menos falhas</h3>
+                <p>Processos automatizados e inteligentes que reduzem erros e aumentam a confiabilidade em cada etapa.</p>
+            </div>
+            <div class="cardB">
+                <div class="icon"><i class="fas fa-tasks"></i></div>
+                <h3>Mais controles</h3>
+                <p>Acompanhe tudo em tempo real, com total transparência sobre dados, apólices e atendimentos.</p>
+            </div>
+            <div class="cardB">
+                <div class="icon"><i class="fas fa-bolt"></i></div>
+                <h3>Agilidade</h3>
+                <p>Respostas rápidas e eficientes para resolver solicitações sem burocracia.</p>
+            </div>
+            <div class="cardB">
+                <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Segurança</h3>
+                <p>Seus dados protegidos com tecnologia avançada e padrões rigorosos de proteção.</p>
+            </div>
+            <div class="cardB">
+                <div class="icon"><i class="fas fa-headset"></i></div>
+                <h3>Melhor atendimento</h3>
+                <p>Foco total no cliente, com suporte humanizado e soluções personalizadas.</p>
+            </div>
         </div>
-
-        <div class="cardB">
-            <div class="icon"><i class="fa-solid fa-hand"></i></div>
-            <h3>Mais controles</h3>
-            <p>Acompanhe tudo em tempo real, com total transparência sobre dados, apólices e atendimentos.</p>
-        </div>
-
-        <div class="cardB">
-            <div class="icon"><i class="fa-solid fa-stopwatch"></i></div>
-            <h3>Agilidade</h3>
-            <p>Respostas rápidas e eficientes para resolver solicitações sem burocracia.</p>
-        </div>
-
-        <div class="cardB">
-            <div class="icon"><i class="fa-solid fa-lock"></i></div>
-            <h3>Segurança</h3>
-            <p>Seus dados protegidos com tecnologia avançada e padrões rigorosos de proteção.</p>
-        </div>
-
-        <div class="cardB">
-            <div class="icon"><i class="fa-solid fa-star"></i></div>
-            <h3>Melhor atendimento</h3>
-            <p>Foco total no cliente, com suporte humanizado e soluções personalizadas.</p>
-        </div>
-
-    </div>
     </div>
 </section>
 
-<!-- TIpo de Seguros -->
-
-<section id="TipoSeguro" class="section tipo-seguro">
+<!-- TIPOS DE SEGURO -->
+<section id="seguros" class="tipo-seguro section">
     <span class="tag-seguro">TIPOS DE SEGURO</span>
-    <h2>
-        Proteção para o que
-        <span>mais importa para você</span>
-    </h2>
-    <p class="subtitulo-seguro">
-        Escolha o seguro ideal para sua necessidade.
-    </p>
+    <h2>Proteção para o que <span>mais importa para você</span></h2>
+    <p class="subtitulo-seguro">Escolha o seguro ideal para sua necessidade.</p>
 
     <div class="carousel-wrapper">
-        <button class="btn-nav prev">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-
+        <button class="btn-nav prev"><i class="fas fa-chevron-left"></i></button>
         <div class="carousel">
-            <div class="seguro-card active">
-                <img src="./imagesInicial/auto.jpg" alt="">
+            <div class="seguro-card">
+                <img src="./imagesInicial/auto.jpg" alt="Seguro Auto">
                 <div class="conteudo-card">
-                    <i class="fa-solid fa-car"></i>
                     <h3>Seguro Auto</h3>
                     <p>Proteção completa para seu veículo.</p>
                     <a href="#">Saiba mais →</a>
                 </div>
             </div>
-
             <div class="seguro-card">
-                <img src="./imagesInicial/casa.jpg" alt="">
+                <img src="./imagesInicial/casa.jpg" alt="Seguro Residencial">
                 <div class="conteudo-card">
-                    <i class="fa-solid fa-house"></i>
                     <h3>Residencial</h3>
-
-                    <p>Proteja seu lar contra imprevistos com coberturas
-                        que oferecem mais tranquilidade e segurança para
-                        você e sua família no dia a dia.</p>
-
+                    <p>Proteja seu lar contra imprevistos com coberturas que oferecem mais tranquilidade e segurança para você e sua família no dia a dia.</p>
                     <a href="#">Saiba mais →</a>
                 </div>
             </div>
-
             <div class="seguro-card">
-                <img src="./imagesInicial/vida.jpg" alt="">
+                <img src="./imagesInicial/vida.jpg" alt="Seguro Vida">
                 <div class="conteudo-card">
-                    <i class="fa-solid fa-heart"></i>
                     <h3>Seguro Vida</h3>
-
-                    <p>Garanta proteção financeira para quem você ama,
-                        contando com suporte e segurança nos momentos
-                        mais importantes da vida.</p>
-
+                    <p>Garanta proteção financeira para quem você ama, contando com suporte e segurança nos momentos mais importantes da vida.</p>
                     <a href="#">Saiba mais →</a>
                 </div>
             </div>
-
             <div class="seguro-card">
-                <img src="./imagesInicial/empresa.jpg" alt="">
+                <img src="./imagesInicial/empresa.jpg" alt="Seguro Empresarial">
                 <div class="conteudo-card">
-                    <i class="fa-solid fa-building"></i>
                     <h3>Empresarial</h3>
-
-                    <p>Oferecemos serviços financeiros personalizados
-                        para ajudar você a organizar suas finanças,
-                        proteger seu patrimônio e planejar um futuro
-                        mais seguro.</p>
-
+                    <p>Oferecemos serviços financeiros personalizados para ajudar você a organizar suas finanças, proteger seu patrimônio e planejar um futuro mais seguro.</p>
                     <a href="#">Saiba mais →</a>
                 </div>
             </div>
-
             <div class="seguro-card">
-                <img src="./imagesInicial/viagemm.jpg" alt="">
+                <img src="./imagesInicial/viagemm.jpg" alt="Seguro Viagem">
                 <div class="conteudo-card">
-                    <i class="fa-solid fa-plane"></i>
                     <h3>Viagem</h3>
-
-                    <p>Tenha suporte e proteção durante toda a sua
-                        viagem, garantindo mais conforto e segurança
-                        para você e sua família.</p>
-
+                    <p>Tenha suporte e proteção durante toda a sua viagem, garantindo mais conforto e segurança para você e sua família.</p>
                     <a href="#">Saiba mais →</a>
                 </div>
             </div>
         </div>
-
-        <button class="btn-nav next">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
+        <button class="btn-nav next"><i class="fas fa-chevron-right"></i></button>
     </div>
 </section>
 
-<section id="sobre" class="section sobre">
-
-    <div class="sobre-container">
-
-        <div class="sobre-texto">
-
-            <span class="tag-sobre">SOBRE NÓS</span>
-
-            <h2>
-                Protegendo pessoas e patrimônios com
-                <span>confiança e tecnologia</span>
-            </h2>
-
-            <p>
-                A Seguradora+ foi criada com o objetivo de oferecer
-                soluções modernas para quem busca segurança e
-                tranquilidade. Nossa plataforma conecta clientes
-                e corretores de forma simples, rápida e segura.
-            </p>
-
-            <p>
-                Trabalhamos com diversos tipos de seguros,
-                proporcionando proteção para veículos,
-                residências, empresas, viagens e muito mais.
-            </p>
-
-        </div>
-
-        <div class="sobre-numeros">
-
-            <div class="numero-card">
-                <h3>Muitos clientes atendidos</h3>
-                <p>Clientes Atendidos</p>
-            </div>
-
-            <div class="numero-card">
-                <h3>15</h3>
-                <p>Tipos de Seguro</p>
-            </div>
-
-            <div class="numero-card">
-                <h3>24h</h3>
-                <p>Suporte Online</p>
-            </div>
-
-            <div class="numero-card">
-                <h3>Muitos clientes satisfeito</h3>
-                <p>Satisfação</p>
-            </div>
-
-        </div>
-
+<!-- SOBRE A EMPRESA -->
+<section id="sobre" class="sobre section">
+    <div class="sobre-header">
+        <span class="tag-sobre">SOBRE A EMPRESA</span>
+        <h2>Conheça nossa <span>história</span></h2>
+        <p class="sobre-intro">
+            Uma trajetória de sucesso construída com dedicação, inovação e o compromisso de proteger o que realmente importa para você.
+        </p>
     </div>
 
+    <div class="sobre-content">
+        <div class="sobre-item sobre-item-left">
+            <div class="sobre-icon">
+                <i class="fas fa-flag"></i>
+            </div>
+            <div class="sobre-text">
+                <h3>Nossa Missão</h3>
+                <p>Oferecer soluções completas em seguros com excelência, segurança e atendimento humanizado, protegendo famílias e empresas em todo o Brasil.</p>
+            </div>
+        </div>
+
+        <div class="sobre-item sobre-item-right">
+            <div class="sobre-icon">
+                <i class="fas fa-eye"></i>
+            </div>
+            <div class="sobre-text">
+                <h3>Nossa Visão</h3>
+                <p>Ser referência nacional em seguros, reconhecida pela inovação tecnológica, transparência e pela confiança de nossos clientes.</p>
+            </div>
+        </div>
+
+        <div class="sobre-item sobre-item-left">
+            <div class="sobre-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="sobre-text">
+                <h3>Nossos Valores</h3>
+                <p>Integridade, compromisso com o cliente, inovação constante e responsabilidade social. Estes são os pilares que guiam todas as nossas ações.</p>
+            </div>
+        </div>
+
+        <div class="sobre-item sobre-item-right">
+            <div class="sobre-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="sobre-text">
+                <h3>Nossa Equipe</h3>
+                <p>Profissionais qualificados e apaixonados pelo que fazem, prontos para oferecer o melhor atendimento e as soluções mais adequadas às suas necessidades.</p>
+            </div>
+        </div>
+
+        <div class="sobre-item sobre-item-left">
+            <div class="sobre-icon">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <div class="sobre-text">
+                <h3>Reconhecimento</h3>
+                <p>Premiados nacionalmente pela excelência em atendimento e inovação, com certificações que garantem a qualidade de nossos serviços.</p>
+            </div>
+        </div>
+
+        <div class="sobre-item sobre-item-right">
+            <div class="sobre-icon">
+                <i class="fas fa-rocket"></i>
+            </div>
+            <div class="sobre-text">
+                <h3>Inovação</h3>
+                <p>Investimos constantemente em tecnologia para oferecer plataformas modernas, processos ágeis e uma experiência digital de excelência.</p>
+            </div>
+        </div>
+    </div>
 </section>
-<!-- Footer -->
 
 <footer class="bg-dark text-light pt-5 pb-3 mt-5">
     <div class="container">
@@ -387,6 +351,5 @@
 </footer>
 
 <script src="./js/inicial.js"></script>
-
 </body>
 </html>
