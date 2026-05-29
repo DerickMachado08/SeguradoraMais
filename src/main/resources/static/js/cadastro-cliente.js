@@ -106,3 +106,56 @@ telefoneInput.addEventListener("input", () => {
 
     telefoneInput.value = value;
 });
+
+
+
+
+// CEP
+
+const cepInput = document.getElementById("cep");
+cepInput.addEventListener("input", () => {
+    let value = cepInput.value.replace(/\D/g, "");
+
+    value = value.slice(0, 8);
+
+    if(value.length > 5){
+        value = value.replace(/(\d{5})(\d+)/, "$1-$2");
+    }
+
+    cepInput.value = value;
+
+});
+
+cepInput.addEventListener("blur", async () => {
+    const cep = cepInput.value.replace(/\D/g, "");
+    if(cep.length !== 8){
+        alert("CEP inválido");
+        return;
+    }
+
+    try{
+
+        const response = await fetch(
+            `https://viacep.com.br/ws/${cep}/json/`
+        );
+
+        const data = await response.json();
+
+        console.log(data);
+
+        if(data.erro){
+            alert("CEP não encontrado");
+            return;
+        }
+
+        document.getElementById("logradouro").value = data.logradouro;
+        document.getElementById("bairro").value = data.bairro;
+        document.getElementById("cidade").value = data.localidade;
+        document.getElementById("estado").value = data.uf;
+
+    }catch(error){
+        console.log(error);
+        alert("Erro ao buscar CEP");
+    }
+
+});
