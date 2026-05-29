@@ -1,3 +1,15 @@
+:root {
+    --cream: #F7F4EF;
+    --cream-2: #FBF9F5;
+    --beige: #E8DCC8;
+    --beige-soft: #EFE5D2;
+    --brown: #6E4B3A;
+    --brown-dark: #2B1810;
+    --brown-muted: #8A6A57;
+    --font-display: 'Libre Baskerville', Georgia, serif;
+    --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,8 +19,7 @@
 
 body {
     height: 100vh;
-    background: linear-gradient(rgba(10, 10, 30, 0.85), rgba(5, 5, 20, 0.9)),
-    url("../imagesInicial/tech.jpg");
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 60%, #F2EADC 100%);
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -26,26 +37,25 @@ body {
     width: 350px;
     padding: 40px 30px;
     border-radius: 20px;
-    background: rgba(15, 15, 40, 0.5);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    background: var(--cream-2);
+    box-shadow: var(--brown);
     text-align: center;
-    border: 1px solid rgba(120, 120, 255, 0.2);
+    border: 2px solid var(--brown-dark);
 }
 
 .logo {
     font-size: 30px;
-    color: #6c63ff;
+    color: var(--brown-dark);
     margin-bottom: 15px;
 }
 
 h2 {
-    color: #ffffff;
+    color: var(--brown-dark);
     margin-bottom: 5px;
 }
 
 p {
-    color: #9aa4c7;
+    color: var(--brown-muted);
     font-size: 14px;
     margin-bottom: 25px;
 }
@@ -60,23 +70,23 @@ p {
     padding: 12px 40px;
     border-radius: 10px;
     border: none;
-    background: #1a1a3a;
-    color: #fff;
+    background: var(--beige-soft);
+    color: #896957;
     outline: none;
     border: 1px solid transparent;
     transition: 0.3s;
 }
 
 .input-group input:focus {
-    border: 1px solid #6c63ff;
-    box-shadow: 0 0 10px #6c63ff55;
+    border: 1px solid var(--cream-2);
+    box-shadow: 0 0 10px var(--brown-dark);
 }
 
 .input-group i {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    color: #6c63ff;
+    color: var(--brown-dark);
 }
 
 .input-group i:first-child {
@@ -93,11 +103,11 @@ p {
     justify-content: space-between;
     font-size: 12px;
     margin-bottom: 20px;
-    color: #b0b8d1;
+    color: var(--brown-dark);
 }
 
 .options a {
-    color: #8a7dff;
+    color: var(--brown-dark);
     text-decoration: none;
 }
 
@@ -106,7 +116,7 @@ button {
     padding: 12px;
     border: none;
     border-radius: 10px;
-    background: linear-gradient(90deg, #6c63ff, #3a8dff);
+    background: linear-gradient(90deg, var(--brown-dark), var(--brown));
     color: #fff;
     font-weight: bold;
     cursor: pointer;
@@ -115,17 +125,17 @@ button {
 
 button:hover {
     transform: scale(1.03);
-    box-shadow: 0 0 15px #6c63ff88;
+    box-shadow: 0 0 15px var(--brown-dark);
 }
 
 .footer {
     margin-top: 20px;
     font-size: 13px;
-    color: #9aa4c7;
+    color: var(--brown-dark);
 }
 
 .footer a {
-    color: #6c63ff;
+    color: var(--brown);
     text-decoration: none;
     margin-left: 5px;
 }
