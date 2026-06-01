@@ -16,46 +16,13 @@ import java.util.Map;
 @RequestMapping("/cliente")
 public class ClienteController {
 
-
     @Autowired
     private ClienteService service;
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(
-            @Valid @RequestBody Cliente cliente,
-            BindingResult result) {
-        Map<String, String> erros = new HashMap<>();
-        if (result.hasErrors()) {
-            result.getFieldErrors().forEach(erro ->
-                    erros.put(
-                            erro.getField(),
-                            erro.getDefaultMessage()
-                    )
-            );
-            return ResponseEntity.badRequest().body(erros);
-        }
-        try {
-
+    public ResponseEntity<?> cadastrar(@Valid @RequestBody Cliente cliente) {
             Cliente clienteSalvo = service.cadastrar(cliente);
-
             return ResponseEntity.ok(clienteSalvo);
-        } catch (RuntimeException e) {
-            String msg = e.getMessage();
-            if (msg.contains("CPF")) {
-                erros.put("cpf", msg);
-            }
-            else if (msg.contains("Email")) {
-                erros.put("email", msg);
-            }
-            else if (msg.contains("idade")) {
-                erros.put("dataNascimento", msg);
-            }
-            else {
-                erros.put("geral", msg);
-            }
-
-            return ResponseEntity.badRequest().body(erros);
-        }
     }
 
     @GetMapping

@@ -1,6 +1,9 @@
 package com.mais.seguradora.services;
 
 import com.mais.seguradora.Repositories.ClienteRepository;
+import com.mais.seguradora.exception.CpfDuplicadoException;
+import com.mais.seguradora.exception.EmailDuplicadoException;
+import com.mais.seguradora.exception.MenorIdadeException;
 import com.mais.seguradora.model.Cliente;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +23,13 @@ public class ClienteService {
 
     public Cliente cadastrar(Cliente cliente){
         if(repository.existsByCpf(cliente.getCpf())){
-            throw new RuntimeException("CPF ja cadastrado");
+            throw new CpfDuplicadoException();
         }
         if (repository.existsByEmail(cliente.getEmail())){
-            throw new RuntimeException("Email ja cadastrado");
+            throw new EmailDuplicadoException();
         }
         if(cliente.getDataNascimento().isAfter(LocalDate.now().minusYears(18))){
-            throw new RuntimeException("menor de idade não permitido");
+            throw new MenorIdadeException();
         }
 
         return repository.save(cliente);
