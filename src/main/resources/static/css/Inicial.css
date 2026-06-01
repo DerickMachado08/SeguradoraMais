@@ -821,7 +821,6 @@ body::-webkit-scrollbar {
     border: none;
 }
 
-/* REMOVE LOGO SPLINE - cobre o badge em todas as resoluções */
 .sobre-spline::after {
     content: "";
     position: absolute;
@@ -832,6 +831,171 @@ body::-webkit-scrollbar {
     background: #f1e8d8;
     z-index: 9999;
     pointer-events: none;
+}
+
+/* ========================= CONTATO ========================= */
+
+/* ========================= CONTATO ========================= */
+
+.contato{
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 60%, #F2EADC 100%
+    );
+    color: var(--brown-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 140px 8% 100px;
+    gap: 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-left{
+    flex: 1;
+    max-width: 650px;
+}
+
+.contact-title{
+    font-family: var(--font-display);
+    font-size: 60px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.contact-title span{
+    color: var(--brown);
+    font-style: italic;
+    font-weight: 400;
+}
+
+.contact-desc{
+    color: var(--brown-muted);
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+/* CARD FORM */
+
+.box-contact{
+    background: rgba(255,255,255,.65);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(110,75,58,.12);
+    border-radius: 28px;
+    padding: 35px;
+    box-shadow:
+            0 20px 50px rgba(0,0,0,.05);
+}
+
+.box-contact-title{
+    color: var(--brown-dark);
+    font-size: 24px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.contact-grid input{
+    width: 100%;
+    padding: 18px;
+    border: 1px solid rgba(110,75,58,.15);
+    border-radius: 14px;
+    background: rgba(255,255,255,.85);
+    outline: none;
+    color: var(--brown-dark);
+    font-size: 15px;
+    transition: .3s;
+}
+
+.contact-grid input:last-child{
+    grid-column: span 2;
+}
+
+.contact-grid input:focus{
+    border-color: var(--brown);
+    box-shadow: 0 0 0 4px rgba(110,75,58,.08);
+}
+
+.button-contact{
+    width: 100%;
+    margin-top: 20px;
+    padding: 18px;
+    border: none;
+    border-radius: 14px;
+    background: var(--brown-dark);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.button-contact:hover{
+    background: var(--brown);
+    transform: translateY(-3px);
+}
+
+.contact-right{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.contact-right .contact-img{
+    width: 520px;
+    height: 620px;
+    border-radius: 35px;
+    overflow: hidden;
+    position: relative;
+    animation: floatContact 6s ease-in-out infinite;
+}
+
+.contact-right .contact-img::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(43,24,16,.65), transparent 45%);
+}
+
+@keyframes floatContact{
+    0%,100%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(-15px);
+    }
+}
+
+.contact-card{
+    position: absolute;
+    background: rgba(255,255,255,.9);
+    backdrop-filter: blur(15px);
+    padding: 18px;
+    border-radius: 18px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: var(--brown-dark);
+    box-shadow: 0 20px 40px rgba(0,0,0,.08);
+}
+
+.card-1{
+    top: 90px;
+    left: 20px;
+}
+
+.card-2{
+    bottom: 90px;
+    right: 10px;
 }
 
 /* ========================= RESPONSIVO ========================= */
@@ -980,6 +1144,39 @@ body::-webkit-scrollbar {
         width: 200px;
         height: 60px;
     }
+
+    /* CONTATO */
+    .contato{
+        flex-direction: column;
+        text-align: center;
+        gap: 60px;
+        padding: 120px 30px 80px;
+    }
+
+    .contact-left{
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .contact-right{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .contact-right .family-frame{
+        width: min(500px, 90vw);
+        height: auto;
+        aspect-ratio: 4/5;
+    }
+
+    .contact-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .contact-grid input:last-child{
+        grid-column: auto;
+    }
 }
 
 @media(max-width: 768px) {
@@ -1062,6 +1259,16 @@ body::-webkit-scrollbar {
         width: 200px;
         height: 60px;
     }
+
+    /* CONTATO */
+    .contact-title{
+        font-size: 38px;
+    }
+
+    .contact-desc{
+        font-size: 12px;
+    }
+
 }
 
 @media(max-width: 480px){

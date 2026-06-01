@@ -35,13 +35,6 @@ window.addEventListener('load', () => {
     });
 });
 
-/* ====== MENU MOBILE ====== */
-const menu = document.querySelector(".menu");
-const btn = document.querySelector(".menu-mobile-btn");
-if (btn && menu) {
-    btn.addEventListener("click", () => menu.classList.toggle("active"));
-}
-
 /* ====== CARROSSEL ====== */
 const carousel = document.querySelector(".carousel");
 const nextBtn = document.querySelector(".next");
@@ -154,3 +147,30 @@ if (prevBtn && carousel) {
         io.observe(heroEl);
     }
 })();
+
+const botaoContato = document.getElementById("enviar");
+
+botaoContato.addEventListener("click", async () =>{
+    const dados = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        telefone: document.getElementById("telefone").value,
+        assunto: document.getElementById("assunto").value
+    };
+
+    const response = await fetch("http://localhost:8080/contato",  {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dados)
+    });
+
+    if (response.ok){
+        alert("Mensagem enviada com sucesso!");
+    }
+    else{
+        alert("Erro ao enviar mensagem.");
+    }
+
+});
