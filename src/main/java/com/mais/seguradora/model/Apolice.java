@@ -1,9 +1,17 @@
 package com.mais.seguradora.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name = "apolice")
 @Table(name = "apolice")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Apolice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,41 +23,6 @@ public class Apolice {
     private String tipoApolice;
     @Column(name = "descricao", length = Integer.MAX_VALUE)
     private String descricao;
-
-    public Apolice() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNumeroApolice() {
-        return numeroApolice;
-    }
-
-    public void setNumeroApolice(String numeroApolice) {
-        this.numeroApolice = numeroApolice;
-    }
-
-    public String getTipoApolice() {
-        return tipoApolice;
-    }
-
-    public void setTipoApolice(String tipoApolice) {
-        this.tipoApolice = tipoApolice;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 
     @ManyToOne
     @JoinColumn(name = "id_corre")

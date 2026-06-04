@@ -1,12 +1,20 @@
 package com.mais.seguradora.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity(name = "bem_patrimonial")
 @Table(name = "bem_patrimonial")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class BemPatrimonial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,49 +28,6 @@ public class BemPatrimonial {
     private BigDecimal valorEstimado;
     @Column(name = "data_aquisicao")
     private LocalDate dataAquisicao;
-
-    public BemPatrimonial() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTipoBem() {
-        return tipoBem;
-    }
-
-    public void setTipoBem(String tipoBem) {
-        this.tipoBem = tipoBem;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public BigDecimal getValorEstimado() {
-        return valorEstimado;
-    }
-
-    public void setValorEstimado(BigDecimal valorEstimado) {
-        this.valorEstimado = valorEstimado;
-    }
-
-    public LocalDate getDataAquisicao() {
-        return dataAquisicao;
-    }
-
-    public void setDataAquisicao(LocalDate dataAquisicao) {
-        this.dataAquisicao = dataAquisicao;
-    }
 
     @ManyToOne
     @JoinColumn(name = "id_ClienteB")

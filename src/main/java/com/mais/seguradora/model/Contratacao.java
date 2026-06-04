@@ -1,12 +1,20 @@
 package com.mais.seguradora.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity(name = "contratacao")
 @Table(name = "contratacao")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Contratacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,33 +24,6 @@ public class Contratacao {
     private LocalDate dataContratacao;
     @Column(name = "valor_contratacao", precision = 10, scale = 2)
     private BigDecimal valorContratacao;
-
-    public Contratacao() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public LocalDate getDataContratacao() {
-        return dataContratacao;
-    }
-
-    public void setDataContratacao(LocalDate dataContratacao) {
-        this.dataContratacao = dataContratacao;
-    }
-
-    public BigDecimal getValorContratacao() {
-        return valorContratacao;
-    }
-
-    public void setValorContratacao(BigDecimal valorContratacao) {
-        this.valorContratacao = valorContratacao;
-    }
 
     @ManyToOne
     @JoinColumn(name = "id_c")

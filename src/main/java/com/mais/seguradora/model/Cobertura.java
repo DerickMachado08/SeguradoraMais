@@ -1,9 +1,17 @@
 package com.mais.seguradora.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name = "cobertura")
 @Table(name = "cobertura")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cobertura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,38 +24,4 @@ public class Cobertura {
     @Column(name = "tipo_cobertura", length = 50)
     private String tipoCobertura;
 
-    public Cobertura() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getTipoCobertura() {
-        return tipoCobertura;
-    }
-
-    public void setTipoCobertura(String tipoCobertura) {
-        this.tipoCobertura = tipoCobertura;
-    }
 }

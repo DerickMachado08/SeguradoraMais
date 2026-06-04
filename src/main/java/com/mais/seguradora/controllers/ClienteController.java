@@ -25,6 +25,23 @@ public class ClienteController {
             return ResponseEntity.ok(clienteSalvo);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Cliente cliente) {
+
+        System.out.println("entrou no login");
+
+        Cliente autenticado = service.autenticar(
+                cliente.getEmail(),
+                cliente.getSenha()
+        );
+
+        if (autenticado != null) {
+            return ResponseEntity.ok(Map.of("status", "ok"));
+        }
+
+        return ResponseEntity.badRequest().body(Map.of("status", "erro"));
+    }
+
     @GetMapping
     public List<Cliente> listar(){
         return service.listar();

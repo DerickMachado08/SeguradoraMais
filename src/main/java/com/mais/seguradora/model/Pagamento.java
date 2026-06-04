@@ -1,12 +1,20 @@
 package com.mais.seguradora.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity(name = "pagamento")
 @Table(name = "pagamento")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Pagamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,57 +30,6 @@ public class Pagamento {
     private LocalDate dataPagamento;
     @Column(name = "data_vencimento")
     private LocalDate dataVencimento;
-
-    public Pagamento() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getQuantidadeParcela() {
-        return quantidadeParcela;
-    }
-
-    public void setQuantidadeParcela(Integer quantidadeParcela) {
-        this.quantidadeParcela = quantidadeParcela;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
-    public String getFormaPagamento() {
-        return formaPagamento;
-    }
-
-    public void setFormaPagamento(String formaPagamento) {
-        this.formaPagamento = formaPagamento;
-    }
-
-    public LocalDate getDataPagamento() {
-        return dataPagamento;
-    }
-
-    public void setDataPagamento(LocalDate dataPagamento) {
-        this.dataPagamento = dataPagamento;
-    }
-
-    public LocalDate getDataVencimento() {
-        return dataVencimento;
-    }
-
-    public void setDataVencimento(LocalDate dataVencimento) {
-        this.dataVencimento = dataVencimento;
-    }
 
     @ManyToOne
     @JoinColumn(name = "id_ApoliceP")

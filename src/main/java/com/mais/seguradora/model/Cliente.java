@@ -2,16 +2,21 @@ package com.mais.seguradora.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 
 @Entity(name = "cliente")
 @Table(name = "cliente")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,33 +32,41 @@ public class Cliente {
     @Column(name = "cpf", nullable = false, length = 14, unique = true)
     private String cpf;
 
-    @Column(name = "data_nascimento")
+    @NotNull(message = "Data de nascimento obrigatório")
+    @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 
     @NotBlank(message = "Email obrigatório")
     @Email(message = "Email inválido")
-    @Column(name = "email", length = 100)
+    @Column(name = "email", length = 100, nullable = false, unique = true)
     private String email;
 
-    @Column(name = "telefone", length = 20)
+    @NotBlank(message = "Telefone obrigatório")
+    @Column(name = "telefone", length = 20, nullable = false)
     private String telefone;
 
-    @Column(name = "logradouro", length = 100)
+    @NotBlank(message = "Logradouro obrigatório")
+    @Column(name = "logradouro", length = 100, nullable = false)
     private String logradouro;
 
-    @Column(name = "estado", length = 2)
+    @NotBlank(message = "Estado obrigatório")
+    @Column(name = "estado", length = 2, nullable = false)
     private String estado;
 
-    @Column(name = "cidade", length = 50)
+    @NotBlank(message = "Cidade obrigatório")
+    @Column(name = "cidade", length = 50, nullable = false)
     private String cidade;
 
-    @Column(name = "bairro", length = 50)
+    @NotBlank(message = "Bairro obrigatório")
+    @Column(name = "bairro", length = 50, nullable = false)
     private String bairro;
 
-    @Column(name = "numero", length = 10)
+    @NotBlank(message = "Nuumero obrigatório")
+    @Column(name = "numero", length = 10, nullable = false)
     private String numero;
 
-    @Column(name = "cep", length = 10)
+    @NotBlank(message = "cep obrigatório")
+    @Column(name = "cep", length = 9, nullable = false)
     private String cep;
 
     @NotBlank(message = "Senha obrigatória")
@@ -62,113 +75,9 @@ public class Cliente {
             regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).+$",
             message = "A senha deve conter letra maiúscula, minúscula, número e caractere especial"
     )
-    @Column(name = "senha", length = 50)
+    @Column(name = "senha", length = 26, nullable = false)
     private String senha;
 
-    public Cliente() {
-    }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf.replaceAll("\\D", "");
-    }
-
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
 }
