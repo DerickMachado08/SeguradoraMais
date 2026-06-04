@@ -24,3 +24,16 @@ function logar(){
             console.error("Erro:", error);
         });
 }
+
+function olharSenha() {
+    const campo = document.getElementById("senha");
+
+    if (campo.type === "password") {
+        campo.type = "text";
+    } else {
+        campo.type = "password";
+    }
+}
+
+
+

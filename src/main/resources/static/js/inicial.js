@@ -174,3 +174,16 @@ botaoContato.addEventListener("click", async () =>{
     }
 
 });
+
+// TELEFONE
+const telefoneInput = document.getElementById("telefone");
+telefoneInput.addEventListener("input", () => {
+    let value = telefoneInput.value.replace(/\D/g, "");
+
+    value = value.slice(0, 11);
+
+    value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
+    value = value.replace(/(\d{5})(\d{4})$/, "$1-$2");
+
+    telefoneInput.value = value;
+});
