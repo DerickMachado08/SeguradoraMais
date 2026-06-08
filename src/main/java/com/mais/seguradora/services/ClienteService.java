@@ -56,7 +56,8 @@ public class ClienteService {
     }
 
     public Cliente buscar(Integer id){
-        return repository.findById(id).orElseThrow();
+
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Id não encontrado"));
     }
 
     public void deletar(Integer id){
@@ -64,8 +65,10 @@ public class ClienteService {
     }
 
     public Cliente atualizar(Integer id, Cliente cliente) {
-        Cliente existente = repository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
-        BeanUtils.copyProperties(cliente, existente, "id");
-        return repository.save(existente);
+        Cliente existente = buscar(id);
+        Cliente cliente1 = Cliente.builder()
+                .nome(cliente.getNome())
+                .build();
+        return repository.save(cliente1);
     }
 }

@@ -17,7 +17,7 @@ public class Apolice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_apolice", nullable = false)
     private Integer id;
-    @Column(name = "numero_apolice", length = 50)
+    @Column(name = "numero_apolice", length = 50, nullable = false, unique = true)
     private String numeroApolice;
     @Column(name = "tipo_apolice", length = 50)
     private String tipoApolice;
