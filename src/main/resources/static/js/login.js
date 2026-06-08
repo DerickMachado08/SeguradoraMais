@@ -12,9 +12,10 @@ function logar(){
     })
         .then(res => res.json())
         .then(data => {
+            console.log(data);
 
             if (data.status === "ok") {
-                window.location.href = "/dashboardCliente.html";
+                window.location.href = "/cliente/dashboard";
             } else {
                 alert("Email ou senha inválidos");
             }

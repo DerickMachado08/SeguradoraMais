@@ -2,9 +2,12 @@ package com.mais.seguradora.controllers;
 
 import com.mais.seguradora.model.Cliente;
 import com.mais.seguradora.services.ClienteService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping("/cliente")
 public class ClienteController {
 
@@ -26,9 +29,7 @@ public class ClienteController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Cliente cliente) {
-
-        System.out.println("entrou no login");
+    public ResponseEntity<?> login(@RequestBody Cliente cliente, HttpSession session) {
 
         Cliente autenticado = service.autenticar(
                 cliente.getEmail(),
@@ -36,15 +37,31 @@ public class ClienteController {
         );
 
         if (autenticado != null) {
+            session.setAttribute("clienteLogado", autenticado);
             return ResponseEntity.ok(Map.of("status", "ok"));
         }
 
-        return ResponseEntity.badRequest().body(Map.of("status", "erro"));
+        System.out.println("Cliente autenticado: " + autenticado.getNome());
+        return ResponseEntity.badRequest()
+                .body(Map.of("status", "erro"));
     }
 
-    @GetMapping
-    public List<Cliente> listar(){
-        return service.listar();
+    @GetMapping("/dashboard")
+    public String dashboard(HttpSession session, Model model) {
+
+        System.out.println("Entrou no dashboard");
+
+        Cliente cliente = (Cliente) session.getAttribute("clienteLogado");
+
+        System.out.println("Cliente da sessão: " + cliente);
+
+        if(cliente == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("cliente", cliente);
+
+        return "dashboardCliente";
     }
 
     @GetMapping ("/{id}")

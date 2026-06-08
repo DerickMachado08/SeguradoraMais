@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(EmailDuplicadoException.class)
-    public ResponseEntity<Map<String, String>> handlercpf(EmailDuplicadoException e){
+    public ResponseEntity<Map<String, String>> handleremail(EmailDuplicadoException e){
         Map<String, String> erro = new HashMap<>();
         erro.put("email", e.getMessage());
 
@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MenorIdadeException.class)
-    public ResponseEntity<Map<String, String>> handlercpf(MenorIdadeException e){
+    public ResponseEntity<Map<String, String>> handlermenoridade(MenorIdadeException e){
         Map<String, String> erro = new HashMap<>();
         erro.put("dataNascimento", e.getMessage());
 
