@@ -1,29 +1,27 @@
 function logar(){
-
-    fetch("http://localhost:8080/cliente/login", {
-        method: "POST",
-        headers:{
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            email: document.getElementById("email").value,
-            senha: document.getElementById("senha").value
+        fetch("/auten/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({
+                email: document.getElementById("email").value,
+                senha: document.getElementById("senha").value
+            })
         })
-    })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-
-            if (data.status === "ok") {
-                window.location.href = "/cliente/dashboard";
-            } else {
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Login inválido");
+                }
+                return response.json();
+            })
+            .then(data => {
+                window.location.href = data.redirect;
+            })
+            .catch(error => {
+                console.error(error);
                 alert("Email ou senha inválidos");
-            }
-
-        })
-        .catch(error => {
-            console.error("Erro:", error);
-        });
+            });
 }
 
 function olharSenha() {

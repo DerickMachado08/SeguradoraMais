@@ -18,7 +18,7 @@ public class ApoliceService {
 
         Apolice salva = apoliceRepository.save(apolice);
 
-        String numeroApolice = "AP-"+ LocalDate.now().getYear() + "-" + apolice.getId();
+        String numeroApolice = "AP-"+ LocalDate.now().getYear() + "-" + salva.getId();
 
         salva.setNumeroApolice(numeroApolice);
 

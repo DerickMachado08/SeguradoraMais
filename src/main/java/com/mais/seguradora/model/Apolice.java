@@ -19,7 +19,7 @@ public class Apolice {
     private Integer id;
     @Column(name = "numero_apolice", length = 50, nullable = false, unique = true)
     private String numeroApolice;
-    @Column(name = "tipo_apolice", length = 50)
+    @Column(name = "tipo_apolice", length = 50, nullable = false)
     private String tipoApolice;
     @Column(name = "descricao", length = Integer.MAX_VALUE)
     private String descricao;

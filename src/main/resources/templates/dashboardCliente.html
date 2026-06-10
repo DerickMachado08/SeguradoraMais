@@ -20,10 +20,54 @@
         <a href="/index.html" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
     </div>
 </header>
+<nav class="menu-lateral">
+    <div class="ButtonExpandir">
+        <i class="fa-solid fa-bars"></i>
+    </div>
 
+    <ul>
+        <li class="item-menu">
+            <a href="#">
+                <span class="icon"><i class="fa-solid fa-grip"></i></span>
+                <span class="txt-link">DashBoard</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="#">
+                <span class="icon"><i class="fa-regular fa-paste"></i></span>
+                <span class="txt-link">Apolices</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="#">
+                <span class="icon"><i class="fa-regular fa-house"></i></span>
+                <span class="txt-link">Bens</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="#">
+                <span class="icon"><i class="fa-regular fa-credit-card"></i></span>
+                <span class="txt-link">Pagamento</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="#">
+                <span class="icon"><i class="fa-regular fa-user"></i></span>
+                <span class="txt-link">Perfil</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="#">
+                <span class="icon"><i class="fa-regular fa-address-book"></i></span>
+                <span class="txt-link">Contato</span>
+            </a>
+        </li>
+    </ul>
+
+</nav>
 <main>
 
-    <!-- Boas-vindas -->
+   <section id="dashboard" class="dashboard">
     <div class="welcome-banner">
         <div class="icon-wrap">
             <i class="fas fa-user-shield"></i>
@@ -119,7 +163,26 @@
             Editar Perfil
         </a>
     </div>
+   </section>
 
+    <section id="apolice" class="apolice">
+        <div class="container-apolice">
+            <div class="apolice-left">
+
+            </div>
+            <div class="apolice-right">
+                <h1>Minhas apolices</h1>
+                <p>
+                    Aqui voce pode acessar suas apolices, renovar, cancelar,
+                    ver coberturas e ver detalhes da sua apoolice. Seja bem vindo
+                    na empresa segurado Mais, sempre ajudando nossos clientes.
+                </p>
+                <button onclick="irMinhasApolice()">Minhas Apolices</button>
+            </div>
+        </div>
+
+
+    </section>
 </main>
 
 <footer>

@@ -37,11 +37,11 @@ public class ClienteController {
         );
 
         if (autenticado != null) {
-            session.setAttribute("clienteLogado", autenticado);
+            session.setAttribute("usuarioLogado", autenticado);
             return ResponseEntity.ok(Map.of("status", "ok"));
         }
 
-        System.out.println("Cliente autenticado: " + autenticado.getNome());
+        System.out.println("Login inválido");
         return ResponseEntity.badRequest()
                 .body(Map.of("status", "erro"));
     }

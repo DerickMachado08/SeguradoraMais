@@ -36,19 +36,7 @@ public class ClienteService {
     }
 
     public Cliente autenticar(String email, String senha) {
-
-        Optional<Cliente> cliente = repository.findByEmail(email);
-
-        System.out.println("Encontrou usuário? " + cliente.isPresent());
-
-        if (cliente.isPresent()) {
-            System.out.println("Senha banco: " + cliente.get().getSenha());
-            System.out.println("Senha digitada: " + senha);
-        }
-
-        return cliente
-                .filter(c -> c.getSenha().equals(senha))
-                .orElse(null);
+           return repository.findByEmailAndSenha(email,senha).orElse(null);
     }
 
     public List<Cliente> listar(){
@@ -56,7 +44,6 @@ public class ClienteService {
     }
 
     public Cliente buscar(Integer id){
-
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Id não encontrado"));
     }
 
