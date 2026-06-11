@@ -17,7 +17,7 @@ public class Cobertura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cobertura", nullable = false)
     private Integer id;
-    @Column(name = "nome", length = 100)
+    @Column(name = "nome", length = 100, nullable = false)
     private String nome;
     @Column(name = "descricao", length = Integer.MAX_VALUE)
     private String descricao;

@@ -23,6 +23,8 @@ public class Apolice {
     private String tipoApolice;
     @Column(name = "descricao", length = Integer.MAX_VALUE)
     private String descricao;
+    @Column(name = "status", nullable = false)
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "id_corre")

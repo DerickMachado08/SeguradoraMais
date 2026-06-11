@@ -18,16 +18,16 @@ public class Corretor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_corretor", nullable = false)
     private Integer id;
-    @Column(name = "nome", length = 100)
+    @Column(name = "nome", length = 100, nullable = false)
     private String nome;
-    @Column(name = "cpf", length = 14)
+    @Column(name = "cpf", length = 14, nullable = false)
     private String cpf;
-    @Column(name = "email", length = 100)
+    @Column(name = "email", length = 100, nullable = false)
     private String email;
-    @Column(name = "telefone", length = 20)
+    @Column(name = "telefone", length = 20, nullable = false)
     private String telefone;
     @NotBlank
-    @Column(name = "senha", length = 50)
+    @Column(name = "senha", length = 26, nullable = false)
     private String senha;
 
 
