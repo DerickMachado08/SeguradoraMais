@@ -1,141 +1,394 @@
 :root {
-    --cream: #F7F4EF;
-    --cream-2: #FBF9F5;
-    --beige: #E8DCC8;
-    --beige-soft: #EFE5D2;
-    --brown: #6E4B3A;
-    --brown-dark: #2B1810;
-    --brown-muted: #8A6A57;
     --font-display: 'Libre Baskerville', Georgia, serif;
     --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+}
+
+/* ============ DARK ============ */
+[data-theme="dark"] {
+    --bg-1: #07070d;
+    --bg-2: #11111c;
+    --card-bg: rgba(18, 18, 30, 0.7);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --text: #f5f5f7;
+    --text-muted: #9aa1b2;
+    --input-bg: rgba(255, 255, 255, 0.04);
+    --input-border: rgba(255, 255, 255, 0.1);
+    --particle-color: 124, 92, 255;
+}
+
+/* ============ LIGHT ============ */
+[data-theme="light"] {
+    --bg-1: #eef1fb;
+    --bg-2: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.78);
+    --card-border: rgba(15, 23, 42, 0.08);
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --input-bg: rgba(15, 23, 42, 0.04);
+    --input-border: rgba(15, 23, 42, 0.1);
+    --particle-color: 91, 63, 255;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-body);
 }
 
 body {
-    height: 100vh;
-    background: url("../imagesCadastroELogin/backgroundLogin.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
+    min-height: 100vh;
+    background:
+            radial-gradient(circle at 20% 10%, rgb(66 32 4 / 0.38), transparent 40%),
+            radial-gradient(circle at 80% 90%, rgb(224 122 61 / 0.38), transparent 45%),
+            radial-gradient(ellipse at top, var(--bg-2), var(--bg-1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    transition: background 0.6s ease;
+}
+
+#particles {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ============ THEME TOGGLE ============ */
+.theme-toggle {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 1px solid var(--card-border);
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    color: var(--text);
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.4s, box-shadow 0.4s;
+}
+.theme-toggle:hover {
+    transform: rotate(25deg) scale(1.08);
+    box-shadow: 0 0 30px rgb(66 32 4 / 0.28);
+}
+[data-theme="dark"] .icon-light { display: none; }
+[data-theme="light"] .icon-dark { display: none; }
+
+/* ============ CARD ============ */
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 560px;
+    padding: 64px 56px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid var(--card-border);
+    box-shadow:
+            0 40px 100px rgba(0, 0, 0, 0.4),
+            0 0 0 1px var(--card-border) inset;
+    text-align: center;
+    animation: floatIn 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    padding: 1px;
+    background: linear-gradient(135deg, #422004, transparent 35%, transparent 65%, #9c4d15);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+@keyframes floatIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.logo {
+    font-size: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    height: 96px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, #422004, #753f17);
+    color: #fff;
+    margin: 0 auto 24px;
+    animation: pulse 3s ease-in-out infinite;
+    transform: rotate(-6deg);
+}
+
+h2 {
+    font-family: var(--font-display);
+    color: var(--text);
+    margin-bottom: 10px;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 36px;
+}
+
+/* ============ INPUTS ============ */
+.input-group {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 18px 56px;
+    border-radius: 14px;
+    border: 1px solid var(--input-border);
+    background: var(--input-bg);
+    color: var(--text);
+    outline: none;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+.input-group input::placeholder { color: var(--text-muted); }
+
+.input-group input:focus {
+    border-color: #422004;
+    box-shadow: 0 0 0 4px rgb(66 32 4 / 0.28);
+}
+
+.input-icon {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 16px;
+    transition: color 0.3s;
+}
+.input-group input:focus ~ .input-icon { color: #e07a3d; }
+
+/* ============ EYE BUTTON (DIFERENCIAL) ============ */
+.eye-btn {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, transform 0.3s;
+}
+.eye-btn:hover {
+    background: rgb(224 122 61 / 0.28);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.eye-wrap {
+    position: relative;
+    width: 28px;
+    height: 22px;
+    display: block;
+}
+
+/* contorno do olho (almond shape) */
+.eye-ball {
+    position: absolute;
+    inset: 0;
+    border-radius: 50% / 60%;
+    background: transparent;
+    border: 2px solid #753f17;
+    overflow: hidden;
+    transition: border-color 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+/* pupila */
+.eye-pupil {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #e07a3d;
+    box-shadow: 0 0 8px #753f17;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
 }
 
-.login-box {
-    width: 350px;
-    padding: 40px 30px;
-    border-radius: 20px;
-    background: white;
-    box-shadow: var(--brown);
-    text-align: center;
-    border: 2px solid var(--brown-dark);
+/* brilho */
+.eye-shine {
+    position: absolute;
+    top: 3px;
+    left: 50%;
+    margin-left: -2px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0.9;
+    transition: opacity 0.3s;
 }
 
-.logo {
-    font-size: 30px;
-    color: var(--brown-dark);
-    margin-bottom: 15px;
+/* pálpebra que fecha quando senha está oculta */
+.eye-lid {
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    top: -2px;
+    height: 0;
+    background: var(--card-bg);
+    backdrop-filter: blur(2px);
+    border-radius: 50% / 100% 100% 0 0;
+    transition: height 0.45s cubic-bezier(0.7, 0, 0.3, 1);
+    z-index: 2;
 }
 
-h2 {
-    color: var(--brown-dark);
-    margin-bottom: 5px;
-}
-
-p {
-    color: var(--brown-muted);
-    font-size: 14px;
-    margin-bottom: 25px;
-}
-
-.input-group {
-    position: relative;
-    margin-bottom: 15px;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 12px 40px;
-    border-radius: 10px;
-    border: none;
-    background: #aeacac;
-    color: #896957;
-    outline: none;
-    border: 1px solid transparent;
-    transition: 0.3s;
-}
-
-.input-group input:focus {
-    border: 1px solid var(--cream-2);
-    box-shadow: 0 0 10px var(--brown-dark);
-}
-
-.input-group i {
+/* risco diagonal quando fechado */
+.eye-slash {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    color: var(--brown-dark);
+    left: -4px;
+    right: -4px;
+    height: 2px;
+    background: #753f17;
+    border-radius: 2px;
+    transform: translateY(-50%) rotate(-35deg) scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.45s cubic-bezier(0.7, 0, 0.3, 1);
+    z-index: 3;
 }
 
-.input-group i:first-child {
-    left: 10px;
-}
+/* Estado: senha OCULTA (olho fechado) */
+.eye-btn.is-closed .eye-lid    { height: 60%; }
+.eye-btn.is-closed .eye-pupil  { transform: scale(0.4); opacity: 0.5; }
+.eye-btn.is-closed .eye-shine  { opacity: 0; }
+.eye-btn.is-closed .eye-slash  { transform: translateY(-50%) rotate(-35deg) scaleX(1); }
 
-.input-group i:last-child {
-    right: 10px;
-    cursor: pointer;
-}
+/* Pupila segue o mouse no input */
+.input-group:focus-within .eye-pupil { transform: translateX(2px); }
 
+/* ============ OPTIONS ============ */
 .options {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
-    margin-bottom: 20px;
-    color: var(--brown-dark);
+    align-items: center;
+    font-size: 13px;
+    margin: 8px 0 28px;
+    color: #e07a3d;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+.remember input { display: none; }
+.check-box {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 1.5px solid var(--input-border);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    font-size: 10px;
+    transition: all 0.25s;
+}
+.remember input:checked + .check-box {
+    background: linear-gradient(135deg, #422004, #753f17);
+    border-color: transparent;
+    color: #fff;
 }
 
 .options a {
-    color: var(--brown-dark);
+    color: #e07a3d;
     text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;
 }
+.options a:hover { opacity: 0.75; }
 
-button {
+/* ============ ENTRAR ============ */
+.btn-entrar {
     width: 100%;
-    padding: 12px;
+    padding: 18px;
     border: none;
-    border-radius: 10px;
-    background: linear-gradient(90deg, var(--brown-dark), var(--brown));
+    border-radius: 14px;
+    background: linear-gradient(135deg, #422004, #753f17);
     color: #fff;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: transform 0.25s, box-shadow 0.25s;
+    box-shadow: 0 10px 30px #422004;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
 }
-
-button:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 15px var(--brown-dark);
+.btn-entrar i { transition: transform 0.3s; }
+.btn-entrar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px #422004;
 }
+.btn-entrar:hover i { transform: translateX(6px); }
+.btn-entrar:active { transform: translateY(0); }
 
 .footer {
-    margin-top: 20px;
+    margin-top: 28px;
     font-size: 13px;
-    color: var(--brown-dark);
+    color: var(--text-muted);
 }
-
 .footer a {
-    color: var(--brown);
+    color: #e07a3d;
     text-decoration: none;
-    margin-left: 5px;
+    margin-left: 6px;
+    font-weight: 600;
+}
+.footer a:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+    .login-box { padding: 44px 28px; border-radius: 22px; }
+    h2 { font-size: 26px; }
+    .logo { width: 78px; height: 78px; font-size: 36px; }
 }

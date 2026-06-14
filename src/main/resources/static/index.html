@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seguros - Proteja o que importa</title>
+    <title>Seguradora + — Proteja o que importa</title>
     <link rel="stylesheet" href="./css/Inicial.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,12 +13,18 @@
 </head>
 <body>
 
-<div class="loader"></div>
+<!-- LOADER -->
+<div class="loader">
+    <div class="loader-inner">
+        <div class="loader-ring"></div>
+        <span class="loader-text">Seguradora +</span>
+    </div>
+</div>
 
 <!-- HEADER -->
 <header class="topo">
     <div class="logo">
-        <img src="/imagesInicial/Logo.png">
+        <img src="/imagesInicial/Logo.png" alt="Logo">
     </div>
     <nav class="menu">
         <a href="#hero">Início</a>
@@ -28,26 +34,16 @@
         <a href="#contato">Contato</a>
     </nav>
     <div class="perfis">
-        <button onclick="irLogin('cliente')">
-            Cliente
-            <i class="fa-solid fa-circle-user"></i>
-        </button>
-        <button onclick="irLogin('corretor')">
-            Corretor
-            <i class="fa-solid fa-user-tie"></i>
-        </button>
-        <button onclick="irLogin('admin')">
-            Admin
-            <i class="fa-solid fa-users-gear"></i>
-        </button>
+        <button onclick="irLogin('cliente')">Cliente <i class="fa-solid fa-circle-user"></i></button>
+        <button onclick="irLogin('corretor')">Corretor <i class="fa-solid fa-user-tie"></i></button>
+        <button onclick="irLogin('admin')">Admin <i class="fa-solid fa-users-gear"></i></button>
     </div>
     <div class="menu-mobile-btn">
         <i class="fas fa-bars"></i>
     </div>
 </header>
 
-<!-- HERO SECTION -->
-
+<!-- HERO -->
 <section id="hero" class="hero">
     <canvas id="hero-particles"></canvas>
     <div class="hero-overlay"></div>
@@ -68,7 +64,7 @@
 
         <div class="hero-buttons reveal" data-delay="340">
             <button class="cta" onclick="irLogin('cliente')">
-                <i class="fa-solid fa-money-bill"></i>
+                <i class="fa-solid fa-file-shield"></i>
                 Fazer cotação
             </button>
             <a href="/cadastro-cliente.html" class="cadastroBtn">
@@ -76,38 +72,23 @@
             </a>
         </div>
 
-        <div class="hero-benefits reveal" data-delay="460">
+        <div class="hero-benefits reveal" data-delay="480">
             <div class="benefit-item">
-                <div class="benefit-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
+                <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
                 <div>
                     <h4>Mais proteção</h4>
                     <p>Segurança completa</p>
                 </div>
             </div>
             <div class="benefit-item">
-                <div class="benefit-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
+                <div class="benefit-icon"><i class="fas fa-bolt"></i></div>
                 <div>
                     <h4>Atendimento rápido</h4>
                     <p>Suporte eficiente</p>
                 </div>
             </div>
             <div class="benefit-item">
-                <div class="benefit-icon">
-                    <i class="fas fa-lock"></i>
-                </div>
-                <div>
-                    <h4>Dados seguros</h4>
-                    <p>Proteção avançada</p>
-                </div>
-            </div>
-            <div class="benefit-item">
-                <div class="benefit-icon">
-                    <i class="fas fa-lock"></i>
-                </div>
+                <div class="benefit-icon"><i class="fas fa-lock"></i></div>
                 <div>
                     <h4>Dados seguros</h4>
                     <p>Proteção avançada</p>
@@ -120,15 +101,14 @@
         <div class="family-frame reveal-img">
             <img src="https://customer-assets.emergentagent.com/job_0826bf97-1bc2-441b-9a9d-1df9792b60fc/artifacts/ieniuu6k_Design%20sem%20nome.png" alt="Família protegida pela Seguradora">
         </div>
-        </div>
     </div>
 </section>
 
 <!-- BENEFÍCIOS -->
 <section id="beneficios" class="beneficios section">
     <div class="conteudoB">
-        <span class="tag">NOSSOS BENEFICIOS</span>
-        <h2>Beneficios que fazem a diferença <span>para você</span></h2>
+        <span class="tag">NOSSOS BENEFÍCIOS</span>
+        <h2>Benefícios que fazem a diferença <span>para você</span></h2>
         <p class="subtitulo">Menos falhas, mais controles, agilidade, segurança e melhores atendimentos.</p>
 
         <div class="grid-Beneficios">
@@ -174,7 +154,7 @@
                 <img src="./imagesInicial/auto.jpg" alt="Seguro Auto">
                 <div class="conteudo-card">
                     <h3>Seguro Auto</h3>
-                    <p>Proteção completa para seu veículo.</p>
+                    <p>Proteção completa para seu veículo com cobertura contra acidentes, furto e danos a terceiros.</p>
                     <a href="#">Saiba mais →</a>
                 </div>
             </div>
@@ -182,7 +162,7 @@
                 <img src="./imagesInicial/casa.jpg" alt="Seguro Residencial">
                 <div class="conteudo-card">
                     <h3>Residencial</h3>
-                    <p>Proteja seu lar contra imprevistos com coberturas que oferecem mais tranquilidade e segurança para você e sua família no dia a dia.</p>
+                    <p>Proteja seu lar contra imprevistos com coberturas que oferecem mais tranquilidade e segurança.</p>
                     <a href="#">Saiba mais →</a>
                 </div>
             </div>
@@ -190,7 +170,7 @@
                 <img src="./imagesInicial/vida.jpg" alt="Seguro Vida">
                 <div class="conteudo-card">
                     <h3>Seguro Vida</h3>
-                    <p>Garanta proteção financeira para quem você ama, contando com suporte e segurança nos momentos mais importantes da vida.</p>
+                    <p>Garanta proteção financeira para quem você ama, com suporte nos momentos mais importantes.</p>
                     <a href="#">Saiba mais →</a>
                 </div>
             </div>
@@ -198,7 +178,7 @@
                 <img src="./imagesInicial/empresa.jpg" alt="Seguro Empresarial">
                 <div class="conteudo-card">
                     <h3>Empresarial</h3>
-                    <p>Oferecemos serviços financeiros personalizados para ajudar você a organizar suas finanças, proteger seu patrimônio e planejar um futuro mais seguro.</p>
+                    <p>Serviços personalizados para proteger seu patrimônio e garantir a continuidade do negócio.</p>
                     <a href="#">Saiba mais →</a>
                 </div>
             </div>
@@ -206,7 +186,7 @@
                 <img src="./imagesInicial/viagemm.jpg" alt="Seguro Viagem">
                 <div class="conteudo-card">
                     <h3>Viagem</h3>
-                    <p>Tenha suporte e proteção durante toda a sua viagem, garantindo mais conforto e segurança para você e sua família.</p>
+                    <p>Suporte e proteção durante toda a sua viagem, garantindo conforto e segurança para sua família.</p>
                     <a href="#">Saiba mais →</a>
                 </div>
             </div>
@@ -224,82 +204,61 @@
             Uma trajetória de sucesso construída com dedicação, inovação e o compromisso de proteger o que realmente importa para você.
         </p>
     </div>
-  <div class="sobre-wrapper">
 
-    <div class="sobre-content">
-        <div class="sobre-item sobre-item-left">
-            <div class="sobre-icon">
-                <i class="fas fa-flag"></i>
+    <div class="sobre-wrapper">
+        <div class="sobre-content">
+            <div class="sobre-item sobre-item-left">
+                <div class="sobre-icon"><i class="fas fa-flag"></i></div>
+                <div class="sobre-text">
+                    <h3>Nossa Missão</h3>
+                    <p>Oferecer soluções completas em seguros com excelência, segurança e atendimento humanizado, protegendo famílias e empresas em todo o Brasil.</p>
+                </div>
             </div>
-            <div class="sobre-text">
-                <h3>Nossa Missão</h3>
-                <p>Oferecer soluções completas em seguros com excelência, segurança e atendimento humanizado, protegendo famílias e empresas em todo o Brasil.</p>
+            <div class="sobre-item sobre-item-right">
+                <div class="sobre-icon"><i class="fas fa-eye"></i></div>
+                <div class="sobre-text">
+                    <h3>Nossa Visão</h3>
+                    <p>Ser referência nacional em seguros, reconhecida pela inovação tecnológica, transparência e pela confiança de nossos clientes.</p>
+                </div>
+            </div>
+            <div class="sobre-item sobre-item-left">
+                <div class="sobre-icon"><i class="fas fa-heart"></i></div>
+                <div class="sobre-text">
+                    <h3>Nossos Valores</h3>
+                    <p>Integridade, compromisso com o cliente, inovação constante e responsabilidade social. Estes são os pilares que guiam todas as nossas ações.</p>
+                </div>
+            </div>
+            <div class="sobre-item sobre-item-right">
+                <div class="sobre-icon"><i class="fas fa-users"></i></div>
+                <div class="sobre-text">
+                    <h3>Nossa Equipe</h3>
+                    <p>Profissionais qualificados e apaixonados pelo que fazem, prontos para oferecer o melhor atendimento e as soluções mais adequadas.</p>
+                </div>
+            </div>
+            <div class="sobre-item sobre-item-left">
+                <div class="sobre-icon"><i class="fas fa-trophy"></i></div>
+                <div class="sobre-text">
+                    <h3>Reconhecimento</h3>
+                    <p>Premiados nacionalmente pela excelência em atendimento e inovação, com certificações que garantem a qualidade de nossos serviços.</p>
+                </div>
+            </div>
+            <div class="sobre-item sobre-item-right">
+                <div class="sobre-icon"><i class="fas fa-rocket"></i></div>
+                <div class="sobre-text">
+                    <h3>Inovação</h3>
+                    <p>Investimos constantemente em tecnologia para oferecer plataformas modernas, processos ágeis e uma experiência digital de excelência.</p>
+                </div>
             </div>
         </div>
 
-        <div class="sobre-item sobre-item-right">
-            <div class="sobre-icon">
-                <i class="fas fa-eye"></i>
-            </div>
-            <div class="sobre-text">
-                <h3>Nossa Visão</h3>
-                <p>Ser referência nacional em seguros, reconhecida pela inovação tecnológica, transparência e pela confiança de nossos clientes.</p>
-            </div>
-        </div>
-
-        <div class="sobre-item sobre-item-left">
-            <div class="sobre-icon">
-                <i class="fas fa-heart"></i>
-            </div>
-            <div class="sobre-text">
-                <h3>Nossos Valores</h3>
-                <p>Integridade, compromisso com o cliente, inovação constante e responsabilidade social. Estes são os pilares que guiam todas as nossas ações.</p>
-            </div>
-        </div>
-
-        <div class="sobre-item sobre-item-right">
-            <div class="sobre-icon">
-                <i class="fas fa-users"></i>
-            </div>
-            <div class="sobre-text">
-                <h3>Nossa Equipe</h3>
-                <p>Profissionais qualificados e apaixonados pelo que fazem, prontos para oferecer o melhor atendimento e as soluções mais adequadas às suas necessidades.</p>
-            </div>
-        </div>
-
-        <div class="sobre-item sobre-item-left">
-            <div class="sobre-icon">
-                <i class="fas fa-trophy"></i>
-            </div>
-            <div class="sobre-text">
-                <h3>Reconhecimento</h3>
-                <p>Premiados nacionalmente pela excelência em atendimento e inovação, com certificações que garantem a qualidade de nossos serviços.</p>
-            </div>
-        </div>
-
-        <div class="sobre-item sobre-item-right">
-            <div class="sobre-icon">
-                <i class="fas fa-rocket"></i>
-            </div>
-            <div class="sobre-text">
-                <h3>Inovação</h3>
-                <p>Investimos constantemente em tecnologia para oferecer plataformas modernas, processos ágeis e uma experiência digital de excelência.</p>
-            </div>
-        </div>
-
-    </div>
         <div class="sobre-spline">
-              <script type="module"
-                src="https://unpkg.com/@splinetool/viewer@1.12.95/build/spline-viewer.js">
-             </script>
-             <spline-viewer
-                    url="https://prod.spline.design/p7IypVPAYzSC1GVp/scene.splinecode">
-            </spline-viewer>
+            <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.95/build/spline-viewer.js"></script>
+            <spline-viewer url="https://prod.spline.design/p7IypVPAYzSC1GVp/scene.splinecode"></spline-viewer>
         </div>
-
     </div>
 </section>
 
+<!-- CONTATO -->
 <section id="contato" class="contato section">
     <div class="contact-left">
         <div class="mini-tag">
@@ -308,11 +267,11 @@
         </div>
 
         <h1 class="contact-title">
-            Quer falar com a empresa? <span>Contate nos.</span>
+            Quer falar com a empresa? <span>Contate-nos.</span>
         </h1>
 
         <p class="contact-desc">
-            Estamos aqui por 24 horas para escutar voces, Envie suas mensagens abaixo para que podemos ler o que voces tem a dizer!
+            Estamos disponíveis 24 horas para ouvir você. Envie sua mensagem abaixo e nossa equipe retornará em breve!
         </p>
 
         <div class="box-contact">
@@ -320,22 +279,46 @@
                 <i class="fa-solid fa-comment-dots"></i>
                 Envie sua mensagem
             </h2>
-            <div class="contact-grid">
-                <input id="name" type="text" placeholder="Seu nome">
-                <input id="email" type="email" placeholder="Seu email">
-                <input id="telefone" type="tel" placeholder="Seu Telefone">
-                <input id="assunto" type="text" placeholder="Estamos aqui! Como podemos te ajudar?">
-            </div>
 
-            <button id="enviar" class="button-contact"> Solicitar contato</button>
+            <form id="formContato">
+                <div class="contact-grid">
+                    <!-- Row 1: name + email -->
+                    <div class="contact-field">
+                        <label for="name">Nome</label>
+                        <input id="name" type="text" placeholder="Seu nome completo" autocomplete="name">
+                    </div>
+                    <div class="contact-field">
+                        <label for="email">E-mail</label>
+                        <input id="email" type="email" placeholder="seu@email.com" autocomplete="email">
+                    </div>
+
+                    <!-- Row 2: phone alone -->
+                    <div class="contact-field full">
+                        <label for="telefone">Telefone</label>
+                        <input id="telefone" type="tel" placeholder="(00) 00000-0000" autocomplete="tel">
+                    </div>
+
+                    <!-- Row 3: message -->
+                    <div class="contact-field full">
+                        <label for="assunto">Mensagem</label>
+                        <textarea id="assunto" placeholder="Como podemos te ajudar? Descreva sua dúvida ou solicitação..." rows="5"></textarea>
+                    </div>
+                </div>
+
+                <div id="formFeedback" class="spam-feedback" role="alert"></div>
+
+                <button id="enviar" class="button-contact" type="submit">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span class="btn-label">Solicitar contato</span>
+                </button>
+            </form>
         </div>
-
     </div>
 
     <div class="contact-right">
-            <div class="contact-img">
-                <img src="./imagesInicial/contact.png" alt="Família protegida pela Seguradora">
-            </div>
+        <div class="contact-img">
+            <img src="./imagesInicial/contact.png" alt="Atendimento personalizado">
+        </div>
         <div class="contact-card card-1">
             <i class="fa-solid fa-phone"></i>
             <div>
@@ -343,80 +326,59 @@
                 <span>Atendimento rápido</span>
             </div>
         </div>
-
         <div class="contact-card card-2">
             <i class="fa-solid fa-shield"></i>
             <div>
                 <strong>100% Seguro</strong>
-                <span>Confia</span>
+                <span>Seus dados protegidos</span>
             </div>
         </div>
     </div>
 </section>
 
-<footer class="bg-dark text-light pt-5 pb-3 mt-5">
+<!-- FOOTER -->
+<footer class="bg-dark text-light pt-5 pb-3 mt-0">
     <div class="container">
         <div class="row">
-
-            <!-- Marca / Sobre -->
             <div class="col-md-4 mb-4">
                 <h5 class="fw-bold">Seguradora +</h5>
-                <p class="small">
-                    Protegendo os seus bens, confiança no nosso trabalho.
-                </p>
+                <p class="small">Protegendo os seus bens, confiança no nosso trabalho.</p>
             </div>
-
-            <!-- Links -->
             <div class="col-md-2 mb-4">
                 <h6 class="fw-bold">Links</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#hero" class="text-light text-decoration-none">Home</a></li>
-                    <li><a href="#beneficios" class="text-light text-decoration-none">Beneficios</a></li>
-                    <li><a href="#seguros" class="text-light text-decoration-none">Seguros</a></li>
-                    <li><a href="#sobre" class="text-light text-decoration-none">Sobre</a></li>
-                    <li><a href="#contato" class="text-light text-decoration-none">Contato</a></li>
+                    <li><a href="#hero" class="text-light text-decoration-none small">Home</a></li>
+                    <li><a href="#beneficios" class="text-light text-decoration-none small">Benefícios</a></li>
+                    <li><a href="#seguros" class="text-light text-decoration-none small">Seguros</a></li>
+                    <li><a href="#sobre" class="text-light text-decoration-none small">Sobre</a></li>
+                    <li><a href="#contato" class="text-light text-decoration-none small">Contato</a></li>
                 </ul>
             </div>
-
-            <!-- Contato -->
             <div class="col-md-3 mb-4">
                 <h6 class="fw-bold">Contato</h6>
-                <p class="small mb-1"><i class="fa-solid fa-location-dot"></i> Rio de Janeiro</p>
-                <p class="small mb-1"><i class="fa-solid fa-phone-flip"></i> (21) 99999-9999</p>
-                <p class="small"><i class="fa-solid fa-envelope"></i> seguramais.corretora.seguros@gmail.com</p>
+                <p class="small mb-1"><i class="fa-solid fa-location-dot me-1"></i> Rio de Janeiro</p>
+                <p class="small mb-1"><i class="fa-solid fa-phone-flip me-1"></i> (21) 99999-9999</p>
+                <p class="small"><i class="fa-solid fa-envelope me-1"></i> seguramais.corretora.seguros@gmail.com</p>
             </div>
-
-            <!-- Newsletter -->
             <div class="col-md-3 mb-4">
                 <h6 class="fw-bold">Newsletter</h6>
                 <p class="small">Receba novidades</p>
                 <form>
                     <div class="input-group">
-                        <input type="email" class="form-control" placeholder="Seu email">
-                        <button class="btn btn-primary">OK</button>
+                        <input type="email" class="form-control form-control-sm" placeholder="Seu email">
+                        <button class="btn btn-sm" style="background:var(--brown);color:#fff;">OK</button>
                     </div>
                 </form>
             </div>
-
         </div>
-
-        <!-- Linha inferior -->
-        <hr class="border-light">
-
+        <hr class="border-secondary">
         <div class="d-flex justify-content-between flex-column flex-md-row align-items-center">
-
-            <p class="mb-2 mb-md-0 small">
-                © 2026 Seguradora + - Todos os direitos reservados
-            </p>
-
-            <!-- Redes sociais -->
+            <p class="mb-2 mb-md-0 small">© 2026 Seguradora + — Todos os direitos reservados</p>
             <div>
                 <a href="#" class="text-light me-3 fs-5"><i class="fa-solid fa-globe"></i></a>
-                <a href="#" class="text-light me-3 fs-5"><i class="fa-solid fa-book"></i></a>
                 <a href="#" class="text-light me-3 fs-5"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#" class="text-light fs-5"><i class="fa-brands fa-twitter"></i></a>
             </div>
-
         </div>
     </div>
 </footer>

@@ -155,7 +155,7 @@
 
                 <div class="input-box">
                     <i class="fa-solid fa-hashtag"></i>
-                    <input type="text" id="numero" placeholder="Número">
+                    <input type="text" id="numero" placeholder="Número" oninput="this.value = this.value.replace(/\D/g, '')" maxlength="4">
                 </div>
 
                 <small id="numeroError"></small>

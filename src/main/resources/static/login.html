@@ -1,57 +1,76 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="dark">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login - Seguro Inteligente</title>
     <link rel="stylesheet" href="./css/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 
+<canvas id="particles"></canvas>
+
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema">
+    <i class="fa-solid fa-moon icon-dark"></i>
+    <i class="fa-solid fa-sun icon-light"></i>
+</button>
+
 <div class="container">
-
     <div class="login-box">
-
         <div class="logo">
-            <i class="fa-solid fa-shield"></i>
+            <i class="fa-solid fa-shield-halved"></i>
         </div>
 
         <h2>Bem-vindo de volta!</h2>
-        <p>Faça login para acessar sua conta</p>
+        <p class="subtitle">Faça login para acessar sua conta</p>
 
-            <div class="input-group">
-                <i class="fa-solid fa-envelope"></i>
-                <input type="email" id="email" placeholder="E-mail" required>
-            </div>
+        <div class="input-group">
+            <i class="fa-solid fa-envelope input-icon"></i>
+            <input type="email" id="email" placeholder="E-mail" required>
+        </div>
 
-            <div class="input-group">
-                <i class="fa-solid fa-lock"></i>
-                <input type="password" id="senha" placeholder="Senha" required>
-                <i class="fa-solid fa-eye" onclick="olharSenha()"></i>
-            </div>
+        <div class="input-group">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <input type="password" id="senha" placeholder="Senha" required>
 
+            <!-- Botão diferencial: olho que vira cadeado, com pálpebra animada -->
+            <button type="button" class="eye-btn" id="eyeBtn" onclick="olharSenha()" aria-label="Mostrar/Ocultar senha">
+                <span class="eye-wrap">
+                    <span class="eye-ball">
+                        <span class="eye-pupil"></span>
+                        <span class="eye-shine"></span>
+                    </span>
+                    <span class="eye-lid"></span>
+                    <span class="eye-slash"></span>
+                </span>
+            </button>
+        </div>
 
-            <div class="options">
-                <label>
-                    <input type="checkbox"> Lembrar de mim
-                </label>
-                <a href="#">Esqueci minha senha</a>
-            </div>
+        <div class="options">
+            <label class="remember">
+                <input type="checkbox">
+                <span class="check-box"><i class="fa-solid fa-check"></i></span>
+                Lembrar de mim
+            </label>
+            <a href="#">Esqueci minha senha</a>
+        </div>
 
-            <button onclick="logar()">ENTRAR</button>
-
+        <button class="btn-entrar" onclick="logar()">
+            <span>ENTRAR</span>
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
 
         <div class="footer">
             <span>Não tem uma conta?</span>
             <a href="/cadastro-cliente.html">Cadastre-se</a>
         </div>
-
     </div>
 </div>
 
 <script src="./js/login.js"></script>
-
 </body>
 </html>
