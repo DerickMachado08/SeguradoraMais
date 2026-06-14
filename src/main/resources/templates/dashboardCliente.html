@@ -25,22 +25,22 @@
     </div>
 
     <ul>
-        <li class="item-menu">
+        <li class="item-menu active">
             <a href="#dashboard">
                 <span class="icon"><i class="fa-solid fa-grip"></i></span>
-                <span class="txt-link">DashBoard</span>
+                <span class="txt-link">Dashboard</span>
             </a>
         </li>
         <li class="item-menu">
             <a href="#apolice">
                 <span class="icon"><i class="fa-regular fa-paste"></i></span>
-                <span class="txt-link">Apolices</span>
+                <span class="txt-link">Minhas Apolices</span>
             </a>
         </li>
         <li class="item-menu">
-            <a href="#">
-                <span class="icon"><i class="fa-regular fa-house"></i></span>
-                <span class="txt-link">Bens</span>
+            <a href="/cliente/contratar">
+                <span class="icon"><i class="fa-solid fa-file-circle-plus"></i></span>
+                <span class="txt-link">Contratar Seguro</span>
             </a>
         </li>
         <li class="item-menu">
@@ -82,19 +82,17 @@
             <div class="card">
                 <div class="card-icon blue"><i class="fas fa-file-contract"></i></div>
                 <div class="card-body">
-                    <h3>Apolices Ativas</h3>
-                    <div class="value">0</div>
-                    <div class="sub">Nenhuma apolice ativa</div>
+                    <h3>Apolices Contratadas</h3>
+                    <div class="value" th:text="${totalApolices}">0</div>
+                    <div class="sub" th:text="${totalApolices == 1 ? '1 apolice encontrada' : totalApolices + ' apolices encontradas'}">Nenhuma apolice</div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-icon green"><i class="fas fa-circle-check"></i></div>
                 <div class="card-body">
-                    <h3>Status da Conta</h3>
-                    <div class="value" style="font-size:1rem; margin-top:4px;">
-                        <span class="badge badge-active">Ativa</span>
-                    </div>
-                    <div class="sub">Cadastro verificado</div>
+                    <h3>Apolices Ativas</h3>
+                    <div class="value" th:text="${totalApolicesAtivas}">0</div>
+                    <div class="sub">Com status ativo</div>
                 </div>
             </div>
             <div class="card">
@@ -145,11 +143,11 @@
             <i class="fas fa-bolt"></i> Acoes Rapidas
         </div>
         <div class="actions-grid">
-            <a href="#" class="action-btn">
+            <a href="/cliente/contratar" class="action-btn">
                 <i class="fas fa-file-circle-plus"></i>
                 Contratar Seguro
             </a>
-            <a href="#" class="action-btn">
+            <a href="#apolice" class="action-btn">
                 <i class="fas fa-list-check"></i>
                 Minhas Apolices
             </a>
@@ -165,28 +163,48 @@
     </section>
 
     <section id="apolice" class="apolice">
-        <div class="container-apolice">
-            <div class="apolice-left">
-                <div class="apolice-left-content">
-                    <div class="apolice-illustration">
-                        <i class="fas fa-file-shield"></i>
-                        <h3>Seguranca Garantida</h3>
-                        <p>Proteja o que e mais importante para voce com nossas apolices personalizadas.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="apolice-right">
-                <h1>Minhas apolices</h1>
-                <p>
-                    Aqui voce pode acessar suas apolices, renovar, cancelar,
-                    ver coberturas e ver detalhes da sua apoolice. Seja bem vindo
-                    na empresa segurado Mais, sempre ajudando nossos clientes.
-                </p>
-                <button onclick="irMinhasApolice()">Minhas Apolices</button>
-            </div>
+        <div class="section-title">
+            <i class="fas fa-file-shield"></i> Minhas Apolices
         </div>
 
+        <div th:if="${#lists.isEmpty(contratacoes)}" class="profile-card">
+            <table>
+                <tr>
+                    <td>Status</td>
+                    <td>Voce ainda nao possui apolices contratadas.</td>
+                </tr>
+                <tr>
+                    <td>Proximo passo</td>
+                    <td><a href="/cliente/contratar">Contratar um seguro</a></td>
+                </tr>
+            </table>
+        </div>
 
+        <div th:unless="${#lists.isEmpty(contratacoes)}" class="profile-card">
+            <table>
+                <thead>
+                <tr>
+                    <td>Numero</td>
+                    <td>Tipo</td>
+                    <td>Status</td>
+                    <td>Data da Contratacao</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="contratacao : ${contratacoes}">
+                    <td th:text="${contratacao.apolice != null ? contratacao.apolice.numeroApolice : '-'}">AP-2026-1</td>
+                    <td th:text="${contratacao.apolice != null ? contratacao.apolice.tipoApolice : '-'}">Seguro</td>
+                    <td th:text="${contratacao.apolice != null && contratacao.apolice.status != null ? contratacao.apolice.status : 'PENDENTE'}">ATIVA</td>
+                    <td th:text="${contratacao.dataContratacao != null ? #temporals.format(contratacao.dataContratacao, 'dd/MM/yyyy') : '-'}">13/06/2026</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <a href="/cliente/apolices" class="action-btn" style="width: fit-content; margin-top: 16px;">
+            <i class="fas fa-arrow-up-right-from-square"></i>
+            Abrir pagina completa de Minhas Apolices
+        </a>
     </section>
 </main>
 
@@ -216,12 +234,7 @@
             this.closest('.item-menu').classList.add('active');
         });
     });
-
-    function irMinhasApolice() {
-        alert('Redirecionando para Minhas Apolices...');
-    }
 </script>
 
 </body>
 </html>
-

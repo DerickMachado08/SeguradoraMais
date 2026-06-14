@@ -5,6 +5,7 @@ import com.mais.seguradora.model.MensagemContato;
 import com.mais.seguradora.services.MensService;
 
 import com.mais.seguradora.services.MensService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class MensController {
     private MensService emailService;
 
     @PostMapping
-    public ResponseEntity<String> contato(
+    public ResponseEntity<String> contato(@Valid
             @RequestBody MensagemContato contato){
 
         repository.save(contato);

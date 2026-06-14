@@ -23,5 +23,4 @@ public class Cobertura {
     private String descricao;
     @Column(name = "tipo_cobertura", length = 50)
     private String tipoCobertura;
-
 }

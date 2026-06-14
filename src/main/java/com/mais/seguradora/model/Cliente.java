@@ -22,6 +22,10 @@ public class Cliente {
     private Integer id;
 
     @NotBlank(message = "Nome obrigatório")
+    @Pattern(
+            regexp = "^[A-Za-zÀ-ÿ\\s]{3,100}$",
+            message = "Nome inválido"
+    )
     @Column(name = "nome", nullable = false, length = 80)
     private String nome;
 
@@ -60,7 +64,7 @@ public class Cliente {
     private String bairro;
 
     @NotBlank(message = "Nuumero obrigatório")
-    @Column(name = "numero", length = 10, nullable = false)
+    @Column(name = "numero", length = 4, nullable = false)
     private String numero;
 
     @NotBlank(message = "cep obrigatório")

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Apolices - Seguradora Mais</title>
+    <link rel="stylesheet" href="/css/clienteLayout.css">
+    <link rel="stylesheet" href="/css/minhasApolices.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="header-user">
+        <div class="avatar" th:text="${#strings.substring(cliente.nome, 0, 1)}">C</div>
+        <span class="header-nome" th:text="${cliente.nome}">Cliente</span>
+        <a href="/index.html" class="btn-logout">
+            <i class="fas fa-sign-out-alt"></i> Sair
+        </a>
+    </div>
+</header>
+
+<!-- ===== SIDEBAR ===== -->
+<nav class="menu-lateral">
+    <div class="ButtonExpandir">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+    <ul>
+        <li class="item-menu">
+            <a href="/cliente/dashboard">
+                <span class="icon"><i class="fa-solid fa-grip"></i></span>
+                <span class="txt-link">Dashboard</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="/cliente/contratar">
+                <span class="icon"><i class="fa-regular fa-paste"></i></span>
+                <span class="txt-link">Contratar Seguro</span>
+            </a>
+        </li>
+        <li class="item-menu active">
+            <a href="/cliente/Apolices">
+                <span class="icon"><i class="fa-solid fa-list-check"></i></span>
+                <span class="txt-link">Minhas Apolices</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="#">
+                <span class="icon"><i class="fa-regular fa-credit-card"></i></span>
+                <span class="txt-link">Pagamento</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="#">
+                <span class="icon"><i class="fa-regular fa-user"></i></span>
+                <span class="txt-link">Perfil</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="#">
+                <span class="icon"><i class="fa-regular fa-address-book"></i></span>
+                <span class="txt-link">Contato</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main>
+    <!-- Back Button -->
+    <a href="/dashboardCliente" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
+    </a>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="breadcrumb">
+            <a href="/dashboardCliente">Dashboard</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Minhas Apolices</span>
+        </div>
+        <h1>Minhas Apolices</h1>
+        <p>Gerencie e visualize todas as suas apolices contratadas</p>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-card-info">
+                <p>Total</p>
+                <div class="stat-value" th:text="${#lists.size(contratacoes)}">0</div>
+            </div>
+            <div class="stat-card-icon blue">
+                <i class="fas fa-file-contract"></i>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-card-info">
+                <p>Ativas</p>
+                <div class="stat-value" >0</div>
+            </div>
+            <div class="stat-card-icon green">
+                <i class="fas fa-circle-check"></i>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-card-info">
+                <p>Pendentes</p>
+                <div class="stat-value" >0</div>
+            </div>
+            <div class="stat-card-icon orange">
+                <i class="fas fa-clock"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div th:if="${#lists.isEmpty(contratacoes)}" class="empty-state">
+        <div class="empty-icon">
+            <i class="fas fa-folder-open"></i>
+        </div>
+        <h3>Voce nao possui apolices cadastradas</h3>
+        <p>Explore nossas opcoes de seguros e encontre a cobertura ideal para proteger o que e mais importante para voce.</p>
+        <a href="/cliente/contratar" class="btn-contratar-empty">
+            <i class="fas fa-plus"></i> Contratar Seguro
+        </a>
+    </div>
+
+    <!-- Policy Cards -->
+    <div th:unless="${#lists.isEmpty(contratacoes)}" class="apolices-grid">
+
+        <div th:each="contratacao : ${contratacoes}" class="apolice-card">
+            <div class="apolice-card-header">
+                <div class="apolice-card-id">
+                    <div class="apolice-card-icon">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <div class="apolice-card-id-info">
+                        <small>Apolice</small>
+                        <h3 th:text="${contratacao.apolice.numeroApolice}">AP20260001</h3>
+                    </div>
+                </div>
+                <div class="status-dot"
+                     th:classappend="${contratacao.apolice.status?.toString()?.toUpperCase() == 'ATIVA' ? 'ativa' : (contratacao.apolice.status?.toString()?.toUpperCase() == 'PENDENTE' ? 'pendente' : 'inativa')}"
+                     th:attr="data-status=${contratacao.apolice.status}">
+                </div>
+            </div>
+            <div class="apolice-card-body">
+                <!-- Status -->
+                <div class="apolice-status-row">
+                    <span>Status</span>
+                    <span class="status-badge"
+                          th:classappend="${contratacao.apolice.status?.toString()?.toUpperCase() == 'ATIVA' ? 'ativa' : (contratacao.apolice.status?.toString()?.toUpperCase() == 'PENDENTE' ? 'pendente' : 'inativa')}"
+                          th:attr="data-status=${contratacao.apolice.status}"
+                          th:text="${contratacao.apolice.status}">
+                        ATIVA
+                    </span>
+                </div>
+
+                <!-- Details -->
+                <div class="apolice-details">
+                    <div class="row">
+                        <span>Tipo</span>
+                        <span th:text="${contratacao.apolice.tipoApolice}">Seguro de Vida</span>
+                    </div>
+                    <div class="row">
+                        <span>Data Inicio</span>
+                        <span th:text="${#temporals.format(contratacao.dataContratacao, 'dd/MM/yyyy')}"></span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="apolice-card-actions">
+                    <button class="btn-action secondary">
+                        <i class="fas fa-eye"></i> Detalhes
+                    </button>
+                    <button class="btn-action primary">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Add New (when there are policies) -->
+    <div th:unless="${#lists.isEmpty(contratacoes)}">
+        <button class="btn-add-apolice" onclick="window.location.href='/cliente/contratar'">
+            <i class="fas fa-plus"></i> Contratar Novo Seguro
+        </button>
+    </div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    &copy; 2026 Seguradora Mais &mdash; Todos os direitos reservados.
+</footer>
+
+<script src="/js/clienteLayout.js"></script>
+<script src="/js/minhasApolices.js"></script>
+
+</body>
+</html>
