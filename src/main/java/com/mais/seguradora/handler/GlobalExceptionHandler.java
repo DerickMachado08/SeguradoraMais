@@ -2,6 +2,7 @@ package com.mais.seguradora.handler;
 
 import com.mais.seguradora.exception.CpfDuplicadoException;
 import com.mais.seguradora.exception.EmailDuplicadoException;
+import com.mais.seguradora.exception.MaiorIdadeException;
 import com.mais.seguradora.exception.MenorIdadeException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -39,9 +40,17 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(erro);
     }
-
     @ExceptionHandler(MenorIdadeException.class)
     public ResponseEntity<Map<String, String>> handlermenoridade(MenorIdadeException e){
+        Map<String, String> erro = new HashMap<>();
+        erro.put("dataNascimento", e.getMessage());
+
+
+
+        return ResponseEntity.badRequest().body(erro);
+    }
+    @ExceptionHandler(MaiorIdadeException.class)
+    public ResponseEntity<Map<String, String>> handlermaioridade(MaiorIdadeException e) {
         Map<String, String> erro = new HashMap<>();
         erro.put("dataNascimento", e.getMessage());
 

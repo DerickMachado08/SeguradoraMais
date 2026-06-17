@@ -1,5 +1,6 @@
 package com.mais.seguradora.model;
 
+import com.mais.seguradora.enummerated.StatusContratacao;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,8 @@ public class Contratacao {
     private LocalDate dataContratacao;
     @Column(name = "valor_contratacao", precision = 10, scale = 2)
     private BigDecimal valorContratacao;
+    @Enumerated(EnumType.STRING)
+    private StatusContratacao status;
 
     @ManyToOne
     @JoinColumn(name = "id_c")

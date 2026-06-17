@@ -200,7 +200,7 @@ document.querySelector('.prev')?.addEventListener('click', () => carousel?.scrol
     }
 })();
 
-/* ====== CONTATO - ANTI-SPAM + SUBMIT ====== */
+/* ====== CONTATO  ====== */
 (function contactForm() {
     const form     = document.getElementById('formContato');
     const botao    = document.getElementById('enviar');

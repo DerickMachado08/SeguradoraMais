@@ -28,7 +28,7 @@
     </div>
     <ul>
         <li class="item-menu">
-            <a href="/cliente/dashboard">
+            <a href="/dashboardCliente">
                 <span class="icon"><i class="fa-solid fa-grip"></i></span>
                 <span class="txt-link">Dashboard</span>
             </a>
@@ -40,7 +40,7 @@
             </a>
         </li>
         <li class="item-menu active">
-            <a href="/cliente/Apolices">
+            <a href="/cliente/apolices">
                 <span class="icon"><i class="fa-solid fa-list-check"></i></span>
                 <span class="txt-link">Minhas Apolices</span>
             </a>
@@ -163,6 +163,11 @@
                     <div class="row">
                         <span>Tipo</span>
                         <span th:text="${contratacao.apolice.tipoApolice}">Seguro de Vida</span>
+                    </div>
+                    <div th:each="cobertura : ${contratacao.apolice.coberturas}">
+                        <strong th:text="${cobertura.nome}">Roubo e Furto</strong>
+                        <br>
+                        <small th:text="${cobertura.descricao}">Descrição da cobertura</small>
                     </div>
                     <div class="row">
                         <span>Data Inicio</span>

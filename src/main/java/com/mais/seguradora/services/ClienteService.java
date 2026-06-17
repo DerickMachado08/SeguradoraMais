@@ -3,6 +3,7 @@ package com.mais.seguradora.services;
 import com.mais.seguradora.Repositories.ClienteRepository;
 import com.mais.seguradora.exception.CpfDuplicadoException;
 import com.mais.seguradora.exception.EmailDuplicadoException;
+import com.mais.seguradora.exception.MaiorIdadeException;
 import com.mais.seguradora.exception.MenorIdadeException;
 import com.mais.seguradora.model.Cliente;
 import org.springframework.beans.BeanUtils;
@@ -30,6 +31,10 @@ public class ClienteService {
         }
         if(cliente.getDataNascimento().isAfter(LocalDate.now().minusYears(18))){
             throw new MenorIdadeException();
+        }
+
+        if(cliente.getDataNascimento().isBefore(LocalDate.now().minusYears(110))){
+            throw new MaiorIdadeException();
         }
 
         return repository.save(cliente);

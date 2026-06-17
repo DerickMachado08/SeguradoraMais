@@ -39,5 +39,5 @@ public class Apolice {
             joinColumns = @JoinColumn(name = "id_apolice"),
             inverseJoinColumns = @JoinColumn(name = "id_cobertura")
     )
-    private List<Cobertura> coberturaList;
+    private List<Cobertura> coberturas;
 }

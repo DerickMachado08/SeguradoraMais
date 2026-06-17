@@ -12,7 +12,6 @@
 
 body{
     min-height:100vh;
-    background: url("../imagesCadastroELogin/backgroundLogin.jpg");
     font-family:var(--font-body);
     display:flex;
     justify-content:center;
