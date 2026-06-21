@@ -107,7 +107,7 @@
         <div class="stat-card">
             <div class="stat-card-info">
                 <p>Pendentes</p>
-                <div class="stat-value" >0</div>
+                <div class="stat-value" th:text="${pendentes}">0</div>
             </div>
             <div class="stat-card-icon orange">
                 <i class="fas fa-clock"></i>
@@ -115,7 +115,7 @@
         </div>
     </div>
 
-    <!-- Empty State -->
+
     <div th:if="${#lists.isEmpty(contratacoes)}" class="empty-state">
         <div class="empty-icon">
             <i class="fas fa-folder-open"></i>
@@ -127,10 +127,11 @@
         </a>
     </div>
 
-    <!-- Policy Cards -->
+
     <div th:unless="${#lists.isEmpty(contratacoes)}" class="apolices-grid">
 
         <div th:each="contratacao : ${contratacoes}" class="apolice-card">
+
             <div class="apolice-card-header">
                 <div class="apolice-card-id">
                     <div class="apolice-card-icon">
@@ -142,31 +143,25 @@
                     </div>
                 </div>
                 <div class="status-dot"
-                     th:classappend="${contratacao.apolice.status?.toString()?.toUpperCase() == 'ATIVA' ? 'ativa' : (contratacao.apolice.status?.toString()?.toUpperCase() == 'PENDENTE' ? 'pendente' : 'inativa')}"
-                     th:attr="data-status=${contratacao.apolice.status}">
-                </div>
+                     th:attr="data-status=${contratacao.status}"></div>
             </div>
-            <div class="apolice-card-body">
-                <!-- Status -->
-                <div class="apolice-status-row">
-                    <span>Status</span>
-                    <span class="status-badge"
-                          th:classappend="${contratacao.apolice.status?.toString()?.toUpperCase() == 'ATIVA' ? 'ativa' : (contratacao.apolice.status?.toString()?.toUpperCase() == 'PENDENTE' ? 'pendente' : 'inativa')}"
-                          th:attr="data-status=${contratacao.apolice.status}"
-                          th:text="${contratacao.apolice.status}">
-                        ATIVA
-                    </span>
-                </div>
 
-                <!-- Details -->
+
+            <div class="apolice-card-body">
+
                 <div class="apolice-details">
+                    <div class="row">
+                        <span>Status</span>
+                        <span class="status-badge"
+                              th:attr="data-status=${contratacao.status}"
+                              th:text="${contratacao.status}"></span>
+                    </div>
                     <div class="row">
                         <span>Tipo</span>
                         <span th:text="${contratacao.apolice.tipoApolice}">Seguro de Vida</span>
                     </div>
                     <div th:each="cobertura : ${contratacao.apolice.coberturas}">
-                        <strong th:text="${cobertura.nome}">Roubo e Furto</strong>
-                        <br>
+                        <strong th:text="${cobertura.nome}">Roubo e Furto</strong><br>
                         <small th:text="${cobertura.descricao}">Descrição da cobertura</small>
                     </div>
                     <div class="row">
@@ -175,7 +170,6 @@
                     </div>
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="apolice-card-actions">
                     <button class="btn-action secondary">
                         <i class="fas fa-eye"></i> Detalhes
@@ -189,7 +183,7 @@
 
     </div>
 
-    <!-- Add New (when there are policies) -->
+
     <div th:unless="${#lists.isEmpty(contratacoes)}">
         <button class="btn-add-apolice" onclick="window.location.href='/cliente/contratar'">
             <i class="fas fa-plus"></i> Contratar Novo Seguro

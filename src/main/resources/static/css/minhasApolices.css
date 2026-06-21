@@ -53,19 +53,18 @@
 /* Apolice Cards Grid */
 .apolices-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 18px;
-    margin-bottom: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
 }
 
 .apolice-card {
     background: #fff;
-    border-radius: 12px;
-    border: 1px solid #e8e8e8;
+    border-radius: 16px;
+    border: 1px solid #ececec;
     overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    animation: slideUp 0.4s ease both;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    transition: all .25s ease;
 }
 
 .apolice-card:hover {
@@ -86,12 +85,11 @@
 .apolice-card:nth-child(6) { animation-delay: 0.30s; }
 
 .apolice-card-header {
-    padding: 14px 18px;
-    border-bottom: 1px solid #f0f0f0;
+    padding: 18px 20px;
+    border-bottom: 1px solid #f2f2f2;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    align-items: center;
 }
 
 .apolice-card-id {
@@ -174,19 +172,58 @@
 }
 
 .status-badge {
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 0.75rem;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 11px;
     font-weight: 700;
     color: #fff;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: .05em;
 }
 
-.status-badge.ativa    { background: linear-gradient(135deg, #22c55e, #16a34a); }
-.status-badge.pendente { background: linear-gradient(135deg, #f59e0b, #d97706); }
-.status-badge.inativa  { background: linear-gradient(135deg, #ef4444, #dc2626); }
-.status-badge.default  { background: #888; }
+/* BADGES */
+
+.status-badge.pendente {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.status-badge.analisando {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.status-badge.aprovada {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.status-badge.emitida {
+    background: linear-gradient(135deg, #15803d, #166534);
+}
+
+.status-badge.rejeitada {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+/* BOLINHAS */
+
+.status-dot.pendente {
+    background: #f59e0b;
+}
+
+.status-dot.analisando {
+    background: #3b82f6;
+}
+
+.status-dot.aprovada {
+    background: #22c55e;
+}
+
+.status-dot.emitida {
+    background: #15803d;
+}
+
+.status-dot.rejeitada {
+    background: #ef4444;
+}
 
 .apolice-details {
     font-size: 0.83rem;
@@ -208,6 +245,7 @@
 .apolice-details .row:last-child { border-bottom: none; padding-bottom: 0; }
 .apolice-details .row span:first-child { color: #999; }
 .apolice-details .row span:last-child  { font-weight: 600; color: #333; }
+.apolice-details .row .status-badge    { color: #fff; } /* mantém texto branco no badge */
 
 /* Card action buttons */
 .apolice-card-actions {
@@ -330,3 +368,5 @@
     transform: translateY(-1px);
     box-shadow: 0 4px 14px rgba(124,74,30,0.4);
 }
+
+

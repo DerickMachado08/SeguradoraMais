@@ -1,6 +1,7 @@
 package com.mais.seguradora.controllers;
 
 import com.mais.seguradora.Repositories.ApoliceRepository;
+import com.mais.seguradora.enummerated.StatusContratacao;
 import com.mais.seguradora.model.Apolice;
 import com.mais.seguradora.model.Cliente;
 import com.mais.seguradora.model.Contratacao;
@@ -39,8 +40,11 @@ public class ContratacaoController {
         List<Contratacao> contratacoes =
                 contratacaoService.buscarPorCliente(cliente);
 
+        long pendentes = contratacoes.stream().filter(c -> c.getStatus() == StatusContratacao.PENDENTE).count();
+
         model.addAttribute("cliente", cliente);
         model.addAttribute("contratacoes", contratacoes);
+        model.addAttribute("pendentes", pendentes);
 
         return "minhasApolices";
     }
@@ -86,6 +90,7 @@ public class ContratacaoController {
         contratacao.setApolice(apolice);
         contratacao.setDataContratacao(LocalDate.now());
 
+        contratacao.setStatus(StatusContratacao.PENDENTE);
         contratacaoService.salvar(contratacao);
 
         return "redirect:/cliente/apolices";

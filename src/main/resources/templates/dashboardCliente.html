@@ -194,7 +194,7 @@
                 <tr th:each="contratacao : ${contratacoes}">
                     <td th:text="${contratacao.apolice != null ? contratacao.apolice.numeroApolice : '-'}">AP-2026-1</td>
                     <td th:text="${contratacao.apolice != null ? contratacao.apolice.tipoApolice : '-'}">Seguro</td>
-                    <td th:text="${contratacao.apolice != null && contratacao.apolice.status != null ? contratacao.apolice.status : 'PENDENTE'}">ATIVA</td>
+                    <td th:text="${contratacao.apolice != null && contratacao.status != null ? contratacao.status : 'PENDENTE'}">ATIVA</td>
                     <td th:text="${contratacao.dataContratacao != null ? #temporals.format(contratacao.dataContratacao, 'dd/MM/yyyy') : '-'}">13/06/2026</td>
                 </tr>
                 </tbody>
