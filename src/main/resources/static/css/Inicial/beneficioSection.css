@@ -1,0 +1,206 @@
+.beneficios {
+    background: linear-gradient(180deg, #EEE4D2 0%, var(--cream) 40%, var(--cream-2) 100%);
+    padding: 110px 24px;
+    text-align: center;
+    min-height: 80vh;
+    position: relative;
+}
+
+.conteudoB { max-width: 1200px; margin: 0 auto; }
+
+.tag {
+    display: inline-block;
+    border: 1.5px solid rgba(110,75,58,.4);
+    color: var(--brown);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+.beneficios h2 { font-family: var(--font-display); font-size: 2.6rem; margin-bottom: 12px; color: var(--brown-dark); }
+.beneficios h2 span { color: var(--brown); font-style: italic; font-weight: 400; }
+
+.subtitulo {
+    color: var(--brown-muted);
+    max-width: 580px;
+    margin: 0 auto 52px;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.grid-Beneficios {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.cardB {
+    background: rgba(255,255,255,.6);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(110,75,58,.1);
+    border-radius: 20px;
+    padding: 34px 22px;
+    transition: all .35s cubic-bezier(.2,.8,.2,1);
+    text-align: left;
+    opacity: 0;
+    transform: translateY(60px) scale(0.92);
+    filter: blur(4px);
+}
+
+.cardB.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+
+.cardB:hover {
+    transform: translateY(-6px);
+    border-color: rgba(110,75,58,.28);
+    box-shadow: 0 20px 40px -12px rgba(110,75,58,.22);
+    background: rgba(255,255,255,.85);
+}
+
+.icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--brown-dark);
+    color: var(--beige);
+    border-radius: 14px;
+    font-size: 22px;
+    margin-bottom: 18px;
+    transition: all .35s ease;
+}
+
+.cardB:hover .icon {
+    transform: scale(1.08) rotate(-4deg);
+    background: var(--brown);
+}
+
+.cardB h3 { color: var(--brown-dark); font-family: var(--font-display); font-size: 17px; margin-bottom: 10px; }
+.cardB p { color: var(--brown-muted); font-size: 14px; line-height: 1.65; }
+
+/* ========================= SEGUROS - CARROSSEL DO FUNDO ========================= */
+
+.tipo-seguro {
+    background: linear-gradient(180deg, var(--cream-2) 0%, var(--cream) 50%, #EEE4D2 100%);
+    padding: 120px 5%;
+    text-align: center;
+    position: relative;
+}
+
+.tag-seguro {
+    display: inline-block;
+    padding: 7px 18px;
+    border-radius: 30px;
+    border: 1.5px solid rgba(110,75,58,.4);
+    color: var(--brown);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+.tipo-seguro h2 { font-family: var(--font-display); color: var(--brown-dark); font-size: 2.8rem; margin-bottom: 14px; }
+.tipo-seguro h2 span { color: var(--brown); font-style: italic; font-weight: 400; }
+.subtitulo-seguro { color: var(--brown-muted); margin-bottom: 60px; font-size: 16px; }
+
+.carousel-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1700px;
+    margin: auto;
+}
+
+.carousel {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 10px 4px 20px;
+}
+.carousel::-webkit-scrollbar { display: none; }
+
+.seguro-card {
+    min-width: 300px;
+    max-width: 340px;
+    background: rgba(255,255,255,.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(110,75,58,.1);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 28px rgba(110,75,58,.08);
+    transition: all .35s cubic-bezier(.2,.8,.2,1);
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateY(70px) scale(0.88);
+    filter: blur(5px);
+}
+
+.seguro-card.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+
+.seguro-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 24px 50px rgba(110,75,58,.18);
+    border-color: rgba(110,75,58,.25);
+}
+
+.seguro-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    transition: transform .5s ease;
+}
+.seguro-card:hover img { transform: scale(1.04); }
+
+.conteudo-card {
+    padding: 26px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    min-height: 180px;
+}
+
+.conteudo-card h3 { color: var(--brown-dark); font-family: var(--font-display); font-size: 18px; margin-bottom: 10px; }
+.conteudo-card p { color: var(--brown-muted); font-size: 14px; line-height: 1.65; margin-bottom: 16px; }
+
+.conteudo-card a {
+    margin-top: auto;
+    text-decoration: none;
+    color: var(--brown);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: .3px;
+    transition: color .25s;
+}
+.conteudo-card a:hover { color: var(--brown-dark); }
+
+.btn-nav {
+    width: 52px;
+    height: 52px;
+    border: none;
+    border-radius: 50%;
+    background: var(--brown-dark);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all .3s ease;
+    box-shadow: 0 6px 20px rgba(43,24,16,.3);
+}
+.btn-nav:hover { background: var(--brown); transform: scale(1.05); }

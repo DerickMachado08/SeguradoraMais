@@ -648,6 +648,52 @@ main {
     transform: translateX(5px);
 }
 
+/* PAGAMENTO */
+
+.pagamento {
+    padding: 60px 20px;
+    text-align: center;
+    background: #f5f7fb;
+}
+
+.pagamento h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.pagamento h2 span {
+    color: var(--brown-dark);
+}
+
+.container-pagamento {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.container-pagamento p {
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.btn-pagamento {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary-dark);
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.btn-pagamento:hover {
+    background: var(--brown-dark);
+}
+
 /* FOOTER */
 footer {
     margin-left: 85px;

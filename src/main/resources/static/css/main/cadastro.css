@@ -1,14 +1,4 @@
-:root{
-    --white:#FFFFFF;
-    --white-soft:#F8F8F8;
-    --gray:#F3F4F6;
-    --border:#E5E7EB;
-    --brown:#6B4A3A;
-    --brown-dark: #2B1810;
-    --brown-light:#8C6A58;
-    --font-display:'Libre Baskerville', serif;
-    --font-body:'IBM Plex Sans', sans-serif;
-}
+@import url('../base/variaveis.css');
 
 body{
     min-height:100vh;

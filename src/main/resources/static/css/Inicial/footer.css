@@ -1,0 +1,8 @@
+footer {
+    background: var(--brown-dark) !important;
+}
+
+footer a:hover {
+    color: var(--beige) !important;
+    transition: color .25s;
+}

@@ -1,0 +1,17 @@
+:root {
+    --white: #FFFFFF;
+    --white-soft: #F8F8F8;
+    --gray:#F3F4F6;
+    --border:#E5E7EB;
+    --cream: #F7F4EF;
+    --cream-2: #FBF9F5;
+    --beige: #E8DCC8;
+    --beige-soft: #acacac;
+    --brown: #6E4B3A;
+    --brown-dark: #2B1810;
+    --brown-muted: #8A6A57;
+
+
+    --font-display: 'Libre Baskerville', Georgia, serif;
+    --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+}

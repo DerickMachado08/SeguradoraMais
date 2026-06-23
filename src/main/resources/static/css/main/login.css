@@ -1,7 +1,4 @@
-:root {
-    --font-display: 'Libre Baskerville', Georgia, serif;
-    --font-body: 'IBM Plex Sans', system-ui, sans-serif;
-}
+@import url('../base/variaveis.css');
 
 /* ============ DARK ============ */
 [data-theme="dark"] {
