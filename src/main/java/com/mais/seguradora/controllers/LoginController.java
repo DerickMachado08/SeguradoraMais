@@ -28,7 +28,7 @@ public class LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<?> login(@RequestParam String email, @RequestParam String senha, HttpSession session) {
+    public ResponseEntity<?> login(@RequestParam("email") String email, @RequestParam("senha") String senha, HttpSession session) {
         Cliente cliente = clienteservice.autenticar(email, senha);
 
         if (cliente != null) {
