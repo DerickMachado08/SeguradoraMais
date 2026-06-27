@@ -22,6 +22,9 @@ public class Admin {
     @Column(name = "id_admin", nullable = false)
     private Integer id;
 
+    @Column(name = "name")
+    private String name;
+
     @NotBlank(message = "Email obrigatório")
     @Email(message = "Email inválido")
     @Column(name = "email", length = 100, nullable = false, unique = true)

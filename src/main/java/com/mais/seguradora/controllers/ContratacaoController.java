@@ -70,7 +70,7 @@ public class ContratacaoController {
 
     @PostMapping("/cliente/contratar")
     public String contratarSeguro(
-            @RequestParam Integer idApolice,
+            @RequestParam("idApolice") Integer idApolice,
             HttpSession session){
 
         Cliente cliente =

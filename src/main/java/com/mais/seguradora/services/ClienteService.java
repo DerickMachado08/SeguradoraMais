@@ -44,7 +44,7 @@ public class ClienteService {
            return repository.findByEmailAndSenha(email,senha).orElse(null);
     }
 
-    public List<Cliente> listar(){
+    public List<Cliente> listarTodos(){
         return repository.findAll();
     }
 
