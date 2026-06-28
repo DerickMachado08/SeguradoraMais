@@ -34,15 +34,21 @@
             </a>
         </li>
         <li class="item-menu">
+            <a href="#relatorios">
+                <span class="icon"><i class="fa-solid fa-chart-line"></i></span>
+                <span class="txt-link">Relatorios</span>
+            </a>
+        </li>
+        <li class="item-menu">
             <a href="#clientes">
                 <span class="icon"><i class="fa-regular fa-user"></i></span>
                 <span class="txt-link">Clientes</span>
             </a>
         </li>
         <li class="item-menu">
-            <a href="#apolices">
-                <span class="icon"><i class="fa-regular fa-paste"></i></span>
-                <span class="txt-link">Apolices</span>
+            <a href="#corretor">
+                <span class="icon"><i class="fa-solid fa-user-tie"></i></span>
+                <span class="txt-link">Corretores</span>
             </a>
         </li>
         <li class="item-menu">
@@ -58,12 +64,6 @@
             </a>
         </li>
         <li class="item-menu">
-            <a href="#relatorios">
-                <span class="icon"><i class="fa-solid fa-chart-line"></i></span>
-                <span class="txt-link">Relatorios</span>
-            </a>
-        </li>
-        <li class="item-menu">
             <a href="#">
                 <span class="icon"><i class="fa-regular fa-address-book"></i></span>
                 <span class="txt-link">Contato</span>
@@ -75,6 +75,8 @@
 <main>
 
     <section id="dashboard" class="dashboard">
+
+        <!-- Banner de boas-vindas -->
         <div class="welcome-banner">
             <div class="icon-wrap">
                 <i class="fas fa-user-shield"></i>
@@ -82,72 +84,127 @@
             <div>
                 <h1>
                     Bem-vindo,
-                    <span th:text="${admin.name}">
-        Administrador
-    </span>!
+                    <span th:text="${admin.name}">Administrador</span>!
                 </h1>
-                <p>Painel de gestao da Seguradora Mais. Acompanhe clientes, apolices e operacoes.</p>
+                <p>Painel de gestão da Seguradora Mais. Acompanhe clientes, apólices e corretores.</p>
             </div>
         </div>
 
+        <!-- Linha 1: 4 KPIs principais -->
+        <div class="cards-grid">
             <div class="card">
-                <div class="card-icon orange"><i class="fas fa-bell"></i></div>
+                <div class="card-icon orange"><i class="fa-regular fa-user"></i></div>
                 <div class="card-body">
-                    <h3>Pendencias</h3>
-                    <div class="value">0</div>
-                    <div class="sub">Aguardando aprovacao</div>
+                    <h3>Clientes</h3>
+                    <div class="value" th:text="${totalClientes != null ? totalClientes : 0}">120</div>
+                    <div class="sub">Cadastrados</div>
                 </div>
             </div>
+
             <div class="card">
-                <div class="card-icon red"><i class="fas fa-triangle-exclamation"></i></div>
+                <div class="card-icon orange"><i class="fa-regular fa-file-lines"></i></div>
+                <div class="card-body">
+                    <h3>Apólices</h3>
+                    <div class="value" th:text="${totalApolices != null ? totalApolices : 0}">85</div>
+                    <div class="sub">Emitidas</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon orange"><i class="fa-solid fa-money-bill-wave"></i></div>
+                <div class="card-body">
+                    <h3>Pagamentos</h3>
+                    <div class="value" th:text="${'R$ ' + (totalPagamentos != null ? totalPagamentos : '0')}"></div>
+                    <div class="sub">Recebidos</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Linha 2: Pendências + Sinistros em análise + Dados do admin -->
+        <div class="cards-grid cards-grid-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Pendências</h3>
+                    <div class="value" th:text="${pendencias != null ? pendencias : 0}">0</div>
+                    <div class="sub">Aguardando aprovação</div>
+                </div>
+            </div>
+
+            <div class="card">
                 <div class="card-body">
                     <h3>Sinistros</h3>
-                    <div class="value">0</div>
-                    <div class="sub">Em analise</div>
+                    <div class="value" th:text="${sinistrosAnalise != null ? sinistrosAnalise : 0}">0</div>
+                    <div class="sub">Em análise</div>
+                </div>
+            </div>
+
+            <div class="card card-dados">
+                <div class="card-body">
+                    <h3>Dados</h3>
+                    <div class="dados-row">
+                        <i class="fa-regular fa-envelope"></i>
+                        <span th:text="${admin.email}">admin@gmail.com</span>
+                    </div>
+                    <div class="dados-row">
+                        <i class="fa-regular fa-user"></i>
+                        <span th:text="${admin.name}">Administrador</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="relatorios" class="relatorios">
+        <!-- Relatórios -->
+        <div class="section-title">
+            <i class="fas fa-chart-line"></i> Relatórios
+        </div>
+
+        <div class="relatorios-grid">
+            <div class="relatorio-card">
+                <div class="relatorio-header">
+                    <div class="relatorio-icon"><i class="fa-solid fa-users"></i></div>
+                    <div>
+                        <h3>Clientes</h3>
+                        <p>Total de clientes cadastrados.</p>
+                    </div>
+                </div>
+                <div class="relatorio-actions">
+                    <a href="#" class="btn-rel btn-rel-primary"><i class="fa-regular fa-file-pdf"></i> Gerar PDF</a>
+                    <a href="#" class="btn-rel"><i class="fa-regular fa-eye"></i> Ver Detalhes</a>
+                </div>
+            </div>
+
+            <div class="relatorio-card">
+                <div class="relatorio-header">
+                    <div class="relatorio-icon"><i class="fa-regular fa-file-lines"></i></div>
+                    <div>
+                        <h3>Apólices</h3>
+                        <p>Apólices emitidas e pendentes.</p>
+                    </div>
+                </div>
+                <div class="relatorio-actions">
+                    <a href="#" class="btn-rel btn-rel-primary"><i class="fa-regular fa-file-pdf"></i> Gerar PDF</a>
+                    <a href="#" class="btn-rel"><i class="fa-regular fa-eye"></i> Ver Detalhes</a>
+                </div>
+            </div>
+
+            <div class="relatorio-card">
+                <div class="relatorio-header">
+                    <div class="relatorio-icon"><i class="fa-solid fa-user-tie"></i></div>
+                    <div>
+                        <h3>Corretores</h3>
+                        <p>Desempenho e produção dos corretores.</p>
+                    </div>
+                </div>
+                <div class="relatorio-actions">
+                    <a href="#" class="btn-rel btn-rel-primary"><i class="fa-regular fa-file-pdf"></i> Gerar PDF</a>
+                    <a href="#" class="btn-rel"><i class="fa-regular fa-eye"></i> Ver Detalhes</a>
                 </div>
             </div>
         </div>
 
-        <!-- Dados do admin -->
-        <div class="section-title">
-            <i class="fas fa-id-card"></i> Meus Dados
-        </div>
-        <div class="profile-card">
-            <table>
-                <tr>
-                    <td>Email</td>
-                    <td th:text="${admin.email}">-</td>
-                </tr>
-                <tr>
-                    <td>Nome</td>
-                    <td th:text="${admin.name}">-</td>
-                </tr>
-
-            </table>
-        </div>
-
-        <!-- Acoes rapidas -->
-        <div class="section-title">
-            <i class="fas fa-bolt"></i> Acoes Rapidas
-        </div>
-        <div class="actions-grid">
-            <a href="#clientes" class="action-btn">
-                <i class="fas fa-user-plus"></i>
-                Gerenciar Clientes
-            </a>
-            <a href="#apolices" class="action-btn">
-                <i class="fas fa-list-check"></i>
-                Ver Apolices
-            </a>
-            <a href="#sinistros" class="action-btn">
-                <i class="fas fa-triangle-exclamation"></i>
-                Sinistros
-            </a>
-            <a href="#relatorios" class="action-btn">
-                <i class="fas fa-chart-line"></i>
-                Relatorios
-            </a>
-        </div>
     </section>
 
     <section id="clientes" class="apolice">
@@ -189,6 +246,46 @@
                 </tbody>
             </table>
         </div>
+    </section>
+    <section id="corretor" class="corretor">
+        <div class="section-title">
+            <i class="fa-solid fa-user-tie"></i> Corretores
+        </div>
+        <div class="profile-card">
+            <table>
+                <thead>
+                <tr>
+                    <td>Nome</td>
+                    <td>Email</td>
+                    <td>CPF</td>
+                    <td>Status</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="corretor : ${corretores}">
+                    <td th:text="${corretor.nome}">Cliente</td>
+                    <td th:text="${corretor.email}">email@exemplo.com</td>
+                    <td th:text="${corretor.cpf}">000.000.000-00</td>
+                    <td><span class="badge badge-active">ATIVO</span></td>
+                </tr>
+                </tbody>
+                <thead>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Cadastrar um novo corretor</td>
+                    <td><button class="action-btn">Cadastrar</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
     </section>
 
 </main>

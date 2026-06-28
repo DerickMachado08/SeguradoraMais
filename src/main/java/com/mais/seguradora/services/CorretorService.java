@@ -5,6 +5,8 @@ import com.mais.seguradora.model.Corretor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CorretorService {
     @Autowired
@@ -12,5 +14,9 @@ public class CorretorService {
 
     public Corretor autenticar(String email, String senha){
         return corretorRepository.findByEmailAndSenha(email,senha).orElse(null);
+    }
+
+    public List<Corretor> ListarTodos(){
+        return corretorRepository.findAll();
     }
 }

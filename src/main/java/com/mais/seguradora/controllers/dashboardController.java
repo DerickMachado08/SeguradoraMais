@@ -5,9 +5,11 @@ import com.mais.seguradora.enummerated.StatusApolice;
 import com.mais.seguradora.model.Admin;
 import com.mais.seguradora.model.Cliente;
 import com.mais.seguradora.model.Contratacao;
+import com.mais.seguradora.model.Corretor;
 import com.mais.seguradora.services.AdminService;
 import com.mais.seguradora.services.ClienteService;
 import com.mais.seguradora.services.ContratacaoService;
+import com.mais.seguradora.services.CorretorService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,10 +25,7 @@ public class dashboardController {
     private ContratacaoService contratacaoService;
 
     @Autowired
-    private AdminService adminService;
-
-    @Autowired
-    private ClienteService clienteService;
+    private CorretorService corretorService;
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -63,9 +62,11 @@ public class dashboardController {
     public String dashboardAdmin(HttpSession session, Model model) {
         Admin admin = (Admin) session.getAttribute("usuarioLogado");
         List<Cliente> clientes = clienteRepository.findTop5ByOrderByIdDesc();
+        List<Corretor> corretores = corretorService.ListarTodos();
 
         model.addAttribute("admin", admin);
         model.addAttribute("clientes", clientes);
+        model.addAttribute("corretores", corretores);
 
         return "dashboardAdmin";
     }
