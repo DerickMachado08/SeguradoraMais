@@ -24,4 +24,8 @@ public class ApoliceService {
 
         return apoliceRepository.save(salva);
     }
+
+    public Long totalApolice(){
+        return apoliceRepository.count();
+    }
 }

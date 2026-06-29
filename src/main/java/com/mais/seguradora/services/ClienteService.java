@@ -48,6 +48,14 @@ public class ClienteService {
         return repository.findAll();
     }
 
+    public List<Cliente> ListarRecentes(){
+        return repository.findTop5ByOrderByIdDesc();
+    }
+
+    public Long totalClientes(){
+        return repository.count();
+    }
+
     public Cliente buscar(Integer id){
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Id não encontrado"));
     }

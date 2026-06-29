@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Seguradora Mais</title>
+    <link rel="stylesheet" href="/css/menuCorretor/menuCorretor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <div class="header-brand">
+
+    </div>
+    <div class="header-user">
+        <div class="avatar" th:text="${#strings.substring(corretor.nome, 0, 1)}">C</div>
+        <span class="header-nome" th:text="${corretor.nome}">Cliente</span>
+        <a href="/index.html" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
+    </div>
+</header>
+<nav class="menu-lateral">
+    <div class="ButtonExpandir">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <ul>
+        <li class="item-menu active">
+            <a href="#dashboard">
+                <span class="icon"><i class="fa-solid fa-grip"></i></span>
+                <span class="txt-link">Dashboard</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="#apolice">
+                <span class="icon"><i class="fa-regular fa-paste"></i></span>
+                <span class="txt-link">Minhas Apolices</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="/cliente/contratar">
+                <span class="icon"><i class="fa-solid fa-file-circle-plus"></i></span>
+                <span class="txt-link">Contratar Seguro</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="#">
+                <span class="icon"><i class="fa-regular fa-credit-card"></i></span>
+                <span class="txt-link">Pagamento</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="#">
+                <span class="icon"><i class="fa-regular fa-user"></i></span>
+                <span class="txt-link">Perfil</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="#">
+                <span class="icon"><i class="fa-regular fa-address-book"></i></span>
+                <span class="txt-link">Contato</span>
+            </a>
+        </li>
+    </ul>
+
+</nav>
+<main>
+
+    <section id="dashboard" class="dashboard">
+        <div class="welcome-banner">
+            <div class="icon-wrap">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div>
+                <h1>Bem-vinda, <span th:text="${corretor.nome}">Nome do Cliente</span>!</h1>
+                <p>Aqui voce acompanha seus seguros, apolices e dados cadastrais.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 Seguradora Mais &mdash; Todos os direitos reservados.
+    </footer>
+</main>
+</body>
+</html>

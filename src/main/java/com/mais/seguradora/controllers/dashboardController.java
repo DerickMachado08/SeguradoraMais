@@ -1,15 +1,10 @@
 package com.mais.seguradora.controllers;
 
+import com.mais.seguradora.Repositories.ApoliceRepository;
 import com.mais.seguradora.Repositories.ClienteRepository;
 import com.mais.seguradora.enummerated.StatusApolice;
-import com.mais.seguradora.model.Admin;
-import com.mais.seguradora.model.Cliente;
-import com.mais.seguradora.model.Contratacao;
-import com.mais.seguradora.model.Corretor;
-import com.mais.seguradora.services.AdminService;
-import com.mais.seguradora.services.ClienteService;
-import com.mais.seguradora.services.ContratacaoService;
-import com.mais.seguradora.services.CorretorService;
+import com.mais.seguradora.model.*;
+import com.mais.seguradora.services.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,11 +16,18 @@ import java.util.List;
 @Controller
 public class dashboardController {
 
+    @Autowired ApoliceService apoliceService;
+
+    @Autowired ClienteService clienteService;
+
     @Autowired
     private ContratacaoService contratacaoService;
 
     @Autowired
     private CorretorService corretorService;
+
+    @Autowired
+    private ApoliceRepository apoliceRepository;
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -54,19 +56,23 @@ public class dashboardController {
     }
 
     @GetMapping("/dashboardCorretor")
-    public String dashboardCorretor() {
+    public String dashboardCorretor(HttpSession session, Model model) {
+        Corretor corretor = (Corretor) session.getAttribute("usuarioLogado");
+
+        model.addAttribute("corretor", corretor);
+
         return "dashboardCorretor";
     }
 
     @GetMapping("/dashboardAdmin")
     public String dashboardAdmin(HttpSession session, Model model) {
         Admin admin = (Admin) session.getAttribute("usuarioLogado");
-        List<Cliente> clientes = clienteRepository.findTop5ByOrderByIdDesc();
-        List<Corretor> corretores = corretorService.ListarTodos();
 
         model.addAttribute("admin", admin);
-        model.addAttribute("clientes", clientes);
-        model.addAttribute("corretores", corretores);
+        model.addAttribute("clientes", clienteService.ListarRecentes());
+        model.addAttribute("corretores", corretorService.ListarTodos());
+        model.addAttribute("totalApolices", apoliceService.totalApolice());
+        model.addAttribute("totalClientes", clienteService.totalClientes());
 
         return "dashboardAdmin";
     }
