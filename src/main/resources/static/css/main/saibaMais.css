@@ -1,0 +1,162 @@
+@import url('../base/baseSaiba.css');
+
+/* ===================== HERO ===================== */
+.hero-seguro {
+    background: linear-gradient(135deg, var(--cream) 0%, var(--beige) 100%);
+    padding: 80px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.hero-seguro .conteudo h1 {
+    font-family: var(--font-display);
+    font-size: 48px;
+    line-height: 1.15;
+    color: var(--brown-dark);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.hero-seguro .conteudo h1 em {
+    color: var(--brown);
+    font-style: italic;
+}
+
+.hero-seguro .conteudo p {
+    font-size: 17px;
+    color: var(--brown-muted);
+    margin-bottom: 32px;
+    max-width: 520px;
+}
+
+.hero-seguro .imagem img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(43, 24, 16, 0.18);
+}
+
+h1{
+    color: var(--brown-dark);
+    font-size: 20px;
+    font-family: var(--font-display);
+    text-align: center;
+}
+
+.text-seguro{
+    max-width: 900px;
+    margin: 50px auto;
+    text-align: center;
+    line-height: 1.8;
+    padding: 20px;
+}
+
+.sobre-seguro {
+    padding: 90px 48px;
+    background: var(--white);
+}
+
+.sobre-seguro .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.eyebrow {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--brown);
+    margin-bottom: 14px;
+    font-weight: 500;
+}
+
+.sobre-seguro h2 {
+    font-family: var(--font-display);
+    font-size: 36px;
+    color: var(--brown-dark);
+    margin-bottom: 18px;
+}
+
+.sobre-seguro .descricao {
+    color: var(--brown-muted);
+    max-width: 700px;
+    margin: 0 auto 50px;
+    font-size: 16px;
+}
+
+.mini-resumo{
+    max-width: 320px;
+    margin: 30px auto 0;
+    text-align: center;
+    line-height: 1.8;
+    font-size: 1.2rem;
+}
+
+
+
+/* ===================== CTA FINAL ===================== */
+.cta-final {
+    padding: 80px 48px;
+    background: var(--brown-dark);
+    color: var(--white);
+    text-align: center;
+}
+
+.cta-final h2 {
+    font-family: var(--font-display);
+    font-size: 36px;
+    margin-bottom: 14px;
+}
+
+.cta-final p {
+    color: var(--beige);
+    margin-bottom: 28px;
+    font-size: 16px;
+}
+
+.cta-final .btn-principal {
+    background: var(--white);
+    color: var(--brown-dark);
+}
+
+.cta-final .btn-principal:hover {
+    background: var(--cream);
+}
+
+.btn-principal{
+    background-color: var(--cream-2);
+    color: var(--brown-dark);
+    font-family: var(--font-display);
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 12px;
+    border: none;
+}
+
+
+/* ===================== FOOTER ===================== */
+.rodape {
+    background: var(--white);
+    padding: 30px 48px;
+    text-align: center;
+    color: var(--brown-muted);
+    font-size: 14px;
+    border-top: 1px solid var(--border);
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 900px) {
+    .hero-seguro,
+    .beneficios .container {
+        grid-template-columns: 1fr;
+        padding: 60px 24px;
+    }
+    .hero-seguro .conteudo h1 { font-size: 36px; }
+    .coberturas { grid-template-columns: 1fr; }
+    .topo { padding: 14px 20px; }
+    .topo .menu { gap: 18px; }
+}

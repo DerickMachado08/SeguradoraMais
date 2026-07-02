@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+@import url('variaveis.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--cream-2);
+    color: var(--brown-dark);
+    line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ===================== HEADER ===================== */
+.topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(43, 24, 16, 0.04);
+}
+
+.topo .logo img {
+    height: 44px;
+    width: auto;
+}
+
+.topo .menu {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+}
+
+.topo .menu a,
+.topo .menu .dropdown > span {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--brown-dark);
+    cursor: pointer;
+    padding: 8px 0;
+    position: relative;
+    transition: color .25s ease;
+}
+
+.topo .menu a::after,
+.topo .menu .dropdown > span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: var(--brown);
+    transition: width .3s ease;
+}
+
+.topo .menu a:hover,
+.topo .menu .dropdown:hover > span {
+    color: var(--brown);
+}
+
+.topo .menu a:hover::after,
+.topo .menu .dropdown:hover > span::after {
+    width: 100%;
+}
+
+/* Dropdown Seguros */
+.dropdown {
+    position: relative;
+}
+
+.dropdown > span::before {
+    content: " ▾";
+    font-size: 11px;
+    margin-left: 4px;
+    color: var(--brown-muted);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    min-width: 220px;
+    padding: 10px 0;
+    box-shadow: 0 12px 32px rgba(43, 24, 16, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transition: all .25s ease;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 22px;
+    font-size: 14px;
+    color: var(--brown-dark);
+    transition: background .2s ease, color .2s ease;
+}
+
+.dropdown-menu a::after { display: none; }
+
+.dropdown-menu a:hover {
+    background: var(--cream);
+    color: var(--brown);
+}
