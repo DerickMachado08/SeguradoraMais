@@ -129,3 +129,11 @@ function toggleTheme() {
     }
     draw();
 })();
+
+// ===== Enter =====
+
+window.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        logar();
+    }
+});
