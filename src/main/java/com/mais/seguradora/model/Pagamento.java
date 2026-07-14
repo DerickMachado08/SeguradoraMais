@@ -1,5 +1,6 @@
 package com.mais.seguradora.model;
 
+import com.mais.seguradora.enummerated.StatusPagamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,7 +32,10 @@ public class Pagamento {
     @Column(name = "data_vencimento")
     private LocalDate dataVencimento;
 
+    @Enumerated(EnumType.STRING)
+    private StatusPagamento status;
+
     @ManyToOne
-    @JoinColumn(name = "id_ApoliceP")
-    private Apolice apolice;
+    @JoinColumn(name = "id_contratacao")
+    private Contratacao contratacao;
 }

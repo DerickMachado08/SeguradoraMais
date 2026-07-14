@@ -19,4 +19,5 @@ public class CorretorService {
     public List<Corretor> ListarTodos(){
         return corretorRepository.findAll();
     }
+
 }

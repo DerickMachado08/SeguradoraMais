@@ -277,6 +277,319 @@ main {
     max-width: 500px;
 }
 
+.area-emissao {
+    margin-bottom: 42px;
+}
+
+/* Cabecalho com titulo, descricao e contador de pendencias */
+.cabecalho-secao {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 22px;
+}
+
+.cabecalho-secao h2 {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    color: var(--gray-900);
+    margin: 8px 0;
+}
+
+.cabecalho-secao p {
+    color: var(--gray-500);
+    line-height: 1.6;
+    max-width: 680px;
+}
+
+/* Etiqueta pequena acima do titulo */
+.etiqueta-secao {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: #e0f2fe;
+    color: #0369a1;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* Contador de solicitacoes pendentes */
+.resumo-pendencias {
+    min-width: 130px;
+    padding: 18px;
+    border-radius: 18px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+    text-align: center;
+}
+
+.resumo-pendencias span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--blue-dark);
+}
+
+.resumo-pendencias small {
+    color: var(--gray-500);
+    font-weight: 700;
+}
+
+/* Mensagem exibida quando nao existem contratacoes pendentes */
+.estado-vazio {
+    background: var(--white);
+    border: 1px dashed var(--gray-300);
+    border-radius: 18px;
+    padding: 42px 24px;
+    text-align: center;
+    color: var(--gray-500);
+}
+
+.estado-vazio i {
+    font-size: 2.2rem;
+    color: #059669;
+    margin-bottom: 14px;
+}
+
+.estado-vazio h3 {
+    color: var(--gray-900);
+    margin-bottom: 8px;
+}
+
+/* Grade dos cartoes de solicitacao */
+.grade-solicitacoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 20px;
+}
+
+/* Cartao individual de cada solicitacao pendente */
+.cartao-solicitacao {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.07);
+}
+
+/* Topo do cartao: nome do cliente e status */
+.topo-solicitacao {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.rotulo {
+    display: block;
+    color: var(--gray-500);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.topo-solicitacao h3 {
+    font-size: 1.15rem;
+    color: var(--gray-900);
+}
+
+/* Status visual da contratacao */
+.status-pendente {
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 0.75rem;
+    font-weight: 900;
+}
+
+/* Linhas com informacoes do seguro solicitado */
+.dados-solicitacao {
+    display: grid;
+    gap: 10px;
+    margin: 18px 0;
+}
+
+.linha-dado {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.linha-dado span {
+    color: var(--gray-500);
+    font-size: 0.9rem;
+}
+
+.linha-dado strong {
+    color: var(--gray-900);
+    text-align: right;
+}
+
+/* Bloco das coberturas da apolice */
+.bloco-coberturas {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 18px;
+}
+
+.bloco-coberturas > span {
+    display: block;
+    color: var(--gray-700);
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.lista-coberturas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.lista-coberturas small {
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--blue-dark);
+    border: 1px solid #bfdbfe;
+    font-weight: 800;
+}
+
+.bloco-coberturas p {
+    color: var(--gray-500);
+    font-size: 0.9rem;
+}
+
+/* Formulario usado pelo corretor para emitir a apolice */
+.formulario-emissao {
+    display: grid;
+    grid-template-columns: 1fr 120px;
+    gap: 14px;
+}
+
+.campo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.campo-formulario label {
+    color: var(--gray-700);
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.campo-formulario input {
+    width: 100%;
+    height: 44px;
+    border: 1px solid var(--gray-300);
+    border-radius: 12px;
+    padding: 0 12px;
+    font: inherit;
+    color: var(--gray-900);
+    background: var(--white);
+}
+
+.campo-formulario input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(58, 111, 232, 0.14);
+}
+
+.campo-maior {
+    grid-column: 1 / -1;
+}
+
+/* Entrada com R$ antes do valor */
+.entrada-com-prefixo {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    border: 1px solid var(--gray-300);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--white);
+}
+
+.entrada-com-prefixo span {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    color: var(--gray-500);
+    background: var(--gray-100);
+    font-weight: 900;
+}
+
+.entrada-com-prefixo input {
+    border: 0;
+    border-radius: 0;
+}
+
+.entrada-com-prefixo:focus-within {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(58, 111, 232, 0.14);
+}
+
+/* Botao final da emissao */
+.botao-emitir {
+    grid-column: 1 / -1;
+    border: 0;
+    border-radius: 14px;
+    padding: 15px 18px;
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+    color: var(--white);
+    font-weight: 900;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.botao-emitir:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(3, 7, 81, 0.24);
+}
+
+/* Ajustes para celular */
+@media (max-width: 768px) {
+    .cabecalho-secao {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .resumo-pendencias {
+        width: 100%;
+    }
+
+    .formulario-emissao {
+        grid-template-columns: 1fr;
+    }
+
+    .linha-dado {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .linha-dado strong {
+        text-align: left;
+    }
+}
+
+
 footer {
     margin-left: 85px;
     text-align: center;
@@ -334,3 +647,322 @@ footer {
         display: none;
     }
 }
+/* =========================================================
+   AREA DO CORRETOR - EMITIR APOLICE
+   Cole este bloco no final do arquivo:
+   /css/menuCorretor/menuCorretor.css
+   ========================================================= */
+
+/* Caixa principal da secao de emissao */
+.area-emissao {
+    margin-bottom: 42px;
+}
+
+/* Cabecalho com titulo, descricao e contador de pendencias */
+.cabecalho-secao {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 22px;
+}
+
+.cabecalho-secao h2 {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    color: var(--gray-900);
+    margin: 8px 0;
+}
+
+.cabecalho-secao p {
+    color: var(--gray-500);
+    line-height: 1.6;
+    max-width: 680px;
+}
+
+/* Etiqueta pequena acima do titulo */
+.etiqueta-secao {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: #e0f2fe;
+    color: #0369a1;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* Contador de solicitacoes pendentes */
+.resumo-pendencias {
+    min-width: 130px;
+    padding: 18px;
+    border-radius: 18px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+    text-align: center;
+}
+
+.resumo-pendencias span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--blue-dark);
+}
+
+.resumo-pendencias small {
+    color: var(--gray-500);
+    font-weight: 700;
+}
+
+/* Mensagem exibida quando nao existem contratacoes pendentes */
+.estado-vazio {
+    background: var(--white);
+    border: 1px dashed var(--gray-300);
+    border-radius: 18px;
+    padding: 42px 24px;
+    text-align: center;
+    color: var(--gray-500);
+}
+
+.estado-vazio i {
+    font-size: 2.2rem;
+    color: #059669;
+    margin-bottom: 14px;
+}
+
+.estado-vazio h3 {
+    color: var(--gray-900);
+    margin-bottom: 8px;
+}
+
+/* Grade dos cartoes de solicitacao */
+.grade-solicitacoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 20px;
+}
+
+/* Cartao individual de cada solicitacao pendente */
+.cartao-solicitacao {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.07);
+}
+
+/* Topo do cartao: nome do cliente e status */
+.topo-solicitacao {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.rotulo {
+    display: block;
+    color: var(--gray-500);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.topo-solicitacao h3 {
+    font-size: 1.15rem;
+    color: var(--gray-900);
+}
+
+/* Status visual da contratacao */
+.status-pendente {
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 0.75rem;
+    font-weight: 900;
+}
+
+/* Linhas com informacoes do seguro solicitado */
+.dados-solicitacao {
+    display: grid;
+    gap: 10px;
+    margin: 18px 0;
+}
+
+.linha-dado {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.linha-dado span {
+    color: var(--gray-500);
+    font-size: 0.9rem;
+}
+
+.linha-dado strong {
+    color: var(--gray-900);
+    text-align: right;
+}
+
+/* Bloco das coberturas da apolice */
+.bloco-coberturas {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 18px;
+}
+
+.bloco-coberturas > span {
+    display: block;
+    color: var(--gray-700);
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.lista-coberturas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.lista-coberturas small {
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--blue-dark);
+    border: 1px solid #bfdbfe;
+    font-weight: 800;
+}
+
+.bloco-coberturas p {
+    color: var(--gray-500);
+    font-size: 0.9rem;
+}
+
+/* Formulario usado pelo corretor para emitir a apolice */
+.formulario-emissao {
+    display: grid;
+    grid-template-columns: 1fr 120px;
+    gap: 14px;
+}
+
+.campo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.campo-formulario label {
+    color: var(--gray-700);
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.campo-formulario input {
+    width: 100%;
+    height: 44px;
+    border: 1px solid var(--gray-300);
+    border-radius: 12px;
+    padding: 0 12px;
+    font: inherit;
+    color: var(--gray-900);
+    background: var(--white);
+}
+
+.campo-formulario input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(58, 111, 232, 0.14);
+}
+
+.campo-maior {
+    grid-column: 1 / -1;
+}
+
+/* Entrada com R$ antes do valor */
+.entrada-com-prefixo {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    border: 1px solid var(--gray-300);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--white);
+}
+
+.entrada-com-prefixo span {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    color: var(--gray-500);
+    background: var(--gray-100);
+    font-weight: 900;
+}
+
+.entrada-com-prefixo input {
+    border: 0;
+    border-radius: 0;
+}
+
+.entrada-com-prefixo:focus-within {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(58, 111, 232, 0.14);
+}
+
+/* Botao final da emissao */
+.botao-emitir {
+    grid-column: 1 / -1;
+    border: 0;
+    border-radius: 14px;
+    padding: 15px 18px;
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+    color: var(--white);
+    font-weight: 900;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.botao-emitir:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(3, 7, 81, 0.24);
+}
+
+/* Ajustes para celular */
+@media (max-width: 768px) {
+    .cabecalho-secao {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .resumo-pendencias {
+        width: 100%;
+    }
+
+    .formulario-emissao {
+        grid-template-columns: 1fr;
+    }
+
+    .linha-dado {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .linha-dado strong {
+        text-align: left;
+    }
+}
+

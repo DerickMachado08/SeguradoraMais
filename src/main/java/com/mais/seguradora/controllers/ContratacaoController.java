@@ -5,6 +5,7 @@ import com.mais.seguradora.enummerated.StatusContratacao;
 import com.mais.seguradora.model.Apolice;
 import com.mais.seguradora.model.Cliente;
 import com.mais.seguradora.model.Contratacao;
+import com.mais.seguradora.model.Corretor;
 import com.mais.seguradora.services.ContratacaoService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -95,4 +97,20 @@ public class ContratacaoController {
 
         return "redirect:/cliente/apolices";
     }
+
+    @PostMapping("/corretor/emitir-apolice")
+    public String emitirApolice(@RequestParam Integer idContratacao,
+                                @RequestParam BigDecimal valor,
+                                @RequestParam Integer parcelas, HttpSession session){
+        Corretor corretor = (Corretor) session.getAttribute("usuarioLogado");
+
+        if (corretor == null){
+            return "redirect:/login.html";
+        }
+
+        contratacaoService.emitirApolice(idContratacao, valor, parcelas);
+
+        return "redirect:/dashboardCorretor";
+    }
+
 }
