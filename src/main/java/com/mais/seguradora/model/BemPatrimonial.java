@@ -32,4 +32,8 @@ public class BemPatrimonial {
     @ManyToOne
     @JoinColumn(name = "id_ClienteB")
     private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "id_contratacao")
+    private Contratacao contratacao;
 }

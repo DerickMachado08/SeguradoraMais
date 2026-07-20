@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Bem Patrimonial</title>
+
+    <!-- Voce pode trocar esse CSS pelo seu layout do cliente -->
+    <link rel="stylesheet" href="/css/app/menuCliente/pages/clienteLayout.css">
+    <link rel="stylesheet" href="/css/app/menuCliente/pages/bemPatrimonial.css">
+</head>
+<body>
+
+<header>
+    <div class="header-user">
+        <div class="avatar" th:text="${#strings.substring(cliente.nome, 0, 1)}">C</div>
+        <span class="header-nome" th:text="${cliente.nome}">Cliente</span>
+        <a href="/index.html" class="btn-logout">Sair</a>
+    </div>
+</header>
+
+<main class="pagina-bem">
+
+    <section class="cabecalho-bem">
+        <a href="/cliente/contratar" class="link-voltar">Voltar</a>
+
+        <h1>Dados do bem segurado</h1>
+        <p>
+            Informe os dados do bem que sera analisado pelo corretor antes da emissao da apolice.
+        </p>
+    </section>
+
+    <section class="resumo-contratacao">
+        <h2>Resumo da solicitacao</h2>
+
+        <div class="linha-resumo">
+            <span>Seguro escolhido</span>
+            <strong th:text="${contratacao.apolice.tipoApolice}">AUTO</strong>
+        </div>
+
+        <div class="linha-resumo">
+            <span>Numero da apolice base</span>
+            <strong th:text="${contratacao.apolice.numeroApolice}">AP20260001</strong>
+        </div>
+
+        <div class="linha-resumo">
+            <span>Status</span>
+            <strong th:text="${contratacao.status}">PENDENTE</strong>
+        </div>
+    </section>
+
+    <section class="formulario-bem">
+        <form action="/cliente/contratacao/bem" method="post">
+            <input type="hidden" name="idContratacao" th:value="${contratacao.id}">
+
+            <div class="campo">
+                <label for="tipoBem">Tipo do bem</label>
+                <input id="tipoBem" name="tipoBem" type="text" placeholder="Ex: Veiculo, Imovel, Equipamento" required>
+            </div>
+
+            <div class="campo">
+                <label for="descricao">Descricao do bem</label>
+                <textarea id="descricao" name="descricao" rows="5" placeholder="Ex: Honda Civic 2020 prata, placa ABC1D23" required></textarea>
+            </div>
+
+            <div class="campo">
+                <label for="valorEstimado">Valor estimado</label>
+                <input id="valorEstimado" name="valorEstimado" type="number" step="0.01" min="1" placeholder="95000.00" required>
+            </div>
+
+            <div class="campo">
+                <label for="dataAquisicao">Data de aquisicao</label>
+                <input id="dataAquisicao" name="dataAquisicao" type="date" required>
+            </div>
+
+            <div class="acoes-formulario">
+                <a href="/cliente/apolices">Cancelar</a>
+                <button type="submit">Enviar para analise</button>
+            </div>
+        </form>
+    </section>
+
+</main>
+
+</body>
+</html>

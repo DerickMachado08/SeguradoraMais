@@ -1,0 +1,86 @@
+.menu-lateral {
+    width: 85px;
+    height: 100vh;
+    background: linear-gradient(180deg, var(--primario-n) 0%, var(--primario-Dark) 100%);
+    padding: 90px 0 20px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    transition: width 0.3s ease;
+    z-index: 101;
+    box-shadow: 3px 0 1px rgb(255, 255, 255);
+}
+
+.menu-lateral:hover {
+    width: 280px;
+}
+
+.ButtonExpandir {
+    padding: 15px 25px;
+    margin-bottom: 20px;
+}
+
+.ButtonExpandir > i {
+    color: var(--btn-expandir);
+    font-size: 22px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.ButtonExpandir:hover > i {
+    color: var(--btn-expandirH);
+}
+
+.menu-lateral ul {
+    list-style: none;
+}
+
+.menu-lateral li.item-menu {
+    transition: all 0.3s ease;
+    margin: 4px 0;
+}
+
+.menu-lateral li.item-menu:hover {
+    background: var(--selecionar);
+}
+
+.menu-lateral li.item-menu.active {
+    background: var(--selecionado);
+}
+
+.menu-lateral li.item-menu a {
+    color: var(--icone-laterais);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    white-space: nowrap;
+}
+
+.menu-lateral li.item-menu a:hover{
+    color: var(--icone-lateraisH);
+}
+
+.menu-lateral li.item-menu.active a {
+    color: var(--icone-lateraisActive);
+}
+
+.menu-lateral .txt-link {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-family: var(--font-body);
+}
+
+.menu-lateral:hover .txt-link {
+    opacity: 1;
+}
+
+.menu-lateral .icon > i {
+    font-size: 20px;
+    width: 24px;
+    text-align: center;
+}

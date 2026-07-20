@@ -1,0 +1,36 @@
+:root {
+    --primary: #f3f3f3;
+    --primary-light: #212325;
+    --primary-dark: Black;
+    --brown-dark: #422004;
+    --brown: #753f17;
+    --brown-light: #9c4d15;
+    --orange: #e07a3d;
+    --orange-light: #f09d5a;
+    --white: #ffffff;
+    --gray-50: #f8fafb;
+    --gray-100: #f1f4f6;
+    --gray-200: #e3e8eb;
+    --gray-300: #d1d8dc;
+    --gray-500: #6b7a85;
+    --gray-700: #43505a;
+    --gray-900: #1a252d;
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --font-display: 'DM Sans', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+    color: var(--gray-900);
+    min-height: 100vh;
+}
+

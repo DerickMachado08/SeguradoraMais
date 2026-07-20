@@ -95,7 +95,7 @@ public class ContratacaoController {
         contratacao.setStatus(StatusContratacao.PENDENTE);
         contratacaoService.salvar(contratacao);
 
-        return "redirect:/cliente/apolices";
+        return "redirect:/cliente/contratacao/" + contratacao.getId() + "/bem";
     }
 
     @PostMapping("/corretor/emitir-apolice")
