@@ -72,6 +72,26 @@
     --gray-700: #43505a;
     --gray-900: #1a252d;
 
+    /* ========== DASHBOARD ADMIN ========== */
+
+    /* -- principal -- */
+    --primarioA:  #b31f1f;
+    --primarioA-n: #8f0909;
+    --primarioA-Dark: #590404;
+
+
+    --selecionadoA: linear-gradient(90deg, var(--primarioA-n) 0%, var(--primarioA) 100%);
+    --icone-lateraisHA: #590404;
+    --icone-lateraisActiveA: white;
+
+    /* -- banner --*/
+    --texto-bannerA: #b31f1f;
+    --nomeA: #0c3e4a;
+    --texto-pA: #0c3e4a;
+    --icone-bannerA: white;
+
+
+
 
 
 

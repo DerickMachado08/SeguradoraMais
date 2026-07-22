@@ -1,33 +1,10 @@
-:root {
-    --primary: #e3d9d9;
-    --primary-light: #212325;
-    --primary-dark: Black;
-    --blue-dark: #030751;
-    --blue: #3a6fe8;
-    --blue-light: #08c8ed;
-    --orange: #2d023e;
-    --orange-light: #8c04e6;
-    --white: #ffffff;
-    --gray-50: #f8fafb;
-    --gray-100: #f1f4f6;
-    --gray-200: #e3e8eb;
-    --gray-300: #d1d8dc;
-    --gray-500: #6b7a85;
-    --gray-700: #43505a;
-    --gray-900: #1a252d;
 
-    --font-display: 'DM Sans', sans-serif;
-    --font-body: 'Plus Jakarta Sans', sans-serif;
-}
-
-/* MAIN LAYOUT */
 main {
     margin-left: 85px;
     padding: 100px 40px 40px;
     max-width: 1400px;
 }
 
-/* DASHBOARD SECTION */
 .dashboard {
     min-height: auto;
 }
@@ -36,7 +13,6 @@ main {
     margin-bottom: 42px;
 }
 
-/* Cabecalho com titulo, descricao e contador de pendencias */
 .cabecalho-secao {
     display: flex;
     justify-content: space-between;
@@ -58,7 +34,6 @@ main {
     max-width: 680px;
 }
 
-/* Etiqueta pequena acima do titulo */
 .etiqueta-secao {
     display: inline-flex;
     align-items: center;
@@ -74,9 +49,8 @@ main {
 .resumo-pendencias {
     min-width: 130px;
     padding: 18px;
-    border-radius: 18px;
+    border-top: 2px solid var(--primario);
     background: var(--white);
-    border: 1px solid var(--gray-200);
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
     text-align: center;
 }
@@ -85,7 +59,7 @@ main {
     display: block;
     font-size: 2rem;
     font-weight: 800;
-    color: var(--blue-dark);
+    color: var(--primario-Dark);
 }
 
 .resumo-pendencias small {
@@ -176,8 +150,7 @@ main {
 /* Cartao individual de cada solicitacao pendente */
 .cartao-solicitacao {
     background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: 20px;
+    border-top: 2px solid var(--primario);
     padding: 22px;
     box-shadow: 0 10px 34px rgba(0, 0, 0, 0.07);
 }
@@ -206,7 +179,6 @@ main {
     color: var(--gray-900);
 }
 
-/* Status visual da contratacao */
 .status-pendente {
     padding: 7px 11px;
     border-radius: 999px;
@@ -216,7 +188,6 @@ main {
     font-weight: 900;
 }
 
-/* Linhas com informacoes do seguro solicitado */
 .dados-solicitacao {
     display: grid;
     gap: 10px;
@@ -252,7 +223,7 @@ main {
 
 .bloco-coberturas > span {
     display: block;
-    color: var(--gray-700);
+    color: var(--primario-Dark);
     font-weight: 800;
     margin-bottom: 10px;
 }
@@ -267,7 +238,7 @@ main {
     padding: 7px 10px;
     border-radius: 999px;
     background: var(--white);
-    color: var(--blue-dark);
+    color: var(--primario-n);
     border: 1px solid #bfdbfe;
     font-weight: 800;
 }
@@ -309,7 +280,7 @@ main {
 
 .campo-formulario input:focus {
     outline: none;
-    border-color: var(--blue);
+    border-color: var(--primario);
     box-shadow: 0 0 0 3px rgba(58, 111, 232, 0.14);
 }
 
@@ -344,7 +315,7 @@ main {
 }
 
 .entrada-com-prefixo:focus-within {
-    border-color: var(--blue);
+    border-color: var(--primario);
     box-shadow: 0 0 0 3px rgba(58, 111, 232, 0.14);
 }
 
@@ -354,7 +325,7 @@ main {
     border: 0;
     border-radius: 14px;
     padding: 15px 18px;
-    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+    background: linear-gradient(135deg, var(--primario-n), var(--primario));
     color: var(--white);
     font-weight: 900;
     cursor: pointer;

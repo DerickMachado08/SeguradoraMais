@@ -9,7 +9,6 @@
 /* Insurance Card */
 .seguro-card {
     background: #fff;
-    border-radius: 12px;
     border: 1px solid #e8e8e8;
     overflow: hidden;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
@@ -35,7 +34,7 @@
 .seguro-card:nth-child(6) { animation-delay: 0.30s; }
 
 .seguro-card-header {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    background: linear-gradient(135deg, var(--primario-Dark) 0%, var(--primario-n) 100%);
     padding: 18px 20px;
     display: flex;
     align-items: center;
@@ -105,7 +104,7 @@
 }
 
 .seguro-features li i {
-    color: #22c55e;
+    color: var(--primario);
     font-size: 0.75rem;
     flex-shrink: 0;
 }
@@ -113,7 +112,7 @@
 .btn-contratar {
     width: 100%;
     padding: 11px 0;
-    background: linear-gradient(135deg, #7c4a1e 0%, #a0622a 100%);
+    background: linear-gradient(135deg, var(--primario-n) 0%, var(--primario) 100%);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -130,8 +129,8 @@
 
 .btn-contratar:hover:not(:disabled) {
     transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(124, 74, 30, 0.4);
-    background: linear-gradient(135deg, #6b3e18 0%, #8e5424 100%);
+    box-shadow: 0 4px 16px rgba(5, 52, 68, 0.4);
+    background: linear-gradient(135deg, var(--primario-Dark) 0%, var(--primario-n) 100%);
 }
 
 .btn-contratar:active:not(:disabled) { transform: translateY(0); }

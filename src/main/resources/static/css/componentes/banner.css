@@ -38,7 +38,7 @@
 }
 
 .welcome-banner h1 {
-    font-family: var(--font-display);
+    font-family: var(--font-body);
     font-size: 1.7rem;
     font-weight: 700;
     margin-bottom: 8px;

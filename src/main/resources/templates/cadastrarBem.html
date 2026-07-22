@@ -6,7 +6,7 @@
     <title>Cadastrar Bem Patrimonial</title>
 
     <!-- Voce pode trocar esse CSS pelo seu layout do cliente -->
-    <link rel="stylesheet" href="/css/app/menuCliente/pages/clienteLayout.css">
+    <link rel="stylesheet" href="/css/main/layout/layout.css">
     <link rel="stylesheet" href="/css/app/menuCliente/pages/bemPatrimonial.css">
 </head>
 <body>
@@ -50,12 +50,14 @@
     </section>
 
     <section class="formulario-bem">
-        <form action="/cliente/contratacao/bem" method="post">
+        <form th:action="@{/cliente/contratacao/bem}" method="post">
             <input type="hidden" name="idContratacao" th:value="${contratacao.id}">
 
             <div class="campo">
-                <label for="tipoBem">Tipo do bem</label>
-                <input id="tipoBem" name="tipoBem" type="text" placeholder="Ex: Veiculo, Imovel, Equipamento" required>
+                <input type="text"
+                       name="tipoBem"
+                       th:value="${contratacao.apolice.tipoApolice}"
+                       readonly>
             </div>
 
             <div class="campo">
