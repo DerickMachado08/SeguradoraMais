@@ -4,6 +4,7 @@ import com.mais.seguradora.Repositories.ContratacaoRepository;
 import com.mais.seguradora.Repositories.PagamentoRepository;
 import com.mais.seguradora.enummerated.StatusContratacao;
 import com.mais.seguradora.enummerated.StatusPagamento;
+import com.mais.seguradora.model.Apolice;
 import com.mais.seguradora.model.Cliente;
 import com.mais.seguradora.model.Contratacao;
 import com.mais.seguradora.model.Pagamento;
@@ -56,6 +57,11 @@ public class ContratacaoService {
 
         return contratacaoSalva;
     }
+
+    public boolean jaPossui(Cliente cliente, Apolice apolice){
+        return contratacaoRepository.existsByClienteAndApolice(cliente, apolice);
+    }
+
 
     public List<Contratacao> contratacoesPendentes() {
         return contratacaoRepository.findByStatus(StatusContratacao.PENDENTE);

@@ -1,6 +1,7 @@
 package com.mais.seguradora.Repositories;
 
 import com.mais.seguradora.enummerated.StatusContratacao;
+import com.mais.seguradora.model.Apolice;
 import com.mais.seguradora.model.Cliente;
 import com.mais.seguradora.model.Contratacao;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +12,6 @@ public interface ContratacaoRepository extends JpaRepository<Contratacao, Intege
     List<Contratacao> findByCliente(Cliente cliente);
 
     List<Contratacao> findByStatus(StatusContratacao status);
+
+    boolean existsByClienteAndApolice(Cliente cliente, Apolice apolice);
 }

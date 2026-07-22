@@ -1,20 +1,16 @@
 package com.mais.seguradora.controllers;
 
 import com.mais.seguradora.Repositories.ApoliceRepository;
+import com.mais.seguradora.Repositories.BemPatrimonialRepository;
+import com.mais.seguradora.Repositories.ContratacaoRepository;
 import com.mais.seguradora.enummerated.StatusContratacao;
-import com.mais.seguradora.model.Apolice;
-import com.mais.seguradora.model.Cliente;
-import com.mais.seguradora.model.Contratacao;
-import com.mais.seguradora.model.Corretor;
+import com.mais.seguradora.model.*;
 import com.mais.seguradora.services.ContratacaoService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -28,6 +24,12 @@ public class ContratacaoController {
 
     @Autowired
     private ApoliceRepository apoliceRepository;
+
+    @Autowired
+    private ContratacaoRepository contratacaoRepository;
+
+    @Autowired
+    private BemPatrimonialRepository bemPatrimonialRepository;
 
     @GetMapping("/cliente/apolices")
     public String minhasApolices(HttpSession session, Model model) {
@@ -86,6 +88,10 @@ public class ContratacaoController {
                 apoliceRepository.findById(idApolice)
                         .orElseThrow();
 
+        if (contratacaoService.jaPossui(cliente, apolice)) {
+            return "redirect:/cliente/contratar?erro=duplicado";
+        }
+
         Contratacao contratacao = new Contratacao();
 
         contratacao.setCliente(cliente);
@@ -99,9 +105,9 @@ public class ContratacaoController {
     }
 
     @PostMapping("/corretor/emitir-apolice")
-    public String emitirApolice(@RequestParam Integer idContratacao,
-                                @RequestParam BigDecimal valor,
-                                @RequestParam Integer parcelas, HttpSession session){
+    public String emitirApolice(@RequestParam("idContratacao") Integer idContratacao,
+                                @RequestParam("valor") BigDecimal valor,
+                                @RequestParam("parcelas") Integer parcelas, HttpSession session){
         Corretor corretor = (Corretor) session.getAttribute("usuarioLogado");
 
         if (corretor == null){
@@ -112,5 +118,39 @@ public class ContratacaoController {
 
         return "redirect:/dashboardCorretor";
     }
+
+    @GetMapping("/cliente/contratacao/{id}/bem")
+    public String telaDeCadastroBens(@PathVariable Integer id, Model model, HttpSession session){
+
+        Cliente cliente =
+                (Cliente) session.getAttribute("usuarioLogado");
+
+        Contratacao contratacao = contratacaoRepository.findById(id).orElseThrow();
+
+        model.addAttribute("cliente", cliente);
+        model.addAttribute("contratacao", contratacao);
+        model.addAttribute("idContratacao", id);
+        model.addAttribute("bem", new BemPatrimonial());
+
+        return "cadastrarBem";
+    }
+
+    @PostMapping("/cliente/contratacao/bem")
+    public String cadastrarBem(
+            @RequestParam("idContratacao") Integer idContratacao,
+            @ModelAttribute BemPatrimonial bem){
+
+        Contratacao contratacao = contratacaoRepository
+                .findById(idContratacao)
+                .orElseThrow();
+
+        bem.setContratacao(contratacao);
+
+        bemPatrimonialRepository.save(bem);
+
+        return "redirect:/cliente/apolices";
+    }
+
+
 
 }
