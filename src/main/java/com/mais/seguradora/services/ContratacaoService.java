@@ -58,6 +58,10 @@ public class ContratacaoService {
         return contratacaoSalva;
     }
 
+    public Contratacao buscarPorId(Integer id){
+        return contratacaoRepository.findById(id).orElseThrow(() -> new RuntimeException("id não encontrado"));
+    }
+
     public boolean jaPossui(Cliente cliente, Apolice apolice){
         return contratacaoRepository.existsByClienteAndApolice(cliente, apolice);
     }

@@ -5,6 +5,7 @@ import com.mais.seguradora.Repositories.BemPatrimonialRepository;
 import com.mais.seguradora.Repositories.ContratacaoRepository;
 import com.mais.seguradora.enummerated.StatusContratacao;
 import com.mais.seguradora.model.*;
+import com.mais.seguradora.services.ApoliceService;
 import com.mais.seguradora.services.ContratacaoService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,10 @@ import java.util.List;
 public class ContratacaoController {
 
     @Autowired
+    private ApoliceService apoliceService;
+
+    @Autowired
     private ContratacaoService contratacaoService;
-
-    @Autowired
-    private ApoliceRepository apoliceRepository;
-
-    @Autowired
-    private ContratacaoRepository contratacaoRepository;
 
     @Autowired
     private BemPatrimonialRepository bemPatrimonialRepository;
@@ -62,12 +60,11 @@ public class ContratacaoController {
             return "redirect:/login";
         }
 
+        List<Apolice> apolice = apoliceService.ListarApolice();
+
         model.addAttribute("cliente", cliente);
 
-        model.addAttribute(
-                "apolices",
-                apoliceRepository.findAll()
-        );
+        model.addAttribute("apolices", apolice);
 
         return "contratarSeguro";
     }
@@ -84,9 +81,7 @@ public class ContratacaoController {
             return "redirect:/login";
         }
 
-        Apolice apolice =
-                apoliceRepository.findById(idApolice)
-                        .orElseThrow();
+        Apolice apolice = apoliceService.buscarPorId(idApolice);
 
         if (contratacaoService.jaPossui(cliente, apolice)) {
             return "redirect:/cliente/contratar?erro=duplicado";
@@ -108,6 +103,7 @@ public class ContratacaoController {
     public String emitirApolice(@RequestParam("idContratacao") Integer idContratacao,
                                 @RequestParam("valor") BigDecimal valor,
                                 @RequestParam("parcelas") Integer parcelas, HttpSession session){
+
         Corretor corretor = (Corretor) session.getAttribute("usuarioLogado");
 
         if (corretor == null){
@@ -125,7 +121,7 @@ public class ContratacaoController {
         Cliente cliente =
                 (Cliente) session.getAttribute("usuarioLogado");
 
-        Contratacao contratacao = contratacaoRepository.findById(id).orElseThrow();
+        Contratacao contratacao = contratacaoService.buscarPorId(id);
 
         model.addAttribute("cliente", cliente);
         model.addAttribute("contratacao", contratacao);
@@ -140,9 +136,7 @@ public class ContratacaoController {
             @RequestParam("idContratacao") Integer idContratacao,
             @ModelAttribute BemPatrimonial bem){
 
-        Contratacao contratacao = contratacaoRepository
-                .findById(idContratacao)
-                .orElseThrow();
+        Contratacao contratacao = contratacaoService.buscarPorId(idContratacao);
 
         bem.setContratacao(contratacao);
 

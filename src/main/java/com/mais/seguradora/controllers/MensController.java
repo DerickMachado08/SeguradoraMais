@@ -24,7 +24,7 @@ public class MensController {
     public ResponseEntity<String> contato(@Valid
             @RequestBody MensagemContato contato){
 
-        repository.save(contato);
+        emailService.salvar(contato);
 
         emailService.enviarContato(
                 contato.getName(),

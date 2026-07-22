@@ -34,11 +34,6 @@ public class dashboardController {
     @Autowired
     private CorretorService corretorService;
 
-    @Autowired
-    private ApoliceRepository apoliceRepository;
-
-    @Autowired
-    private ClienteRepository clienteRepository;
 
     @GetMapping("/dashboardCliente")
     public String dashboardCliente(HttpSession session, Model model) {

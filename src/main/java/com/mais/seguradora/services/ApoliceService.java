@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class ApoliceService {
@@ -28,4 +29,13 @@ public class ApoliceService {
     public Long totalApolice(){
         return apoliceRepository.count();
     }
+
+    public List<Apolice> ListarApolice(){
+        return apoliceRepository.findAll();
+    }
+
+    public Apolice buscarPorId(Integer id){
+        return apoliceRepository.findById(id).orElseThrow(() -> new RuntimeException("id não encontrado"));
+    }
+
 }
