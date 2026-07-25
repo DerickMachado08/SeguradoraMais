@@ -1,0 +1,5 @@
+@import url('../../../base/variaveis.css');
+@import url('../../../base/global.css');
+
+@import url("../../../app/menuCliente/pages/contratarSeguro.css");
+@import url("../../../layout/layout.css");
