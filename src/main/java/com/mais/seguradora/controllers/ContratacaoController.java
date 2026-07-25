@@ -116,7 +116,7 @@ public class ContratacaoController {
     }
 
     @GetMapping("/cliente/contratacao/{id}/bem")
-    public String telaDeCadastroBens(@PathVariable Integer id, Model model, HttpSession session){
+    public String telaDeCadastroBens(@PathVariable("id") Integer id, Model model, HttpSession session){
 
         Cliente cliente =
                 (Cliente) session.getAttribute("usuarioLogado");

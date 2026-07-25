@@ -65,17 +65,17 @@ public class ClienteController {
     }
 
     @GetMapping ("/{id}")
-    public Cliente buscar(@PathVariable Integer id){
+    public Cliente buscar(@PathVariable("id") Integer id){
         return service.buscar(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Integer id){
+    public void deletar(@PathVariable("id") Integer id){
         service.deletar(id);
     }
 
     @PutMapping("/{id}")
-    public Cliente atualizar(@PathVariable Integer id,@Valid @RequestBody Cliente cliente){
+    public Cliente atualizar(@PathVariable("id") Integer id,@Valid @RequestBody Cliente cliente){
         return service.atualizar(id, cliente);
     }
 
