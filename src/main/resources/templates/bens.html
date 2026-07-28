@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalhes da Contratação</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        :root{
+            --azul:#0b4da2;
+            --azul-escuro:#083a7a;
+            --azul-claro:#e8f1fd;
+            --azul-medio:#3b82d6;
+            --branco:#ffffff;
+            --fundo:#f4f7fc;
+            --texto:#1f2a3a;
+            --texto-suave:#63718a;
+            --borda:#e2e9f4;
+            --sombra:0 4px 18px rgba(11,77,162,.08);
+            --raio:14px;
+        }
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{
+            font-family:"Segoe UI",Roboto,Arial,sans-serif;
+            background:var(--fundo);
+            color:var(--texto);
+            line-height:1.5;
+        }
+        .container{max-width:1140px;margin:0 auto;padding:32px 20px 56px}
+
+        /* Cabeçalho */
+        .page-header{
+            display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;
+            background:var(--branco);border:1px solid var(--borda);border-radius:var(--raio);
+            box-shadow:var(--sombra);padding:24px 28px;margin-bottom:24px;
+            border-left:5px solid var(--azul);
+        }
+        .page-header h1{font-size:1.6rem;color:var(--azul-escuro);font-weight:700}
+        .page-header p{color:var(--texto-suave);font-size:.95rem;margin-top:4px}
+
+        /* Botões */
+        .btn{
+            display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;
+            padding:11px 20px;border-radius:10px;font-size:.92rem;font-weight:600;
+            text-decoration:none;transition:.2s ease;
+        }
+        .btn i{font-size:.9rem}
+        .btn-primary{background:var(--azul);color:var(--branco)}
+        .btn-primary:hover{background:var(--azul-escuro)}
+        .btn-outline{background:var(--branco);color:var(--azul);border:1px solid var(--azul)}
+        .btn-outline:hover{background:var(--azul-claro)}
+
+        /* Cards de resumo */
+        .resumo-grid{
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+            gap:18px;margin-bottom:26px;
+        }
+        .card{
+            background:var(--branco);border:1px solid var(--borda);
+            border-radius:var(--raio);box-shadow:var(--sombra);padding:22px 24px;
+        }
+        .card-resumo{display:flex;align-items:center;gap:14px}
+        .card-icon{
+            width:44px;height:44px;flex:0 0 44px;border-radius:12px;background:var(--azul-claro);
+            color:var(--azul);display:flex;align-items:center;justify-content:center;font-size:1.05rem;
+        }
+        .card-label{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--texto-suave);font-weight:700}
+        .card-valor{font-size:1.02rem;font-weight:600;margin-top:2px;word-break:break-word}
+
+        /* Badge */
+        .badge{
+            display:inline-block;padding:5px 14px;border-radius:999px;
+            font-size:.78rem;font-weight:700;letter-spacing:.03em;margin-top:4px;
+        }
+        .badge-pendente{background:#fff4d9;color:#8a5a00}
+        .badge-aprovada{background:#e2f7ea;color:#1a7a45}
+        .badge-recusada{background:#fdeaea;color:#a52121}
+        .badge-analise{background:var(--azul-claro);color:var(--azul-escuro)}
+
+        /* Seções */
+        .secao{margin-bottom:24px}
+        .secao-titulo{
+            display:flex;align-items:center;gap:10px;font-size:1.08rem;color:var(--azul-escuro);
+            font-weight:700;padding-bottom:14px;margin-bottom:18px;border-bottom:1px solid var(--borda);
+        }
+        .secao-titulo i{color:var(--azul-medio)}
+
+        .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+        .info-box{background:var(--azul-claro);border:1px solid #d5e5fa;border-radius:10px;padding:14px 16px}
+        .info-label{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--texto-suave);font-weight:700}
+        .info-valor{font-size:1rem;font-weight:600;margin-top:4px;color:var(--texto);word-break:break-word}
+        .info-valor.destaque{color:var(--azul-escuro);font-size:1.12rem}
+
+        /* Coberturas */
+        .coberturas{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+        .coberturas li{
+            display:flex;align-items:center;gap:12px;background:var(--branco);
+            border:1px solid var(--borda);border-radius:10px;padding:12px 16px;font-weight:500;
+        }
+        .coberturas li i{
+            color:#1a7a45;background:#e2f7ea;border-radius:50%;
+            width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex:0 0 26px;
+        }
+        .vazio{color:var(--texto-suave);font-style:italic}
+
+        /* Observações */
+        .card-observacao{border-left:5px solid var(--azul-medio);background:#f8fbff}
+        .card-observacao p{color:var(--texto);white-space:pre-line}
+
+        /* Rodapé de ações */
+        .acoes{display:flex;flex-wrap:wrap;gap:14px;justify-content:flex-end;margin-top:28px}
+
+        @media (max-width:640px){
+            .page-header{flex-direction:column;align-items:flex-start}
+            .acoes{justify-content:stretch}
+            .acoes .btn{flex:1;justify-content:center}
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Cabeçalho -->
+    <header class="page-header">
+        <div>
+            <h1>Detalhes da Contratação</h1>
+            <p>Visualização dos bens cadastrados pelo cliente.</p>
+        </div>
+
+        <a class="btn btn-outline"
+           th:href="@{/dashboardCorretor}">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+        </a>
+    </header>
+
+    <!-- Resumo -->
+    <section class="resumo-grid">
+
+        <div class="card card-resumo">
+            <div class="card-icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+            <div>
+                <div class="card-label">Cliente</div>
+                <div class="card-valor"
+                     th:text="${contratacao.cliente.nome}">
+                    Cliente
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-resumo">
+            <div class="card-icon">
+                <i class="fa-solid fa-file-shield"></i>
+            </div>
+
+            <div>
+                <div class="card-label">Tipo da Apólice</div>
+                <div class="card-valor"
+                     th:text="${contratacao.apolice.tipoApolice}">
+                    Seguro
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-resumo">
+            <div class="card-icon">
+                <i class="fa-solid fa-hashtag"></i>
+            </div>
+
+            <div>
+                <div class="card-label">Número da Apólice</div>
+                <div class="card-valor"
+                     th:text="${contratacao.apolice.numeroApolice}">
+                    AP00001
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-resumo">
+            <div class="card-icon">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+
+            <div>
+                <div class="card-label">Status</div>
+
+                <span class="badge"
+                      th:text="${contratacao.status}">
+                    PENDENTE
+                </span>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Informações do Bem -->
+    <section class="card secao">
+
+        <h2 class="secao-titulo">
+            <i class="fa-solid fa-box-archive"></i>
+            Informações do Bem
+        </h2>
+
+        <div class="info-grid">
+
+            <div class="info-box">
+                <div class="info-label">
+                    Tipo do Bem
+                </div>
+
+                <div class="info-valor"
+                     th:text="${bem.tipoBem}">
+                    Notebook
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-label">
+                    Descrição
+                </div>
+
+                <div class="info-valor"
+                     th:text="${bem.descricao}">
+                    Descrição
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-label">
+                    Valor Estimado
+                </div>
+
+                <div class="info-valor destaque"
+                     th:text="'R$ ' + ${bem.valorEstimado}">
+                    R$ 0,00
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-label">
+                    Data de Aquisição
+                </div>
+
+                <div class="info-valor"
+                     th:text="${#temporals.format(bem.dataAquisicao,'dd/MM/yyyy')}">
+                    01/01/2026
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Coberturas -->
+        <section class="card secao">
+
+            <h2 class="secao-titulo">
+                <i class="fa-solid fa-shield-halved"></i>
+                Coberturas da Apólice
+            </h2>
+
+            <ul class="coberturas"
+                th:if="${!#lists.isEmpty(contratacao.apolice.coberturas)}">
+
+                <li th:each="cobertura : ${contratacao.apolice.coberturas}">
+                    <i class="fa-solid fa-check"></i>
+
+                    <span th:text="${cobertura.nome}">
+                    Cobertura
+                </span>
+                </li>
+
+            </ul>
+
+            <p class="vazio"
+               th:if="${#lists.isEmpty(contratacao.apolice.coberturas)}">
+
+                Nenhuma cobertura cadastrada para esta apólice.
+
+            </p>
+
+        </section>
+
+
+        <!-- Dados do Cliente -->
+        <section class="card secao">
+
+            <h2 class="secao-titulo">
+                <i class="fa-solid fa-address-card"></i>
+                Dados do Cliente
+            </h2>
+
+            <div class="info-grid">
+
+                <div class="info-box">
+                    <div class="info-label">
+                        Nome
+                    </div>
+
+                    <div class="info-valor"
+                         th:text="${contratacao.cliente.nome}">
+                        João
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">
+                        CPF
+                    </div>
+
+                    <div class="info-valor"
+                         th:text="${contratacao.cliente.cpf}">
+                        000.000.000-00
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">
+                        E-mail
+                    </div>
+
+                    <div class="info-valor"
+                         th:text="${contratacao.cliente.email}">
+                        email@email.com
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">
+                        Telefone
+                    </div>
+
+                    <div class="info-valor"
+                         th:text="${contratacao.cliente.telefone}">
+                        (21)99999-9999
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Informações da Contratação -->
+        <section class="card secao">
+
+            <h2 class="secao-titulo">
+                <i class="fa-solid fa-file-contract"></i>
+                Informações da Contratação
+            </h2>
+
+            <div class="info-grid">
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Data da Contratação
+                    </div>
+
+                    <div class="info-valor"
+                         th:text="${#temporals.format(contratacao.dataContratacao,'dd/MM/yyyy')}">
+                        01/01/2026
+                    </div>
+
+                </div>
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Valor da Contratação
+                    </div>
+
+                    <div class="info-valor destaque"
+                         th:text="'R$ ' + ${contratacao.valorContratacao}">
+                        R$ 0,00
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Botões -->
+        <div class="acoes">
+
+            <a class="btn btn-outline"
+               th:href="@{/dashboardCorretor}">
+
+                <i class="fa-solid fa-arrow-left"></i>
+                Voltar
+
+            </a>
+
+            <a class="btn btn-primary"
+               th:href="@{/corretor/emitir-apolice/{id}(id=${contratacao.id})}">
+
+                <i class="fa-solid fa-file-signature"></i>
+                Emitir Apólice
+
+            </a>
+
+        </div>
+    </section>
+</div>
+</body>
+</html>

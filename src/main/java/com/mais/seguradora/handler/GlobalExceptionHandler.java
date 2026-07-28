@@ -55,7 +55,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ContratoNullException.class)
-    public ResponseEntity<Map<String, String>> handlermaioridade(ContratoNullException e) {
+    public ResponseEntity<Map<String, String>> ContratoNullException(ContratoNullException e) {
         Map<String, String> erro = new HashMap<>();
         erro.put("contratoNull", e.getMessage());
 
@@ -63,7 +63,15 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ContratoPendenteNullException.class)
-    public ResponseEntity<Map<String, String>> handlermaioridade(ContratoPendenteNullException e) {
+    public ResponseEntity<Map<String, String>> ContratoPendenteNullException(ContratoPendenteNullException e) {
+        Map<String, String> erro = new HashMap<>();
+        erro.put("contratoPendenteNull", e.getMessage());
+
+        return ResponseEntity.badRequest().body(erro);
+    }
+
+    @ExceptionHandler(BuscarPorId.class)
+    public ResponseEntity<Map<String, String>> BuscarPorId(BuscarPorId e) {
         Map<String, String> erro = new HashMap<>();
         erro.put("contratoPendenteNull", e.getMessage());
 

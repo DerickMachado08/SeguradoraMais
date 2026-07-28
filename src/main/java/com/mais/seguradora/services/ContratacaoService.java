@@ -4,10 +4,9 @@ import com.mais.seguradora.Repositories.ContratacaoRepository;
 import com.mais.seguradora.Repositories.PagamentoRepository;
 import com.mais.seguradora.enummerated.StatusContratacao;
 import com.mais.seguradora.enummerated.StatusPagamento;
-import com.mais.seguradora.model.Apolice;
-import com.mais.seguradora.model.Cliente;
-import com.mais.seguradora.model.Contratacao;
-import com.mais.seguradora.model.Pagamento;
+import com.mais.seguradora.exception.ContratoNullException;
+import com.mais.seguradora.exception.ContratoPendenteNullException;
+import com.mais.seguradora.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,10 +33,10 @@ public class ContratacaoService {
 
     public Contratacao emitirApolice(Integer idContratacao, BigDecimal valor, Integer parcelas) {
         Contratacao contratacao = contratacaoRepository.findById(idContratacao)
-                .orElseThrow(() -> new RuntimeException("Contratacao nao encontrada"));
+                .orElseThrow(() -> new ContratoNullException());
 
         if (contratacao.getStatus() != StatusContratacao.PENDENTE) {
-            throw new RuntimeException("Somente contratacoes pendentes podem ser emitidas");
+            throw new ContratoPendenteNullException();
         }
 
         contratacao.setStatus(StatusContratacao.APOLICE_EMITIDA);
@@ -67,7 +66,10 @@ public class ContratacaoService {
     }
 
 
-    public List<Contratacao> contratacoesPendentes() {
-        return contratacaoRepository.findByStatus(StatusContratacao.PENDENTE);
+    public List<Contratacao> contratacoesPendentes(Corretor corretor) {
+        return contratacaoRepository.findByStatusAndApoliceCorretor(
+                StatusContratacao.PENDENTE,
+                corretor
+        );
     }
 }

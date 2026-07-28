@@ -67,7 +67,7 @@ public class dashboardController {
         }
 
         model.addAttribute("corretor", corretor);
-        model.addAttribute("contratacoesPendentes", contratacaoService.contratacoesPendentes());
+        model.addAttribute("contratacoesPendentes", contratacaoService.contratacoesPendentes(corretor));
 
         return "dashboardCorretor";
     }

@@ -6,6 +6,7 @@ import com.mais.seguradora.Repositories.ContratacaoRepository;
 import com.mais.seguradora.enummerated.StatusContratacao;
 import com.mais.seguradora.model.*;
 import com.mais.seguradora.services.ApoliceService;
+import com.mais.seguradora.services.BemPatrimonialService;
 import com.mais.seguradora.services.ContratacaoService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class ContratacaoController {
 
     @Autowired
     private BemPatrimonialRepository bemPatrimonialRepository;
+
+    @Autowired
+    private BemPatrimonialService bemPatrimonialService;
 
     @GetMapping("/cliente/apolices")
     public String minhasApolices(HttpSession session, Model model) {
@@ -145,6 +149,17 @@ public class ContratacaoController {
         return "redirect:/cliente/apolices";
     }
 
+    @GetMapping("/corretor/contratacao/{id}/bens")
+    public String verBens(@PathVariable Integer id, Model model) {
+
+        Contratacao contratacao = contratacaoService.buscarPorId(id);
+        BemPatrimonial bem = bemPatrimonialService.buscarPorContratacao(id);
+
+        model.addAttribute("contratacao", contratacao);
+        model.addAttribute("bem", bem);
+
+        return "bens";
+    }
 
 
 }
