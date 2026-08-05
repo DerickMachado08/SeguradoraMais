@@ -144,14 +144,13 @@ main {
 
 .card {
     background: var(--white);
-    border-radius: 16px;
     padding: 24px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: flex-start;
     gap: 16px;
     transition: all 0.3s ease;
-    border: 1px solid var(--gray-200);
+    border-top: 2px solid var(--primarioA);
 }
 
 .card:hover {
@@ -256,8 +255,7 @@ main {
 
 .relatorio-card {
     background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: 16px;
+    border-top: 2px solid var(--primarioA);
     padding: 22px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     display: flex;
@@ -369,8 +367,7 @@ main {
 /* PROFILE / TABLE CARD */
 .profile-card {
     background: var(--white);
-    border-radius: 16px;
-    border: 1px solid var(--gray-200);
+    border-top: 2px solid var(--gray-700);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     overflow: hidden;
     margin-bottom: 32px;
@@ -400,7 +397,7 @@ main {
 }
 
 .profile-card table thead td {
-    background: var(--primary);
+    background: var(--gray-700);
     color: var(--white);
     font-weight: 700;
     font-size: 0.8rem;
