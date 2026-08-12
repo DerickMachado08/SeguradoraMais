@@ -8,7 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MensService {
+public class MensagemService {
     @Autowired
     private MensContatoRepsitory mensContatoRepsitory;
 

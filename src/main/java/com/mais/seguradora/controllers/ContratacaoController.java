@@ -150,7 +150,7 @@ public class ContratacaoController {
     }
 
     @GetMapping("/corretor/contratacao/{id}/bens")
-    public String verBens(@PathVariable Integer id, Model model) {
+    public String verBens(@PathVariable("id") Integer id, Model model) {
 
         Contratacao contratacao = contratacaoService.buscarPorId(id);
         BemPatrimonial bem = bemPatrimonialService.buscarPorContratacao(id);

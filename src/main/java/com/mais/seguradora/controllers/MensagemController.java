@@ -2,9 +2,8 @@ package com.mais.seguradora.controllers;
 
 import com.mais.seguradora.Repositories.MensContatoRepsitory;
 import com.mais.seguradora.model.MensagemContato;
-import com.mais.seguradora.services.MensService;
+import com.mais.seguradora.services.MensagemService;
 
-import com.mais.seguradora.services.MensService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/contato")
-public class MensController {
+public class MensagemController {
 
     @Autowired
     private MensContatoRepsitory repository;
 
     @Autowired
-    private MensService emailService;
+    private MensagemService emailService;
 
     @PostMapping
     public ResponseEntity<String> contato(@Valid
