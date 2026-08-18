@@ -1,18 +1,13 @@
 package com.mais.seguradora.services;
 
 import com.mais.seguradora.Repositories.ClienteRepository;
-import com.mais.seguradora.exception.CpfDuplicadoException;
-import com.mais.seguradora.exception.EmailDuplicadoException;
-import com.mais.seguradora.exception.MaiorIdadeException;
-import com.mais.seguradora.exception.MenorIdadeException;
+import com.mais.seguradora.exception.*;
 import com.mais.seguradora.model.Cliente;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClienteService {
@@ -24,17 +19,17 @@ public class ClienteService {
 
     public Cliente cadastrar(Cliente cliente){
         if(repository.existsByCpf(cliente.getCpf())){
-            throw new CpfDuplicadoException();
+            throw new RecursoDuplicadoException("Cpf ja cadastrado!");
         }
         if (repository.existsByEmail(cliente.getEmail())){
-            throw new EmailDuplicadoException();
+            throw new RecursoDuplicadoException("Email ja cadastrado!");
         }
         if(cliente.getDataNascimento().isAfter(LocalDate.now().minusYears(18))){
-            throw new MenorIdadeException();
+            throw new MaiorIdadeException("por favor informar sua data de nascimento correta");
         }
 
         if(cliente.getDataNascimento().isBefore(LocalDate.now().minusYears(110))){
-            throw new MaiorIdadeException();
+            throw new MenorIdadeException("por favor informar sua data de nascimento correta");
         }
 
         return repository.save(cliente);
