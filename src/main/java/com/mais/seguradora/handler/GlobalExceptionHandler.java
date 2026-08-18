@@ -22,20 +22,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(erros);
     }
 
-    @ExceptionHandler(CpfDuplicadoException.class)
-    public ResponseEntity<Map<String, String>> handlercpf(CpfDuplicadoException e){
-                Map<String, String> erro = new HashMap<>();
-                erro.put("cpf", e.getMessage());
+    @ExceptionHandler(RecursoDuplicadoException.class)
+    public ResponseEntity<?> handleRecursoDuplicado(
+            RecursoDuplicadoException e) {
 
-                return ResponseEntity.badRequest().body(erro);
-    }
-
-    @ExceptionHandler(EmailDuplicadoException.class)
-    public ResponseEntity<Map<String, String>> handleremail(EmailDuplicadoException e){
-        Map<String, String> erro = new HashMap<>();
-        erro.put("email", e.getMessage());
-
-        return ResponseEntity.badRequest().body(erro);
+        return ResponseEntity
+                .badRequest()
+                .body(e.getMessage());
     }
 
     @ExceptionHandler(MenorIdadeException.class)
@@ -54,28 +47,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(erro);
     }
 
-    @ExceptionHandler(ContratoNullException.class)
-    public ResponseEntity<Map<String, String>> ContratoNullException(ContratoNullException e) {
-        Map<String, String> erro = new HashMap<>();
-        erro.put("contratoNull", e.getMessage());
+    @ExceptionHandler(RecursoNullException.class)
+    public ResponseEntity<?> handleRecursoNull(RecursoNullException e) {
 
-        return ResponseEntity.badRequest().body(erro);
-    }
-
-    @ExceptionHandler(ContratoPendenteNullException.class)
-    public ResponseEntity<Map<String, String>> ContratoPendenteNullException(ContratoPendenteNullException e) {
-        Map<String, String> erro = new HashMap<>();
-        erro.put("contratoPendenteNull", e.getMessage());
-
-        return ResponseEntity.badRequest().body(erro);
-    }
-
-    @ExceptionHandler(BuscarPorId.class)
-    public ResponseEntity<Map<String, String>> BuscarPorId(BuscarPorId e) {
-        Map<String, String> erro = new HashMap<>();
-        erro.put("contratoPendenteNull", e.getMessage());
-
-        return ResponseEntity.badRequest().body(erro);
+        return ResponseEntity
+                .badRequest()
+                .body(e.getMessage());
     }
 
 }
