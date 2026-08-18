@@ -1,7 +1,10 @@
 package com.mais.seguradora.services;
 
 import com.mais.seguradora.Repositories.ContratacaoRepository;
-import com.mais.seguradora.exception.BuscarPorId;
+import com.mais.seguradora.Repositories.PagamentoRepository;
+import com.mais.seguradora.enummerated.StatusContratacao;
+import com.mais.seguradora.enummerated.StatusPagamento;
+import com.mais.seguradora.exception.RecursoNullException;
 import com.mais.seguradora.model.Contratacao;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
@@ -17,16 +20,28 @@ public class StripeService {
     @Autowired
     private ContratacaoRepository contratacaoRepository;
 
-    public String criarCheckout(Integer idContratacao) throws StripeException {
-        Contratacao contracao = contratacaoRepository.findById(idContratacao).orElseThrow(() -> new BuscarPorId());
+    @Autowired
+    private PagamentoRepository pagamentoRepository;
 
-        String nomeProduto = contracao.getApolice().getTipoApolice();
+    public String criarCheckout(Integer idContratacao) throws StripeException {
+        Contratacao contracao = contratacaoRepository.findById(idContratacao).orElseThrow(() -> new RecursoNullException("não encontrado"));
+
+        if (contracao.getStatus() != StatusContratacao.APOLICE_EMITIDA) {
+            throw new RuntimeException("Pagamento liberado apenas depois da emissão da apolice");
+        }
 
         BigDecimal valor = contracao.getValorContratacao();
 
+        if (valor == null || valor.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new RuntimeException("Contratacao sem valor valido para pagamento");
+        }
+
+        pagamentoRepository.findByContratacao_IdAndStatus(idContratacao, StatusPagamento.PENDENTE).
+                orElseThrow(()-> new RuntimeException("Não existe pagamento para esta contratação"));
+
+        String nomeProduto = contracao.getApolice().getTipoApolice();
         String email = contracao.getCliente().getEmail();
-        long valorCentavos =
-                valor.multiply(BigDecimal.valueOf(100)).longValue();
+        long valorCentavos = valor.multiply(BigDecimal.valueOf(100)).longValue();
 
         SessionCreateParams params =
                 SessionCreateParams.builder()
