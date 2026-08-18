@@ -1,6 +1,9 @@
 package com.mais.seguradora.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,13 +23,22 @@ public class BemPatrimonial {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_bempatri", nullable = false)
     private Integer id;
-    @Column(name = "tipo_bem", length = 50)
+
+    @NotBlank(message = "Tipo do bem obrigatorio")
+    @Column(name = "tipo_bem", length = 50, nullable = false)
     private String tipoBem;
-    @Column(name = "descricao", length = Integer.MAX_VALUE)
+
+    @NotBlank(message = "Descricao do bem obrigatoria")
+    @Column(name = "descricao", length = Integer.MAX_VALUE, nullable = false)
     private String descricao;
-    @Column(name = "valor_estimado", precision = 10, scale = 2)
+
+    @NotNull(message = "Valor estimado obrigatorio")
+    @DecimalMin(value = "1.00", message = "Valor estimado deve ser maior que zero")
+    @Column(name = "valor_estimado", precision = 10, scale = 2, nullable = false)
     private BigDecimal valorEstimado;
-    @Column(name = "data_aquisicao")
+
+    @NotNull(message = "Data de aquisicao obrigatoria")
+    @Column(name = "data_aquisicao", nullable = false)
     private LocalDate dataAquisicao;
 
     @ManyToOne
