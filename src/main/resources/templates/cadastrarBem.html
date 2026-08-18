@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Bem Patrimonial</title>
-
     <link rel="stylesheet" href="/css/main/app/menuCliente/patrimonialBem.css">
 </head>
 <body>
@@ -17,68 +16,16 @@
     </div>
 </header>
 
-<nav class="menu-lateral">
-    <div class="ButtonExpandir">
-        <i class="fa-solid fa-bars"></i>
-    </div>
-    <ul>
-        <li class="item-menu">
-            <a href="/dashboardCliente">
-                <span class="icon"><i class="fa-solid fa-grip"></i></span>
-                <span class="txt-link">Dashboard</span>
-            </a>
-        </li>
-        <li class="item-menu">
-            <a href="/cliente/contratar">
-                <span class="icon"><i class="fa-regular fa-paste"></i></span>
-                <span class="txt-link">Contratar Seguro</span>
-            </a>
-        </li>
-        <li class="item-menu active">
-            <a href="/cliente/apolices">
-                <span class="icon"><i class="fa-solid fa-list-check"></i></span>
-                <span class="txt-link">Minhas Apolices</span>
-            </a>
-        </li>
-        <li class="item-menu">
-            <a href="#">
-                <span class="icon"><i class="fa-regular fa-credit-card"></i></span>
-                <span class="txt-link">Pagamento</span>
-            </a>
-        </li>
-        <li class="item-menu">
-            <a href="#">
-                <span class="icon"><i class="fa-regular fa-user"></i></span>
-                <span class="txt-link">Perfil</span>
-            </a>
-        </li>
-        <li class="item-menu">
-            <a href="#">
-                <span class="icon"><i class="fa-regular fa-address-book"></i></span>
-                <span class="txt-link">Contato</span>
-            </a>
-        </li>
-    </ul>
-</nav>
-
 <main class="pagina-bem">
-
     <section class="cabecalho-bem">
-        <a href="/cliente/contratar" class="link-voltar">← Voltar</a>
+        <a href="/cliente/contratar" class="link-voltar">Voltar</a>
 
-        <div class="cabecalho-topo">
-            <img src="/img/logo.png" alt="Seguro" class="logo-bem">
-            <div>
-                <h1>Dados do bem segurado</h1>
-                <p>
-                    Informe os dados do bem que será analisado pelo corretor antes da emissão da apólice.
-                </p>
-            </div>
-        </div>
+        <h1>Dados do bem segurado</h1>
+        <p>Complete os dados abaixo. A solicitacao so sera enviada ao corretor depois desse cadastro.</p>
     </section>
 
     <section class="resumo-contratacao">
-        <h2>Resumo da solicitação</h2>
+        <h2>Resumo da solicitacao</h2>
 
         <div class="linha-resumo">
             <span>Seguro escolhido</span>
@@ -86,53 +33,58 @@
         </div>
 
         <div class="linha-resumo">
-            <span>Número da apólice base</span>
+            <span>Numero da apolice base</span>
             <strong th:text="${contratacao.apolice.numeroApolice}">AP20260001</strong>
         </div>
 
         <div class="linha-resumo">
             <span>Status</span>
-            <strong class="badge-status" th:text="${contratacao.status}">PENDENTE</strong>
+            <strong th:text="${contratacao.status}">AGUARDANDO_BEM</strong>
         </div>
     </section>
 
+    <div th:if="${erro != null}" class="alerta-erro" th:text="${erro}">
+        Erro ao cadastrar bem.
+    </div>
+
     <section class="formulario-bem">
-        <form th:action="@{/cliente/contratacao/bem}" method="post">
+        <form action="/cliente/contratacao/bem" method="post" id="formBem">
             <input type="hidden" name="idContratacao" th:value="${contratacao.id}">
 
             <div class="campo">
                 <label for="tipoBem">Tipo do bem</label>
-                <input id="tipoBem" type="text"
-                       name="tipoBem"
-                       th:value="${contratacao.apolice.tipoApolice}"
-                       readonly>
+                <input id="tipoBem" type="text" name="tipoBem" th:value="${contratacao.apolice.tipoApolice}" readonly required>
             </div>
 
             <div class="campo">
-                <label for="descricao">Descrição do bem</label>
-                <textarea id="descricao" name="descricao" rows="5" placeholder="Ex: Honda Civic 2020 prata, placa ABC1D23" required></textarea>
+                <label for="descricao">Descricao do bem</label>
+                <textarea id="descricao" name="descricao" rows="5" placeholder="Digite o bem ou os bens q vc perdeu" required></textarea>
             </div>
 
-            <div class="linha-dupla">
-                <div class="campo">
-                    <label for="valorEstimado">Valor estimado (R$)</label>
-                    <input id="valorEstimado" name="valorEstimado" type="number" step="0.01" min="1" placeholder="95000.00" required>
-                </div>
+            <div class="campo">
+                <label for="valorEstimado">Valor estimado (R$)</label>
+                <input id="valorEstimado" name="valorEstimado" type="number" step="0.01" min="1" placeholder="" required>
+            </div>
 
-                <div class="campo">
-                    <label for="dataAquisicao">Data de aquisição</label>
-                    <input id="dataAquisicao" name="dataAquisicao" type="date" required>
-                </div>
+            <div class="campo">
+                <label for="dataAquisicao">Data de aquisicao</label>
+                <input id="dataAquisicao" name="dataAquisicao" type="date" required>
             </div>
 
             <div class="acoes-formulario">
                 <a href="/cliente/apolices" class="btn-cancelar">Cancelar</a>
-                <button type="submit" class="btn-enviar">Enviar para análise</button>
+                <button type="submit" class="btn-enviar">Enviar para analise</button>
             </div>
         </form>
     </section>
-
 </main>
 
+<script>
+    document.getElementById("formBem").addEventListener("submit", function () {
+        const botao = this.querySelector("button[type='submit']");
+        botao.disabled = true;
+        botao.textContent = "Enviando...";
+    });
+</script>
 </body>
 </html>

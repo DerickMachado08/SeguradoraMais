@@ -11,7 +11,6 @@
 
 <header>
     <div class="header-brand"></div>
-
     <div class="header-user">
         <div class="avatar" th:text="${#strings.substring(corretor.nome, 0, 1)}">C</div>
         <span class="header-nome" th:text="${corretor.nome}">Corretor</span>
@@ -25,7 +24,6 @@
     <div class="ButtonExpandir">
         <i class="fa-solid fa-bars"></i>
     </div>
-
     <ul>
         <li class="item-menu active">
             <a href="#dashboard">
@@ -39,24 +37,6 @@
                 <span class="txt-link">Emitir Apolice</span>
             </a>
         </li>
-        <li class="item-menu">
-            <a href="#clientes">
-                <span class="icon"><i class="fa-solid fa-users"></i></span>
-                <span class="txt-link">Clientes</span>
-            </a>
-        </li>
-        <li class="item-menu">
-            <a href="#vendas">
-                <span class="icon"><i class="fa-solid fa-chart-line"></i></span>
-                <span class="txt-link">Vendas</span>
-            </a>
-        </li>
-        <li class="item-menu">
-            <a href="#comissoes">
-                <span class="icon"><i class="fa-solid fa-coins"></i></span>
-                <span class="txt-link">Comissoes</span>
-            </a>
-        </li>
     </ul>
 </nav>
 
@@ -68,7 +48,7 @@
             </div>
             <div>
                 <h1>Bem-vindo, <span th:text="${corretor.nome}">Nome do Corretor</span>!</h1>
-                <p>Analise as solicitacoes dos clientes, emita apolices e gere pagamentos pendentes.</p>
+                <p>Analise solicitacoes com bem cadastrado, emita apolices e gere pagamentos.</p>
             </div>
         </div>
     </section>
@@ -77,8 +57,8 @@
         <div class="cabecalho-secao">
             <div>
                 <span class="etiqueta-secao">Fila do corretor</span>
-                <h2>Emitir apolices pendentes</h2>
-                <p>Confira as solicitacoes feitas pelos clientes e preencha os dados para emitir a apolice.</p>
+                <h2>Solicitacoes prontas para analise</h2>
+                <p>So aparecem aqui contratacoes cujo cliente ja cadastrou o bem patrimonial.</p>
             </div>
 
             <div class="resumo-pendencias">
@@ -90,7 +70,7 @@
         <div th:if="${contratacoesPendentes == null or #lists.isEmpty(contratacoesPendentes)}" class="estado-vazio">
             <i class="fa-regular fa-circle-check"></i>
             <h3>Nenhuma solicitacao pendente</h3>
-            <p>Quando um cliente solicitar um seguro, ele aparecera aqui para analise e emissao.</p>
+            <p>Quando o cliente terminar o cadastro do bem, a solicitacao aparecera aqui.</p>
         </div>
 
         <div th:unless="${contratacoesPendentes == null or #lists.isEmpty(contratacoesPendentes)}" class="grade-solicitacoes">
@@ -100,7 +80,6 @@
                         <span class="rotulo">Cliente</span>
                         <h3 th:text="${contratacao.cliente.nome}">Ana Souza</h3>
                     </div>
-
                     <span class="status-pendente" th:text="${contratacao.status}">PENDENTE</span>
                 </div>
 
@@ -109,31 +88,20 @@
                         <span>Seguro solicitado</span>
                         <strong th:text="${contratacao.apolice.tipoApolice}">AUTO</strong>
                     </div>
-
                     <div class="linha-dado">
                         <span>Numero base</span>
                         <strong th:text="${contratacao.apolice.numeroApolice}">AP20260001</strong>
                     </div>
-
                     <div class="linha-dado">
                         <span>Data da solicitacao</span>
                         <strong th:text="${#temporals.format(contratacao.dataContratacao, 'dd/MM/yyyy')}">13/07/2026</strong>
                     </div>
                 </div>
 
-                <div class="bloco-coberturas">
-                    <span>Coberturas inclusas</span>
-
-                    <div class="lista-coberturas"
-                         th:if="${contratacao.apolice.coberturas != null and !#lists.isEmpty(contratacao.apolice.coberturas)}">
-                        <small th:each="cobertura : ${contratacao.apolice.coberturas}"
-                               th:text="${cobertura.nome}">Roubo e Furto</small>
-                    </div>
-
-                    <p th:if="${contratacao.apolice.coberturas == null or #lists.isEmpty(contratacao.apolice.coberturas)}">
-                        Sem coberturas cadastradas para esta apolice.
-                    </p>
-                </div>
+                <a class="botao-ver-bens" th:href="@{/corretor/contratacao/{id}/bens(id=${contratacao.id})}">
+                    <i class="fa-solid fa-eye"></i>
+                    Ver Bens
+                </a>
 
                 <form action="/corretor/emitir-apolice" method="post" class="formulario-emissao">
                     <input type="hidden" name="idContratacao" th:value="${contratacao.id}">
@@ -151,22 +119,9 @@
                         <input type="number" name="parcelas" min="1" max="12" value="1" required>
                     </div>
 
-                    <div class="campo-formulario campo-maior">
-                        <label>Observacao interna</label>
-                        <input type="text" name="observacao" placeholder="Ex: Cliente aprovado para emissao">
-                    </div>
-
                     <button type="submit" class="botao-emitir">
                         <i class="fa-solid fa-file-signature"></i>
                         Emitir apolice e gerar pagamento
-                    </button>
-
-                    <button
-                            type="button"
-                            class="botao-emitir"
-                            th:onclick="|window.location.href='/corretor/contratacao/${contratacao.id}/bens'|">
-                        <i class="fa-solid fa-eye"></i>
-                        Ver Bens
                     </button>
                 </form>
             </article>
@@ -177,21 +132,5 @@
         &copy; 2026 Seguradora Mais &mdash; Todos os direitos reservados.
     </footer>
 </main>
-
-<script>
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-</script>
-
 </body>
 </html>

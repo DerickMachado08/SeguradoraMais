@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Pagamentos</title>
+    <link rel="stylesheet" href="/css/main/app/clienteDashboard.css">
+</head>
+<body>
+<main>
+    <h1>Meus Pagamentos</h1>
+    <p>Acompanhe pagamentos pendentes e aprovados.</p>
+
+    <div th:if="${#lists.isEmpty(pagamentos)}">
+        <p>Nenhum pagamento encontrado.</p>
+    </div>
+
+    <table th:unless="${#lists.isEmpty(pagamentos)}">
+        <thead>
+        <tr>
+            <th>Seguro</th>
+            <th>Valor</th>
+            <th>Parcelas</th>
+            <th>Vencimento</th>
+            <th>Status</th>
+            <th>Ação</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pagamento : ${pagamentos}">
+            <td th:text="${pagamento.contratacao.apolice.tipoApolice}">AUTO</td>
+            <td th:text="${pagamento.valor}">0.00</td>
+            <td th:text="${pagamento.quantidadeParcela}">1</td>
+            <td th:text="${pagamento.dataVencimento != null ? #temporals.format(pagamento.dataVencimento, 'dd/MM/yyyy') : '-'}">-</td>
+            <td th:text="${pagamento.status}">PENDENTE</td>
+            <td>
+                <button th:if="${pagamento.status.name() == 'PENDENTE'}"
+                        type="button"
+                        th:attr="data-contratacao=${pagamento.contratacao.id}"
+                        onclick="pagar(this)">
+                    Pagar
+                </button>
+                <span th:if="${pagamento.status.name() != 'PENDENTE'}">Pagamento aprovado</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/dashboardCliente">Voltar ao dashboard</a>
+</main>
+
+<script>
+    async function pagar(botao) {
+        botao.disabled = true;
+        botao.textContent = "Abrindo pagamento...";
+
+        const idContratacao = botao.dataset.contratacao;
+        const resposta = await fetch(`/pagamento/checkout/${idContratacao}`, {
+            method: "POST"
+        });
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            alert(dados.erro || "Erro ao abrir pagamento");
+            botao.disabled = false;
+            botao.textContent = "Pagar";
+            return;
+        }
+
+        window.location.href = dados.url;
+    }
+</script>
+</body>
+</html>

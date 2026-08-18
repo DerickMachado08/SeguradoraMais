@@ -9,7 +9,6 @@
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
 <header>
     <div class="header-user">
         <div class="avatar" th:text="${#strings.substring(cliente.nome, 0, 1)}">C</div>
@@ -20,7 +19,6 @@
     </div>
 </header>
 
-<!-- ===== SIDEBAR ===== -->
 <nav class="menu-lateral">
     <div class="ButtonExpandir">
         <i class="fa-solid fa-bars"></i>
@@ -33,7 +31,7 @@
             </a>
         </li>
         <li class="item-menu active">
-            <a href="/dashboardCliente">
+            <a href="/cliente/contratar">
                 <span class="icon"><i class="fa-regular fa-paste"></i></span>
                 <span class="txt-link">Contratar Seguro</span>
             </a>
@@ -45,34 +43,19 @@
             </a>
         </li>
         <li class="item-menu">
-            <a href="#">
+            <a href="/pagamento/cliente">
                 <span class="icon"><i class="fa-regular fa-credit-card"></i></span>
                 <span class="txt-link">Pagamento</span>
-            </a>
-        </li>
-        <li class="item-menu">
-            <a href="#">
-                <span class="icon"><i class="fa-regular fa-user"></i></span>
-                <span class="txt-link">Perfil</span>
-            </a>
-        </li>
-        <li class="item-menu">
-            <a href="#">
-                <span class="icon"><i class="fa-regular fa-address-book"></i></span>
-                <span class="txt-link">Contato</span>
             </a>
         </li>
     </ul>
 </nav>
 
-<!-- ===== MAIN ===== -->
 <main>
-    <!-- Back Button -->
     <a href="/dashboardCliente" class="btn-back">
         <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
     </a>
 
-    <!-- Page Header -->
     <div class="page-header">
         <div class="breadcrumb">
             <a href="/dashboardCliente">Dashboard</a>
@@ -80,44 +63,70 @@
             <span>Contratar Seguro</span>
         </div>
         <h1>Seguros Disponiveis</h1>
-        <p>Escolha a apolice que melhor atende as suas necessidades</p>
+        <p>Escolha a apolice que melhor atende as suas necessidades.</p>
     </div>
 
-    <!-- Insurance Cards -->
-    <div class="seguros-grid">
+    <div th:if="${erro == 'duplicado'}" class="alerta-erro">
+        Voce ja possui uma solicitacao ou contratacao para esse tipo de seguro.
+    </div>
 
-        <div th:each="apolice : ${apolices}" class="seguro-card">
+    <div class="seguros-grid">
+        <div th:each="apolice : ${apolices}" class="seguro-card"
+             th:with="
+                idRascunho=${rascunhosPorApolice != null ? rascunhosPorApolice[apolice.id] : null},
+                tipoBloqueado=${tiposBloqueados != null and tiposBloqueados.contains(apolice.tipoApolice)},
+                jaContratou=${tipoBloqueado and idRascunho == null}
+             ">
+
             <div class="seguro-card-header">
                 <div class="seguro-card-icon">
                     <i class="fas fa-shield-halved"></i>
                 </div>
                 <h2 th:text="${apolice.tipoApolice}">Seguro de Vida</h2>
             </div>
+
             <div class="seguro-card-body">
                 <div class="numero-badge">
                     <i class="fas fa-hashtag"></i>
                     <span th:text="${apolice.numeroApolice}">AP20260001</span>
                 </div>
+
                 <p class="seguro-desc" th:text="${apolice.descricao}">
                     Proteja o futuro da sua familia com nossa cobertura completa.
                 </p>
-                <ul class="seguro-features">
-                    <li><i class="fas fa-check"></i> Cobertura 24 horas</li>
-                    <li><i class="fas fa-check"></i> Assistencia em todo territorio nacional</li>
-                </ul>
+
+                <div th:if="${idRascunho != null}" class="aviso-ja-contratado">
+                    Voce iniciou esta solicitacao. Termine o cadastro do bem para enviar ao corretor.
+                </div>
+
+                <div th:if="${jaContratou}" class="aviso-ja-contratado">
+                    Voce ja solicitou ou contratou esse tipo de seguro.
+                </div>
+
                 <form action="/cliente/contratar" method="post" class="form-contratar">
                     <input type="hidden" name="idApolice" th:value="${apolice.id}">
-                    <button type="submit" class="btn-contratar">
+
+                    <button th:if="${!tipoBloqueado}" type="submit" class="btn-contratar">
                         <i class="fas fa-file-signature"></i>
                         Contratar Agora
                     </button>
+
+                    <button th:if="${jaContratou}" type="button" class="btn-contratar" disabled>
+
+                        <a th:if="${idRascunho != null}"
+                           class="btn-contratar"
+                           th:href="@{/cliente/contratacao/{id}/bem(id=${idRascunho})}">
+                            <i class="fas fa-pen-to-square"></i>
+                            Continuar cadastro do bem
+                        </a>
+                        Ja contratado
+                    </button>
+
                 </form>
             </div>
         </div>
-
     </div>
 
-    <!-- Empty State -->
     <div th:if="${#lists.isEmpty(apolices)}" class="empty-state">
         <div class="empty-icon">
             <i class="fas fa-folder-open"></i>
@@ -127,7 +136,6 @@
     </div>
 </main>
 
-<!-- ===== FOOTER ===== -->
 <footer>
     &copy; 2026 Seguradora Mais &mdash; Todos os direitos reservados.
 </footer>

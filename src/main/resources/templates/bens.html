@@ -6,260 +6,93 @@
     <title>Detalhes da Contratação</title>
     <link rel="stylesheet" href="/css/main/app/menuCorretor/verDados.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
 </head>
-
 <body>
 <div class="container">
-
-    <!-- Cabeçalho -->
     <header class="page-header">
         <div>
             <h1>Detalhes da Contratação</h1>
             <p>Visualização dos bens cadastrados pelo cliente.</p>
         </div>
 
-        <a class="btn btn-outline"
-           th:href="@{/dashboardCorretor}">
+        <a class="btn btn-outline" th:href="@{/dashboardCorretor}">
             <i class="fa-solid fa-arrow-left"></i>
             Voltar
         </a>
     </header>
 
-    <!-- Resumo -->
     <section class="resumo-grid">
-
         <div class="card card-resumo">
-            <div class="card-icon">
-                <i class="fa-solid fa-user"></i>
-            </div>
-
-            <div>
-                <div class="card-label">Cliente</div>
-                <div class="card-valor"
-                     th:text="${contratacao.cliente.nome}">
-                    Cliente
-                </div>
-            </div>
+            <div class="card-label">Cliente</div>
+            <div class="card-valor" th:text="${contratacao.cliente.nome}">Cliente</div>
         </div>
 
         <div class="card card-resumo">
-            <div class="card-icon">
-                <i class="fa-solid fa-file-shield"></i>
-            </div>
-
-            <div>
-                <div class="card-label">Tipo da Apólice</div>
-                <div class="card-valor"
-                     th:text="${contratacao.apolice.tipoApolice}">
-                    Seguro
-                </div>
-            </div>
+            <div class="card-label">Tipo da Apólice</div>
+            <div class="card-valor" th:text="${contratacao.apolice.tipoApolice}">Seguro</div>
         </div>
 
         <div class="card card-resumo">
-            <div class="card-icon">
-                <i class="fa-solid fa-hashtag"></i>
-            </div>
-
-            <div>
-                <div class="card-label">Número da Apólice</div>
-                <div class="card-valor"
-                     th:text="${contratacao.apolice.numeroApolice}">
-                    AP00001
-                </div>
-            </div>
+            <div class="card-label">Número da Apólice</div>
+            <div class="card-valor" th:text="${contratacao.apolice.numeroApolice}">AP00001</div>
         </div>
 
         <div class="card card-resumo">
-            <div class="card-icon">
-                <i class="fa-solid fa-circle-info"></i>
-            </div>
-
-            <div>
-                <div class="card-label">Status</div>
-
-                <span class="badge"
-                      th:text="${contratacao.status}">
-                    PENDENTE
-                </span>
-
-            </div>
+            <div class="card-label">Status</div>
+            <span class="badge" th:text="${contratacao.status}">PENDENTE</span>
         </div>
-
     </section>
 
-    <!-- Informações do Bem -->
-    <section class="card secao">
+    <section class="card secao" th:if="${bem == null}">
+        <h2 class="secao-titulo">Bem patrimonial ainda nao cadastrado</h2>
+        <p>Esta contratacao ainda nao possui bem vinculado. Ela nao deve ser emitida ate o cliente finalizar o cadastro.</p>
+    </section>
 
+    <section class="card secao" th:if="${bem != null}">
         <h2 class="secao-titulo">
             <i class="fa-solid fa-box-archive"></i>
             Informações do Bem
         </h2>
 
         <div class="info-grid">
-
             <div class="info-box">
-                <div class="info-label">
-                    Tipo do Bem
-                </div>
-
-                <div class="info-valor"
-                     th:text="${bem.tipoBem}">
-                    Notebook
-                </div>
+                <div class="info-label">Tipo do Bem</div>
+                <div class="info-valor" th:text="${bem.tipoBem}">Veiculo</div>
             </div>
 
             <div class="info-box">
-                <div class="info-label">
-                    Descrição
-                </div>
-
-                <div class="info-valor"
-                     th:text="${bem.descricao}">
-                    Descrição
-                </div>
+                <div class="info-label">Descrição</div>
+                <div class="info-valor" th:text="${bem.descricao}">Descrição</div>
             </div>
 
             <div class="info-box">
-                <div class="info-label">
-                    Valor Estimado
-                </div>
-
-                <div class="info-valor destaque"
-                     th:text="'R$ ' + ${bem.valorEstimado}">
-                    R$ 0,00
-                </div>
+                <div class="info-label">Valor Estimado</div>
+                <div class="info-valor destaque" th:text="'R$ ' + ${bem.valorEstimado}">R$ 0,00</div>
             </div>
 
             <div class="info-box">
-                <div class="info-label">
-                    Data de Aquisição
-                </div>
-
-                <div class="info-valor"
-                     th:text="${#temporals.format(bem.dataAquisicao,'dd/MM/yyyy')}">
-                    01/01/2026
-                </div>
+                <div class="info-label">Data de Aquisição</div>
+                <div class="info-valor" th:text="${#temporals.format(bem.dataAquisicao,'dd/MM/yyyy')}">01/01/2026</div>
             </div>
-
         </div>
+    </section>
 
-        <!-- Coberturas -->
-        <section class="card secao">
+    <section class="card secao">
+        <h2 class="secao-titulo">
+            <i class="fa-solid fa-shield-halved"></i>
+            Coberturas da Apólice
+        </h2>
 
-            <h2 class="secao-titulo">
-                <i class="fa-solid fa-shield-halved"></i>
-                Coberturas da Apólice
-            </h2>
+        <ul class="coberturas" th:if="${contratacao.apolice.coberturas != null and !#lists.isEmpty(contratacao.apolice.coberturas)}">
+            <li th:each="cobertura : ${contratacao.apolice.coberturas}">
+                <i class="fa-solid fa-check"></i>
+                <span th:text="${cobertura.nome}">Cobertura</span>
+            </li>
+        </ul>
 
-            <ul class="coberturas"
-                th:if="${!#lists.isEmpty(contratacao.apolice.coberturas)}">
-
-                <li th:each="cobertura : ${contratacao.apolice.coberturas}">
-                    <i class="fa-solid fa-check"></i>
-
-                    <span th:text="${cobertura.nome}">
-                    Cobertura
-                </span>
-                </li>
-
-            </ul>
-
-            <p class="vazio"
-               th:if="${#lists.isEmpty(contratacao.apolice.coberturas)}">
-
-                Nenhuma cobertura cadastrada para esta apólice.
-
-            </p>
-
-        </section>
-
-
-        <!-- Dados do Cliente -->
-        <section class="card secao">
-
-            <h2 class="secao-titulo">
-                <i class="fa-solid fa-address-card"></i>
-                Dados do Cliente
-            </h2>
-
-            <div class="info-grid">
-
-                <div class="info-box">
-                    <div class="info-label">
-                        Nome
-                    </div>
-
-                    <div class="info-valor"
-                         th:text="${contratacao.cliente.nome}">
-                        João
-                    </div>
-                </div>
-
-                <div class="info-box">
-                    <div class="info-label">
-                        CPF
-                    </div>
-
-                    <div class="info-valor"
-                         th:text="${contratacao.cliente.cpf}">
-                        000.000.000-00
-                    </div>
-                </div>
-
-                <div class="info-box">
-                    <div class="info-label">
-                        E-mail
-                    </div>
-
-                    <div class="info-valor"
-                         th:text="${contratacao.cliente.email}">
-                        email@email.com
-                    </div>
-                </div>
-
-                <div class="info-box">
-                    <div class="info-label">
-                        Telefone
-                    </div>
-
-                    <div class="info-valor"
-                         th:text="${contratacao.cliente.telefone}">
-                        (21)99999-9999
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- Informações da Contratação -->
-        <section class="card secao">
-
-            <h2 class="secao-titulo">
-                <i class="fa-solid fa-file-contract"></i>
-                Informações da Contratação
-            </h2>
-
-            <div class="info-grid">
-
-                <div class="info-box">
-                    <div class="info-label">
-                        Data da Contratação
-                    </div>
-                    <div class="info-valor"
-                         th:text="${#temporals.format(contratacao.dataContratacao,'dd/MM/yyyy')}">
-                        01/01/2026
-                    </div>
-                </div>
-
-
-            </div>
-
-        </section>
-
+        <p class="vazio" th:if="${contratacao.apolice.coberturas == null or #lists.isEmpty(contratacao.apolice.coberturas)}">
+            Nenhuma cobertura cadastrada para esta apólice.
+        </p>
     </section>
 </div>
 </body>
