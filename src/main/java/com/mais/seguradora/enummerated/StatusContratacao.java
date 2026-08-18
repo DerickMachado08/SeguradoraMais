@@ -1,5 +1,10 @@
 package com.mais.seguradora.enummerated;
 
 public enum StatusContratacao {
-    PENDENTE, ANALISANDO, APROVADA, REJEITADA, APOLICE_EMITIDA
+    AGUARDANDO_BEM,
+    PENDENTE,
+    ANALISANDO,
+    APROVADA,
+    REJEITADA,
+    APOLICE_EMITIDA
 }

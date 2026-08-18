@@ -1,15 +1,18 @@
 package com.mais.seguradora.controllers;
 
-import com.mais.seguradora.Repositories.ApoliceRepository;
-import com.mais.seguradora.Repositories.BemPatrimonialRepository;
-import com.mais.seguradora.Repositories.ContratacaoRepository;
 import com.mais.seguradora.enummerated.StatusContratacao;
-import com.mais.seguradora.model.*;
+import com.mais.seguradora.exception.RecursoDuplicadoException;
+import com.mais.seguradora.model.Apolice;
+import com.mais.seguradora.model.BemPatrimonial;
+import com.mais.seguradora.model.Cliente;
+import com.mais.seguradora.model.Contratacao;
+import com.mais.seguradora.model.Corretor;
 import com.mais.seguradora.services.ApoliceService;
 import com.mais.seguradora.services.BemPatrimonialService;
 import com.mais.seguradora.services.ContratacaoService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ContratacaoController {
@@ -28,25 +32,22 @@ public class ContratacaoController {
     private ContratacaoService contratacaoService;
 
     @Autowired
-    private BemPatrimonialRepository bemPatrimonialRepository;
-
-    @Autowired
     private BemPatrimonialService bemPatrimonialService;
 
     @GetMapping("/cliente/apolices")
-    public String minhasApolices(HttpSession session, Model model) {
+    public String minhasApolices(
+            HttpSession session,
+            Model model) {
 
         Cliente cliente =
                 (Cliente) session.getAttribute("usuarioLogado");
 
-        if(cliente == null){
-            return "redirect:/login";
-        }
-
         List<Contratacao> contratacoes =
                 contratacaoService.buscarPorCliente(cliente);
 
-        long pendentes = contratacoes.stream().filter(c -> c.getStatus() == StatusContratacao.PENDENTE).count();
+        long pendentes = contratacoes.stream()
+                .filter(c -> c.getStatus() == StatusContratacao.PENDENTE)
+                .count();
 
         model.addAttribute("cliente", cliente);
         model.addAttribute("contratacoes", contratacoes);
@@ -56,19 +57,31 @@ public class ContratacaoController {
     }
 
     @GetMapping("/cliente/contratar")
-    public String telaContratar(HttpSession session, Model model){
+    public String telaContratar(
+            @RequestParam(value = "erro", required = false) String erro,
+            HttpSession session,
+            Model model) {
 
-        Cliente cliente = (Cliente) session.getAttribute("usuarioLogado");
+        Cliente cliente =
+                (Cliente) session.getAttribute("usuarioLogado");
 
-        if (cliente == null) {
-            return "redirect:/login";
-        }
+        List<Apolice> apolices =
+                apoliceService.ListarApolice();
 
-        List<Apolice> apolice = apoliceService.ListarApolice();
+        List<Contratacao> contratacoesCliente =
+                contratacaoService.buscarPorCliente(cliente);
+        List<String> tiposBloqueados = contratacoesCliente.stream()
+                .filter(contratacao ->
+                        contratacao.getStatus() != StatusContratacao.REJEITADA)
+                .map(contratacao ->
+                        contratacao.getApolice().getTipoApolice())
+                .distinct()
+                .collect(Collectors.toList());
 
         model.addAttribute("cliente", cliente);
-
-        model.addAttribute("apolices", apolice);
+        model.addAttribute("apolices", apolices);
+        model.addAttribute("contratacoesCliente", contratacoesCliente);
+        model.addAttribute("erro", erro);
 
         return "contratarSeguro";
     }
@@ -76,56 +89,49 @@ public class ContratacaoController {
     @PostMapping("/cliente/contratar")
     public String contratarSeguro(
             @RequestParam("idApolice") Integer idApolice,
-            HttpSession session){
+            HttpSession session) {
 
         Cliente cliente =
                 (Cliente) session.getAttribute("usuarioLogado");
 
-        if(cliente == null){
-            return "redirect:/login";
-        }
+        Apolice apolice =
+                apoliceService.buscarPorId(idApolice);
 
-        Apolice apolice = apoliceService.buscarPorId(idApolice);
+        try {
 
-        if (contratacaoService.jaPossui(cliente, apolice)) {
+            Contratacao contratacao =
+                    contratacaoService.iniciarContratacao(
+                            cliente,
+                            apolice
+                    );
+
+            return "redirect:/cliente/contratacao/"
+                    + contratacao.getId()
+                    + "/bem";
+
+        } catch (RecursoDuplicadoException e) {
+
             return "redirect:/cliente/contratar?erro=duplicado";
         }
-
-        Contratacao contratacao = new Contratacao();
-
-        contratacao.setCliente(cliente);
-        contratacao.setApolice(apolice);
-        contratacao.setDataContratacao(LocalDate.now());
-
-        contratacao.setStatus(StatusContratacao.PENDENTE);
-        contratacaoService.salvar(contratacao);
-
-        return "redirect:/cliente/contratacao/" + contratacao.getId() + "/bem";
-    }
-
-    @PostMapping("/corretor/emitir-apolice")
-    public String emitirApolice(@RequestParam("idContratacao") Integer idContratacao,
-                                @RequestParam("valor") BigDecimal valor,
-                                @RequestParam("parcelas") Integer parcelas, HttpSession session){
-
-        Corretor corretor = (Corretor) session.getAttribute("usuarioLogado");
-
-        if (corretor == null){
-            return "redirect:/login.html";
-        }
-
-        contratacaoService.emitirApolice(idContratacao, valor, parcelas);
-
-        return "redirect:/dashboardCorretor";
     }
 
     @GetMapping("/cliente/contratacao/{id}/bem")
-    public String telaDeCadastroBens(@PathVariable("id") Integer id, Model model, HttpSession session){
+    public String telaDeCadastroBens(
+            @PathVariable("id") Integer id,
+            Model model,
+            HttpSession session) {
 
         Cliente cliente =
                 (Cliente) session.getAttribute("usuarioLogado");
 
-        Contratacao contratacao = contratacaoService.buscarPorId(id);
+        Contratacao contratacao =
+                contratacaoService.buscarPorId(id);
+
+        if (!contratacao.getCliente().getId()
+                .equals(cliente.getId())) {
+
+            return "redirect:/cliente/apolices";
+        }
 
         model.addAttribute("cliente", cliente);
         model.addAttribute("contratacao", contratacao);
@@ -138,28 +144,83 @@ public class ContratacaoController {
     @PostMapping("/cliente/contratacao/bem")
     public String cadastrarBem(
             @RequestParam("idContratacao") Integer idContratacao,
-            @ModelAttribute BemPatrimonial bem){
+            @RequestParam("tipoBem") String tipoBem,
+            @RequestParam("descricao") String descricao,
+            @RequestParam("valorEstimado") BigDecimal valorEstimado,
+            @RequestParam("dataAquisicao")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate dataAquisicao,
+            HttpSession session,
+            Model model) {
 
-        Contratacao contratacao = contratacaoService.buscarPorId(idContratacao);
+        Cliente cliente =
+                (Cliente) session.getAttribute("usuarioLogado");
 
-        bem.setContratacao(contratacao);
+        BemPatrimonial bem = new BemPatrimonial();
 
-        bemPatrimonialRepository.save(bem);
+        bem.setTipoBem(tipoBem);
+        bem.setDescricao(descricao);
+        bem.setValorEstimado(valorEstimado);
+        bem.setDataAquisicao(dataAquisicao);
 
-        return "redirect:/cliente/apolices";
+        try {
+
+            contratacaoService.cadastrarBemDaContratacao(
+                    idContratacao,
+                    cliente,
+                    bem
+            );
+
+            return "redirect:/cliente/apolices";
+
+        } catch (RuntimeException e) {
+
+            Contratacao contratacao =
+                    contratacaoService.buscarPorId(idContratacao);
+
+            model.addAttribute("cliente", cliente);
+            model.addAttribute("contratacao", contratacao);
+            model.addAttribute("idContratacao", idContratacao);
+            model.addAttribute("bem", bem);
+            model.addAttribute("erro", e.getMessage());
+
+            return "cadastrarBem";
+        }
+    }
+
+    @PostMapping("/corretor/emitir-apolice")
+    public String emitirApolice(
+            @RequestParam("idContratacao") Integer idContratacao,
+            @RequestParam("valor") BigDecimal valor,
+            @RequestParam("parcelas") Integer parcelas,
+            HttpSession session) {
+
+        Corretor corretor =
+                (Corretor) session.getAttribute("usuarioLogado");
+
+        contratacaoService.emitirApolice(idContratacao, valor, parcelas
+        );
+
+        return "redirect:/dashboardCorretor";
     }
 
     @GetMapping("/corretor/contratacao/{id}/bens")
-    public String verBens(@PathVariable("id") Integer id, Model model) {
+    public String verBens(
+            @PathVariable Integer id,
+            Model model) {
 
-        Contratacao contratacao = contratacaoService.buscarPorId(id);
-        BemPatrimonial bem = bemPatrimonialService.buscarPorContratacao(id);
+        Contratacao contratacao =
+                contratacaoService.buscarPorId(id);
 
         model.addAttribute("contratacao", contratacao);
-        model.addAttribute("bem", bem);
+
+        model.addAttribute(
+                "bem",
+                bemPatrimonialService
+                        .buscarOpcionalPorContratacao(id)
+                        .orElse(null)
+        );
 
         return "bens";
     }
-
-
 }
