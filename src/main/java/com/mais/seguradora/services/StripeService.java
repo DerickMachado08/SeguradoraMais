@@ -36,6 +36,18 @@ public class StripeService {
             throw new RuntimeException("Contratacao sem valor valido para pagamento");
         }
 
+        pagamentoRepository
+                .findByContratacao_IdAndStatus(
+                        idContratacao,
+                        StatusPagamento.APROVADA
+                )
+                .ifPresent(pagamento -> {
+                    throw new RuntimeException(
+                            "Este pagamento já foi aprovado."
+                    );
+                });
+
+
         pagamentoRepository.findByContratacao_IdAndStatus(idContratacao, StatusPagamento.PENDENTE).
                 orElseThrow(()-> new RuntimeException("Não existe pagamento para esta contratação"));
 
@@ -51,7 +63,7 @@ public class StripeService {
                         )
 
                         .setSuccessUrl(
-                                "http://localhost:8080/pagamento/sucesso"
+                                "http://localhost:8080/pagamento/sucesso/" + idContratacao
                         )
 
                         .setCancelUrl(

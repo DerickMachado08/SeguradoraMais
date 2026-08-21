@@ -28,11 +28,32 @@
         </thead>
         <tbody>
         <tr th:each="pagamento : ${pagamentos}">
-            <td th:text="${pagamento.contratacao.apolice.tipoApolice}">AUTO</td>
-            <td th:text="${pagamento.valor}">0.00</td>
-            <td th:text="${pagamento.quantidadeParcela}">1</td>
-            <td th:text="${pagamento.dataVencimento != null ? #temporals.format(pagamento.dataVencimento, 'dd/MM/yyyy') : '-'}">-</td>
-            <td th:text="${pagamento.status}">PENDENTE</td>
+            <td th:text="${pagamento.contratacao.apolice.tipoApolice}">
+                AUTO
+            </td>
+
+            <td th:text="${pagamento.valor}">
+                0.00
+            </td>
+
+            <td th:text="${pagamento.quantidadeParcela}">
+                1
+            </td>
+
+            <td th:text="${pagamento.dataVencimento != null ? #temporals.format(pagamento.dataVencimento, 'dd/MM/yyyy') : '-'}">
+                -
+            </td>
+
+            <td>
+        <span th:if="${pagamento.status.name() == 'PENDENTE'}">
+            Pendente
+        </span>
+
+                <span th:if="${pagamento.status.name() == 'APROVADA'}">
+            Aprovado
+        </span>
+            </td>
+
             <td>
                 <button th:if="${pagamento.status.name() == 'PENDENTE'}"
                         type="button"
@@ -40,7 +61,10 @@
                         onclick="pagar(this)">
                     Pagar
                 </button>
-                <span th:if="${pagamento.status.name() != 'PENDENTE'}">Pagamento aprovado</span>
+
+                <span th:if="${pagamento.status.name() == 'APROVADA'}">
+            Pagamento aprovado
+        </span>
             </td>
         </tr>
         </tbody>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento concluído</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f5f7fa;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 50px 70px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .check {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            background: #22c55e;
+            color: white;
+            font-size: 65px;
+            font-weight: bold;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            color: #222;
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .nome {
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .mensagem {
+            color: #666;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="check">
+        ✓
+    </div>
+
+    <h1>Pagamento concluído!</h1>
+
+    <p class="nome" th:text="${cliente.nome}">
+        Nome da pessoa
+    </p>
+
+    <p class="mensagem">
+        Seu pagamento foi realizado com sucesso.
+    </p>
+
+</div>
+
+</body>
+</html>

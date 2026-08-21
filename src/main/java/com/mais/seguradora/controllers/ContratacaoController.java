@@ -206,7 +206,7 @@ public class ContratacaoController {
 
     @GetMapping("/corretor/contratacao/{id}/bens")
     public String verBens(
-            @PathVariable Integer id,
+            @PathVariable("id") Integer id,
             Model model) {
 
         Contratacao contratacao =

@@ -1,7 +1,10 @@
 package com.mais.seguradora.controllers;
 
 import com.mais.seguradora.Repositories.PagamentoRepository;
+import com.mais.seguradora.enummerated.StatusPagamento;
 import com.mais.seguradora.model.Cliente;
+import com.mais.seguradora.model.Contratacao;
+import com.mais.seguradora.services.ContratacaoService;
 import com.mais.seguradora.services.StripeService;
 import com.stripe.exception.StripeException;
 import com.stripe.model.tax.Registration;
@@ -22,16 +25,19 @@ import java.util.Map;
 public class PagamentoController {
 
     @Autowired
+    ContratacaoService contratacaoService;
+
+    @Autowired
     private StripeService stripeService;
 
     @Autowired
     private PagamentoRepository pagamentoRepository;
 
     @GetMapping("/cliente")
-    public String pagamentoCliente(HttpSession session, Model model){
+    public String pagamentoCliente(HttpSession session, Model model) {
         Cliente cliente = (Cliente) session.getAttribute("usuarioLogado");
 
-        if (cliente == null){
+        if (cliente == null) {
             return "redirect:/login.html";
         }
         model.addAttribute("cliente", cliente);
@@ -40,11 +46,11 @@ public class PagamentoController {
     }
 
     @PostMapping("/checkout/{idContratacao}")
-    public ResponseEntity<?> criarCheclkout(@PathVariable("idContratacao") Integer idContratacao){
+    public ResponseEntity<?> criarCheclkout(@PathVariable("idContratacao") Integer idContratacao) {
         try {
-           String url = stripeService.criarCheckout(idContratacao);
-           return ResponseEntity.ok(Map.of("url", url));
-        } catch (StripeException e){
+            String url = stripeService.criarCheckout(idContratacao);
+            return ResponseEntity.ok(Map.of("url", url));
+        } catch (StripeException e) {
             return ResponseEntity
                     .internalServerError()
                     .body(
@@ -54,13 +60,25 @@ public class PagamentoController {
         }
     }
 
-    @GetMapping("/sucesso")
-    public String sucesso() {
-        return "pagamento-sucesso";
-    }
+    @GetMapping("/sucesso/{id}")
+    public String sucesso(@PathVariable("id") Integer id, Model model) {
 
-    @GetMapping("/cancelado")
-    public String cancelado() {
-        return "pagamento-cancelado";
+        Contratacao contratacao = contratacaoService.buscarPorId(id);
+
+        pagamentoRepository
+                .findByContratacao_IdAndStatus(
+                        id,
+                        StatusPagamento.PENDENTE
+                )
+                .ifPresent(pagamento -> {
+                    pagamento.setStatus(StatusPagamento.APROVADA);
+                    pagamentoRepository.save(pagamento);
+                });
+
+        Cliente cliente = contratacao.getCliente();
+
+        model.addAttribute("cliente", cliente);
+
+        return "pagamento-sucesso";
     }
 }
