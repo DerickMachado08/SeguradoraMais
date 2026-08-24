@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(name = "corretor")
 @Table(name = "corretor")
 @Getter
@@ -30,6 +33,8 @@ public class Corretor {
     @Column(name = "senha", length = 26, nullable = false)
     private String senha;
 
+    @ManyToMany(mappedBy = "corretores")
+    private List<Apolice> apolices = new ArrayList<>();
 
 
 }

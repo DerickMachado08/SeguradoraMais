@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "apolice")
@@ -29,9 +30,13 @@ public class Apolice {
     @Enumerated(EnumType.STRING)
     private StatusApolice status;
 
-    @ManyToOne
-    @JoinColumn(name = "id_corre")
-    private Corretor corretor;
+    @ManyToMany
+    @JoinTable(
+            name = "apolice_corretor",
+            joinColumns = @JoinColumn(name = "id_apolice"),
+            inverseJoinColumns = @JoinColumn(name = "id_corretor")
+    )
+    private List<Corretor> corretores = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(

@@ -138,7 +138,7 @@ public class ContratacaoService {
     }
 
     public List<Contratacao> contratacoesPendentes(Corretor corretor) {
-        return contratacaoRepository.findByStatusAndApoliceCorretor(
+        return contratacaoRepository.findByStatusAndApoliceCorretores(
                 StatusContratacao.PENDENTE,
                 corretor
         );

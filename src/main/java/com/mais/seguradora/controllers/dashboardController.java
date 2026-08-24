@@ -82,7 +82,7 @@ public class dashboardController {
 
         model.addAttribute("admin", admin);
         model.addAttribute("clientes", clienteService.ListarRecentes());
-        model.addAttribute("corretores", corretorService.ListarTodos());
+        model.addAttribute("corretores", corretorService.listarTodos());
         model.addAttribute("totalApolices", apoliceService.totalApolice());
         model.addAttribute("totalClientes", clienteService.totalClientes());
 

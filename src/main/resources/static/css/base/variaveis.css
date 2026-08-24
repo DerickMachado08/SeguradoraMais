@@ -19,8 +19,8 @@
     /* ========== DASHBOARD ========== */
 
     /* -- principal -- */
-    --primario:  #03ceff;
-    --primario-n: #1d6885;
+    --primario:  #0f172a;
+    --primario-n: #0f172a;
     --primario-Dark: #053445;
 
     /* -- header -- */
@@ -38,7 +38,7 @@
 
     /* -- banner --*/
     --bannerColor: white;
-    --texto-banner: #03ceff;
+    --texto-banner: #0f172a;
     --nome: #0c3e4a;
     --texto-p: #0c3e4a;
     --icone-banner: white;
@@ -48,7 +48,7 @@
     /* -- card-icon --*/
     --card: white;
     --card-iconB: linear-gradient(135deg, #ffffff 0%, #f3f1f1 100%);
-    --card-icon: #03ceff;
+    --card-icon: #0f172a;
     --texto-card: black;
     --valor-card: black;
 
@@ -57,11 +57,11 @@
 
     /* btn acesso rapido */
     --btn-rapido: white;
-    --icone-btn: #03ceff;
+    --icone-btn: #0f172a;
 
     /* pagamento */
     --background-pagamento: #f5f7fb;
-    --texto-pagamento: #03ceff;
+    --texto-pagamento: #0f172a;
     --destaque-pagamento: #0c3e4a;
 
     /* tons */

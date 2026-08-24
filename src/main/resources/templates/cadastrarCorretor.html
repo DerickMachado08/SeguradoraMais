@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastrar Corretor</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            width: 250px;
+            background: #172033;
+            color: white;
+            min-height: 100vh;
+            padding: 25px 15px;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo h2 {
+            font-size: 22px;
+        }
+
+        .logo span {
+            color: #4f8cff;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu li {
+            margin-bottom: 8px;
+        }
+
+        .menu a {
+            display: block;
+            text-decoration: none;
+            color: #cbd2df;
+            padding: 13px 15px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background: #26344f;
+            color: white;
+        }
+
+        .menu a.active {
+            background: #2f6fed;
+            color: white;
+        }
+
+        /* =========================
+           CONTEÚDO
+        ========================= */
+
+        .main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 35px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .topbar h1 {
+            color: #172033;
+            font-size: 28px;
+        }
+
+        .topbar p {
+            color: #70798b;
+            margin-top: 6px;
+        }
+
+        .admin {
+            background: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            color: #444;
+        }
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .card {
+            background: white;
+            max-width: 850px;
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+        }
+
+        .card-header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e7e9ee;
+            padding-bottom: 20px;
+        }
+
+        .card-header h2 {
+            color: #172033;
+            font-size: 21px;
+        }
+
+        .card-header p {
+            margin-top: 7px;
+            color: #7b8494;
+            font-size: 14px;
+        }
+
+        /* =========================
+           FORMULÁRIO
+        ========================= */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        label {
+            font-weight: bold;
+            color: #343b4a;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 45px;
+            border: 1px solid #d8dce4;
+            border-radius: 7px;
+            padding: 0 13px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+            transition: 0.2s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #2f6fed;
+            box-shadow: 0 0 0 3px rgba(47,111,237,0.10);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        /* =========================
+           APÓLICE
+        ========================= */
+
+        .apolice-info {
+            background: #f5f8ff;
+            border: 1px solid #dbe6ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            color: #4a5a78;
+            font-size: 13px;
+        }
+
+        .apolice-info strong {
+            color: #2f6fed;
+        }
+
+        /* =========================
+           BOTÕES
+        ========================= */
+
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid #e7e9ee;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 7px;
+            padding: 12px 22px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .btn-cancelar {
+            background: #e9ecf1;
+            color: #4b5361;
+        }
+
+        .btn-cancelar:hover {
+            background: #dce0e7;
+        }
+
+        .btn-cadastrar {
+            background: #2f6fed;
+            color: white;
+        }
+
+        .btn-cadastrar:hover {
+            background: #245ed0;
+        }
+
+        /* =========================
+           RESPONSIVO
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 200px;
+            }
+
+            .main {
+                margin-left: 200px;
+                width: calc(100% - 200px);
+                padding: 25px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: span 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                display: block;
+            }
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                min-height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .card {
+                padding: 22px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- =====================================
+     MENU LATERAL
+===================================== -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <h2>
+            <span>Mais</span> Seguradora
+        </h2>
+    </div>
+
+    <ul class="menu">
+
+        <li>
+            <a th:href="@{/admin}">
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/admin/apolices}">
+                Apólices
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/admin/corretores}"
+               class="active">
+                Corretores
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/admin/clientes}">
+                Clientes
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/admin/contratacoes}">
+                Contratações
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+
+<!-- =====================================
+     CONTEÚDO PRINCIPAL
+===================================== -->
+
+<main class="main">
+
+    <div class="topbar">
+
+        <div>
+
+            <h1>Cadastrar Corretor</h1>
+
+            <p>
+                Cadastre um novo corretor e vincule-o a uma apólice.
+            </p>
+
+        </div>
+
+        <div class="admin">
+            Administrador
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         CARD
+    ===================================== -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h2>
+                Dados do Corretor
+            </h2>
+
+            <p>
+                Preencha os dados abaixo para cadastrar o corretor.
+            </p>
+
+        </div>
+
+
+        <!-- =====================================
+             FORMULÁRIO
+        ===================================== -->
+
+        <form th:action="@{/corretor/cadastrar}"
+              th:object="${corretor}"
+              method="post">
+
+            <div class="form-grid">
+
+
+                <!-- NOME -->
+
+                <div class="form-group full">
+
+                    <label for="nome">
+                        Nome completo
+                    </label>
+
+                    <input type="text"
+                           id="nome"
+                           th:field="*{nome}"
+                           placeholder="Digite o nome completo"
+                           required>
+
+                </div>
+
+
+                <!-- CPF -->
+
+                <div class="form-group">
+
+                    <label for="cpf">
+                        CPF
+                    </label>
+
+                    <input type="text"
+                           id="cpf"
+                           th:field="*{cpf}"
+                           placeholder="Digite o CPF"
+                           maxlength="14"
+                           required>
+
+                </div>
+
+
+                <!-- TELEFONE -->
+
+                <div class="form-group">
+
+                    <label for="telefone">
+                        Telefone
+                    </label>
+
+                    <input type="text"
+                           id="telefone"
+                           th:field="*{telefone}"
+                           placeholder="(00) 00000-0000"
+                           required>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group full">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input type="email"
+                           id="email"
+                           th:field="*{email}"
+                           placeholder="exemplo@email.com"
+                           required>
+
+                </div>
+
+                <div class="form-group full">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input type="email"
+                           id="senha"
+                           th:field="*{senha}"
+                           required>
+
+                </div>
+
+
+                <!-- APÓLICE -->
+
+                <div class="form-group full">
+
+                    <label for="idApolice">
+                        Apólice
+                    </label>
+
+                    <select id="idApolice"
+                            name="idApolice"
+                            required>
+
+                        <option value="">
+                            Selecione uma apólice
+                        </option>
+
+                        <option th:each="apolice : ${apolices}"
+                                th:value="${apolice.id}"
+                                th:text="${apolice.numeroApolice + ' - ' + apolice.tipoApolice}">
+                        </option>
+
+                    </select>
+
+                    <div class="apolice-info">
+
+                        <strong>Importante:</strong>
+
+                        Selecione a apólice à qual este corretor
+                        ficará vinculado.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 BOTÕES
+            ===================================== -->
+
+            <div class="buttons">
+
+                <a th:href="@{/admin/corretores}"
+                   class="btn btn-cancelar">
+
+                    Cancelar
+
+                </a>
+
+                <button type="submit"
+                        class="btn btn-cadastrar">
+
+                    Cadastrar Corretor
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</main>
+
+</body>
+
+</html>
