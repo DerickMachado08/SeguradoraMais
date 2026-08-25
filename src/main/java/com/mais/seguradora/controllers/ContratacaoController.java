@@ -45,13 +45,9 @@ public class ContratacaoController {
         List<Contratacao> contratacoes =
                 contratacaoService.buscarPorCliente(cliente);
 
-        long pendentes = contratacoes.stream()
-                .filter(c -> c.getStatus() == StatusContratacao.PENDENTE)
-                .count();
-
         model.addAttribute("cliente", cliente);
         model.addAttribute("contratacoes", contratacoes);
-        model.addAttribute("pendentes", pendentes);
+        model.addAttribute("pendentes", contratacaoService.contarPendentes(contratacoes));
 
         return "minhasApolices";
     }
@@ -70,18 +66,15 @@ public class ContratacaoController {
 
         List<Contratacao> contratacoesCliente =
                 contratacaoService.buscarPorCliente(cliente);
-        List<String> tiposBloqueados = contratacoesCliente.stream()
-                .filter(contratacao ->
-                        contratacao.getStatus() != StatusContratacao.REJEITADA)
-                .map(contratacao ->
-                        contratacao.getApolice().getTipoApolice())
-                .distinct()
-                .collect(Collectors.toList());
 
         model.addAttribute("cliente", cliente);
         model.addAttribute("apolices", apolices);
         model.addAttribute("contratacoesCliente", contratacoesCliente);
         model.addAttribute("erro", erro);
+        model.addAttribute(
+                "tiposBloqueados",
+                contratacaoService.buscarTiposBloqueados(cliente)
+        );
 
         return "contratarSeguro";
     }
@@ -143,28 +136,14 @@ public class ContratacaoController {
 
     @PostMapping("/cliente/contratacao/bem")
     public String cadastrarBem(
-            @RequestParam("idContratacao") Integer idContratacao,
-            @RequestParam("tipoBem") String tipoBem,
-            @RequestParam("descricao") String descricao,
-            @RequestParam("valorEstimado") BigDecimal valorEstimado,
-            @RequestParam("dataAquisicao")
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-            LocalDate dataAquisicao,
+            @RequestParam Integer idContratacao,
+            @ModelAttribute("bem") BemPatrimonial bem,
             HttpSession session,
             Model model) {
 
-        Cliente cliente =
-                (Cliente) session.getAttribute("usuarioLogado");
-
-        BemPatrimonial bem = new BemPatrimonial();
-
-        bem.setTipoBem(tipoBem);
-        bem.setDescricao(descricao);
-        bem.setValorEstimado(valorEstimado);
-        bem.setDataAquisicao(dataAquisicao);
+        Cliente cliente = (Cliente) session.getAttribute("usuarioLogado");
 
         try {
-
             contratacaoService.cadastrarBemDaContratacao(
                     idContratacao,
                     cliente,
@@ -181,7 +160,6 @@ public class ContratacaoController {
             model.addAttribute("cliente", cliente);
             model.addAttribute("contratacao", contratacao);
             model.addAttribute("idContratacao", idContratacao);
-            model.addAttribute("bem", bem);
             model.addAttribute("erro", e.getMessage());
 
             return "cadastrarBem";
@@ -222,5 +200,27 @@ public class ContratacaoController {
         );
 
         return "bens";
+    }
+
+    @PostMapping("/corretor/contratacao/{id}/deletar")
+    public String deletarContratacaoCorretor(
+            @PathVariable("id") Integer id) {
+
+        contratacaoService.deletar(id);
+
+        return "redirect:/dashboardCorretor";
+    }
+
+    @PostMapping("/cliente/contratacao/{id}/deletar")
+    public String deletar(
+            @PathVariable Integer id,
+            HttpSession session) {
+
+        Cliente cliente =
+                (Cliente) session.getAttribute("usuarioLogado");
+
+        contratacaoService.deletar(id);
+
+        return "redirect:/cliente/apolices";
     }
 }

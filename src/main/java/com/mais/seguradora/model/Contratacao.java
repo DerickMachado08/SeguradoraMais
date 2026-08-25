@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "contratacao")
 @Table(name = "contratacao")
@@ -35,4 +37,7 @@ public class Contratacao {
     @ManyToOne
     @JoinColumn(name = "id_a")
     private Apolice apolice;
+
+    @OneToMany(mappedBy = "contratacao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BemPatrimonial> bensPatriomiais = new ArrayList<>();
 }

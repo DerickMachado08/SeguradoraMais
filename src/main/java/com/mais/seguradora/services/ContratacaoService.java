@@ -33,9 +33,15 @@ public class ContratacaoService {
         return contratacaoRepository.findByCliente(cliente);
     }
 
+    public void deletar(Integer id){
+        Contratacao contratacao = contratacaoRepository.findById(id).orElseThrow(()-> new RecursoNullException("Contratação não encontrado"));
+
+                contratacaoRepository.delete(contratacao);
+    }
+
     public Contratacao buscarPorId(Integer id) {
         return contratacaoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Contratacao nao encontrada"));
+                .orElseThrow(() -> new RecursoNullException("Contratacao nao encontrada"));
     }
 
     public void salvar(Contratacao contratacao) {
@@ -137,10 +143,25 @@ public class ContratacaoService {
         return contratacaoSalva;
     }
 
+    public List<String> buscarTiposBloqueados(Cliente cliente) {
+
+        return buscarPorCliente(cliente).stream()
+                .filter(c -> c.getStatus() != StatusContratacao.REJEITADA)
+                .map(c -> c.getApolice().getTipoApolice())
+                .distinct()
+                .toList();
+    }
+
     public List<Contratacao> contratacoesPendentes(Corretor corretor) {
         return contratacaoRepository.findByStatusAndApoliceCorretores(
                 StatusContratacao.PENDENTE,
                 corretor
         );
+    }
+
+    public long contarPendentes(List<Contratacao> contratacoes) {
+        return contratacoes.stream()
+                .filter(c -> c.getStatus() == StatusContratacao.PENDENTE)
+                .count();
     }
 }

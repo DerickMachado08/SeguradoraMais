@@ -6,6 +6,84 @@
     <title>Dashboard - Seguradora Mais</title>
     <link rel="stylesheet" href="/css/main/app/clienteDashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* ===== Ajustes visuais (Seguradora Mais) ===== */
+        :root{
+            --sm-navy:#0f172a; --sm-navy-2:#1e293b; --sm-line:#e5e9f0;
+            --sm-muted:#64748b; --sm-amber:#f59e0b; --sm-red:#dc2626; --sm-blue:#1d4ed8;
+        }
+        .btn-action{
+            display:inline-flex; align-items:center; justify-content:center; gap:8px;
+            flex:1 1 0; min-width:0; white-space:nowrap;
+            height:42px; padding:0 14px; border:1px solid var(--sm-line);
+            border-radius:10px; background:#fff; color:var(--sm-navy);
+            font-size:.86rem; font-weight:600; cursor:pointer;
+            transition:transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
+            text-decoration:none;
+        }
+        .btn-action i{font-size:.9rem}
+        .btn-action:hover{transform:translateY(-2px); box-shadow:0 8px 18px rgba(15,23,42,.12)}
+        .btn-action.secondary{background:#f8fafc}
+        .btn-action.primary{background:var(--sm-navy); border-color:var(--sm-navy); color:#fff}
+        .btn-action.primary:hover{background:var(--sm-navy-2)}
+        .btn-action.delete{background:#fff5f5; border-color:#fecaca; color:var(--sm-red)}
+        .btn-action.delete:hover{background:var(--sm-red); border-color:var(--sm-red); color:#fff}
+        .btn-action.large{height:50px; padding:0 28px; font-size:.95rem; border-radius:12px}
+        .btn-action.large i{font-size:1rem}
+        /* linha de acoes: todos os botoes na mesma linha */
+        .apolice-card-actions,.acoes-solicitacao{
+            display:flex; align-items:stretch; gap:10px; margin-top:18px; flex-wrap:nowrap;
+        }
+        .apolice-card-actions form,.acoes-solicitacao form{display:flex; flex:1 1 0; min-width:0; margin:0}
+        .acoes-solicitacao .formulario-emissao{flex:2 1 0; display:block}
+        .acoes-solicitacao .botao-emitir{width:100%}
+        @media (max-width:640px){
+            .apolice-card-actions,.acoes-solicitacao{flex-wrap:wrap}
+            .btn-action{flex:1 1 45%}
+        }
+        /* ===== Minhas Apolices - destaque no dashboard ===== */
+        .apolice-promo{
+            background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-radius:22px; padding:32px; color:#fff;
+            box-shadow:0 18px 40px rgba(15,23,42,.22);
+            display:flex; flex-direction:column; gap:24px;
+        }
+        .apolice-promo-hero{
+            display:flex; align-items:flex-start; gap:18px;
+        }
+        .apolice-promo-hero .hero-icon{
+            width:64px; height:64px; border-radius:18px; background:rgba(255,255,255,.12);
+            display:grid; place-items:center; flex:0 0 64px; font-size:1.6rem;
+        }
+        .apolice-promo-hero h2{margin:0; font-size:1.45rem; font-weight:700}
+        .apolice-promo-hero p{margin:8px 0 0; color:#cbd5e1; line-height:1.55; max-width:640px}
+        .apolices-resumo{
+            display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:14px;
+        }
+        .apolices-resumo .stat{
+            background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12);
+            border-radius:16px; padding:16px 18px; backdrop-filter:blur(6px);
+        }
+        .apolices-resumo .stat span{
+            display:block; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase;
+            color:#94a3b8; font-weight:700;
+        }
+        .apolices-resumo .stat strong{
+            display:block; font-size:1.8rem; color:#fff; margin-top:6px; font-weight:800;
+        }
+        .apolice-promo .cta-row{
+            display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+        }
+        .apolice-promo .cta-note{
+            font-size:.85rem; color:#94a3b8; display:flex; align-items:center; gap:8px;
+        }
+        .vazio-apolices{
+            background:#fff; border:1px dashed var(--sm-line); border-radius:16px;
+            padding:32px; text-align:center; color:var(--sm-muted);
+        }
+        .vazio-apolices i{font-size:1.8rem; color:var(--sm-navy); margin-bottom:8px; display:block}
+    </style>
 </head>
 <body>
 
@@ -32,7 +110,7 @@
             </a>
         </li>
         <li class="item-menu">
-            <a href="#apolice">
+            <a href="/cliente/apolices">
                 <span class="icon"><i class="fa-regular fa-paste"></i></span>
                 <span class="txt-link">Minhas Apolices</span>
             </a>
@@ -147,7 +225,7 @@
                 <i class="fas fa-file-circle-plus"></i>
                 Contratar Seguro
             </a>
-            <a href="#apolice" class="action-btn">
+            <a href="/cliente/apolices" class="action-btn">
                 <i class="fas fa-list-check"></i>
                 Minhas Apolices
             </a>
@@ -167,51 +245,57 @@
             <i class="fas fa-file-shield"></i> Minhas Apolices
         </div>
 
-        <div th:if="${#lists.isEmpty(contratacoes)}" class="profile-card">
-            <table>
-                <tr>
-                    <td>Status</td>
-                    <td>Voce ainda nao possui apolices contratadas.</td>
-                </tr>
-                <tr>
-                    <td>Proximo passo</td>
-                    <td><a href="/cliente/contratar">Contratar um seguro</a></td>
-                </tr>
-            </table>
+        <div th:if="${#lists.isEmpty(contratacoes)}" class="vazio-apolices">
+            <i class="fas fa-folder-open"></i>
+            <h3>Voce ainda nao possui apolices contratadas</h3>
+            <p>Escolha uma cobertura e proteja o que importa.</p>
+            <a href="/cliente/contratar" class="btn-action primary" style="margin-top:14px; flex:0 0 auto; display:inline-flex">
+                <i class="fas fa-plus"></i> Contratar Seguro
+            </a>
         </div>
 
-        <div th:unless="${#lists.isEmpty(contratacoes)}" class="profile-card">
-            <table>
-                <thead>
-                <tr>
-                    <td>Numero</td>
-                    <td>Tipo</td>
-                    <td>Status</td>
-                    <td>Data da Contratacao</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="contratacao : ${contratacoes}">
-                    <td th:text="${contratacao.apolice != null ? contratacao.apolice.numeroApolice : '-'}">AP-2026-1</td>
-                    <td th:text="${contratacao.apolice != null ? contratacao.apolice.tipoApolice : '-'}">Seguro</td>
-                    <td th:text="${contratacao.apolice != null && contratacao.status != null ? contratacao.status : 'PENDENTE'}">ATIVA</td>
-                    <td th:text="${contratacao.dataContratacao != null ? #temporals.format(contratacao.dataContratacao, 'dd/MM/yyyy') : '-'}">13/06/2026</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <div th:unless="${#lists.isEmpty(contratacoes)}" class="apolice-promo">
+            <div class="apolice-promo-hero">
+                <div class="hero-icon">
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h2>Gerencie suas apolices em um so lugar</h2>
+                    <p>Visualize detalhes completos, faca pagamentos, baixe documentos e acompanhe o status de cada seguro contratado com seguranca.</p>
+                </div>
+            </div>
 
-        <a href="/cliente/apolices" class="action-btn" style="width: fit-content; margin-top: 16px;">
-            <i class="fas fa-arrow-up-right-from-square"></i>
-            Abrir pagina completa de Minhas Apolices
-        </a>
+            <div class="apolices-resumo">
+                <div class="stat">
+                    <span>Total</span>
+                    <strong th:text="${#lists.size(contratacoes)}">0</strong>
+                </div>
+                <div class="stat">
+                    <span>Ativas</span>
+                    <strong th:text="${totalApolicesAtivas}">0</strong>
+                </div>
+                <div class="stat">
+                    <span>Contratadas em</span>
+                    <strong style="font-size:1.1rem">2026</strong>
+                </div>
+            </div>
+
+            <div class="cta-row">
+                <a href="/cliente/apolices" class="btn-action primary large">
+                    <i class="fas fa-arrow-up-right-from-square"></i> Ver Minhas Apolices
+                </a>
+                <span class="cta-note">
+                    <i class="fas fa-lock"></i> Ambiente seguro e atualizado em tempo real
+                </span>
+            </div>
+        </div>
     </section>
 
     <section id="pagamento" class="pagamento">
         <div class="pagamento-head">
             <span class="pagamento-eyebrow"><i class="fas fa-lock"></i> Ambiente 100% seguro</span>
             <h2>Pagamento <span>Simples e Seguro</span></h2>
-            <p>Avance para a página de pagamento e finalize sua contratação com poucos cliques.</p>
+            <p>Avance para a pagina de pagamento e finalize sua contratacao com poucos cliques.</p>
         </div>
 
         <div class="pagamento-card">
@@ -223,7 +307,7 @@
 
             <a href="/pagamento/cliente" class="btn-pagamento">
                 <i class="fas fa-lock"></i>
-                Ir para a página de pagamento
+                Ir para a pagina de pagamento
                 <i class="fas fa-arrow-right seta"></i>
             </a>
 
