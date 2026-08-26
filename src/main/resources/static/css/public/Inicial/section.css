@@ -92,3 +92,9 @@ body::-webkit-scrollbar {
     opacity: 1;
 }
 
+
+/* Botao de aceite de cookies */
+.btn.btn-sm.btn-cookie-ok {
+    background: var(--brown);
+    color: #fff;
+}

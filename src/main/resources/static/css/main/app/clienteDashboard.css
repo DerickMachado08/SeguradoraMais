@@ -6,3 +6,5 @@
 @import url('../../components/banner.css');
 
 @import url('../../app/menuCliente/menuCliente.css');
+@import url('../../app/menuCliente/pages/dashboardCliente.css');
+@import url('../../app/menuCliente/pages/minhasApolicesAcoes.css');

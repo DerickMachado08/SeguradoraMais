@@ -64,6 +64,11 @@ public class ClienteController {
         return "dashboardCliente";
     }
 
+    @GetMapping("/confirmar-exclusao")
+    public String abrirConfirmacaoExclusao() {
+        return "confirmar-exclusao";
+    }
+
     @GetMapping ("/{id}")
     public Cliente buscar(@PathVariable("id") Integer id){
         return service.buscar(id);

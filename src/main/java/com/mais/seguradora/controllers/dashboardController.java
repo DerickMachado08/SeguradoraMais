@@ -3,6 +3,7 @@ package com.mais.seguradora.controllers;
 import com.mais.seguradora.Repositories.ApoliceRepository;
 import com.mais.seguradora.Repositories.ClienteRepository;
 import com.mais.seguradora.enummerated.StatusApolice;
+import com.mais.seguradora.enummerated.StatusContratacao;
 import com.mais.seguradora.model.Admin;
 import com.mais.seguradora.model.Cliente;
 import com.mais.seguradora.model.Contratacao;
@@ -45,15 +46,11 @@ public class dashboardController {
 
         List<Contratacao> contratacoes = contratacaoService.buscarPorCliente(cliente);
 
-        long totalApolicesAtivas = contratacoes.stream()
-                .filter(contratacao -> contratacao.getApolice() != null)
-                .filter(contratacao -> contratacao.getApolice().getStatus() == StatusApolice.ATIVA)
-                .count();
-
         model.addAttribute("cliente", cliente);
         model.addAttribute("contratacoes", contratacoes);
         model.addAttribute("totalApolices", contratacoes.size());
-        model.addAttribute("totalApolicesAtivas", totalApolicesAtivas);
+        model.addAttribute("pendentes", contratacaoService.contarPendentes(contratacoes));
+        model.addAttribute("totalApolicesEmitidas", contratacaoService.totalApolicesEmitidas(contratacoes));
 
         return "dashboardCliente";
     }

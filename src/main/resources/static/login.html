@@ -1,76 +1,84 @@
-<!DOCTYPE html>
-<html lang="pt-br" data-theme="dark">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login - Seguro Inteligente</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Acesse sua conta com segurança" />
+    <title>Entrar | Seguro Inteligente</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/main/public/login.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+<main class="page-shell">
+    <span class="ambient-shape ambient-shape--navy" aria-hidden="true"></span>
+    <span class="ambient-shape ambient-shape--gold" aria-hidden="true"></span>
 
-<canvas id="particles"></canvas>
+    <svg class="flight-path" viewBox="0 0 410 300" aria-hidden="true" focusable="false">
+        <path d="M5 234 C88 252, 93 153, 183 179 S279 253, 337 134" />
+        <circle class="plane-dot" cx="5" cy="234" r="4" />
+        <g class="paper-plane" transform="translate(326 108) rotate(-19)">
+            <path d="M0 18 L58 0 L40 43 L26 28 Z" />
+            <path d="M26 28 L58 0 L32 35 Z" />
+            <path d="M26 28 L26 49 L32 35 Z" />
+        </g>
+    </svg>
 
-<button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema">
-    <i class="fa-solid fa-moon icon-dark"></i>
-    <i class="fa-solid fa-sun icon-light"></i>
-</button>
-
-<div class="container">
-    <div class="login-box">
-        <div class="logo">
-            <i class="fa-solid fa-shield-halved"></i>
+    <section class="security-card" aria-labelledby="page-title">
+        <div class="brand">
+            <span class="brand-mark"><i class="fa-solid fa-shield-halved"></i></span>
+            <span class="eyebrow">Acesso seguro</span>
         </div>
+        <h1 id="page-title">Bem-vindo de volta</h1>
+        <p class="intro">Faça login para acessar sua conta e continuar de onde parou.</p>
 
-        <h2>Bem-vindo de volta!</h2>
-        <p class="subtitle">Faça login para acessar sua conta</p>
-
-        <div class="input-group">
-            <i class="fa-solid fa-envelope input-icon"></i>
-            <input type="email" id="email" placeholder="E-mail" required>
-        </div>
-
-        <div class="input-group">
-            <i class="fa-solid fa-lock input-icon"></i>
-            <input type="password" id="senha" placeholder="Senha" required>
-
-            <!-- Botão diferencial: olho que vira cadeado, com pálpebra animada -->
-            <button type="button" class="eye-btn" id="eyeBtn" onclick="olharSenha()" aria-label="Mostrar/Ocultar senha">
-                <span class="eye-wrap">
-                    <span class="eye-ball">
-                        <span class="eye-pupil"></span>
-                        <span class="eye-shine"></span>
-                    </span>
-                    <span class="eye-lid"></span>
-                    <span class="eye-slash"></span>
-                </span>
-            </button>
-        </div>
-
-        <div class="options">
-            <label class="remember">
-                <input type="checkbox">
-                <span class="check-box"><i class="fa-solid fa-check"></i></span>
-                Lembrar de mim
+        <form id="login-form" novalidate>
+            <label class="field" for="email">
+                <span>E-mail</span>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="voce@exemplo.com" required />
             </label>
-            <a href="#">Esqueci minha senha</a>
-        </div>
+            <p class="error-message" id="email-error" aria-live="polite"></p>
 
-        <button id="btnEntrar" class="btn-entrar" onclick="logar()">
-            <span>ENTRAR</span>
-            <i class="fa-solid fa-arrow-right"></i>
-        </button>
+            <label class="field" for="senha">
+                <span>Senha</span>
+                <div class="input-with-action">
+                    <input id="senha" name="senha" type="password" autocomplete="current-password" placeholder="Digite sua senha" required minlength="6" />
+                    <button type="button" class="eye-btn" id="eyeBtn" onclick="olharSenha()" aria-label="Mostrar/Ocultar senha">
+            <span class="eye-wrap">
+              <span class="eye-ball">
+                <span class="eye-pupil"></span>
+                <span class="eye-shine"></span>
+              </span>
+              <span class="eye-lid"></span>
+              <span class="eye-slash"></span>
+            </span>
+                    </button>
+                </div>
+            </label>
+            <p class="error-message" id="senha-error" aria-live="polite"></p>
 
-        <div class="footer">
-            <span>Não tem uma conta?</span>
-            <a href="/cadastro-cliente.html">Cadastre-se</a>
-        </div>
-    </div>
-</div>
+            <div class="options">
+                <label class="remember">
+                    <input type="checkbox" />
+                    <span class="check-box"><i class="fa-solid fa-check"></i></span>
+                    Lembrar de mim
+                </label>
+                <a href="#">Esqueci minha senha</a>
+            </div>
 
-<script src="./js/login.js"></script>
+            <div class="actions">
+                <button class="button button--primary" id="btnEntrar" type="submit">
+                    Entrar
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+            <p class="form-footnote">Não tem uma conta? <a href="/cadastro-cliente.html">Cadastre-se</a></p>
+        </form>
+    </section>
+</main>
+
+<script src="/js/login.js"></script>
 </body>
 </html>

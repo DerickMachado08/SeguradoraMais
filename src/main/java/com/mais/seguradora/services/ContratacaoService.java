@@ -9,6 +9,7 @@ import com.mais.seguradora.exception.RecursoDuplicadoException;
 import com.mais.seguradora.exception.RecursoNullException;
 import com.mais.seguradora.model.*;
 import jakarta.transaction.Transactional;
+import org.hibernate.query.SelectionQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -150,6 +151,13 @@ public class ContratacaoService {
                 .map(c -> c.getApolice().getTipoApolice())
                 .distinct()
                 .toList();
+    }
+
+    public long totalApolicesEmitidas(List<Contratacao> contratacoes){
+        return contratacoes.stream()
+                .filter(contratacao -> contratacao.getStatus() != null)
+                .filter(contratacao -> contratacao.getStatus() == StatusContratacao.APOLICE_EMITIDA)
+                .count();
     }
 
     public List<Contratacao> contratacoesPendentes(Corretor corretor) {

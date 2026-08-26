@@ -7,16 +7,26 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
     @Autowired
     private LoginInterceptor loginInterceptor;
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/cliente/**", "/corretor/**", "/admin/**").
-                excludePathPatterns( "/login",
+    public void addInterceptors(InterceptorRegistry registry) {
+
+        registry.addInterceptor(loginInterceptor)
+                .addPathPatterns(
+                        "/cliente/**",
+                        "/corretor/**",
+                        "/admin/**"
+                )
+                .excludePathPatterns(
+                        "/cliente",
+                        "/login",
                         "/login.html",
                         "/css/**",
                         "/js/**",
-                        "/images/**");
+                        "/images/**"
+                );
     }
 }

@@ -48,6 +48,7 @@ public class ContratacaoController {
         model.addAttribute("cliente", cliente);
         model.addAttribute("contratacoes", contratacoes);
         model.addAttribute("pendentes", contratacaoService.contarPendentes(contratacoes));
+        model.addAttribute("totalApolicesEmitidas", contratacaoService.totalApolicesEmitidas(contratacoes));
 
         return "minhasApolices";
     }

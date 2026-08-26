@@ -15,6 +15,7 @@ public class ApoliceService {
     @Autowired
     private ApoliceRepository apoliceRepository;
 
+
     public Apolice criarApolice (Apolice apolice){
 
         Apolice salva = apoliceRepository.save(apolice);
@@ -37,5 +38,8 @@ public class ApoliceService {
     public Apolice buscarPorId(Integer id){
         return apoliceRepository.findById(id).orElseThrow(() -> new RuntimeException("id não encontrado"));
     }
+
+
+
 
 }

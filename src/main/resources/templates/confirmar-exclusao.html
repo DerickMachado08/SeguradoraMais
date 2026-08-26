@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Confirmação segura para exclusão de conta" />
+    <title>Excluir conta | Confirmação</title>
+    <style>
+        :root{color-scheme:light;--navy-950:#071d36;--navy-800:#103b68;--navy-700:#195086;--ink:#18324c;--muted:#6c7c8d;--cream:#fbf8f3;--white:#fff;--line:#dbe3e9;--gold:#e5a532;--danger:#b54444;--danger-dark:#943737;--shadow:0 24px 70px rgba(18,46,75,.14),0 4px 16px rgba(18,46,75,.06);
+            font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}*{box-sizing:border-box}
+        html,body{min-height:100%;margin:0}
+        body{min-height:100vh;color:var(--ink);background:var(--cream) url("/fundoV.png") center/cover fixed no-repeat;overflow-x:hidden}
+        button,input{font:inherit}
+        button{cursor:pointer}
+        .page-shell{position:relative;isolation:isolate;display:grid;min-height:100vh;place-items:center;padding:clamp(32px,7vw,88px) 24px}
+        .ambient-shape{position:absolute;z-index:-1;border-radius:999px;pointer-events:none;filter:blur(1px)}
+        .ambient-shape--navy{width:clamp(180px,25vw,360px);height:clamp(180px,25vw,360px);right:clamp(-120px,-8vw,-40px);top:13%;background:rgba(8,41,76,.08)}
+        .ambient-shape--gold{width:clamp(95px,12vw,170px);height:clamp(95px,12vw,170px);left:9%;bottom:12%;background:rgba(229,165,50,.13)}
+        .flight-path{position:absolute;z-index:0;top:clamp(6%,10vw,15%);left:clamp(2%,9vw,13%);width:clamp(220px,29vw,410px);height:clamp(160px,22vw,300px);pointer-events:none;opacity:.92}
+        .flight-path path{fill:none;stroke:var(--gold);stroke-width:2;stroke-dasharray:3 10;stroke-linecap:round}
+        .paper-plane{fill:var(--navy-800);stroke:var(--navy-950);stroke-linejoin:round}
+        .plane-dot{fill:var(--gold)}
+        .security-card{position:relative;z-index:2;width:min(100%,490px);padding:clamp(28px,5vw,50px);border:1px solid rgba(255,255,255,.78);border-radius:28px;background:rgba(255,255,255,.91);box-shadow:var(--shadow);backdrop-filter:blur(14px);animation:card-in 650ms cubic-bezier(.2,.8,.2,1) both}.eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:17px;color:var(--navy-700);font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+        .eyebrow:before{content:"";width:24px;height:2px;background:var(--gold)}h1{margin:0;color:var(--navy-950);font-size:clamp(2rem,5vw,2.9rem);line-height:1.08;letter-spacing:-.045em}.intro{margin:18px 0 30px;color:var(--muted);font-size:.98rem;line-height:1.65}.notice{display:flex;gap:12px;align-items:flex-start;margin-bottom:28px;padding:14px 15px;border:1px solid rgba(229,165,50,.3);border-radius:14px;background:#fffaf0;color:#78591d;font-size:.83rem;line-height:1.5}
+        .notice-mark{flex:0 0 auto;display:grid;width:20px;height:20px;place-items:center;border-radius:50%;background:var(--gold);color:var(--white);font-size:.75rem;font-weight:800}.field{display:block;margin-bottom:19px}
+        .field span{display:block;margin-bottom:8px;color:var(--navy-800);font-size:.82rem;font-weight:750}
+        .field input{width:100%;height:52px;padding:0 15px;border:1px solid var(--line);border-radius:12px;outline:none;background:rgba(255,255,255,.75);color:var(--navy-950);transition:border-color 180ms ease,box-shadow 180ms ease,background 180ms ease}
+        .field input::placeholder{color:#a2adb6}.field input:focus{border-color:var(--navy-700);background:var(--white);box-shadow:0 0 0 4px rgba(25,80,134,.11)}
+        .field input[aria-invalid=true]{border-color:var(--danger);box-shadow:0 0 0 4px rgba(181,68,68,.1)}
+        .error-message{min-height:18px;margin:-9px 0 9px;color:var(--danger-dark);font-size:.76rem}
+        .actions{display:grid;gap:11px;margin-top:24px}
+        .button{min-height:51px;border:1px solid transparent;border-radius:12px;font-size:.91rem;font-weight:750;transition:transform 180ms ease,box-shadow 180ms ease,background 180ms ease}
+        .button:hover{transform:translateY(-1px)}.button:focus-visible{outline:3px solid rgba(25,80,134,.28);outline-offset:3px}
+        .button--danger{background:var(--danger);color:var(--white);box-shadow:0 8px 18px rgba(181,68,68,.2)}
+        .button--danger:hover{background:var(--danger-dark);box-shadow:0 11px 22px rgba(181,68,68,.25)}
+        .button--back{border-color:var(--line);background:transparent;color:var(--navy-800)}
+        .button--back:hover{background:#f5f8fa}
+        .form-footnote{margin:22px 0 0;color:#8a969f;font-size:.73rem;line-height:1.5;text-align:center}
+        .modal-backdrop{position:fixed;z-index:10;inset:0;display:grid;place-items:center;padding:22px;background:rgba(7,29,54,.42);opacity:0;visibility:hidden;transition:opacity 220ms ease,visibility 220ms ease}
+        .modal-backdrop.is-open{opacity:1;visibility:visible}.modal{width:min(100%,420px);padding:31px;border-radius:22px;background:var(--white);box-shadow:0 25px 80px rgba(7,29,54,.25);transform:translateY(12px) scale(.98);transition:transform 220ms ease}
+        .modal-backdrop.is-open .modal{transform:translateY(0) scale(1)}
+        .modal-icon{display:grid;width:45px;height:45px;place-items:center;margin-bottom:19px;border-radius:50%;background:#fff0ed;color:var(--danger);font-size:1.35rem;font-weight:800}
+        .modal h2{margin:0;color:var(--navy-950);font-size:1.42rem;line-height:1.2}.modal p{margin:12px 0 25px;color:var(--muted);font-size:.91rem;line-height:1.6}
+        .modal-actions{display:grid;gap:10px}.button--cancel{border-color:var(--line);background:var(--white);color:var(--navy-800)}
+        .button--cancel:hover{background:#f7f9fa}@keyframes card-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}@media(max-width:720px){
+            .page-shell{padding:72px 16px 28px}
+            .flight-path{top:2%;left:-8%;opacity:.68;transform:rotate(-8deg) scale(.78);transform-origin:left top}
+            .security-card{border-radius:22px}
+            .ambient-shape--navy{top:24%;right:-22%}}@media(max-width:420px){
+            .page-shell{padding-top:50px}
+            .security-card{padding:26px 21px}
+            .flight-path{top:0;left:0;transform:rotate(-8deg) scale(.62)}
+            .intro{margin-bottom:23px}
+            .modal{padding:26px 22px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    </style>
+</head>
+<body>
+<main class="page-shell">
+    <span class="ambient-shape ambient-shape--navy" aria-hidden="true"></span><span class="ambient-shape ambient-shape--gold" aria-hidden="true"></span>
+    <svg class="flight-path" viewBox="0 0 410 300" aria-hidden="true" focusable="false"><path d="M5 234 C88 252, 93 153, 183 179 S279 253, 337 134"/><circle class="plane-dot" cx="5" cy="234" r="4"/><g class="paper-plane" transform="translate(326 108) rotate(-19)"><path d="M0 18 L58 0 L40 43 L26 28 Z"/><path d="M26 28 L58 0 L32 35 Z"/><path d="M26 28 L26 49 L32 35 Z"/></g></svg>
+    <section class="security-card" aria-labelledby="page-title"><div class="eyebrow">Área de segurança</div><h1 id="page-title">Excluir conta</h1><p class="intro">Sentimos que você esteja indo. Confirme sua identidade para continuar com a solicitação de exclusão da sua conta.</p><div class="notice" role="note"><span class="notice-mark" aria-hidden="true">!</span><span>Esta ação é permanente. Os dados associados à sua conta poderão ser excluídos e não poderão ser recuperados.</span></div>
+        <form id="delete-form" novalidate><label class="field" for="email"><span>E-mail da conta</span><input id="email" name="email" type="email" autocomplete="email" placeholder="voce@exemplo.com" required /></label><p class="error-message" id="email-error" aria-live="polite"></p><label class="field" for="password"><span>Senha</span><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Digite sua senha" required minlength="6" /></label><p class="error-message" id="password-error" aria-live="polite"></p><div class="actions"><button class="button button--danger" type="submit">Continuar para exclusão</button><button class="button button--back" id="back-button" type="button">Voltar</button></div><p class="form-footnote">Sua senha é usada somente para confirmar sua identidade nesta etapa.</p></form>
+    </section></main>
+<div class="modal-backdrop" id="confirmation-modal" role="presentation" aria-hidden="true"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-description"><div class="modal-icon" aria-hidden="true">!</div><h2 id="modal-title">Tem certeza?</h2><p id="modal-description">Tem certeza de que deseja excluir sua conta? Esta ação não poderá ser desfeita.</p><div class="modal-actions"><button class="button button--danger" id="confirm-delete" type="button">Sim, excluir minha conta</button><button class="button button--cancel" id="cancel-delete" type="button">Cancelar</button></div></section></div>
+<script>
+    const form=document.querySelector('#delete-form'),emailInput=document.querySelector('#email'),passwordInput=document.querySelector('#password'),emailError=document.querySelector('#email-error'),passwordError=document.querySelector('#password-error'),modal=document.querySelector('#confirmation-modal'),cancelButton=document.querySelector('#cancel-delete'),confirmButton=document.querySelector('#confirm-delete'),backButton=document.querySelector('#back-button');
+    function clearErrors(){emailError.textContent='';passwordError.textContent='';emailInput.removeAttribute('aria-invalid');passwordInput.removeAttribute('aria-invalid')}
+    function validateFields(){clearErrors();let isValid=true;const email=emailInput.value.trim();if(!email||!emailInput.validity.valid){emailError.textContent='Digite um e-mail válido.';emailInput.setAttribute('aria-invalid','true');isValid=false}if(!passwordInput.value||passwordInput.value.length<6){passwordError.textContent='A senha deve ter pelo menos 6 caracteres.';passwordInput.setAttribute('aria-invalid','true');isValid=false}return isValid}
+    function openModal(){modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');cancelButton.focus()}function closeModal(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true')}
+    form.addEventListener('submit',event=>{event.preventDefault();if(validateFields())openModal()});cancelButton.addEventListener('click',closeModal);modal.addEventListener('click',event=>{if(event.target===modal)closeModal()});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&modal.classList.contains('is-open'))closeModal()});confirmButton.addEventListener('click',()=>{closeModal();confirmButton.textContent='Solicitação confirmada';confirmButton.disabled=true;confirmButton.style.opacity='.75'});backButton.addEventListener('click',()=>{if(window.history.length>1)window.history.back();else window.location.href='/'})
+</script>
+</body></html>
