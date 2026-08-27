@@ -1,4 +1,3 @@
-
 // ===== Login =====
 function logar() {
     fetch("/auten/login", {
@@ -131,12 +130,10 @@ function toggleTheme() {
     draw();
 })();
 
+// ===== Enter =====
 
-const form = document.getElementById("login-form");
-
-if (form) {
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
+window.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
         logar();
-    });
-}
+    }
+});

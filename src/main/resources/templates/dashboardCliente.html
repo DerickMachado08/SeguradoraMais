@@ -6,25 +6,48 @@
     <title>Dashboard - Seguradora Mais</title>
     <link rel="stylesheet" href="/css/main/app/clienteDashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-    .btn-excluir {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px 22px;
-        border-radius: 10px;
-        background-color: #b91c1c;
-        color: white;
-        text-decoration: none;
-        font-weight: 600;
-        transition: 0.3s ease;
-    }
 
-    .btn-excluir:hover {
-        background-color: #991b1b;
-        transform: translateY(-2px);
-    }
-</style>
+    <style>
+        /* ===== Ajustes visuais (Seguradora Mais) ===== */
+        :root{
+            --sm-navy:#0f172a; --sm-navy-2:#1e293b; --sm-line:#e5e9f0;
+            --sm-muted:#64748b; --sm-amber:#f59e0b; --sm-red:#dc2626; --sm-blue:#1d4ed8;
+        }
+        .btn-action{
+            display:inline-flex; align-items:center; justify-content:center; gap:8px;
+            flex:1 1 0; min-width:0; white-space:nowrap;
+            height:42px; padding:0 14px; border:1px solid var(--sm-line);
+            border-radius:10px; background:#fff; color:var(--sm-navy);
+            font-size:.86rem; font-weight:600; cursor:pointer;
+            transition:transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
+            text-decoration:none;
+        }
+        .btn-action i{font-size:.9rem}
+        .btn-action:hover{transform:translateY(-2px); box-shadow:0 8px 18px rgba(15,23,42,.12)}
+        .btn-action.secondary{background:#f8fafc}
+        .btn-action.primary{background:var(--sm-navy); border-color:var(--sm-navy); color:#fff}
+        .btn-action.primary:hover{background:var(--sm-navy-2)}
+        .btn-action.delete{background:#fff5f5; border-color:#fecaca; color:var(--sm-red)}
+        .btn-action.delete:hover{background:var(--sm-red); border-color:var(--sm-red); color:#fff}
+        .btn-action.large{height:50px; padding:0 28px; font-size:.95rem; border-radius:12px}
+        .btn-action.large i{font-size:1rem}
+        /* linha de acoes: todos os botoes na mesma linha */
+        .apolice-card-actions,.acoes-solicitacao{
+            display:flex; align-items:stretch; gap:10px; margin-top:18px; flex-wrap:nowrap;
+        }
+        .apolice-card-actions form,.acoes-solicitacao form{display:flex; flex:1 1 0; min-width:0; margin:0}
+        .acoes-solicitacao .formulario-emissao{flex:2 1 0; display:block}
+        .acoes-solicitacao .botao-emitir{width:100%}
+        @media (max-width:640px){
+            .apolice-card-actions,.acoes-solicitacao{flex-wrap:wrap}
+            .btn-action{flex:1 1 45%}
+        }
+        .vazio-apolices{
+            background:#fff; border:1px dashed var(--sm-line); border-radius:16px;
+            padding:32px; text-align:center; color:var(--sm-muted);
+        }
+        .vazio-apolices i{font-size:1.8rem; color:var(--sm-navy); margin-bottom:8px; display:block}
+    </style>
 </head>
 <body>
 
@@ -69,7 +92,7 @@
             </a>
         </li>
         <li class="item-menu">
-            <a href="#">
+            <a href="#perfil">
                 <span class="icon"><i class="fa-regular fa-user"></i></span>
                 <span class="txt-link">Perfil</span>
             </a>
@@ -174,7 +197,7 @@
                 <i class="fas fa-headset"></i>
                 Suporte
             </a>
-            <a href="#" class="action-btn">
+            <a href="#perfil" class="action-btn">
                 <i class="fas fa-user-pen"></i>
                 Editar Perfil
             </a>
@@ -190,7 +213,7 @@
             <i class="fas fa-folder-open"></i>
             <h3>Voce ainda nao possui apolices contratadas</h3>
             <p>Escolha uma cobertura e proteja o que importa.</p>
-            <a href="/cliente/contratar" class="btn-action primary btn-inline">
+            <a href="/cliente/contratar" class="btn-action primary" style="margin-top:14px; flex:0 0 auto; display:inline-flex">
                 <i class="fas fa-plus"></i> Contratar Seguro
             </a>
         </div>
@@ -217,7 +240,7 @@
                 </div>
                 <div class="stat">
                     <span>Contratadas em</span>
-                    <strong class="stat-ano">2026</strong>
+                    <strong style="font-size:1.1rem">2026</strong>
                 </div>
             </div>
 
@@ -243,7 +266,7 @@
             <div class="pagamento-glow" aria-hidden="true"></div>
 
             <div class="pagamento-ilustracao">
-                <img src="../static/pagamento.png" alt="Pagamento seguro Seguradora Mais" />
+                <img src="./pagamento.png" alt="Pagamento seguro Seguradora Mais" />
             </div>
 
             <a href="/pagamento/cliente" class="btn-pagamento">
@@ -258,12 +281,56 @@
         </div>
     </section>
 
-    <a th:href="@{/cliente/confirmar-exclusao}" class="btn-excluir">
-        Excluir minha conta
-    </a>
+    <section id="perfil" class="perfil">
+        <div class="section-title">
+            <i class="fas fa-user-shield"></i> Perfil
+        </div>
+
+        <div class="promo-card">
+            <div class="promo-hero">
+                <div class="hero-icon">
+                    <i class="fas fa-id-badge"></i>
+                </div>
+                <div>
+                    <h2>Seus dados e sua conta</h2>
+                    <p>Confira as informacoes cadastradas na Seguradora Mais e gerencie o acesso da sua conta com seguranca.</p>
+                </div>
+            </div>
+
+            <div class="promo-stats">
+                <div class="stat info">
+                    <span>Nome</span>
+                    <strong th:text="${cliente.nome}">-</strong>
+                </div>
+                <div class="stat info">
+                    <span>Email</span>
+                    <strong th:text="${cliente.email}">-</strong>
+                </div>
+                <div class="stat info">
+                    <span>CPF</span>
+                    <strong th:text="${cliente.cpf}">-</strong>
+                </div>
+                <div class="stat info">
+                    <span>Nascimento</span>
+                    <strong th:text="${#temporals.format(cliente.dataNascimento, 'dd/MM/yyyy')}">-</strong>
+                </div>
+            </div>
+
+            <div class="zona-perigo">
+                <h3><i class="fas fa-triangle-exclamation"></i> Gerenciamento da conta</h3>
+                <p>A exclusao da conta remove seu acesso a plataforma. Voce sera levado a uma pagina de confirmacao antes de qualquer acao definitiva.</p>
+                <div class="cta-row">
+                    <a href="/cliente/confirmar-exclusao" class="btn-danger">
+                        <i class="fas fa-user-slash"></i> Excluir minha conta
+                    </a>
+                    <span class="cta-note">
+                        <i class="fas fa-lock"></i> Nenhum dado e removido nesta etapa
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
-
-
 
 <footer>
     &copy; 2026 Seguradora Mais &mdash; Todos os direitos reservados.

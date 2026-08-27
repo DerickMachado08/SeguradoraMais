@@ -1,0 +1,227 @@
+/* ============================================================
+   SECTIONS DO CLIENTE — padrao visual unificado
+   Base: card escuro da section "Minhas Apolices"
+   Usado por: Minhas Apolices, Pagamento e Perfil
+   ============================================================ */
+
+/* Card escuro padrao (fonte unica de verdade) */
+.promo-card,
+.apolice-promo {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 22px;
+    padding: 32px;
+    color: #fff;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, .22);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Cabecalho do card (icone + titulo + descricao) */
+.promo-hero,
+.apolice-promo-hero {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.promo-hero .hero-icon,
+.apolice-promo-hero .hero-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .12);
+    display: grid;
+    place-items: center;
+    flex: 0 0 64px;
+    font-size: 1.6rem;
+}
+
+.promo-hero h2,
+.apolice-promo-hero h2 {
+    margin: 0;
+    font-size: 1.45rem;
+    font-weight: 700;
+}
+
+.promo-hero p,
+.apolice-promo-hero p {
+    margin: 8px 0 0;
+    color: #cbd5e1;
+    line-height: 1.55;
+    max-width: 640px;
+}
+
+/* Grid de indicadores / informacoes */
+.promo-stats,
+.apolices-resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+}
+
+.promo-stats .stat,
+.apolices-resumo .stat {
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 16px;
+    padding: 16px 18px;
+    backdrop-filter: blur(6px);
+}
+
+.promo-stats .stat span,
+.apolices-resumo .stat span {
+    display: block;
+    font-size: .7rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    font-weight: 700;
+}
+
+.promo-stats .stat strong,
+.apolices-resumo .stat strong {
+    display: block;
+    font-size: 1.8rem;
+    color: #fff;
+    margin-top: 6px;
+    font-weight: 800;
+}
+
+/* Variacao para dados textuais (perfil) */
+.promo-stats .stat.info strong {
+    font-size: 1rem;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+/* Linha de acao */
+.promo-card .cta-row,
+.apolice-promo .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.promo-card .cta-note,
+.apolice-promo .cta-note {
+    font-size: .85rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Botao de perigo (harmonizado com o card escuro) */
+.btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 50px;
+    padding: 0 28px;
+    border: 1px solid rgba(248, 113, 113, .45);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+    color: #fff;
+    font-size: .95rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 12px 26px rgba(220, 38, 38, .28);
+    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(220, 38, 38, .38);
+    filter: brightness(1.05);
+}
+
+.btn-danger:active {
+    transform: translateY(0);
+}
+
+/* Botao neutro sobre o card escuro */
+.btn-ghost-light {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 50px;
+    padding: 0 24px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, .18);
+    background: rgba(255, 255, 255, .08);
+    color: #fff;
+    font-size: .95rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .15s ease, transform .15s ease;
+}
+
+.btn-ghost-light:hover {
+    background: rgba(255, 255, 255, .16);
+    transform: translateY(-2px);
+}
+
+/* Bloco de area sensivel dentro do card escuro */
+.zona-perigo {
+    border: 1px solid rgba(248, 113, 113, .28);
+    background: rgba(220, 38, 38, .1);
+    border-radius: 16px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.zona-perigo h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fecaca;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.zona-perigo p {
+    margin: 0;
+    font-size: .88rem;
+    line-height: 1.55;
+    color: #e2e8f0;
+    max-width: 640px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .promo-card,
+    .apolice-promo {
+        padding: 22px;
+        border-radius: 18px;
+    }
+
+    .promo-hero,
+    .apolice-promo-hero {
+        flex-direction: column;
+    }
+
+    .promo-hero h2,
+    .apolice-promo-hero h2 {
+        font-size: 1.2rem;
+    }
+
+    .promo-card .cta-row,
+    .apolice-promo .cta-row,
+    .zona-perigo {
+        align-items: stretch;
+    }
+
+    .btn-danger,
+    .btn-ghost-light {
+        width: 100%;
+    }
+}
