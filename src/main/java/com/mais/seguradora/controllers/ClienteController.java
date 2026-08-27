@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,42 +29,6 @@ public class ClienteController {
             return ResponseEntity.ok(clienteSalvo);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Cliente cliente, HttpSession session) {
-
-        Cliente autenticado = service.autenticar(
-                cliente.getEmail(),
-                cliente.getSenha()
-        );
-
-        if (autenticado != null) {
-            session.setAttribute("usuarioLogado", autenticado);
-            return ResponseEntity.ok(Map.of("status", "ok"));
-        }
-
-        System.out.println("Login inválido");
-        return ResponseEntity.badRequest()
-                .body(Map.of("status", "erro"));
-    }
-
-    @GetMapping("/dashboard")
-    public String dashboard(HttpSession session, Model model) {
-
-        System.out.println("Entrou no dashboard");
-
-        Cliente cliente = (Cliente) session.getAttribute("clienteLogado");
-
-        System.out.println("Cliente da sessão: " + cliente);
-
-        if(cliente == null) {
-            return "redirect:/login";
-        }
-
-        model.addAttribute("cliente", cliente);
-
-        return "dashboardCliente";
-    }
-
     @GetMapping("/confirmar-exclusao")
     public String abrirConfirmacaoExclusao() {
         return "confirmar-exclusao";
@@ -74,9 +39,23 @@ public class ClienteController {
         return service.buscar(id);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable("id") Integer id){
-        service.deletar(id);
+    @PostMapping("/deletar-conta")
+    public String deletarConta(@RequestParam String email, @RequestParam String senha, HttpSession session, RedirectAttributes redirectAttributes){
+    Cliente cliente = (Cliente) session.getAttribute("usuarioLogado");
+
+        if (cliente == null){
+        return "redirect:/login";
+    }
+        try {
+            service.deletarConta(cliente.getId(),email,senha);
+
+            session.invalidate();
+
+            return "redirect:/login";
+        } catch (RuntimeException e){
+            redirectAttributes.addFlashAttribute("erro", e.getMessage());
+        }
+        return "confirmar-exclusao";
     }
 
     @PutMapping("/{id}")

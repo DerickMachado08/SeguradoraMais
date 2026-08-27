@@ -137,7 +137,7 @@ public class ContratacaoController {
 
     @PostMapping("/cliente/contratacao/bem")
     public String cadastrarBem(
-            @RequestParam Integer idContratacao,
+            @RequestParam("idContratacao") Integer idContratacao,
             @ModelAttribute("bem") BemPatrimonial bem,
             HttpSession session,
             Model model) {
@@ -214,7 +214,7 @@ public class ContratacaoController {
 
     @PostMapping("/cliente/contratacao/{id}/deletar")
     public String deletar(
-            @PathVariable Integer id,
+            @PathVariable("id") Integer id,
             HttpSession session) {
 
         Cliente cliente =

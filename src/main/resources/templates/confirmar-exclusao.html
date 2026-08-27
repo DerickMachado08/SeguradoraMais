@@ -59,14 +59,75 @@
     <span class="ambient-shape ambient-shape--navy" aria-hidden="true"></span><span class="ambient-shape ambient-shape--gold" aria-hidden="true"></span>
     <svg class="flight-path" viewBox="0 0 410 300" aria-hidden="true" focusable="false"><path d="M5 234 C88 252, 93 153, 183 179 S279 253, 337 134"/><circle class="plane-dot" cx="5" cy="234" r="4"/><g class="paper-plane" transform="translate(326 108) rotate(-19)"><path d="M0 18 L58 0 L40 43 L26 28 Z"/><path d="M26 28 L58 0 L32 35 Z"/><path d="M26 28 L26 49 L32 35 Z"/></g></svg>
     <section class="security-card" aria-labelledby="page-title"><div class="eyebrow">Área de segurança</div><h1 id="page-title">Excluir conta</h1><p class="intro">Sentimos que você esteja indo. Confirme sua identidade para continuar com a solicitação de exclusão da sua conta.</p><div class="notice" role="note"><span class="notice-mark" aria-hidden="true">!</span><span>Esta ação é permanente. Os dados associados à sua conta poderão ser excluídos e não poderão ser recuperados.</span></div>
-        <form id="delete-form" novalidate><label class="field" for="email"><span>E-mail da conta</span><input id="email" name="email" type="email" autocomplete="email" placeholder="voce@exemplo.com" required /></label><p class="error-message" id="email-error" aria-live="polite"></p><label class="field" for="password"><span>Senha</span><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Digite sua senha" required minlength="6" /></label><p class="error-message" id="password-error" aria-live="polite"></p><div class="actions"><button class="button button--danger" type="submit">Continuar para exclusão</button><button class="button button--back" id="back-button" type="button">Voltar</button></div><p class="form-footnote">Sua senha é usada somente para confirmar sua identidade nesta etapa.</p></form>
-    </section></main>
+        <form id="delete-form" action="/cliente/deletar-conta" method="post" novalidate>
+            <label class="field" for="email">
+                <span>E-mail da conta</span>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="voce@exemplo.com" required />
+            </label><p class="error-message" id="email-error" aria-live="polite">
+        </p>
+            <label class="field" for="password">
+                <span>Senha</span>
+                <input id="password" name="senha" type="password" autocomplete="current-password" placeholder="Digite sua senha" required minlength="6" />
+            </label>
+            <p class="error-message" id="password-error" aria-live="polite"></p>
+            <div class="actions">
+                <button class="button button--danger" type="submit">Continuar para exclusão</button>
+            <button class="button button--back" id="back-button" type="button">Voltar</button>
+            </div>
+            <p class="form-footnote">Sua senha é usada somente para confirmar sua identidade nesta etapa.</p>
+        </form>
+    </section>
+</main>
 <div class="modal-backdrop" id="confirmation-modal" role="presentation" aria-hidden="true"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-description"><div class="modal-icon" aria-hidden="true">!</div><h2 id="modal-title">Tem certeza?</h2><p id="modal-description">Tem certeza de que deseja excluir sua conta? Esta ação não poderá ser desfeita.</p><div class="modal-actions"><button class="button button--danger" id="confirm-delete" type="button">Sim, excluir minha conta</button><button class="button button--cancel" id="cancel-delete" type="button">Cancelar</button></div></section></div>
 <script>
-    const form=document.querySelector('#delete-form'),emailInput=document.querySelector('#email'),passwordInput=document.querySelector('#password'),emailError=document.querySelector('#email-error'),passwordError=document.querySelector('#password-error'),modal=document.querySelector('#confirmation-modal'),cancelButton=document.querySelector('#cancel-delete'),confirmButton=document.querySelector('#confirm-delete'),backButton=document.querySelector('#back-button');
-    function clearErrors(){emailError.textContent='';passwordError.textContent='';emailInput.removeAttribute('aria-invalid');passwordInput.removeAttribute('aria-invalid')}
-    function validateFields(){clearErrors();let isValid=true;const email=emailInput.value.trim();if(!email||!emailInput.validity.valid){emailError.textContent='Digite um e-mail válido.';emailInput.setAttribute('aria-invalid','true');isValid=false}if(!passwordInput.value||passwordInput.value.length<6){passwordError.textContent='A senha deve ter pelo menos 6 caracteres.';passwordInput.setAttribute('aria-invalid','true');isValid=false}return isValid}
-    function openModal(){modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');cancelButton.focus()}function closeModal(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true')}
-    form.addEventListener('submit',event=>{event.preventDefault();if(validateFields())openModal()});cancelButton.addEventListener('click',closeModal);modal.addEventListener('click',event=>{if(event.target===modal)closeModal()});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&modal.classList.contains('is-open'))closeModal()});confirmButton.addEventListener('click',()=>{closeModal();confirmButton.textContent='Solicitação confirmada';confirmButton.disabled=true;confirmButton.style.opacity='.75'});backButton.addEventListener('click',()=>{if(window.history.length>1)window.history.back();else window.location.href='/'})
+    const form=document.querySelector('#delete-form'),
+        emailInput=document.querySelector('#email'),
+        passwordInput=document.querySelector('#password'),
+        emailError=document.querySelector('#email-error'),
+        passwordError=document.querySelector('#password-error'),
+        modal=document.querySelector('#confirmation-modal'),
+        cancelButton=document.querySelector('#cancel-delete'),
+        confirmButton=document.querySelector('#confirm-delete'),
+        backButton=document.querySelector('#back-button');
+    function clearErrors(){emailError.textContent='';
+        passwordError.textContent='';
+        emailInput.removeAttribute('aria-invalid');
+        passwordInput.removeAttribute('aria-invalid')}
+    function validateFields(){clearErrors();
+        let isValid=true;
+        const email=emailInput.value.trim();
+        if(!email||!emailInput.validity.valid) {
+            emailError.textContent='Digite um e-mail válido.';
+            emailInput.setAttribute('aria-invalid','true');
+            isValid=false
+        }if(!passwordInput.value||passwordInput.validity.valid){
+            passwordError.textContent='Digite uma senha valida';
+            passwordInput.setAttribute('aria-invalid','true');
+            isValid=false
+
+        }
+        return isValid
+    }
+    function openModal(){
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden','false');
+        cancelButton.focus()
+    }function closeModal(){
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden','true')
+    }
+    form.addEventListener('submit',event=>{event.preventDefault();
+        if(validateFields())openModal()});
+    cancelButton.addEventListener('click',closeModal);
+    modal.addEventListener('click',event=>{
+        if(event.target===modal)closeModal()});
+    document.addEventListener('keydown',event=>{
+        if(event.key==='Escape'&&modal.classList.contains('is-open'))closeModal()});
+    confirmButton.addEventListener('click', () => {
+        form.submit();
+    }
+    );
+
+    backButton.addEventListener('click',()=>{if(window.history.length>1)window.history.back();else window.location.href='/'})
 </script>
 </body></html>

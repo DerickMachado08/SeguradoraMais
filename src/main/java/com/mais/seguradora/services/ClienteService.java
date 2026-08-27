@@ -55,8 +55,18 @@ public class ClienteService {
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Id não encontrado"));
     }
 
-    public void deletar(Integer id){
-        repository.deleteById(id);
+    public void deletarConta(Integer id, String email, String senha) {
+        Cliente cliente = repository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não enontrado"));
+
+        if (!cliente.getEmail().equals(email)) {
+            throw new RecursoNullException("Email Incorreto");
+        }
+
+        if (!cliente.getSenha().equals(senha)) {
+            throw new RecursoNullException("Senha Incorreto");
+        }
+
+        repository.delete(cliente);
     }
 
     public Cliente atualizar(Integer id, Cliente cliente) {
