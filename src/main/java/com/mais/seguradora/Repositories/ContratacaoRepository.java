@@ -16,6 +16,8 @@ public interface ContratacaoRepository extends JpaRepository<Contratacao, Intege
 
     List<Contratacao> findByCliente(Cliente cliente);
 
+    List<Contratacao> findByClienteId(Integer idCliente);
+
     List<Contratacao> findByStatusAndApoliceCorretores(
             StatusContratacao status,
             Corretor corretor
@@ -37,4 +39,6 @@ public interface ContratacaoRepository extends JpaRepository<Contratacao, Intege
             Apolice apolice,
             StatusContratacao status
     );
+
+
 }

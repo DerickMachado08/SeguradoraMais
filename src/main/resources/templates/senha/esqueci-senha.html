@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Recuperar Senha</title>
+
+    <link rel="stylesheet"
+          href="/css/main/app/recuperarSenha.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Esqueceu sua senha?</h1>
+
+        <p>
+            Digite seu e-mail para receber um código
+            de recuperação.
+        </p>
+
+        <!-- Mensagem de erro -->
+        <div th:if="${erro}" class="mensagem erro">
+            <span th:text="${erro}"></span>
+        </div>
+
+        <!-- Mensagem de sucesso -->
+        <div th:if="${sucesso}" class="mensagem sucesso">
+            <span th:text="${sucesso}"></span>
+        </div>
+
+        <form action="/senha/enviar"
+              method="post">
+
+            <div class="campo">
+
+                <label for="email">
+                    E-mail
+                </label>
+
+                <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Digite seu e-mail"
+                        required
+                >
+
+            </div>
+
+            <button type="submit">
+                Enviar código
+            </button>
+
+        </form>
+
+        <a href="/login" class="voltar">
+            ← Voltar para o login
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

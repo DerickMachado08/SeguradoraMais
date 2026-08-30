@@ -25,8 +25,8 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<?> cadastrar(@Valid @RequestBody Cliente cliente) {
-            Cliente clienteSalvo = service.cadastrar(cliente);
-            return ResponseEntity.ok(clienteSalvo);
+        Cliente clienteSalvo = service.cadastrar(cliente);
+        return ResponseEntity.ok(clienteSalvo);
     }
 
     @GetMapping("/confirmar-exclusao")
@@ -40,22 +40,27 @@ public class ClienteController {
     }
 
     @PostMapping("/deletar-conta")
-    public String deletarConta(@RequestParam String email, @RequestParam String senha, HttpSession session, RedirectAttributes redirectAttributes){
-    Cliente cliente = (Cliente) session.getAttribute("usuarioLogado");
+    @ResponseBody
+    public ResponseEntity<?> deletarConta(
+            @RequestParam("email") String email,
+            @RequestParam("senha") String senha,
+            HttpSession session) {
 
-        if (cliente == null){
-        return "redirect:/login";
-    }
-        try {
-            service.deletarConta(cliente.getId(),email,senha);
+        Cliente cliente = (Cliente) session.getAttribute("usuarioLogado");
 
-            session.invalidate();
-
-            return "redirect:/login";
-        } catch (RuntimeException e){
-            redirectAttributes.addFlashAttribute("erro", e.getMessage());
+        if (cliente == null) {
+            return ResponseEntity.status(401).body("Usuário não autenticado");
         }
-        return "confirmar-exclusao";
+
+        service.deletarConta(
+                cliente.getId(),
+                email,
+                senha
+        );
+
+        session.invalidate();
+
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")

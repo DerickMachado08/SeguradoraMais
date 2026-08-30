@@ -16,23 +16,31 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> erros = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error ->
-                        erros.put(error.getField(),
-                                error.getDefaultMessage()));
+                erros.put(error.getField(),
+                        error.getDefaultMessage()));
 
         return ResponseEntity.badRequest().body(erros);
     }
 
     @ExceptionHandler(RecursoDuplicadoException.class)
-    public ResponseEntity<?> handleRecursoDuplicado(
+    public ResponseEntity<Map<String, String>> handleRecursoDuplicado(
             RecursoDuplicadoException e) {
+
+        Map<String, String> erro = new HashMap<>();
+
+        if (e.getMessage().toLowerCase().contains("cpf")) {
+            erro.put("cpf", e.getMessage());
+        } else if (e.getMessage().toLowerCase().contains("email")) {
+            erro.put("email", e.getMessage());
+        }
 
         return ResponseEntity
                 .badRequest()
-                .body(e.getMessage());
+                .body(erro);
     }
 
     @ExceptionHandler(MenorIdadeException.class)
-    public ResponseEntity<Map<String, String>> handlermenoridade(MenorIdadeException e){
+    public ResponseEntity<Map<String, String>> handlermenoridade(MenorIdadeException e) {
         Map<String, String> erro = new HashMap<>();
         erro.put("dataNascimento", e.getMessage());
 
@@ -48,11 +56,20 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(RecursoNullException.class)
-    public ResponseEntity<?> handleRecursoNull(RecursoNullException e) {
+    public ResponseEntity<Map<String, String>> handleRecursoNull(RecursoNullException e) {
 
-        return ResponseEntity
-                .badRequest()
-                .body(e.getMessage());
+        Map<String, String> erro = new HashMap<>();
+
+        if (e.getMessage().toLowerCase().contains("email")) {
+            erro.put("email", e.getMessage());
+        } else if (e.getMessage().toLowerCase().contains("senha")) {
+            erro.put("senha", e.getMessage());
+        }
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(erro);
+        }
+
     }
 
-}

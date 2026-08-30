@@ -2,7 +2,7 @@ package com.mais.seguradora.controllers;
 
 import com.mais.seguradora.Repositories.MensContatoRepsitory;
 import com.mais.seguradora.model.MensagemContato;
-import com.mais.seguradora.services.MensagemService;
+import com.mais.seguradora.services.EmailService;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class MensagemController {
     private MensContatoRepsitory repository;
 
     @Autowired
-    private MensagemService emailService;
+    private EmailService emailService;
 
     @PostMapping
     public ResponseEntity<String> contato(@Valid

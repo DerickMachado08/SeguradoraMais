@@ -77,7 +77,7 @@ public class Cliente {
             regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).+$",
             message = "A senha deve conter letra maiúscula, minúscula, número e caractere especial"
     )
-    @Column(name = "senha", length = 26, nullable = false)
+    @Column(name = "senha", length = 120, nullable = false)
     private String senha;
 
 

@@ -72,7 +72,7 @@
             <p class="error-message" id="password-error" aria-live="polite"></p>
             <div class="actions">
                 <button class="button button--danger" type="submit">Continuar para exclusão</button>
-            <button class="button button--back" id="back-button" type="button">Voltar</button>
+                <button class="button button--back" id="back-button" type="button">Voltar</button>
             </div>
             <p class="form-footnote">Sua senha é usada somente para confirmar sua identidade nesta etapa.</p>
         </form>
@@ -93,20 +93,14 @@
         passwordError.textContent='';
         emailInput.removeAttribute('aria-invalid');
         passwordInput.removeAttribute('aria-invalid')}
-    function validateFields(){clearErrors();
-        let isValid=true;
-        const email=emailInput.value.trim();
-        if(!email||!emailInput.validity.valid) {
-            emailError.textContent='Digite um e-mail válido.';
-            emailInput.setAttribute('aria-invalid','true');
-            isValid=false
-        }if(!passwordInput.value||passwordInput.validity.valid){
-            passwordError.textContent='Digite uma senha valida';
-            passwordInput.setAttribute('aria-invalid','true');
-            isValid=false
+    function validateFields() {
+        clearErrors();
 
-        }
-        return isValid
+        let isValid = true;
+
+        const email = emailInput.value.trim();
+
+        return isValid;
     }
     function openModal(){
         modal.classList.add('is-open');
@@ -123,10 +117,69 @@
         if(event.target===modal)closeModal()});
     document.addEventListener('keydown',event=>{
         if(event.key==='Escape'&&modal.classList.contains('is-open'))closeModal()});
-    confirmButton.addEventListener('click', () => {
-        form.submit();
-    }
-    );
+    confirmButton.addEventListener('click', async () => {
+
+        clearErrors();
+
+        try {
+
+            const response = await fetch(
+                '/cliente/deletar-conta',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type':
+                            'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        email: emailInput.value.trim(),
+                        senha: passwordInput.value
+                    })
+                }
+            );
+
+            if (!response.ok) {
+
+                const erros = await response.json();
+
+                if (erros.email) {
+                    emailError.textContent = erros.email;
+
+                    emailInput.setAttribute(
+                        'aria-invalid',
+                        'true'
+                    );
+                }
+
+                if (erros.senha) {
+                    passwordError.textContent = erros.senha;
+
+                    passwordInput.setAttribute(
+                        'aria-invalid',
+                        'true'
+                    );
+                }
+
+                closeModal();
+
+                return;
+            }
+
+            alert('Conta excluída com sucesso.');
+
+            window.location.href = '/index.html';
+
+        } catch (error) {
+
+            console.error(error);
+
+            closeModal();
+
+            alert(
+                'Email ou Senha incorreto, digite novamente.'
+            );
+        }
+    });
 
     backButton.addEventListener('click',()=>{if(window.history.length>1)window.history.back();else window.location.href='/'})
 </script>

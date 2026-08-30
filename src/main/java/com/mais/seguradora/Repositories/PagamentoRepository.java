@@ -12,4 +12,6 @@ public interface PagamentoRepository extends JpaRepository<Pagamento, Integer> {
     List<Pagamento> findByContratacao_ClienteOrderByDataVencimentoDesc(Cliente cliente);
 
     Optional<Pagamento> findByContratacao_IdAndStatus(Integer idContratacao, StatusPagamento status);
+
+    void deleteByContratacaoId(Integer idContratacao);
 }

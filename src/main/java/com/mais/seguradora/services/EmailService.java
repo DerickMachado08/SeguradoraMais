@@ -8,7 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MensagemService {
+public class EmailService {
     @Autowired
     private MensContatoRepsitory mensContatoRepsitory;
 
@@ -32,4 +32,22 @@ public class MensagemService {
 
         mailSender.send(mensagem);
     }
+
+    public void enviarCodigoRecuperacao(String email, String codigo){
+        SimpleMailMessage mensagem = new SimpleMailMessage();
+
+        mensagem.setTo(email);
+
+        mensagem.setSubject("Recuperação de Senha - SEGURADORA +");
+
+        mensagem.setText("Olá!\n\n" +
+        "Você solicitou a recuperação da sua senha.\n\n" +
+                "Seu código de recuperação é: " + codigo + "\n\n" +
+                "Este código expira em 15 minutos.\n\n" +
+                "Se você não solicitou esta alteração, ignore este e-mail.");
+
+        mailSender.send(mensagem);
+    }
+
+
 }

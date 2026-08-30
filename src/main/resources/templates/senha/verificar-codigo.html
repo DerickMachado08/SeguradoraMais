@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Verificar Código</title>
+
+    <link rel="stylesheet"
+          href="/css/main/app/recuperarSenha.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Verifique seu e-mail</h1>
+
+        <p>
+            Enviamos um código de recuperação
+            para seu e-mail.
+        </p>
+
+        <div th:if="${erro}" class="mensagem erro">
+            <span th:text="${erro}"></span>
+        </div>
+
+        <form action="/senha/verificar-codigo"
+              method="post">
+
+            <!-- Mantém o email -->
+            <input
+                    type="hidden"
+                    name="email"
+                    th:value="${email}"
+            >
+
+            <div class="campo">
+
+                <label for="codigo">
+                    Código de recuperação
+                </label>
+
+                <input
+                        type="text"
+                        id="codigo"
+                        name="codigo"
+                        maxlength="6"
+                        placeholder="000000"
+                        required
+                >
+
+            </div>
+
+            <button type="submit">
+                Verificar código
+            </button>
+
+        </form>
+
+        <a href="/senha/esqueci">
+            Usar outro e-mail
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

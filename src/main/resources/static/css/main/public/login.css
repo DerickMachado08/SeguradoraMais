@@ -1,313 +1,176 @@
-@import url('../../base/variaveis.css');
-
-/* ============ DARK ============ */
-[data-theme="dark"] {
-    --bg-1: #07070d;
-    --bg-2: #11111c;
-    --card-bg: rgba(18, 18, 30, 0.7);
-    --card-border: rgba(255, 255, 255, 0.08);
-    --text: #f5f5f7;
-    --text-muted: #9aa1b2;
-    --input-bg: rgba(255, 255, 255, 0.04);
-    --input-border: rgba(255, 255, 255, 0.1);
-    --particle-color: 124, 92, 255;
+:root {
+    color-scheme: light;
+    --navy-950: #071d36;
+    --navy-800: #103b68;
+    --navy-700: #195086;
+    --ink: #18324c;
+    --muted: #6c7c8d;
+    --cream: #fbf8f3;
+    --white: #fff;
+    --line: #dbe3e9;
+    --gold: #e5a532;
+    --gold-dark: #c98a22;
+    --shadow: 0 24px 70px rgba(18, 46, 75, 0.14), 0 4px 16px rgba(18, 46, 75, 0.06);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* ============ LIGHT ============ */
-[data-theme="light"] {
-    --bg-1: #eef1fb;
-    --bg-2: #ffffff;
-    --card-bg: rgba(255, 255, 255, 0.78);
-    --card-border: rgba(15, 23, 42, 0.08);
-    --text: #0f172a;
-    --text-muted: #64748b;
-    --input-bg: rgba(15, 23, 42, 0.04);
-    --input-border: rgba(15, 23, 42, 0.1);
-    --particle-color: 91, 63, 255;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: var(--font-body);
-}
-
+* { box-sizing: border-box; }
+html, body { min-height: 100%; margin: 0; }
 body {
     min-height: 100vh;
-    background:
-            radial-gradient(circle at 20% 10%, rgb(66 32 4 / 0.38), transparent 40%),
-            radial-gradient(circle at 80% 90%, rgb(224 122 61 / 0.38), transparent 45%),
-            radial-gradient(ellipse at top, var(--bg-2), var(--bg-1));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    color: var(--ink);
+    background: var(--cream) url("fundoV.png") center / cover fixed no-repeat;
+    overflow-x: hidden;
+}
+button, input { font: inherit; }
+button { cursor: pointer; }
+a { color: var(--navy-700); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.page-shell {
     position: relative;
-    transition: background 0.6s ease;
+    isolation: isolate;
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
+    padding: clamp(32px, 7vw, 88px) 24px;
 }
 
-#particles {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* ============ THEME TOGGLE ============ */
-.theme-toggle {
-    position: fixed;
-    top: 24px;
-    right: 24px;
-    width: 54px;
-    height: 54px;
-    border-radius: 50%;
-    border: 1px solid var(--card-border);
-    background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    color: var(--text);
-    font-size: 20px;
-    cursor: pointer;
-    z-index: 10;
-    transition: transform 0.4s, box-shadow 0.4s;
-}
-.theme-toggle:hover {
-    transform: rotate(25deg) scale(1.08);
-    box-shadow: 0 0 30px rgb(66 32 4 / 0.28);
-}
-[data-theme="dark"] .icon-light { display: none; }
-[data-theme="light"] .icon-dark { display: none; }
-
-/* ============ CARD ============ */
-.container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 24px;
-    position: relative;
-    z-index: 1;
-}
-
-.login-box {
-    width: 100%;
-    max-width: 560px;
-    padding: 64px 56px;
-    border-radius: 28px;
-    background: var(--card-bg);
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    border: 1px solid var(--card-border);
-    box-shadow:
-            0 40px 100px rgba(0, 0, 0, 0.4),
-            0 0 0 1px var(--card-border) inset;
-    text-align: center;
-    animation: floatIn 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.login-box::before {
-    content: "";
+.ambient-shape {
     position: absolute;
-    inset: 0;
-    border-radius: 28px;
-    padding: 1px;
-    background: linear-gradient(135deg, #422004, transparent 35%, transparent 65%, #9c4d15);
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0.6;
+    z-index: -1;
+    border-radius: 999px;
     pointer-events: none;
+    filter: blur(1px);
+}
+.ambient-shape--navy {
+    width: clamp(180px, 25vw, 360px);
+    height: clamp(180px, 25vw, 360px);
+    right: clamp(-120px, -8vw, -40px);
+    top: 13%;
+    background: rgba(8, 41, 76, 0.08);
+}
+.ambient-shape--gold {
+    width: clamp(95px, 12vw, 170px);
+    height: clamp(95px, 12vw, 170px);
+    left: 9%;
+    bottom: 12%;
+    background: rgba(229, 165, 50, 0.13);
 }
 
-@keyframes floatIn {
-    from { opacity: 0; transform: translateY(30px) scale(0.96); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
+.flight-path {
+    position: absolute;
+    z-index: 0;
+    top: clamp(6%, 10vw, 15%);
+    left: clamp(2%, 9vw, 13%);
+    width: clamp(220px, 29vw, 410px);
+    height: clamp(160px, 22vw, 300px);
+    pointer-events: none;
+    opacity: 0.92;
 }
+.flight-path path { fill: none; stroke: var(--gold); stroke-width: 2; stroke-dasharray: 3 10; stroke-linecap: round; }
+.paper-plane { fill: var(--navy-800); stroke: var(--navy-950); stroke-linejoin: round; }
+.plane-dot { fill: var(--gold); }
 
-.logo {
-    font-size: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 96px;
-    height: 96px;
-    border-radius: 28px;
-    background: linear-gradient(135deg, #422004, #753f17);
-    color: #fff;
-    margin: 0 auto 24px;
-    animation: pulse 3s ease-in-out infinite;
-    transform: rotate(-6deg);
-}
-
-h2 {
-    font-family: var(--font-display);
-    color: var(--text);
-    margin-bottom: 10px;
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-}
-
-.subtitle {
-    color: var(--text-muted);
-    font-size: 15px;
-    margin-bottom: 36px;
-}
-
-/* ============ INPUTS ============ */
-.input-group {
+.security-card {
     position: relative;
+    z-index: 2;
+    width: min(100%, 490px);
+    padding: clamp(28px, 5vw, 50px);
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.91);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(14px);
+    animation: card-in 650ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     margin-bottom: 18px;
 }
-
-.input-group input {
-    width: 100%;
-    padding: 18px 56px;
-    border-radius: 14px;
-    border: 1px solid var(--input-border);
-    background: var(--input-bg);
-    color: var(--text);
-    outline: none;
-    font-size: 15px;
-    transition: all 0.3s;
+.brand-mark {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 13px;
+    background: linear-gradient(135deg, var(--navy-800), var(--navy-950));
+    color: var(--white);
+    font-size: 1.05rem;
+    box-shadow: 0 8px 18px rgba(8, 41, 76, 0.22);
 }
-.input-group input::placeholder { color: var(--text-muted); }
-
-.input-group input:focus {
-    border-color: #422004;
-    box-shadow: 0 0 0 4px rgb(66 32 4 / 0.28);
-}
-
-.input-icon {
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    transform: translateY(-50%);
-    color: var(--text-muted);
-    font-size: 16px;
-    transition: color 0.3s;
-}
-.input-group input:focus ~ .input-icon { color: #e07a3d; }
-
-/* ============ EYE BUTTON (DIFERENCIAL) ============ */
-.eye-btn {
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 12px;
-    background: transparent;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s, transform 0.3s;
-}
-.eye-btn:hover {
-    background: rgb(224 122 61 / 0.28);
-    transform: translateY(-50%) scale(1.1);
+.eyebrow {
+    color: var(--navy-700);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
 }
 
-.eye-wrap {
-    position: relative;
-    width: 28px;
-    height: 22px;
+h1 {
+    margin: 0;
+    color: var(--navy-950);
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.045em;
+}
+.intro {
+    margin: 14px 0 28px;
+    color: var(--muted);
+    font-size: 0.96rem;
+    line-height: 1.6;
+}
+
+.field { display: block; margin-bottom: 16px; }
+.field > span {
     display: block;
+    margin-bottom: 8px;
+    color: var(--navy-800);
+    font-size: 0.82rem;
+    font-weight: 750;
+}
+.input-with-action { position: relative; }
+.field input {
+    width: 100%;
+    height: 52px;
+    padding: 0 15px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.75);
+    color: var(--navy-950);
+    transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+.field input::placeholder { color: #a2adb6; }
+.field input:focus {
+    border-color: var(--navy-700);
+    background: var(--white);
+    box-shadow: 0 0 0 4px rgba(25, 80, 134, 0.11);
+}
+.field input[aria-invalid="true"] {
+    border-color: #b54444;
+    box-shadow: 0 0 0 4px rgba(181, 68, 68, 0.1);
+}
+#senha { padding-right: 56px; }
+
+.error-message {
+    min-height: 18px;
+    margin: -8px 0 10px;
+    color: #943737;
+    font-size: 0.76rem;
 }
 
-/* contorno do olho (almond shape) */
-.eye-ball {
-    position: absolute;
-    inset: 0;
-    border-radius: 50% / 60%;
-    background: transparent;
-    border: 2px solid #753f17;
-    overflow: hidden;
-    transition: border-color 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* pupila */
-.eye-pupil {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #e07a3d;
-    box-shadow: 0 0 8px #753f17;
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
-}
-
-/* brilho */
-.eye-shine {
-    position: absolute;
-    top: 3px;
-    left: 50%;
-    margin-left: -2px;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: #fff;
-    opacity: 0.9;
-    transition: opacity 0.3s;
-}
-
-/* pálpebra que fecha quando senha está oculta */
-.eye-lid {
-    position: absolute;
-    left: -2px;
-    right: -2px;
-    top: -2px;
-    height: 0;
-    background: var(--card-bg);
-    backdrop-filter: blur(2px);
-    border-radius: 50% / 100% 100% 0 0;
-    transition: height 0.45s cubic-bezier(0.7, 0, 0.3, 1);
-    z-index: 2;
-}
-
-/* risco diagonal quando fechado */
-.eye-slash {
-    position: absolute;
-    top: 50%;
-    left: -4px;
-    right: -4px;
-    height: 2px;
-    background: #753f17;
-    border-radius: 2px;
-    transform: translateY(-50%) rotate(-35deg) scaleX(0);
-    transform-origin: left center;
-    transition: transform 0.45s cubic-bezier(0.7, 0, 0.3, 1);
-    z-index: 3;
-}
-
-/* Estado: senha OCULTA (olho fechado) */
-.eye-btn.is-closed .eye-lid    { height: 60%; }
-.eye-btn.is-closed .eye-pupil  { transform: scale(0.4); opacity: 0.5; }
-.eye-btn.is-closed .eye-shine  { opacity: 0; }
-.eye-btn.is-closed .eye-slash  { transform: translateY(-50%) rotate(-35deg) scaleX(1); }
-
-/* Pupila segue o mouse no input */
-.input-group:focus-within .eye-pupil { transform: translateX(2px); }
-
-/* ============ OPTIONS ============ */
 .options {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 13px;
-    margin: 8px 0 28px;
-    color: #e07a3d;
+    font-size: 0.82rem;
+    margin: 4px 0 24px;
+    color: var(--muted);
 }
-
 .remember {
     display: flex;
     align-items: center;
@@ -320,7 +183,7 @@ h2 {
     width: 18px;
     height: 18px;
     border-radius: 5px;
-    border: 1.5px solid var(--input-border);
+    border: 1.5px solid var(--line);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -329,63 +192,154 @@ h2 {
     transition: all 0.25s;
 }
 .remember input:checked + .check-box {
-    background: linear-gradient(135deg, #422004, #753f17);
+    background: linear-gradient(135deg, var(--navy-800), var(--navy-950));
     border-color: transparent;
-    color: #fff;
+    color: var(--white);
 }
+.options a { color: var(--navy-700); font-weight: 600; }
 
-.options a {
-    color: #e07a3d;
-    text-decoration: none;
-    font-weight: 500;
-    transition: opacity 0.2s;
-}
-.options a:hover { opacity: 0.75; }
-
-/* ============ ENTRAR ============ */
-.btn-entrar {
-    width: 100%;
-    padding: 18px;
-    border: none;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #422004, #753f17);
-    color: #fff;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: transform 0.25s, box-shadow 0.25s;
-    box-shadow: 0 10px 30px #422004;
+.actions { display: grid; gap: 11px; margin-top: 6px; }
+.button {
+    min-height: 51px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font-size: 0.91rem;
+    font-weight: 750;
+    transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
+}
+.button:hover { transform: translateY(-1px); }
+.button:focus-visible { outline: 3px solid rgba(25, 80, 134, 0.28); outline-offset: 3px; }
+.button--primary {
+    background: linear-gradient(135deg, var(--navy-800), var(--navy-950));
+    color: var(--white);
+    box-shadow: 0 10px 24px rgba(8, 41, 76, 0.25);
+}
+.button--primary:hover { box-shadow: 0 14px 30px rgba(8, 41, 76, 0.3); }
+.button--primary i { transition: transform 0.3s; }
+.button--primary:hover i { transform: translateX(5px); }
+
+.form-footnote {
+    margin: 20px 0 0;
+    color: #8a969f;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    text-align: center;
+}
+.form-footnote a { color: var(--navy-700); font-weight: 700; }
+
+/* ===== Eye toggle (mostrar/ocultar senha) ===== */
+.eye-btn {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, transform 0.3s;
+}
+.eye-btn:hover {
+    background: rgba(229, 165, 50, 0.18);
+    transform: translateY(-50%) scale(1.08);
+}
+.eye-wrap {
     position: relative;
+    width: 28px;
+    height: 22px;
+    display: block;
+}
+.eye-ball {
+    position: absolute;
+    inset: 0;
+    border-radius: 50% / 60%;
+    background: transparent;
+    border: 2px solid var(--navy-700);
     overflow: hidden;
+    transition: border-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.btn-entrar i { transition: transform 0.3s; }
-.btn-entrar:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 40px #422004;
+.eye-pupil {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 8px var(--gold-dark);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
 }
-.btn-entrar:hover i { transform: translateX(6px); }
-.btn-entrar:active { transform: translateY(0); }
+.eye-shine {
+    position: absolute;
+    top: 3px;
+    left: 50%;
+    margin-left: -2px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--white);
+    opacity: 0.9;
+    transition: opacity 0.3s;
+}
+.eye-lid {
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    top: -2px;
+    height: 0;
+    background: rgba(255, 255, 255, 0.91);
+    border-radius: 50% / 100% 100% 0 0;
+    transition: height 0.45s cubic-bezier(0.7, 0, 0.3, 1);
+    z-index: 2;
+}
+.eye-slash {
+    position: absolute;
+    top: 50%;
+    left: -4px;
+    right: -4px;
+    height: 2px;
+    background: var(--navy-700);
+    border-radius: 2px;
+    transform: translateY(-50%) rotate(-35deg) scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.45s cubic-bezier(0.7, 0, 0.3, 1);
+    z-index: 3;
+}
+.eye-btn.is-closed .eye-lid { height: 60%; }
+.eye-btn.is-closed .eye-pupil { transform: scale(0.4); opacity: 0.5; }
+.eye-btn.is-closed .eye-shine { opacity: 0; }
+.eye-btn.is-closed .eye-slash { transform: translateY(-50%) rotate(-35deg) scaleX(1); }
+.input-with-action:focus-within .eye-pupil { transform: translateX(2px); }
 
-.footer {
-    margin-top: 28px;
-    font-size: 13px;
-    color: var(--text-muted);
+@keyframes card-in {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-.footer a {
-    color: #e07a3d;
-    text-decoration: none;
-    margin-left: 6px;
-    font-weight: 600;
-}
-.footer a:hover { text-decoration: underline; }
 
-@media (max-width: 600px) {
-    .login-box { padding: 44px 28px; border-radius: 22px; }
-    h2 { font-size: 26px; }
-    .logo { width: 78px; height: 78px; font-size: 36px; }
+@media (max-width: 720px) {
+    .page-shell { padding: 72px 16px 28px; }
+    .flight-path { top: 2%; left: -8%; opacity: 0.68; transform: rotate(-8deg) scale(0.78); transform-origin: left top; }
+    .security-card { border-radius: 22px; }
+    .ambient-shape--navy { top: 24%; right: -22%; }
+}
+@media (max-width: 420px) {
+    .page-shell { padding-top: 50px; }
+    .security-card { padding: 26px 21px; }
+    .flight-path { top: 0; left: 0; transform: rotate(-8deg) scale(0.62); }
+    .intro { margin-bottom: 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
 }

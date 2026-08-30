@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface BemPatrimonialRepository extends JpaRepository<BemPatrimonial, Integer> {
 
     Optional<BemPatrimonial> findByContratacaoId(Integer id);
-
+    void deleteByClienteId(Integer idCliente);
 }
