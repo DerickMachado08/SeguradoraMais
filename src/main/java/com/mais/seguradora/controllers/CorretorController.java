@@ -4,6 +4,7 @@ import com.mais.seguradora.model.Apolice;
 import com.mais.seguradora.model.Corretor;
 import com.mais.seguradora.services.ApoliceService;
 import com.mais.seguradora.services.CorretorService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,5 +41,12 @@ public class CorretorController {
                             @RequestParam("idApolice") Integer idApolice){
       corretorService.cadastrar(corretor, idApolice);
       return "redirect:/dashboardAdmin";
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public void deletar(@PathVariable("id") Integer id) {
+
+        corretorService.deletarCorretor(id);
     }
 }

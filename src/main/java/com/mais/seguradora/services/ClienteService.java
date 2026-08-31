@@ -87,7 +87,7 @@ public class ClienteService {
 
         Cliente cliente = repository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Cliente não encontrado"));
+                        new RecursoNullException("Cliente não encontrado"));
 
         if (!cliente.getEmail().equals(email)) {
             throw new RecursoNullException("Email incorreto");

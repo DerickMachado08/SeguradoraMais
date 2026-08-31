@@ -73,30 +73,21 @@
     --gray-900: #1a252d;
 
     /* ========== DASHBOARD ADMIN ========== */
+    /* Alinhado a identidade visual do Dashboard Cliente (sem vermelho) */
 
     /* -- principal -- */
-    --primarioA:  #b31f1f;
-    --primarioA-n: #8f0909;
-    --primarioA-Dark: #590404;
+    --primarioA:  #0f172a;
+    --primarioA-n: #0f172a;
+    --primarioA-Dark: #053445;
 
 
     --selecionadoA: linear-gradient(90deg, var(--primarioA-n) 0%, var(--primarioA) 100%);
-    --icone-lateraisHA: #590404;
+    --icone-lateraisHA: black;
     --icone-lateraisActiveA: white;
 
     /* -- banner --*/
-    --texto-bannerA: #b31f1f;
+    --texto-bannerA: #0f172a;
     --nomeA: #0c3e4a;
     --texto-pA: #0c3e4a;
     --icone-bannerA: white;
-
-
-
-
-
-
-
-
-
 }
-

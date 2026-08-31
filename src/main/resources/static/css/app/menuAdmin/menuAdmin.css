@@ -1,20 +1,11 @@
-:root {
-    --primary: #b31f1f;
-    --primary-light: #2a2525;
-    --primary-dark: #000000;
-    --red-dark: #7a0d0d;
-    --red: #c81e1e;
-    --red-light: #e53935;
-    --red-lighter: #ff5252;
-    --white: #ffffff;
-    --gray-50: #f8fafb;
-    --gray-100: #f1f4f6;
-    --gray-200: #e3e8eb;
-    --gray-300: #d1d8dc;
-    --gray-500: #6b7a85;
-    --gray-700: #43505a;
-    --gray-900: #1a252d;
+/* ============================================================
+   DASHBOARD ADMIN — mesma identidade visual do Dashboard Cliente
+   Base de cores: --primario (#0f172a) / tons de cinza do cliente
+   Tabelas: padrao visual da section "Pagamentos" do cliente
+   (somente aparencia; markup, links e logica preservados)
+   ============================================================ */
 
+:root {
     --font-display: 'DM Sans', sans-serif;
     --font-body: 'Plus Jakarta Sans', sans-serif;
 }
@@ -32,9 +23,9 @@ body {
     min-height: 100vh;
 }
 
-
+/* HEADER */
 header {
-    background: var(--primarioA);
+    background: var(--primario-n);
 }
 
 .header-brand-text {
@@ -42,41 +33,36 @@ header {
 }
 
 .header-brand-text span {
-    color: var(--red);
+    color: var(--white);
 }
 
-.header-nome {
-    color: white;
+.header-nome,
+.user-name {
+    color: var(--white);
 }
 
 .avatar {
-    background: linear-gradient(135deg, var(--primarioA-n) 0%, var(--primarioA) 100%);
+    background: linear-gradient(135deg, var(--primario-Dark) 0%, var(--primario) 100%);
     color: var(--white);
-    box-shadow: 0 4px 12px rgba(200, 30, 30, 0.35);
-}
-
-.user-name {
-    color: var(--white);
-
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.35);
 }
 
 /* MENU LATERAL */
 .menu-lateral {
-    background: linear-gradient(180deg, var(--primarioA-n) 0%, var(--primarioA-Dark) 100%);
+    background: linear-gradient(180deg, var(--primario-n) 0%, var(--primario-Dark) 100%);
     box-shadow: 3px 0 1px rgb(255, 255, 255);
 }
 
 .menu-lateral li.item-menu:hover {
-    background: white;
+    background: var(--selecionar);
 }
 
 .menu-lateral li.item-menu.active {
-    background: var(--selecionadoA);
+    background: var(--selecionado);
 }
 
-
 .menu-lateral li.item-menu a:hover {
-    color: var(--icone-lateraisHA);
+    color: var(--icone-lateraisH);
 }
 
 .menu-lateral li.item-menu.active a {
@@ -96,42 +82,44 @@ main {
 }
 
 .welcome-banner {
-    color: var(--texto-bannerA);
-    border-top: 2px solid var(--primarioA);
+    color: var(--texto-banner);
+    border-top: 2px solid var(--primario);
 }
 
 .welcome-banner::before {
-    background: radial-gradient(circle, rgba(229, 57, 53, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(15, 23, 42, 0.08) 0%, transparent 70%);
 }
 
 .welcome-banner .icon-wrap {
     width: 64px;
     height: 64px;
     border-radius: 16px;
-    background: linear-gradient(135deg, var(--primarioA-Dark) 0%, var(--primarioA-n) 100%);
+    background: linear-gradient(135deg, var(--primario-Dark) 0%, var(--primario) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.6rem;
     flex-shrink: 0;
+    color: var(--white);
     backdrop-filter: blur(10px);
 }
 
 .welcome-banner h1 {
-    font-family: var(--font-display);
+    font-family: var(--font-body);
     font-size: 1.7rem;
     font-weight: 700;
     margin-bottom: 8px;
 }
 
 .welcome-banner h1 span {
-    color: var(--primarioA-Dark);
+    color: var(--nome);
 }
 
 .welcome-banner p {
     font-size: 0.95rem;
     opacity: 0.85;
     max-width: 500px;
+    color: var(--texto-p);
 }
 
 /* CARDS GRID */
@@ -143,20 +131,19 @@ main {
 }
 
 .card {
-    background: var(--white);
+    background: var(--card);
     padding: 24px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: flex-start;
     gap: 16px;
     transition: all 0.3s ease;
-    border-top: 2px solid var(--primarioA);
+    border-top: 2px solid var(--primario);
 }
 
 .card:hover {
-    box-shadow: 0 8px 30px rgba(200, 30, 30, 0.15);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     transform: translateY(-4px);
-    border-color: var(--red-light);
 }
 
 .card-icon {
@@ -170,24 +157,12 @@ main {
     flex-shrink: 0;
 }
 
-.card-icon.blue {
-    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-    color: var(--red-dark);
-}
-
-.card-icon.green {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2a2525 100%);
-    color: var(--white);
-}
-
-.card-icon.orange {
-    background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
-    color: var(--red);
-}
-
+.card-icon.blue,
+.card-icon.green,
+.card-icon.orange,
 .card-icon.red {
-    background: linear-gradient(135deg, var(--red-dark) 0%, var(--red-light) 100%);
-    color: var(--white);
+    background: var(--card-iconB);
+    color: var(--card-icon);
 }
 
 .card-body h3 {
@@ -200,10 +175,10 @@ main {
 }
 
 .card-body .value {
-    font-family: var(--font-display);
+    font-family: var(--font-body);
     font-size: 2rem;
     font-weight: 700;
-    color: var(--gray-900);
+    color: var(--valor-card);
     line-height: 1;
 }
 
@@ -235,10 +210,10 @@ main {
 
 .card-dados .dados-row i {
     width: 18px;
-    color: var(--red-dark);
+    color: var(--primario-n);
 }
 
-/* ===== RELATÓRIOS ===== */
+/* ===== RELATORIOS ===== */
 .relatorios-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -254,8 +229,8 @@ main {
 }
 
 .relatorio-card {
-    background: var(--white);
-    border-top: 2px solid var(--primarioA);
+    background: var(--card);
+    border-top: 2px solid var(--primario);
     padding: 22px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     display: flex;
@@ -265,9 +240,8 @@ main {
 }
 
 .relatorio-card:hover {
-    box-shadow: 0 8px 30px rgba(200, 30, 30, 0.15);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     transform: translateY(-3px);
-    border-color: var(--red-light);
 }
 
 .relatorio-header {
@@ -280,7 +254,7 @@ main {
     width: 52px;
     height: 52px;
     border-radius: 14px;
-    background: linear-gradient(135deg, var(--red-dark) 0%, var(--red-light) 100%);
+    background: linear-gradient(135deg, var(--primario-Dark) 0%, var(--primario) 100%);
     color: var(--white);
     display: flex;
     align-items: center;
@@ -329,23 +303,22 @@ main {
 }
 
 .btn-rel:hover {
-    border-color: var(--red-dark);
-    color: black;
+    border-color: var(--primario);
+    color: var(--primario);
     background: var(--gray-50);
 }
 
 .btn-rel-primary {
-    background: linear-gradient(135deg, var(--red-dark) 0%, var(--red-light) 100%);
+    background: linear-gradient(135deg, var(--primario-Dark) 0%, var(--primario) 100%);
     color: var(--white);
     border-color: transparent;
 }
 
 .btn-rel-primary:hover {
-    color: black;
-    filter: brightness(1.05);
-    box-shadow: 0 6px 18px rgba(200, 30, 30, 0.35);
+    color: var(--white);
+    filter: brightness(1.15);
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.3);
 }
-
 
 /* SECTION TITLE */
 .section-title {
@@ -360,54 +333,113 @@ main {
 }
 
 .section-title i {
-    color: var(--red-dark);
+    color: var(--primario-n);
     font-size: 1.1rem;
 }
 
-/* PROFILE / TABLE CARD */
+/* ============================================================
+   TABELAS — mesmo padrao visual da section "Pagamentos"
+   Card escuro, cantos arredondados, divisorias suaves
+   ============================================================ */
 .profile-card {
-    background: var(--white);
-    border-top: 2px solid var(--gray-700);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    position: relative;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    padding: 28px;
+    color: #f1f5f9;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.22);
     overflow: hidden;
     margin-bottom: 32px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 24px 50px rgba(15, 23, 42, 0.3);
 }
 
 .profile-card table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 0.92rem;
+    border-radius: 14px;
+    overflow: hidden;
 }
 
 .profile-card table tr {
-    border-bottom: 1px solid var(--gray-100);
     transition: background 0.2s ease;
 }
 
-.profile-card table tr:last-child {
-    border-bottom: none;
-}
-
-.profile-card table tr:hover {
-    background: var(--gray-50);
+.profile-card table tbody tr:hover {
+    background: rgba(56, 189, 248, 0.06);
 }
 
 .profile-card table td {
-    padding: 16px 24px;
-    font-size: 0.95rem;
+    padding: 16px;
+    font-size: 0.92rem;
+    color: #f1f5f9;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: left;
 }
 
+.profile-card table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Cabecalho das tabelas */
 .profile-card table thead td {
-    background: var(--gray-700);
-    color: var(--white);
-    font-weight: 700;
-    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.03);
+    color: #94a3b8;
+    font-weight: 600;
+    font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.profile-card table tbody td:first-child {
+/* Linhas separadoras usadas como divisor entre blocos da tabela */
+.profile-card table thead td:empty {
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 8px 16px;
+}
+
+/* Botoes dentro das tabelas */
+.profile-card table button,
+.profile-card table .action-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 9px 18px;
+    font-size: 0.88rem;
     font-weight: 600;
-    color: var(--gray-700);
+    font-family: inherit;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    box-shadow: 0 6px 18px rgba(14, 165, 233, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    flex-direction: row;
+}
+
+.profile-card table button:hover,
+.profile-card table .action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(14, 165, 233, 0.45);
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    border: none;
+}
+
+.profile-card table a {
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: 600;
 }
 
 /* QUICK ACTIONS */
@@ -419,8 +451,9 @@ main {
 }
 
 .action-btn {
-    background: var(--white);
+    background: var(--btn-rapido);
     border: 2px solid var(--gray-200);
+    border-top: 2px solid var(--primario);
     border-radius: 14px;
     padding: 14px 10px;
     display: flex;
@@ -435,28 +468,54 @@ main {
     transition: all 0.3s ease;
 }
 
+.action-btn i {
+    font-size: 1.5rem;
+    color: var(--icone-btn);
+}
+
 .action-btn:hover {
-    border-color: var(--red-dark);
+    border-color: var(--primario);
     background: var(--gray-50);
-    box-shadow: 0 8px 24px rgba(200, 30, 30, 0.18);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15);
     transform: translateY(-2px);
 }
 
-/* BADGE */
+/* BADGE — mesmo padrao da tabela de Pagamentos */
 .badge {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 999px;
     font-size: 0.8rem;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 0.02em;
 }
 
-.badge-active {
-    background: linear-gradient(135deg, #044304 0%, green 100%);
-    color: var(--white);
+.badge::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
 }
 
+.badge-active {
+    background: rgba(34, 197, 94, 0.12);
+    color: #22c55e;
+}
+
+.badge-active::before {
+    background: #22c55e;
+}
+
+.badge-pendente {
+    background: rgba(245, 158, 11, 0.12);
+    color: #f59e0b;
+}
+
+.badge-pendente::before {
+    background: #f59e0b;
+}
 
 /* FOOTER */
 footer {
@@ -491,6 +550,12 @@ footer {
 
     .cards-grid {
         grid-template-columns: 1fr;
+    }
+
+    .profile-card {
+        padding: 18px;
+        border-radius: 18px;
+        overflow-x: auto;
     }
 
     .user-name {

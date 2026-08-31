@@ -9,17 +9,30 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
-                              Object handler) throws Exception{
+    public boolean preHandle(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Object handler) throws Exception {
+
         HttpSession session = request.getSession(false);
 
-        if(session == null ||
+        if (session == null ||
                 session.getAttribute("usuarioLogado") == null) {
+
+            // Se for uma requisição DELETE, não fazemos redirect
+            // para uma página HTML.
+            if ("DELETE".equalsIgnoreCase(request.getMethod())) {
+
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+                return false;
+            }
 
             response.sendRedirect("/login.html");
 
             return false;
         }
+
         return true;
     }
 }

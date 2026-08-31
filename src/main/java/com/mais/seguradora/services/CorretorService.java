@@ -2,6 +2,7 @@ package com.mais.seguradora.services;
 
 import com.mais.seguradora.Repositories.ApoliceRepository;
 import com.mais.seguradora.Repositories.CorretorRepository;
+import com.mais.seguradora.exception.RecursoNullException;
 import com.mais.seguradora.model.Apolice;
 import com.mais.seguradora.model.Corretor;
 import jakarta.validation.Valid;
@@ -37,6 +38,7 @@ public class CorretorService {
         corretorRepository.save(corretor);
         apoliceRepository.save(apolice);
 
+
         return corretor;
     }
 
@@ -55,5 +57,23 @@ public class CorretorService {
 
     public List<Corretor> listarTodos() {
         return corretorRepository.findAll();
+    }
+
+    public void deletarCorretor(Integer id) {
+
+        Corretor corretor = corretorRepository
+                .findById(id)
+                .orElseThrow(() ->
+                        new RecursoNullException(
+                                "Corretor não encontrado"
+                        )
+                );
+
+        for(Apolice apolice: corretor.getApolices()){
+            apolice.getCorretores().remove(corretor);
+            apoliceRepository.save(apolice);
+        }
+
+        corretorRepository.delete(corretor);
     }
 }

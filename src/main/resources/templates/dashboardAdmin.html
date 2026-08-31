@@ -266,6 +266,12 @@
                     <td th:text="${corretor.nome}">Cliente</td>
                     <td th:text="${corretor.email}">email@exemplo.com</td>
                     <td th:text="${corretor.cpf}">000.000.000-00</td>
+                    <td>
+                        <button
+                                th:onclick="'deletarCorretor(' + ${corretor.id} + ')'">
+                            Excluir
+                        </button>
+                    </td>
                     <td><span class="badge badge-active">ATIVO</span></td>
                 </tr>
                 </tbody>
@@ -315,6 +321,48 @@
             this.closest('.item-menu').classList.add('active');
         });
     });
+
+        async function deletarCorretor(id) {
+
+        const confirmar = confirm(
+        "Tem certeza que deseja excluir este corretor?"
+        );
+
+        if (!confirmar) {
+        return;
+    }
+
+        try {
+
+        const response = await fetch(`/corretor/${id}`, {
+        method: "DELETE"
+    });
+
+        if (response.ok) {
+
+        alert("Corretor excluído com sucesso!");
+
+        location.reload();
+
+    } else if (response.status === 401) {
+
+        alert("Você precisa estar logado como administrador.");
+
+        window.location.href = "/login.html";
+
+    } else {
+
+        alert("Erro ao excluir o corretor.");
+    }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Erro ao conectar com o servidor.");
+    }
+    }
+
 </script>
 
 </body>
