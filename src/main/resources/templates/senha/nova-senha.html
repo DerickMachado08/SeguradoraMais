@@ -1,85 +1,66 @@
 <!DOCTYPE html>
-<html lang="pt-BR"
-      xmlns:th="http://www.thymeleaf.org">
-
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Nova Senha</title>
-
-    <link rel="stylesheet"
-          href="/css/main/app/recuperarSenha.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Defina uma nova senha para sua conta">
+    <title>Nova senha | Seguro Inteligente</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main/app/recuperarSenha.css">
 </head>
-
 <body>
+<main class="page-shell">
+    <span class="ambient-shape ambient-shape--navy" aria-hidden="true"></span>
+    <span class="ambient-shape ambient-shape--gold" aria-hidden="true"></span>
 
-<div class="container">
+    <svg class="flight-path" viewBox="0 0 410 300" aria-hidden="true" focusable="false">
+        <path d="M5 234 C88 252, 93 153, 183 179 S279 253, 337 134" />
+        <circle class="plane-dot" cx="5" cy="234" r="4" />
+        <g class="paper-plane" transform="translate(326 108) rotate(-19)">
+            <path d="M0 18 L58 0 L40 43 L26 28 Z" />
+            <path d="M26 28 L58 0 L32 35 Z" />
+            <path d="M26 28 L26 49 L32 35 Z" />
+        </g>
+    </svg>
 
-    <div class="card">
+    <section class="security-card card" aria-labelledby="page-title">
+        <div class="brand">
+            <span class="brand-mark">&#128273;</span>
+            <span class="eyebrow">Nova senha</span>
+        </div>
 
-        <h1>Crie uma nova senha</h1>
-
-        <p>
-            Escolha uma senha segura para sua conta.
-        </p>
+        <h1 id="page-title">Crie uma nova senha</h1>
+        <p class="intro">Escolha uma senha segura, com pelo menos 6 caracteres, para proteger sua conta.</p>
 
         <div th:if="${erro}" class="mensagem erro">
             <span th:text="${erro}"></span>
         </div>
 
-        <form action="/senha/alterar"
-              method="post">
-
-            <input
-                    type="hidden"
-                    name="email"
-                    th:value="${email}"
-            >
+        <form action="/senha/alterar" method="post">
+            <input type="hidden" name="email" th:value="${email}">
 
             <div class="campo">
-
-                <label for="novaSenha">
-                    Nova senha
-                </label>
-
-                <input
-                        type="password"
-                        id="novaSenha"
-                        name="novaSenha"
-                        placeholder="Digite sua nova senha"
-                        required
-                >
-
+                <label for="novaSenha">Nova senha</label>
+                <input type="password" id="novaSenha" name="novaSenha" autocomplete="new-password"
+                       minlength="6" placeholder="Digite sua nova senha" required>
             </div>
 
             <div class="campo">
-
-                <label for="confirmarSenha">
-                    Confirmar senha
-                </label>
-
-                <input
-                        type="password"
-                        id="confirmarSenha"
-                        name="confirmarSenha"
-                        placeholder="Confirme sua nova senha"
-                        required
-                >
-
+                <label for="confirmarSenha">Confirmar senha</label>
+                <input type="password" id="confirmarSenha" name="confirmarSenha" autocomplete="new-password"
+                       minlength="6" placeholder="Confirme sua nova senha" required>
             </div>
 
-            <button type="submit">
-                Alterar senha
-            </button>
-
+            <div class="actions">
+                <button class="button button--primary" type="submit">Alterar senha</button>
+                <a class="button button--back" href="/login">Voltar para o login</a>
+            </div>
         </form>
 
-    </div>
-
-</div>
-
+        <p class="form-footnote">Após alterar, use a nova senha para entrar na sua conta.</p>
+    </section>
+</main>
 </body>
 </html>

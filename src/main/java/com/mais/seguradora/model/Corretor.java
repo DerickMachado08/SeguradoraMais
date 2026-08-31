@@ -30,7 +30,7 @@ public class Corretor {
     @Column(name = "telefone", length = 20, nullable = false)
     private String telefone;
     @NotBlank
-    @Column(name = "senha", length = 26, nullable = false)
+    @Column(name = "senha", length = 110, nullable = false)
     private String senha;
 
     @ManyToMany(mappedBy = "corretores")

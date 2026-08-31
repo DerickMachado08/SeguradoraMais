@@ -1,73 +1,61 @@
 <!DOCTYPE html>
-<html lang="pt-BR"
-      xmlns:th="http://www.thymeleaf.org">
-
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Recuperar Senha</title>
-
-    <link rel="stylesheet"
-          href="/css/main/app/recuperarSenha.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Recupere o acesso à sua conta com segurança">
+    <title>Recuperar senha | Seguro Inteligente</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main/app/recuperarSenha.css">
 </head>
-
 <body>
+<main class="page-shell">
+    <span class="ambient-shape ambient-shape--navy" aria-hidden="true"></span>
+    <span class="ambient-shape ambient-shape--gold" aria-hidden="true"></span>
 
-<div class="container">
+    <svg class="flight-path" viewBox="0 0 410 300" aria-hidden="true" focusable="false">
+        <path d="M5 234 C88 252, 93 153, 183 179 S279 253, 337 134" />
+        <circle class="plane-dot" cx="5" cy="234" r="4" />
+        <g class="paper-plane" transform="translate(326 108) rotate(-19)">
+            <path d="M0 18 L58 0 L40 43 L26 28 Z" />
+            <path d="M26 28 L58 0 L32 35 Z" />
+            <path d="M26 28 L26 49 L32 35 Z" />
+        </g>
+    </svg>
 
-    <div class="card">
+    <section class="security-card card" aria-labelledby="page-title">
+        <div class="brand">
+            <span class="brand-mark">&#128274;</span>
+            <span class="eyebrow">Recuperação de acesso</span>
+        </div>
 
-        <h1>Esqueceu sua senha?</h1>
+        <h1 id="page-title">Esqueceu sua senha?</h1>
+        <p class="intro">Digite o e-mail cadastrado e enviaremos um código de recuperação para você criar uma nova senha.</p>
 
-        <p>
-            Digite seu e-mail para receber um código
-            de recuperação.
-        </p>
-
-        <!-- Mensagem de erro -->
         <div th:if="${erro}" class="mensagem erro">
             <span th:text="${erro}"></span>
         </div>
 
-        <!-- Mensagem de sucesso -->
         <div th:if="${sucesso}" class="mensagem sucesso">
             <span th:text="${sucesso}"></span>
         </div>
 
-        <form action="/senha/enviar"
-              method="post">
-
+        <form action="/senha/enviar" method="post">
             <div class="campo">
-
-                <label for="email">
-                    E-mail
-                </label>
-
-                <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Digite seu e-mail"
-                        required
-                >
-
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" autocomplete="email" placeholder="voce@exemplo.com" required>
             </div>
 
-            <button type="submit">
-                Enviar código
-            </button>
-
+            <div class="actions">
+                <button class="button button--primary" type="submit">Enviar código</button>
+                <a class="button button--back" href="/login">Voltar para o login</a>
+            </div>
         </form>
 
-        <a href="/login" class="voltar">
-            ← Voltar para o login
-        </a>
-
-    </div>
-
-</div>
-
+        <p class="form-footnote">O código de recuperação expira em poucos minutos por segurança.</p>
+    </section>
+</main>
 </body>
 </html>

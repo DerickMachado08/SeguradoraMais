@@ -50,6 +50,8 @@ public class ClienteService {
             throw new MenorIdadeException("por favor informar sua data de nascimento correta");
         }
 
+        cliente.setSenha(passwordEncoder.encode(cliente.getSenha()));
+
         return repository.save(cliente);
     }
 

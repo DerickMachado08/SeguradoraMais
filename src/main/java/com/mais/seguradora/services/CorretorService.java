@@ -6,6 +6,7 @@ import com.mais.seguradora.model.Apolice;
 import com.mais.seguradora.model.Corretor;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class CorretorService {
     @Autowired
     private CorretorRepository corretorRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     public Corretor cadastrar(Corretor corretor, Integer idApolice) {
 
@@ -28,6 +32,8 @@ public class CorretorService {
         corretor.getApolices().add(apolice);
         apolice.getCorretores().add(corretor);
 
+        corretor.setSenha(passwordEncoder.encode(corretor.getSenha()));
+
         corretorRepository.save(corretor);
         apoliceRepository.save(apolice);
 
@@ -36,9 +42,14 @@ public class CorretorService {
 
 
     public Corretor autenticar(String email, String senha) {
-        return corretorRepository
-                .findByEmailAndSenha(email, senha)
-                .orElse(null);
+        Corretor corretor = corretorRepository.findByEmail(email).orElse(null);
+
+        if (corretor != null &&
+                passwordEncoder.matches(senha, corretor.getSenha())) {
+
+            return corretor;
+        }
+        return null;
     }
 
 
