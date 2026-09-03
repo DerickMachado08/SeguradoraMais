@@ -114,7 +114,7 @@
                 <div class="card-icon orange"><i class="fa-solid fa-money-bill-wave"></i></div>
                 <div class="card-body">
                     <h3>Pagamentos</h3>
-                    <div class="value" th:text="${'R$ ' + (totalPagamentos != null ? totalPagamentos : '0')}"></div>
+                    <div class="value" th:text="${'R$ ' + (total != null ? total : '0')}"></div>
                     <div class="sub">Recebidos</div>
                 </div>
             </div>
@@ -258,6 +258,7 @@
                     <td>Nome</td>
                     <td>Email</td>
                     <td>CPF</td>
+                    <td>Excluir</td>
                     <td>Status</td>
                 </tr>
                 </thead>

@@ -8,16 +8,14 @@ import com.mais.seguradora.model.Admin;
 import com.mais.seguradora.model.Cliente;
 import com.mais.seguradora.model.Contratacao;
 import com.mais.seguradora.model.Corretor;
-import com.mais.seguradora.services.ApoliceService;
-import com.mais.seguradora.services.ClienteService;
-import com.mais.seguradora.services.ContratacaoService;
-import com.mais.seguradora.services.CorretorService;
+import com.mais.seguradora.services.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -34,6 +32,9 @@ public class dashboardController {
 
     @Autowired
     private CorretorService corretorService;
+
+    @Autowired
+    private PagamentoService pagamentoService;
 
 
     @GetMapping("/dashboardCliente")
@@ -77,11 +78,16 @@ public class dashboardController {
             return "redirect:/login.html";
         }
 
+        BigDecimal total = pagamentoService.calcularTotalRecebido();
+
+
         model.addAttribute("admin", admin);
         model.addAttribute("clientes", clienteService.ListarRecentes());
         model.addAttribute("corretores", corretorService.listarTodos());
         model.addAttribute("totalApolices", apoliceService.totalApolice());
         model.addAttribute("totalClientes", clienteService.totalClientes());
+        model.addAttribute("total", total);
+
 
         return "dashboardAdmin";
     }

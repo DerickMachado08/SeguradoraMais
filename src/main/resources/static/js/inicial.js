@@ -61,10 +61,102 @@ window.addEventListener('load', () => {
     });
 });
 
-/* ====== CARROSSEL ====== */
-const carousel = document.querySelector('.carousel');
-document.querySelector('.next')?.addEventListener('click', () => carousel?.scrollBy({ left: 330, behavior: 'smooth' }));
-document.querySelector('.prev')?.addEventListener('click', () => carousel?.scrollBy({ left: -330, behavior: 'smooth' }));
+(function beneficiosWallParallax() {
+
+    const section = document.querySelector('.beneficios');
+    const plane = document.querySelector('.wall-plane');
+
+    if (!section || !plane) return;
+
+    if (
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+        return;
+    }
+
+    let targetX = 0;
+    let targetY = 0;
+
+    let currentX = 0;
+    let currentY = 0;
+
+    section.addEventListener('mousemove', (e) => {
+
+        const rect = section.getBoundingClientRect();
+
+        const x =
+            (e.clientX - rect.left) /
+            rect.width -
+            0.5;
+
+        const y =
+            (e.clientY - rect.top) /
+            rect.height -
+            0.5;
+
+        targetX = x * 5;
+        targetY = -y * 4;
+
+    });
+
+    section.addEventListener('mouseleave', () => {
+
+        targetX = 0;
+        targetY = 0;
+
+    });
+
+    function animate() {
+
+        currentX +=
+            (targetX - currentX) * 0.05;
+
+        currentY +=
+            (targetY - currentY) * 0.05;
+
+        plane.style.transform = `
+            translate(-50%, -50%)
+            scale(1.15)
+            rotateX(${16 + currentY}deg)
+            rotateY(${-14 + currentX}deg)
+            translateZ(-120px)
+        `;
+
+        requestAnimationFrame(animate);
+
+    }
+
+    animate();
+
+})();
+
+const insurancePanels =
+    document.querySelectorAll('.insurance-panel');
+
+insurancePanels.forEach((panel, index) => {
+
+    panel.addEventListener('mouseenter', () => {
+
+        insurancePanels.forEach(p => {
+            p.classList.remove('active');
+        });
+
+        panel.classList.add('active');
+
+    });
+
+
+    panel.addEventListener('focus', () => {
+
+        insurancePanels.forEach(p => {
+            p.classList.remove('active');
+        });
+
+        panel.classList.add('active');
+
+    });
+
+});
 
 /* ====== PARTICULAS HERO ====== */
 (function heroParticles() {

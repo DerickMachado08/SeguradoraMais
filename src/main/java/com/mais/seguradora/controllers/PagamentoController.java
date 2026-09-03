@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Controller
@@ -72,6 +74,16 @@ public class PagamentoController {
                 )
                 .ifPresent(pagamento -> {
                     pagamento.setStatus(StatusPagamento.APROVADA);
+                    pagamentoRepository.save(pagamento);
+
+                    pagamento.setDataPagamento(LocalDate.now());
+
+                    pagamento.setIdApolice(
+                            pagamento.getContratacao().getApolice().getId()
+                    );
+
+                    pagamento.setFormaPagamento("CARTÃO");
+
                     pagamentoRepository.save(pagamento);
                 });
 

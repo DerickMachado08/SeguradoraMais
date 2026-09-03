@@ -93,7 +93,7 @@ public class ClienteService {
             throw new RecursoNullException("Email incorreto");
         }
 
-        if (!cliente.getSenha().equals(senha)) {
+        if (!passwordEncoder.matches(senha, cliente.getSenha())) {
             throw new RecursoNullException("Senha incorreta");
         }
 

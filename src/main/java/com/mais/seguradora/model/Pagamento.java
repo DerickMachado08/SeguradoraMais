@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity(name = "pagamento")
 @Table(name = "pagamento")
@@ -32,10 +33,14 @@ public class Pagamento {
     @Column(name = "data_vencimento")
     private LocalDate dataVencimento;
 
+    private Integer idApolice;
+
     @Enumerated(EnumType.STRING)
     private StatusPagamento status;
 
     @ManyToOne
     @JoinColumn(name = "id_contratacao")
     private Contratacao contratacao;
+
+
 }
