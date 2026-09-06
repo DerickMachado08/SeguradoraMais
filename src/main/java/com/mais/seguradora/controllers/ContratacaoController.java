@@ -10,6 +10,7 @@ import com.mais.seguradora.model.Corretor;
 import com.mais.seguradora.services.ApoliceService;
 import com.mais.seguradora.services.BemPatrimonialService;
 import com.mais.seguradora.services.ContratacaoService;
+import com.mais.seguradora.services.EmailService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -33,6 +34,8 @@ public class ContratacaoController {
 
     @Autowired
     private BemPatrimonialService bemPatrimonialService;
+
+
 
     @GetMapping("/cliente/apolices")
     public String minhasApolices(
@@ -207,7 +210,7 @@ public class ContratacaoController {
     public String deletarContratacaoCorretor(
             @PathVariable("id") Integer id) {
 
-        contratacaoService.deletar(id);
+        contratacaoService.deletarNegadaCorretor(id);
 
         return "redirect:/dashboardCorretor";
     }

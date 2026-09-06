@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        /* ===== Ajustes visuais (Seguradora Mais) ===== */
+
         :root{
             --sm-navy:#0f172a; --sm-navy-2:#1e293b; --sm-line:#e5e9f0;
             --sm-muted:#64748b; --sm-amber:#f59e0b; --sm-red:#dc2626; --sm-blue:#1d4ed8;
@@ -47,6 +47,77 @@
             padding:32px; text-align:center; color:var(--sm-muted);
         }
         .vazio-apolices i{font-size:1.8rem; color:var(--sm-navy); margin-bottom:8px; display:block}
+
+           .alterar-senha-box {
+               margin-top: 24px;
+               padding: 22px;
+               border: 1px solid var(--sm-line);
+               border-radius: 16px;
+               background: #f8fafc;
+           }
+
+        .alterar-senha-box .senha-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 10px;
+        }
+
+        .alterar-senha-box .senha-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e2e8f0;
+            color: var(--sm-navy);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .alterar-senha-box h3 {
+            margin: 0;
+            color: var(--sm-navy);
+            font-size: 1.05rem;
+        }
+
+        .alterar-senha-box p {
+            margin: 4px 0 0;
+            color: var(--sm-muted);
+            font-size: .9rem;
+            line-height: 1.5;
+        }
+
+        .btn-alterar-senha {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            margin-top: 16px;
+            height: 44px;
+            padding: 0 20px;
+            border-radius: 10px;
+            background: var(--sm-navy);
+            color: #fff;
+            text-decoration: none;
+            font-size: .88rem;
+            font-weight: 600;
+            border: 1px solid var(--sm-navy);
+            transition: .2s ease;
+        }
+
+        .btn-alterar-senha:hover {
+            background: var(--sm-navy-2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(15,23,42,.12);
+        }
+
+        .btn-alterar-senha i {
+            font-size: .9rem;
+        }
+
+
     </style>
 </head>
 <body>
@@ -317,15 +388,40 @@
             </div>
 
             <div class="zona-perigo">
-                <h3><i class="fas fa-triangle-exclamation"></i> Gerenciamento da conta</h3>
-                <p>A exclusao da conta remove seu acesso a plataforma. Voce sera levado a uma pagina de confirmacao antes de qualquer acao definitiva.</p>
+                <h3>
+                    <i class="fas fa-shield-halved"></i>
+                    Gerenciamento da conta
+                </h3>
+                <p>
+                    Gerencie sua senha e as configurações de segurança da sua conta.
+                </p>
+                <div class="alterar-senha-box">
+                    <div class="senha-header">
+                        <div class="senha-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div>
+                            <h3>Alterar senha</h3>
+                            <p>
+                                Enviaremos um código de segurança para o seu
+                                e-mail antes de permitir a alteração da senha.
+                            </p>
+                        </div>
+                    </div>
+                    <a href="/alterar-senha/modificar" class="btn-alterar-senha">
+                        <i class="fas fa-lock"></i>
+                        Alterar minha senha
+                    </a>
+                </div>
                 <div class="cta-row">
                     <a href="/cliente/confirmar-exclusao" class="btn-danger">
-                        <i class="fas fa-user-slash"></i> Excluir minha conta
+                        <i class="fas fa-user-slash"></i>
+                        Excluir minha conta
                     </a>
                     <span class="cta-note">
-                        <i class="fas fa-lock"></i> Nenhum dado e removido nesta etapa
-                    </span>
+            <i class="fas fa-lock"></i>
+            Nenhum dado é removido nesta etapa
+        </span>
                 </div>
             </div>
         </div>

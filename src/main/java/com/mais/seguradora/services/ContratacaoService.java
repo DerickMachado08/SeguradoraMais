@@ -30,6 +30,9 @@ public class ContratacaoService {
     @Autowired
     private BemPatrimonialRepository bemPatrimonialRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     public List<Contratacao> buscarPorCliente(Cliente cliente) {
         return contratacaoRepository.findByCliente(cliente);
     }
@@ -38,6 +41,16 @@ public class ContratacaoService {
         Contratacao contratacao = contratacaoRepository.findById(id).orElseThrow(()-> new RecursoNullException("Contratação não encontrado"));
 
                 contratacaoRepository.delete(contratacao);
+    }
+
+    public void deletarNegadaCorretor(Integer id){
+        Contratacao contratacao = contratacaoRepository.findById(id).orElseThrow(()-> new RecursoNullException("Contratação não encontrado"));
+
+        String email = contratacao.getCliente().getEmail();
+
+        contratacaoRepository.delete(contratacao);
+
+        emailService.enviarContratacaoNegada(email);
     }
 
     public Contratacao buscarPorId(Integer id) {
@@ -130,6 +143,8 @@ public class ContratacaoService {
         contratacao.setValorContratacao(valor);
 
         Contratacao contratacaoSalva = contratacaoRepository.save(contratacao);
+
+        emailService.enviarContratacaoAprovada(contratacaoSalva.getCliente().getEmail());
 
         Pagamento pagamento = new Pagamento();
         pagamento.setContratacao(contratacaoSalva);

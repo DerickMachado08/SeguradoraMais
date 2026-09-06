@@ -38,7 +38,10 @@
             <span th:text="${erro}"></span>
         </div>
 
-        <form action="/senha/alterar" method="post">
+        <form th:action="${tipoFluxo == 'alteracao'}
+      ? @{/alterar-senha/nova-senha}
+      : @{/senha/alterar}"
+              method="post">
             <input type="hidden" name="email" th:value="${email}">
 
             <div class="campo">

@@ -18,7 +18,9 @@ public class RecuperacaoSenhaController {
     private RecuperacaoSenhaService recuperacaoSenhaService;
 
     @GetMapping("/esqueci")
-    public String esqueciSenha(){
+    public String esqueciSenha(Model model){
+        model.addAttribute("tipoFluxo", "recuperacao");
+
         return "senha/esqueci-senha";
     }
 
@@ -28,6 +30,7 @@ public class RecuperacaoSenhaController {
           recuperacaoSenhaService.enviarCodigo(email);
 
           model.addAttribute("email", email);
+            model.addAttribute("tipoFluxo", "recuperacao");
 
           return "senha/verificar-codigo";
 
@@ -49,6 +52,7 @@ public class RecuperacaoSenhaController {
             );
 
             model.addAttribute("email", email);
+            model.addAttribute("tipoFluxo", "recuperacao");
 
             return "senha/nova-senha";
 

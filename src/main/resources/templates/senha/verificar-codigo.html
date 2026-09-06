@@ -43,7 +43,10 @@
             <span>Não compartilhe este código com ninguém. Nossa equipe nunca solicita códigos de verificação.</span>
         </div>
 
-        <form action="/senha/verificar-codigo" method="post">
+        <form th:action="${tipoFluxo == 'alteracao'}
+      ? @{/alterar-senha/verificar-codigo}
+      : @{/senha/verificar-codigo}"
+              method="post">
             <input type="hidden" name="email" th:value="${email}">
 
             <div class="campo">

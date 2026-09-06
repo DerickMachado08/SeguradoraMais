@@ -49,5 +49,37 @@ public class EmailService {
         mailSender.send(mensagem);
     }
 
+    public void enviarContratacaoAprovada(String email){
+        SimpleMailMessage mensagem = new SimpleMailMessage();
+
+        mensagem.setTo(email);
+
+        mensagem.setSubject("Contratação aprovada - Seguradora+");
+
+        mensagem.setText( "Olá!\n\n" +
+                "Sua contratação foi aprovada pela Seguradora+.\n\n" +
+                "Agora sua apólice está disponível no sistema.\n\n" +
+                "Atenciosamente,\n" +
+                "Equipe Seguradora+");
+
+        mailSender.send(mensagem);
+    }
+
+    public void enviarContratacaoNegada(String email){
+        SimpleMailMessage mensagem = new SimpleMailMessage();
+
+        mensagem.setTo(email);
+
+        mensagem.setSubject("Contratação negada - Seguradora+");
+
+        mensagem.setText(  "Olá!\n\n" +
+                "Informamos que sua solicitação de contratação não foi aprovada.\n\n" +
+                "Caso tenha dúvidas, entre em contato com a Seguradora+.\n\n" +
+                "Atenciosamente,\n" +
+                "Equipe Seguradora+");
+
+        mailSender.send(mensagem);
+    }
+
 
 }
