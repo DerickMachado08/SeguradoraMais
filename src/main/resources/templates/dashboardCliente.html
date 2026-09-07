@@ -163,17 +163,18 @@
             </a>
         </li>
         <li class="item-menu">
+            <a href="#sinistro">
+                <span class="icon"><i class="fa-regular fa-address-book"></i></span>
+                <span class="txt-link">Sinistro</span>
+            </a>
+        </li>
+        <li class="item-menu">
             <a href="#perfil">
                 <span class="icon"><i class="fa-regular fa-user"></i></span>
                 <span class="txt-link">Perfil</span>
             </a>
         </li>
-        <li class="item-menu">
-            <a href="#">
-                <span class="icon"><i class="fa-regular fa-address-book"></i></span>
-                <span class="txt-link">Contato</span>
-            </a>
-        </li>
+
     </ul>
 
 </nav>
@@ -350,6 +351,55 @@
                 <span class="divisor" aria-hidden="true"></span>
             </div>
         </div>
+    </section>
+
+    <section class="sinistro">
+
+        <div class="section-title">
+            <i class="fas fa-triangle-exclamation"></i>
+            Meus Sinistros
+        </div>
+
+        <div class="profile-card">
+            <table>
+                <thead>
+                <tr>
+                    <td>Apólice</td>
+                    <td>Descrição</td>
+                    <td>Prejuízo</td>
+                    <td>Status</td>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="sinistro : ${sinistros}">
+
+                    <td th:text="${sinistro.apolice.numeroApolice}">
+                        0001
+                    </td>
+
+                    <td th:text="${sinistro.descricao}">
+                        Colisão
+                    </td>
+
+                    <td th:text="${sinistro.valorPrejuizo}">
+                        R$ 5.000
+                    </td>
+
+                    <td>
+                        <span
+                                class="badge"
+                                th:text="${sinistro.status}">
+                            EM ANÁLISE
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
     </section>
 
     <section id="perfil" class="perfil">

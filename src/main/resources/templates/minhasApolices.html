@@ -225,18 +225,31 @@
                 </div>
 
                 <div class="apolice-card-actions">
+
                     <button type="button" class="btn-action secondary">
                         <i class="fas fa-eye"></i> Detalhes
                     </button>
+
                     <button type="button" class="btn-action primary">
                         <i class="fas fa-download"></i> Download
                     </button>
-                    <form th:action="@{/cliente/contratacao/{id}/deletar(id=${contratacao.id})}" method="post"
+
+                    <a th:href="@{/sinistro/novo(idApolice=${contratacao.apolice.id})}"
+                       class="btn-action delete">
+                        <i class="fas fa-triangle-exclamation"></i>
+                        Abrir Sinistro
+                    </a>
+
+                    <form th:action="@{/cliente/contratacao/{id}/deletar(id=${contratacao.id})}"
+                          method="post"
                           onsubmit="return confirm('Deseja realmente excluir esta apolice?');">
+
                         <button type="submit" class="btn-action delete">
                             <i class="fas fa-trash"></i> Excluir
                         </button>
+
                     </form>
+
                 </div>
             </div>
         </div>

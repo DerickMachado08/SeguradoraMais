@@ -35,8 +35,6 @@ public class ContratacaoController {
     @Autowired
     private BemPatrimonialService bemPatrimonialService;
 
-
-
     @GetMapping("/cliente/apolices")
     public String minhasApolices(
             HttpSession session,
@@ -170,6 +168,19 @@ public class ContratacaoController {
         }
     }
 
+    @PostMapping("/cliente/contratacao/{id}/deletar")
+    public String deletar(
+            @PathVariable("id") Integer id,
+            HttpSession session) {
+
+        Cliente cliente =
+                (Cliente) session.getAttribute("usuarioLogado");
+
+        contratacaoService.deletar(id);
+
+        return "redirect:/cliente/apolices";
+    }
+
     @PostMapping("/corretor/emitir-apolice")
     public String emitirApolice(
             @RequestParam("idContratacao") Integer idContratacao,
@@ -215,16 +226,5 @@ public class ContratacaoController {
         return "redirect:/dashboardCorretor";
     }
 
-    @PostMapping("/cliente/contratacao/{id}/deletar")
-    public String deletar(
-            @PathVariable("id") Integer id,
-            HttpSession session) {
 
-        Cliente cliente =
-                (Cliente) session.getAttribute("usuarioLogado");
-
-        contratacaoService.deletar(id);
-
-        return "redirect:/cliente/apolices";
-    }
 }

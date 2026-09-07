@@ -81,5 +81,37 @@ public class EmailService {
         mailSender.send(mensagem);
     }
 
+    public void sinistroAprovada(String email){
+        SimpleMailMessage mensagem = new SimpleMailMessage();
+
+        mensagem.setTo(email);
+
+        mensagem.setSubject("Sinistro aprovado - Seguradora+");
+
+        mensagem.setText( "Olá!\n\n" +
+                "Seu sinistro foi aprovado pela Seguradora+.\n\n" +
+                "Agora você pode observar que o sinistro está aprovado no sistema.\n\n" +
+                "Atenciosamente,\n" +
+                "Equipe Seguradora+");
+
+        mailSender.send(mensagem);
+    }
+
+    public void sinistroNegado(String email){
+        SimpleMailMessage mensagem = new SimpleMailMessage();
+
+        mensagem.setTo(email);
+
+        mensagem.setSubject("Sinistro negado - Seguradora+");
+
+        mensagem.setText(  "Olá!\n\n" +
+                "Informamos que sua solicitação do sinistro não foi aprovada.\n\n" +
+                "Caso tenha dúvidas, entre em contato com a Seguradora+.\n\n" +
+                "Atenciosamente,\n" +
+                "Equipe Seguradora+");
+
+        mailSender.send(mensagem);
+    }
+
 
 }

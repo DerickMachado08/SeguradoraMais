@@ -1,5 +1,6 @@
 package com.mais.seguradora.model;
 
+import com.mais.seguradora.enummerated.StatusSinistro;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,12 +23,20 @@ public class Sinistro {
     private Integer id;
     @Column(name = "descricao", length = Integer.MAX_VALUE)
     private String descricao;
-    @Column(name = "data_sinsitro")
+    @Column(name = "data_sinistro")
     private LocalDate dataSinsitro;
     @Column(name = "valor_prejuizo", precision = 10, scale = 2)
     private BigDecimal valorPrejuizo;
 
+    @Enumerated
+    @Column(name = "status")
+    private StatusSinistro status;
+
     @ManyToOne
     @JoinColumn(name = "id_ApoliceS")
     private Apolice apolice;
+
+    @ManyToOne
+    @JoinColumn(name = "id_clientes")
+    private Cliente cliente;
 }

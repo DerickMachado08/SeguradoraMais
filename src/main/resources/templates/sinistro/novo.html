@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Abrir Sinistro - Seguradora Mais</title>
+
+    <link rel="stylesheet"
+          href="/css/main/app/clienteDashboard.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <div class="header-brand">
+        <h2>Seguradora Mais</h2>
+    </div>
+</header>
+
+<main>
+
+    <div class="section-title">
+        <i class="fas fa-triangle-exclamation"></i>
+        Abrir Sinistro
+    </div>
+
+    <div class="profile-card">
+
+        <form th:action="@{/sinistro/abrir}"
+              method="post">
+
+            <!-- Apólice -->
+            <input type="hidden"
+                   name="idApolice"
+                   th:value="${idApolice}">
+
+            <div class="form-group">
+
+                <label for="descricao">
+                    Descrição do ocorrido
+                </label>
+
+                <textarea
+                        id="descricao"
+                        name="descricao"
+                        rows="6"
+                        placeholder="Descreva o que aconteceu..."
+                        required>
+                </textarea>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="valorPrejuizo">
+                    Valor do prejuízo
+                </label>
+
+                <input
+                        type="number"
+                        id="valorPrejuizo"
+                        name="valorPrejuizo"
+                        step="0.01"
+                        min="0"
+                        placeholder="0,00"
+                        required>
+
+            </div>
+
+            <div class="apolice-card-actions">
+
+                <a href="/cliente/apolices"
+                   class="btn-action secondary">
+
+                    <i class="fas fa-arrow-left"></i>
+                    Cancelar
+
+                </a>
+
+                <button
+                        type="submit"
+                        class="btn-action primary">
+
+                    <i class="fas fa-paper-plane"></i>
+                    Abrir Sinistro
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</main>
+
+</body>
+</html>

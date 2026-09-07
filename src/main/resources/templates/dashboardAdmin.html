@@ -299,6 +299,95 @@
 
     </section>
 
+    <section id="sinistros" class="sinistros">
+
+        <div class="section-title">
+            <i class="fas fa-triangle-exclamation"></i>
+            Sinistros
+        </div>
+
+        <div class="profile-card">
+            <table>
+                <thead>
+
+                <tr>
+                    <td>Cliente</td>
+                    <td>Apólice</td>
+                    <td>Descrição</td>
+                    <td>Prejuízo</td>
+                    <td>Status</td>
+                    <td>Ações</td>
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr th:each="sinistro : ${sinistros}">
+
+                    <td th:text="${sinistro.apolice.contratacao.cliente.nome}">
+                        Cliente
+                    </td>
+                    <td th:text="${sinistro.apolice.numeroApolice}">
+                        0001
+                    </td>
+                    <td th:text="${sinistro.descricao}">
+                        Colisão
+                    </td>
+                    <td th:text="${sinistro.valorPrejuizo}">
+                        R$ 5.000
+                    </td>
+                    <td>
+                        <span
+                                class="badge badge-active"
+                                th:text="${sinistro.status}">
+                            EM ANÁLISE
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <div class="sinistro-acoes"
+                             th:if="${sinistro.status.name() == 'EM_ANALISE'}">
+
+                            <form
+                                    th:action="@{/admin/aprovar/{id}(id=${sinistro.id})}"
+                                    method="post">
+
+                                <button
+                                        type="submit"
+                                        class="btn-aprovar">
+
+                                    <i class="fas fa-check"></i>
+                                    Aprovar
+
+                                </button>
+
+                            </form>
+
+                            <form
+                                    th:action="@{/admin/negar/{id}(id=${sinistro.id})}"
+                                    method="post">
+
+                                <button
+                                        type="submit"
+                                        class="btn-negar">
+
+                                    <i class="fas fa-xmark"></i>
+                                    Negar
+
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
 </main>
 
 <footer>
