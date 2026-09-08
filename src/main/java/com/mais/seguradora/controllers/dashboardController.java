@@ -4,10 +4,7 @@ import com.mais.seguradora.Repositories.ApoliceRepository;
 import com.mais.seguradora.Repositories.ClienteRepository;
 import com.mais.seguradora.enummerated.StatusApolice;
 import com.mais.seguradora.enummerated.StatusContratacao;
-import com.mais.seguradora.model.Admin;
-import com.mais.seguradora.model.Cliente;
-import com.mais.seguradora.model.Contratacao;
-import com.mais.seguradora.model.Corretor;
+import com.mais.seguradora.model.*;
 import com.mais.seguradora.services.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +33,9 @@ public class dashboardController {
     @Autowired
     private PagamentoService pagamentoService;
 
+    @Autowired
+    private SinistroService sinistroService;
+
 
     @GetMapping("/dashboardCliente")
     public String dashboardCliente(HttpSession session, Model model) {
@@ -46,9 +46,12 @@ public class dashboardController {
         }
 
         List<Contratacao> contratacoes = contratacaoService.buscarPorCliente(cliente);
+        List<Sinistro> sinistros = sinistroService.buscarPorCliente(cliente);
 
         model.addAttribute("cliente", cliente);
         model.addAttribute("contratacoes", contratacoes);
+        model.addAttribute("sinistros", sinistros);
+
         model.addAttribute("totalApolices", contratacoes.size());
         model.addAttribute("pendentes", contratacaoService.contarPendentes(contratacoes));
         model.addAttribute("totalApolicesEmitidas", contratacaoService.totalApolicesEmitidas(contratacoes));
@@ -79,6 +82,7 @@ public class dashboardController {
         }
 
         BigDecimal total = pagamentoService.calcularTotalRecebido();
+        List<Sinistro> sinistros = sinistroService.buscarTodos();
 
 
         model.addAttribute("admin", admin);
@@ -87,6 +91,7 @@ public class dashboardController {
         model.addAttribute("totalApolices", apoliceService.totalApolice());
         model.addAttribute("totalClientes", clienteService.totalClientes());
         model.addAttribute("total", total);
+        model.addAttribute("sinistros", sinistros);
 
 
         return "dashboardAdmin";

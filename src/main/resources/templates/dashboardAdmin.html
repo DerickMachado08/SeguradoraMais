@@ -325,32 +325,32 @@
 
                 <tr th:each="sinistro : ${sinistros}">
 
-                    <td th:text="${sinistro.apolice.contratacao.cliente.nome}">
+                    <td th:text="${sinistro.cliente.nome}">
                         Cliente
                     </td>
+
                     <td th:text="${sinistro.apolice.numeroApolice}">
                         0001
                     </td>
+
                     <td th:text="${sinistro.descricao}">
                         Colisão
                     </td>
+
                     <td th:text="${sinistro.valorPrejuizo}">
                         R$ 5.000
                     </td>
-                    <td>
-                        <span
-                                class="badge badge-active"
-                                th:text="${sinistro.status}">
-                            EM ANÁLISE
-                        </span>
 
+                    <td>
+        <span
+                class="badge badge-active"
+                th:text="${sinistro.status}">
+            ANALISANDO
+        </span>
                     </td>
-
                     <td>
-
                         <div class="sinistro-acoes"
-                             th:if="${sinistro.status.name() == 'EM_ANALISE'}">
-
+                             th:if="${sinistro.status.name() == 'ANALISANDO'}">
                             <form
                                     th:action="@{/admin/aprovar/{id}(id=${sinistro.id})}"
                                     method="post">
@@ -358,14 +358,10 @@
                                 <button
                                         type="submit"
                                         class="btn-aprovar">
-
                                     <i class="fas fa-check"></i>
                                     Aprovar
-
                                 </button>
-
                             </form>
-
                             <form
                                     th:action="@{/admin/negar/{id}(id=${sinistro.id})}"
                                     method="post">
@@ -382,6 +378,7 @@
                         </div>
                     </td>
                 </tr>
+
                 </tbody>
             </table>
         </div>

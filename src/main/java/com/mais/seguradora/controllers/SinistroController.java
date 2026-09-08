@@ -1,6 +1,8 @@
 package com.mais.seguradora.controllers;
 
+import com.mais.seguradora.model.Cliente;
 import com.mais.seguradora.services.SinistroService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,11 +30,20 @@ public class SinistroController {
     }
 
     @PostMapping("/abrir")
-    public String abrirSinistro(@RequestParam("idApolice") Integer idApolice,
-                                @RequestParam("descricao") String descricao,
-                                @RequestParam("valorPrejuizo")BigDecimal valorPrejuizo){
+    public String abrirSinistro(
+            @RequestParam("idApolice") Integer idApolice,
+            @RequestParam("descricao") String descricao,
+            @RequestParam("valorPrejuizo") BigDecimal valorPrejuizo,
+            HttpSession session) {
 
-        sinistroService.abrir(idApolice, descricao, valorPrejuizo);
+        Cliente cliente = (Cliente) session.getAttribute("usuarioLogado");
+
+        if (cliente == null) {
+            return "redirect:/login.html";
+        }
+
+        sinistroService.abrir(idApolice, descricao, valorPrejuizo, cliente
+        );
 
         return "redirect:/dashboardCliente";
     }

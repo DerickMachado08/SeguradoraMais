@@ -5,12 +5,14 @@ import com.mais.seguradora.Repositories.SinistroRepository;
 import com.mais.seguradora.enummerated.StatusSinistro;
 import com.mais.seguradora.exception.RecursoNullException;
 import com.mais.seguradora.model.Apolice;
+import com.mais.seguradora.model.Cliente;
 import com.mais.seguradora.model.Sinistro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class SinistroService {
@@ -25,13 +27,14 @@ public class SinistroService {
     private EmailService emailService;
 
 
-    public Sinistro abrir(Integer idApolice, String descricao, BigDecimal valorPrejuizo){
+    public Sinistro abrir(Integer idApolice, String descricao, BigDecimal valorPrejuizo, Cliente cliente){
         Apolice apolice = apoliceRepository.findById(idApolice)
                 .orElseThrow(()-> new RuntimeException("Apolice não encontrada"));
 
         Sinistro sinistro = new Sinistro();
 
         sinistro.setApolice(apolice);
+        sinistro.setCliente(cliente);
         sinistro.setDescricao(descricao);
         sinistro.setValorPrejuizo(valorPrejuizo);
         sinistro.setDataSinsitro(LocalDate.now());
@@ -68,6 +71,14 @@ public class SinistroService {
         String email = sinistro.getCliente().getEmail();
 
         emailService.sinistroNegado(email);
+    }
+
+    public List<Sinistro> buscarPorCliente(Cliente cliente) {
+        return sinistroRepository.findByCliente(cliente);
+    }
+
+    public List<Sinistro> buscarTodos() {
+        return sinistroRepository.findAll();
     }
 
 
