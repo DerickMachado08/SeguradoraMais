@@ -1,104 +1,151 @@
 <!DOCTYPE html>
-<html lang="pt-BR"
-      xmlns:th="http://www.thymeleaf.org">
-
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Abrir Sinistro - Seguradora Mais</title>
-
-    <link rel="stylesheet"
-          href="/css/main/app/clienteDashboard.css">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/main/app/clienteDashboard.css">
+    <link rel="stylesheet" href="/css/main/app/menuCliente/sinistro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-
 <body>
 
 <header>
     <div class="header-brand">
-        <h2>Seguradora Mais</h2>
+        9
+    </div>
+    <div class="header-user">
+        <div class="avatar" th:if="${cliente != null}" th:text="${#strings.substring(cliente.nome, 0, 1)}">C</div>
+        <div class="avatar" th:unless="${cliente != null}">C</div>
+        <span class="header-nome" th:if="${cliente != null}" th:text="${cliente.nome}">Cliente</span>
+        <span class="header-nome" th:unless="${cliente != null}">Cliente</span>
+        <a href="/index.html" class="btn-logout">
+            <i class="fas fa-sign-out-alt"></i> Sair
+        </a>
     </div>
 </header>
 
-<main>
+<nav class="menu-lateral">
+    <div class="ButtonExpandir">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+    <ul>
+        <li class="item-menu">
+            <a href="/dashboardCliente">
+                <span class="icon"><i class="fa-solid fa-grip"></i></span>
+                <span class="txt-link">Dashboard</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="/cliente/apolices">
+                <span class="icon"><i class="fa-regular fa-paste"></i></span>
+                <span class="txt-link">Minhas Apolices</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="/cliente/contratar">
+                <span class="icon"><i class="fa-solid fa-file-circle-plus"></i></span>
+                <span class="txt-link">Contratar Seguro</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="/pagamento/cliente">
+                <span class="icon"><i class="fa-regular fa-credit-card"></i></span>
+                <span class="txt-link">Pagamento</span>
+            </a>
+        </li>
+        <li class="item-menu active">
+            <a href="/dashboardCliente#sinistro">
+                <span class="icon"><i class="fa-regular fa-address-book"></i></span>
+                <span class="txt-link">Sinistro</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="/dashboardCliente#perfil">
+                <span class="icon"><i class="fa-regular fa-user"></i></span>
+                <span class="txt-link">Perfil</span>
+            </a>
+        </li>
+    </ul>
+</nav>
 
-    <div class="section-title">
-        <i class="fas fa-triangle-exclamation"></i>
-        Abrir Sinistro
+<main class="sinistro-main">
+    <a href="/cliente/apolices" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Voltar para minhas apolices
+    </a>
+
+    <div class="sinistro-page-header">
+        <div class="breadcrumb">
+            <a href="/dashboardCliente">Dashboard</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="/cliente/apolices">Minhas Apolices</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Abrir Sinistro</span>
+        </div>
+
+        <div class="sinistro-title-row">
+            <div class="sinistro-title-icon">
+                <i class="fas fa-triangle-exclamation"></i>
+            </div>
+            <div>
+                <h1>Abrir Sinistro</h1>
+                <p>Informe os detalhes do ocorrido para iniciar a análise da sua solicitação.</p>
+            </div>
+        </div>
     </div>
 
-    <div class="profile-card">
+    <div class="sinistro-form-card">
+        <div class="sinistro-form-intro">
+            <div>
+                <span class="form-eyebrow">Solicitação de sinistro</span>
+                <h2>Conte o que aconteceu</h2>
+                <p>Preencha as informações abaixo com o máximo de detalhes possível. Esses dados serão utilizados na análise do sinistro.</p>
+            </div>
+            <div class="secure-badge">
+                <i class="fas fa-shield-halved"></i> Dados protegidos
+            </div>
+        </div>
 
-        <form th:action="@{/sinistro/abrir}"
-              method="post">
-
-            <!-- Apólice -->
-            <input type="hidden"
-                   name="idApolice"
-                   th:value="${idApolice}">
+        <form th:action="@{/sinistro/abrir}" method="post" class="sinistro-form">
+            <input type="hidden" name="idApolice" th:value="${idApolice}">
 
             <div class="form-group">
-
                 <label for="descricao">
-                    Descrição do ocorrido
+                    <span>Descrição do ocorrido</span>
+                    <small>Explique quando, onde e como o evento aconteceu.</small>
                 </label>
-
-                <textarea
-                        id="descricao"
-                        name="descricao"
-                        rows="6"
-                        placeholder="Descreva o que aconteceu..."
-                        required>
-                </textarea>
-
+                <textarea id="descricao" name="descricao" rows="7" placeholder="Descreva o ocorrido com detalhes..." required></textarea>
             </div>
 
-            <div class="form-group">
-
+            <div class="form-group prejuizo-group">
                 <label for="valorPrejuizo">
-                    Valor do prejuízo
+                    <span>Valor estimado do prejuízo</span>
+                    <small>Informe o valor aproximado dos danos.</small>
                 </label>
-
-                <input
-                        type="number"
-                        id="valorPrejuizo"
-                        name="valorPrejuizo"
-                        step="0.01"
-                        min="0"
-                        placeholder="0,00"
-                        required>
-
+                <div class="currency-input">
+                    <span>R$</span>
+                    <input type="number" id="valorPrejuizo" name="valorPrejuizo" step="0.01" min="0" placeholder="0,00" required>
+                </div>
             </div>
 
-            <div class="apolice-card-actions">
-
-                <a href="/cliente/apolices"
-                   class="btn-action secondary">
-
-                    <i class="fas fa-arrow-left"></i>
-                    Cancelar
-
-                </a>
-
-                <button
-                        type="submit"
-                        class="btn-action primary">
-
-                    <i class="fas fa-paper-plane"></i>
-                    Abrir Sinistro
-
-                </button>
-
+            <div class="sinistro-form-footer">
+                <div class="form-note">
+                    <i class="fas fa-circle-info"></i>
+                    <span>Após o envio, seu sinistro ficará disponível para análise.</span>
+                </div>
+                <div class="sinistro-actions">
+                    <a href="/cliente/apolices" class="btn-sinistro btn-sinistro-secondary">
+                        <i class="fas fa-arrow-left"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn-sinistro btn-sinistro-primary">
+                        <i class="fas fa-paper-plane"></i> Abrir Sinistro
+                    </button>
+                </div>
             </div>
-
         </form>
-
     </div>
-
 </main>
 
+<script src="/js/clienteLayout.js"></script>
 </body>
 </html>

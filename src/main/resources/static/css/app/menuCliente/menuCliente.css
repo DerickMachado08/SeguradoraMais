@@ -107,7 +107,7 @@ main {
 }
 
 /* PROFILE SECTION */
-.profile-card {
+.Pprofile-cardd {
     background: var(--perfil-card);
     border: 1px solid var(--gray-200);
     border-top: 2px solid var(--primario);
@@ -116,30 +116,30 @@ main {
     margin-bottom: 32px;
 }
 
-.profile-card table {
+.Pprofile-cardd table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.profile-card table tr {
+.Pprofile-cardd table tr {
     border-bottom: 1px solid var(--gray-100);
     transition: background 0.2s ease;
 }
 
-.profile-card table tr:last-child {
+.Pprofile-cardd table tr:last-child {
     border-bottom: none;
 }
 
-.profile-card table tr:hover {
+.profile-cardd table tr:hover {
     background: var(--gray-50);
 }
 
-.profile-card table td {
+.Pprofile-cardd table td {
     padding: 16px 24px;
     font-size: 0.95rem;
 }
 
-.profile-card table td:first-child {
+.Pprofile-cardd table td:first-child {
     width: 200px;
     font-weight: 600;
     color: var(--gray-500);
@@ -148,7 +148,7 @@ main {
     letter-spacing: 0.06em;
 }
 
-.profile-card table td:last-child {
+.Pprofile-cardd table td:last-child {
     color: var(--gray-900);
     font-weight: 500;
 }
@@ -235,10 +235,6 @@ main {
     transform: translateX(5px);
 }
 
-/* ============================================================
-   PAGAMENTO — mesmo padrao visual da section "Minhas Apolices"
-   (apenas visual; markup, links e comportamento preservados)
-   ============================================================ */
 
 .pagamento {
     padding: 10px 0 40px;
@@ -247,7 +243,7 @@ main {
     position: relative;
 }
 
-/* Cabecalho da section */
+
 .pagamento-head {
     margin-bottom: 18px;
 }
@@ -293,7 +289,6 @@ main {
     margin: 0;
 }
 
-/* Card escuro no mesmo padrao de "Minhas Apolices" */
 .pagamento-card {
     position: relative;
     max-width: none;
@@ -391,7 +386,6 @@ main {
     transform: translateY(0);
 }
 
-/* Selo de seguranca */
 .pagamento-seguranca {
     display: flex;
     align-items: center;
