@@ -248,4 +248,19 @@ function olharSenha(){
           campo.type = "password"
         }
 
+        const campoNascimento = document.getElementById("dataNascimento");
+        const hoje = new Date();
+
+        const dataMaxima = new Date(
+        hoje.getFullYear() - 18,
+        hoje.getMonth(),
+        hoje.getDate()
+        );
+
+        const ano = dataMaxima.getFullYear();
+        const mes = String(dataMaxima.getMonth() + 1).padStart(2, "0");
+        const dia = String(dataMaxima.getDate()).padStart(2, "0");
+
+        campoNascimento.max = `${ano}-${mes}-${dia}`;
+
 }

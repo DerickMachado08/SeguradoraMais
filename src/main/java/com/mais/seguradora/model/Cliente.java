@@ -34,6 +34,7 @@ public class Cliente {
     @Column(name = "cpf", nullable = false, length = 14, unique = true)
     private String cpf;
 
+    @PastOrPresent(message = "Data de nascimento não pode ser futura")
     @NotNull(message = "Data de nascimento obrigatório")
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;

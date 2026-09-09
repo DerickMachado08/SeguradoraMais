@@ -1,9 +1,7 @@
 package com.mais.seguradora.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,9 +35,19 @@ public class BemPatrimonial {
     @Column(name = "valor_estimado", precision = 10, scale = 2, nullable = false)
     private BigDecimal valorEstimado;
 
+    @PastOrPresent(message = "A data de aquisição não pode ser futura.")
     @NotNull(message = "Data de aquisicao obrigatoria")
     @Column(name = "data_aquisicao", nullable = false)
     private LocalDate dataAquisicao;
+
+    @AssertTrue(message = "A data de aquisição deve ser a partir de 01/01/2018.")
+    public boolean isDataAquisicaoValida() {
+        if (dataAquisicao == null) {
+            return true;
+        }
+
+        return !dataAquisicao.isBefore(LocalDate.of(2018, 1, 1));
+    }
 
     @ManyToOne
     @JoinColumn(name = "id_ClienteB")

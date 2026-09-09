@@ -43,11 +43,11 @@ public class ClienteService {
             throw new RecursoDuplicadoException("Email ja cadastrado!");
         }
         if(cliente.getDataNascimento().isAfter(LocalDate.now().minusYears(18))){
-            throw new MaiorIdadeException("por favor informar sua data de nascimento correta");
+            throw new MaiorIdadeException("Data de nascimento não atendido pela plataforma");
         }
 
         if(cliente.getDataNascimento().isBefore(LocalDate.now().minusYears(110))){
-            throw new MenorIdadeException("por favor informar sua data de nascimento correta");
+            throw new MenorIdadeException("Data de nascimento não atendido pela plataforma");
         }
 
         cliente.setSenha(passwordEncoder.encode(cliente.getSenha()));
