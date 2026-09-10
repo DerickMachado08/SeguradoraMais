@@ -1,0 +1,6 @@
+services:
+  seguradora:
+    build: .
+    container_name: seguradora-container
+    ports:
+      - "8080:8080"
