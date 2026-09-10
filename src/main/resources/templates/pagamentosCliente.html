@@ -237,7 +237,6 @@
                 <tr>
                     <th>Seguro</th>
                     <th>Valor</th>
-                    <th>Parcelas</th>
                     <th>Vencimento</th>
                     <th>Status</th>
                     <th>Ação</th>
@@ -247,7 +246,6 @@
                 <tr th:each="pagamento : ${pagamentos}">
                     <td th:text="${pagamento.contratacao.apolice.tipoApolice}">AUTO</td>
                     <td class="valor" th:text="${pagamento.valor}">0.00</td>
-                    <td th:text="${pagamento.quantidadeParcela}">1</td>
                     <td th:text="${pagamento.dataVencimento != null ? #temporals.format(pagamento.dataVencimento, 'dd/MM/yyyy') : '-'}">-</td>
                     <td>
                         <span class="badge pendente" th:if="${pagamento.status.name() == 'PENDENTE'}">Pendente</span>

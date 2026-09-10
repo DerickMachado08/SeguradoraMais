@@ -185,14 +185,13 @@ public class ContratacaoController {
     public String emitirApolice(
             @RequestParam("idContratacao") Integer idContratacao,
             @RequestParam("valor") BigDecimal valor,
-            @RequestParam("parcelas") Integer parcelas,
             HttpSession session) {
 
         Corretor corretor =
                 (Corretor) session.getAttribute("usuarioLogado");
 
-        contratacaoService.emitirApolice(idContratacao, valor, parcelas
-        );
+        contratacaoService.emitirApolice(idContratacao, valor);
+        ;
 
         return "redirect:/dashboardCorretor";
     }

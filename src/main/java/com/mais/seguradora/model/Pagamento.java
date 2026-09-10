@@ -22,8 +22,7 @@ public class Pagamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pagamento", nullable = false)
     private Integer id;
-    @Column(name = "quantidade_parcela", nullable = false)
-    private Integer quantidadeParcela;
+
     @Column(name = "valor", precision = 10, scale = 2)
     private BigDecimal valor;
     @Column(name = "forma_pagamento", length = 20)

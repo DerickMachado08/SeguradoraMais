@@ -127,7 +127,7 @@ public class ContratacaoService {
     }
 
     @Transactional
-    public Contratacao emitirApolice(Integer idContratacao, BigDecimal valor, Integer parcelas) {
+    public Contratacao emitirApolice(Integer idContratacao, BigDecimal valor) {
         Contratacao contratacao = contratacaoRepository.findById(idContratacao)
                 .orElseThrow(() -> new RecursoNullException("não foi possivel encontrar"));
 
@@ -149,7 +149,6 @@ public class ContratacaoService {
         Pagamento pagamento = new Pagamento();
         pagamento.setContratacao(contratacaoSalva);
         pagamento.setValor(valor);
-        pagamento.setQuantidadeParcela(parcelas);
         pagamento.setFormaPagamento("PENDENTE");
         pagamento.setStatus(StatusPagamento.PENDENTE);
         pagamento.setDataVencimento(LocalDate.now().plusDays(7));
