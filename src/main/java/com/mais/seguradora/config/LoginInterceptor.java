@@ -19,8 +19,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (session == null ||
                 session.getAttribute("usuarioLogado") == null) {
 
-            // Se for uma requisição DELETE, não fazemos redirect
-            // para uma página HTML.
             if ("DELETE".equalsIgnoreCase(request.getMethod())) {
 
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

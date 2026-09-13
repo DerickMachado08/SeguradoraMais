@@ -37,6 +37,10 @@ public class ContratacaoService {
         return contratacaoRepository.findByCliente(cliente);
     }
 
+    public Optional<Contratacao> buscarPorClienteAndApolice(Cliente cliente, Apolice apolice){
+        return contratacaoRepository.findFirstByClienteAndApolice(cliente, apolice);
+    }
+
     public void deletar(Integer id){
         Contratacao contratacao = contratacaoRepository.findById(id).orElseThrow(()-> new RecursoNullException("Contratação não encontrado"));
 
@@ -186,4 +190,6 @@ public class ContratacaoService {
                 .filter(c -> c.getStatus() == StatusContratacao.PENDENTE)
                 .count();
     }
+
+
 }

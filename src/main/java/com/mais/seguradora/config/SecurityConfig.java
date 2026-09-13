@@ -39,10 +39,8 @@ public class SecurityConfig {
                         .anyRequest().permitAll()
                 )
 
-                // Desativa o login padrão do Spring Security
                 .formLogin(form -> form.disable())
 
-                // Desativa CSRF temporariamente
                 .csrf(csrf -> csrf.disable());
 
         return http.build();

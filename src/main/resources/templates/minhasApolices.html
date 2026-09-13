@@ -173,12 +173,22 @@
                 </div>
 
                 <div class="apolice-card-actions">
-
-                    <a th:href="@{/sinistro/novo(idApolice=${contratacao.apolice.id})}"
+                    <a th:if="${pagamentosAprovados[contratacao.id]}"
+                       th:href="@{/sinistro/novo(idApolice=${contratacao.apolice.id})}"
                        class="btn-action primary">
+
                         <i class="fas fa-triangle-exclamation"></i>
                         Abrir Sinistro
+
                     </a>
+
+                    <span th:unless="${pagamentosAprovados[contratacao.id]}"
+                          class="sinistro-bloqueado">
+
+                        <i class="fas fa-lock"></i>
+                            Sinistro disponível após pagar
+
+                    </span>
 
                     <form th:action="@{/cliente/contratacao/{id}/deletar(id=${contratacao.id})}"
                           method="post"

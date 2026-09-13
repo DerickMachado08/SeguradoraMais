@@ -40,5 +40,10 @@ public interface ContratacaoRepository extends JpaRepository<Contratacao, Intege
             StatusContratacao status
     );
 
+    Optional<Contratacao> findFirstByClienteAndApolice(
+            Cliente cliente,
+            Apolice apolice
+    );
+
 
 }

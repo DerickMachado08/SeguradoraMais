@@ -7,10 +7,7 @@ import com.mais.seguradora.model.BemPatrimonial;
 import com.mais.seguradora.model.Cliente;
 import com.mais.seguradora.model.Contratacao;
 import com.mais.seguradora.model.Corretor;
-import com.mais.seguradora.services.ApoliceService;
-import com.mais.seguradora.services.BemPatrimonialService;
-import com.mais.seguradora.services.ContratacaoService;
-import com.mais.seguradora.services.EmailService;
+import com.mais.seguradora.services.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -35,6 +34,9 @@ public class ContratacaoController {
     @Autowired
     private BemPatrimonialService bemPatrimonialService;
 
+    @Autowired
+    private PagamentoService pagamentoService;
+
     @GetMapping("/cliente/apolices")
     public String minhasApolices(
             HttpSession session,
@@ -46,10 +48,36 @@ public class ContratacaoController {
         List<Contratacao> contratacoes =
                 contratacaoService.buscarPorCliente(cliente);
 
+        Map<Integer, Boolean> pagamentosAprovados = new HashMap<>();
+
+        for (Contratacao contratacao : contratacoes) {
+
+            boolean aprovado =
+                    pagamentoService.pagamentoAprovado(contratacao.getId());
+
+            pagamentosAprovados.put(
+                    contratacao.getId(),
+                    aprovado
+            );
+        }
+
         model.addAttribute("cliente", cliente);
         model.addAttribute("contratacoes", contratacoes);
-        model.addAttribute("pendentes", contratacaoService.contarPendentes(contratacoes));
-        model.addAttribute("totalApolicesEmitidas", contratacaoService.totalApolicesEmitidas(contratacoes));
+
+        model.addAttribute(
+                "pagamentosAprovados",
+                pagamentosAprovados
+        );
+
+        model.addAttribute(
+                "pendentes",
+                contratacaoService.contarPendentes(contratacoes)
+        );
+
+        model.addAttribute(
+                "totalApolicesEmitidas",
+                contratacaoService.totalApolicesEmitidas(contratacoes)
+        );
 
         return "minhasApolices";
     }

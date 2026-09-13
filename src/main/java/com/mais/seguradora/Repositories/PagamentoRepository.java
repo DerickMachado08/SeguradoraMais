@@ -1,7 +1,9 @@
 package com.mais.seguradora.Repositories;
 
 import com.mais.seguradora.enummerated.StatusPagamento;
+import com.mais.seguradora.model.Apolice;
 import com.mais.seguradora.model.Cliente;
+import com.mais.seguradora.model.Contratacao;
 import com.mais.seguradora.model.Pagamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +21,6 @@ public interface PagamentoRepository extends JpaRepository<Pagamento, Integer> {
     void deleteByContratacaoId(Integer idContratacao);
 
    List<Pagamento> findByStatus(StatusPagamento status);
+
+
 }

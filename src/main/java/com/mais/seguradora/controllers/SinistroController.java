@@ -1,6 +1,14 @@
 package com.mais.seguradora.controllers;
 
+import com.mais.seguradora.enummerated.StatusContratacao;
+import com.mais.seguradora.enummerated.StatusPagamento;
+import com.mais.seguradora.model.Apolice;
 import com.mais.seguradora.model.Cliente;
+import com.mais.seguradora.model.Contratacao;
+import com.mais.seguradora.model.Pagamento;
+import com.mais.seguradora.services.ApoliceService;
+import com.mais.seguradora.services.ContratacaoService;
+import com.mais.seguradora.services.PagamentoService;
 import com.mais.seguradora.services.SinistroService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +18,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/sinistro")
@@ -20,9 +30,35 @@ public class SinistroController {
     @Autowired
     private SinistroService sinistroService;
 
-    @GetMapping("/novo")
-    public String novoSinistro(@RequestParam("idApolice") Integer idApolice, Model model){
+    @Autowired
+    private ApoliceService apoliceService;
 
+    @Autowired
+    private PagamentoService pagamentoService;
+
+    @Autowired
+    private ContratacaoService contratacaoService;
+
+    @GetMapping("/novo")
+    public String novoSinistro(@RequestParam("idApolice") Integer idApolice,HttpSession session, Model model, RedirectAttributes redirectAttributes){
+
+        Cliente cliente = (Cliente) session.getAttribute("usuarioLogado");
+
+        Apolice apolice = apoliceService.buscarPorId(idApolice);
+
+        Optional<Contratacao> contratacaoOptional = contratacaoService.buscarPorClienteAndApolice(cliente, apolice);
+
+        Contratacao contratacao = contratacaoOptional.get();
+
+        if(!pagamentoService.pagamentoAprovado(contratacao.getId())){
+            redirectAttributes.addFlashAttribute("erro", "Você só poderá abrir um sinistro após o pagamento da apólice.");
+
+            return "minhasApolices";
+        }
+
+        model.addAttribute("cliente", cliente);
+        model.addAttribute("apolice", apolice);
+        model.addAttribute("contratacao", contratacao);
         model.addAttribute("idApolice", idApolice);
 
         return "sinistro/novo";
