@@ -6,5 +6,6 @@ public enum StatusContratacao {
     ANALISANDO,
     APROVADA,
     REJEITADA,
-    APOLICE_EMITIDA
+    APOLICE_EMITIDA,
+    CANCELADA
 }

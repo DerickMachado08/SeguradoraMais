@@ -41,10 +41,24 @@ public class ContratacaoService {
         return contratacaoRepository.findFirstByClienteAndApolice(cliente, apolice);
     }
 
-    public void deletar(Integer id){
+    @Transactional
+    public void cancelar(Integer id, Cliente cliente){
         Contratacao contratacao = contratacaoRepository.findById(id).orElseThrow(()-> new RecursoNullException("Contratação não encontrado"));
 
-                contratacaoRepository.delete(contratacao);
+        if (!contratacao.getCliente().getId().equals(cliente.getId())){
+            throw new RuntimeException("Essa contratação não pertence ao cliente logado");
+        }
+
+        if (contratacao.getStatus() == StatusContratacao.CANCELADA){
+            throw new RuntimeException("Essa contratação ja esta cancelada");
+        }
+
+        if (contratacao.getStatus() != StatusContratacao.APOLICE_EMITIDA){
+            throw new RuntimeException("So possivel cancelar se apolice estiver emitida");
+        }
+
+        contratacao.setStatus(StatusContratacao.CANCELADA);
+                contratacaoRepository.save(contratacao);
     }
 
     public void deletarNegadaCorretor(Integer id){
@@ -67,6 +81,7 @@ public class ContratacaoService {
     }
 
     public boolean jaPossui(Cliente cliente, Apolice apolice) {
+
         return contratacaoRepository
                 .findByClienteAndApolice_TipoApoliceAndStatusNot(
                         cliente,
@@ -74,7 +89,13 @@ public class ContratacaoService {
                         StatusContratacao.REJEITADA
                 )
                 .stream()
-                .anyMatch(contratacao -> contratacao.getStatus() != StatusContratacao.AGUARDANDO_BEM);
+                .anyMatch(contratacao ->
+                        contratacao.getStatus()
+                                != StatusContratacao.AGUARDANDO_BEM
+                                &&
+                                contratacao.getStatus()
+                                        != StatusContratacao.CANCELADA
+                );
     }
 
     public Optional<Contratacao> buscarRascunho(Cliente cliente, Apolice apolice) {
@@ -166,6 +187,7 @@ public class ContratacaoService {
 
         return buscarPorCliente(cliente).stream()
                 .filter(c -> c.getStatus() != StatusContratacao.REJEITADA)
+                .filter(c -> c.getStatus() != StatusContratacao.CANCELADA)
                 .map(c -> c.getApolice().getTipoApolice())
                 .distinct()
                 .toList();

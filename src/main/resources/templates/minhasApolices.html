@@ -173,7 +173,8 @@
                 </div>
 
                 <div class="apolice-card-actions">
-                    <a th:if="${pagamentosAprovados[contratacao.id]}"
+                    <a th:if="${pagamentosAprovados[contratacao.id]
+           and contratacao.status.name() == 'APOLICE_EMITIDA'}"
                        th:href="@{/sinistro/novo(idApolice=${contratacao.apolice.id})}"
                        class="btn-action primary">
 
@@ -190,15 +191,22 @@
 
                     </span>
 
-                    <form th:action="@{/cliente/contratacao/{id}/deletar(id=${contratacao.id})}"
-                          method="post"
-                          onsubmit="return confirm('Deseja realmente excluir esta apolice?');">
+                    <div th:if="${contratacao.status.name() == 'APOLICE_EMITIDA'}">
 
-                        <button type="submit" class="btn-action secondary">
-                            <i class="fas fa-trash"></i> Excluir
-                        </button>
+                        <form th:action="@{/cliente/contratacao/{id}/cancelar(id=${contratacao.id})}"
+                              method="post">
 
-                    </form>
+                            <button type="submit"
+                                    class="btn-action secondary"
+                                    onclick="return confirm('Tem certeza que deseja cancelar esta apólice?')">
+
+                                Cancelar apólice
+
+                            </button>
+
+                        </form>
+
+                    </div>
 
                 </div>
             </div>

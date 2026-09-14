@@ -46,7 +46,7 @@ public class ContratacaoController {
                 (Cliente) session.getAttribute("usuarioLogado");
 
         List<Contratacao> contratacoes =
-                contratacaoService.buscarPorCliente(cliente);
+                contratacaoService.buscarPorCliente(cliente).stream().filter(c -> c.getStatus() != StatusContratacao.CANCELADA).toList();
 
         Map<Integer, Boolean> pagamentosAprovados = new HashMap<>();
 
@@ -196,17 +196,24 @@ public class ContratacaoController {
         }
     }
 
-    @PostMapping("/cliente/contratacao/{id}/deletar")
-    public String deletar(
+    @PostMapping("/cliente/contratacao/{id}/cancelar")
+    public String cancelar(
             @PathVariable("id") Integer id,
             HttpSession session) {
 
         Cliente cliente =
                 (Cliente) session.getAttribute("usuarioLogado");
 
-        contratacaoService.deletar(id);
+        try {
 
-        return "redirect:/cliente/apolices";
+            contratacaoService.cancelar(id, cliente);
+
+            return "redirect:/cliente/apolices";
+
+        } catch (RuntimeException e) {
+
+            return "redirect:/cliente/apolices?erro=cancelamento";
+        }
     }
 
     @PostMapping("/corretor/emitir-apolice")
