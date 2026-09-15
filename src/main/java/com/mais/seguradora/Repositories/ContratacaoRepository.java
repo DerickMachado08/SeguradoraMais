@@ -46,4 +46,5 @@ public interface ContratacaoRepository extends JpaRepository<Contratacao, Intege
     );
 
 
+
 }

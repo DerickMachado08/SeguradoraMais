@@ -213,5 +213,19 @@ public class ContratacaoService {
                 .count();
     }
 
+    public Optional<Contratacao> buscarPorClienteEApoliceAtiva(
+            Cliente cliente,
+            Apolice apolice) {
+
+        return contratacaoRepository
+                .findFirstByClienteAndApoliceAndStatus(
+                        cliente,
+                        apolice,
+                        StatusContratacao.APOLICE_EMITIDA
+                );
+    }
+
+
+
 
 }

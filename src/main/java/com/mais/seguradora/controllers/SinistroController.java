@@ -40,20 +40,50 @@ public class SinistroController {
     private ContratacaoService contratacaoService;
 
     @GetMapping("/novo")
-    public String novoSinistro(@RequestParam("idApolice") Integer idApolice,HttpSession session, Model model, RedirectAttributes redirectAttributes){
+    public String novoSinistro(
+            @RequestParam("idApolice") Integer idApolice,
+            HttpSession session,
+            Model model,
+            RedirectAttributes redirectAttributes) {
 
         Cliente cliente = (Cliente) session.getAttribute("usuarioLogado");
 
+        if (cliente == null) {
+            return "redirect:/login.html";
+        }
+
         Apolice apolice = apoliceService.buscarPorId(idApolice);
 
-        Optional<Contratacao> contratacaoOptional = contratacaoService.buscarPorClienteAndApolice(cliente, apolice);
+        // Busca SOMENTE a contratação ativa
+        Optional<Contratacao> contratacaoOptional =
+                contratacaoService.buscarPorClienteEApoliceAtiva(
+                        cliente,
+                        apolice
+                );
 
+        // Não encontrou contratação ativa
+        if (contratacaoOptional.isEmpty()) {
+
+            redirectAttributes.addFlashAttribute(
+                    "erro",
+                    "Você não possui uma contratação ativa para esta apólice."
+            );
+
+            return "redirect:/cliente/apolices";
+        }
+
+        // Agora pegamos a contratação correta
         Contratacao contratacao = contratacaoOptional.get();
 
-        if(!pagamentoService.pagamentoAprovado(contratacao.getId())){
-            redirectAttributes.addFlashAttribute("erro", "Você só poderá abrir um sinistro após o pagamento da apólice.");
+        // Verifica se o pagamento dessa contratação está aprovado
+        if (!pagamentoService.pagamentoAprovado(contratacao.getId())) {
 
-            return "minhasApolices";
+            redirectAttributes.addFlashAttribute(
+                    "erro",
+                    "Você só poderá abrir um sinistro após o pagamento da apólice."
+            );
+
+            return "redirect:/cliente/apolices";
         }
 
         model.addAttribute("cliente", cliente);
@@ -62,7 +92,6 @@ public class SinistroController {
         model.addAttribute("idApolice", idApolice);
 
         return "sinistro/novo";
-
     }
 
     @PostMapping("/abrir")
