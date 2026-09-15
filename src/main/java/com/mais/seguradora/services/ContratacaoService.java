@@ -34,7 +34,7 @@ public class ContratacaoService {
     private EmailService emailService;
 
     public List<Contratacao> buscarPorCliente(Cliente cliente) {
-        return contratacaoRepository.findByCliente(cliente);
+        return contratacaoRepository.findByCliente(cliente).stream().filter(c -> c.getStatus() != StatusContratacao.CANCELADA).toList();
     }
 
     public Optional<Contratacao> buscarPorClienteAndApolice(Cliente cliente, Apolice apolice){
