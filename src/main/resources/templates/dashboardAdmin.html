@@ -226,7 +226,7 @@
                 <tr th:each="cliente : ${clientes}">
                     <td th:text="${cliente.nome}">Cliente</td>
                     <td th:text="${cliente.email}">email@exemplo.com</td>
-                    <td th:text="${cliente.cpf}">000.000.000-00</td>
+                    <td th:text="${documentUtil.cpfMascara(cliente.cpf)}">000.000.000-00</td>
                     <td><span class="badge badge-active">ATIVO</span></td>
                 </tr>
                 </tbody>
@@ -266,7 +266,7 @@
                 <tr th:each="corretor : ${corretores}">
                     <td th:text="${corretor.nome}">Cliente</td>
                     <td th:text="${corretor.email}">email@exemplo.com</td>
-                    <td th:text="${corretor.cpf}">000.000.000-00</td>
+                    <td th:text="${documentUtil.cpfMascara(corretor.cpf)}">000.000.000-00</td>
                     <td>
                         <button
                                 th:onclick="'deletarCorretor(' + ${corretor.id} + ')'">

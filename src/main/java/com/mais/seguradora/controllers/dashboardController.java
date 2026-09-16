@@ -6,6 +6,7 @@ import com.mais.seguradora.enummerated.StatusApolice;
 import com.mais.seguradora.enummerated.StatusContratacao;
 import com.mais.seguradora.model.*;
 import com.mais.seguradora.services.*;
+import com.mais.seguradora.util.DocumentUtil;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,10 +49,12 @@ public class dashboardController {
         List<Contratacao> contratacoes = contratacaoService.buscarPorCliente(cliente);
         List<Sinistro> sinistros = sinistroService.buscarPorCliente(cliente);
 
+
+
         model.addAttribute("cliente", cliente);
         model.addAttribute("contratacoes", contratacoes);
         model.addAttribute("sinistros", sinistros);
-
+        model.addAttribute("cpfMascara", DocumentUtil.cpfMascara(cliente.getCpf()));
         model.addAttribute("totalApolices", contratacoes.size());
         model.addAttribute("pendentes", contratacaoService.contarPendentes(contratacoes));
         model.addAttribute("totalApolicesEmitidas", contratacaoService.totalApolicesEmitidas(contratacoes));
@@ -84,6 +87,7 @@ public class dashboardController {
         BigDecimal total = pagamentoService.calcularTotalRecebido();
         List<Sinistro> sinistros = sinistroService.buscarTodos();
 
+        model.addAttribute("documentUtil", DocumentUtil.class);
 
         model.addAttribute("admin", admin);
         model.addAttribute("clientes", clienteService.ListarRecentes());
@@ -92,7 +96,6 @@ public class dashboardController {
         model.addAttribute("totalClientes", clienteService.totalClientes());
         model.addAttribute("total", total);
         model.addAttribute("sinistros", sinistros);
-
 
         return "dashboardAdmin";
     }
