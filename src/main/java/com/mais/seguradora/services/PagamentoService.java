@@ -34,4 +34,28 @@ public class PagamentoService {
                 )
                 .isPresent();
     }
+
+    public List<Pagamento> buscarPorCliente(Cliente cliente) {
+        return pagamentoRepository.findByContratacao_ClienteOrderByDataVencimentoDesc(cliente);
+    }
+
+    public Optional<Pagamento> buscarUltimoPendente(Cliente cliente) {
+        return pagamentoRepository
+                .findFirstByContratacao_ClienteAndStatusOrderByContratacao_DataContratacaoDesc(
+                        cliente,
+                        StatusPagamento.PENDENTE
+                );
+    }
+
+    public long contarAprovados(Cliente cliente) {
+        return buscarPorCliente(cliente).stream()
+                .filter(pagamento -> pagamento.getStatus() == StatusPagamento.APROVADA)
+                .count();
+    }
+
+    public long contarPendentes(Cliente cliente) {
+        return buscarPorCliente(cliente).stream()
+                .filter(pagamento -> pagamento.getStatus() == StatusPagamento.PENDENTE)
+                .count();
+    }
 }

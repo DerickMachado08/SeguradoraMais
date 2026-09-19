@@ -16,6 +16,11 @@ import java.util.Optional;
 public interface PagamentoRepository extends JpaRepository<Pagamento, Integer> {
     List<Pagamento> findByContratacao_ClienteOrderByDataVencimentoDesc(Cliente cliente);
 
+    Optional<Pagamento> findFirstByContratacao_ClienteAndStatusOrderByContratacao_DataContratacaoDesc(
+            Cliente cliente,
+            StatusPagamento status
+    );
+
     Optional<Pagamento> findByContratacao_IdAndStatus(Integer idContratacao, StatusPagamento status);
 
     void deleteByContratacaoId(Integer idContratacao);

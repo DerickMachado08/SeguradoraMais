@@ -1,9 +1,5 @@
 package com.mais.seguradora.controllers;
 
-import com.mais.seguradora.Repositories.ApoliceRepository;
-import com.mais.seguradora.Repositories.ClienteRepository;
-import com.mais.seguradora.enummerated.StatusApolice;
-import com.mais.seguradora.enummerated.StatusContratacao;
 import com.mais.seguradora.model.*;
 import com.mais.seguradora.services.*;
 import com.mais.seguradora.util.DocumentUtil;
@@ -48,18 +44,24 @@ public class dashboardController {
 
         List<Contratacao> contratacoes = contratacaoService.buscarPorCliente(cliente);
         List<Sinistro> sinistros = sinistroService.buscarPorCliente(cliente);
+        List<Pagamento> pagamentos = pagamentoService.buscarPorCliente(cliente);
 
 
 
         model.addAttribute("cliente", cliente);
         model.addAttribute("contratacoes", contratacoes);
         model.addAttribute("sinistros", sinistros);
+        model.addAttribute("pagamentos", pagamentos);
+        model.addAttribute("pagamentoPendente", pagamentoService.buscarUltimoPendente(cliente).orElse(null));
         model.addAttribute("cpfMascara", DocumentUtil.cpfMascara(cliente.getCpf()));
         model.addAttribute("totalApolices", contratacoes.size());
         model.addAttribute("pendentes", contratacaoService.contarPendentes(contratacoes));
         model.addAttribute("totalApolicesEmitidas", contratacaoService.totalApolicesEmitidas(contratacoes));
+        model.addAttribute("totalPagamentosAprovados", pagamentoService.contarAprovados(cliente));
+        model.addAttribute("totalPagamentosPendentes", pagamentoService.contarPendentes(cliente));
+        model.addAttribute("totalSinistros", sinistros.size());
 
-        return "dashboardCliente";
+        return "cliente/dashboard/dashboard";
     }
 
     @GetMapping("/dashboardCorretor")

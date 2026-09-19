@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface SinistroRepository extends JpaRepository<Sinistro, Integer> {
   List<Sinistro> findByApolice(Apolice apolice);
-  List<Sinistro> findByCliente(Cliente cliente);
+  List<Sinistro> findByClienteOrderByDataSinsitroDesc(Cliente cliente);
   List<Sinistro> findByStatus(StatusSinistro status);
 
 }

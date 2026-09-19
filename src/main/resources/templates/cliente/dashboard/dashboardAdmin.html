@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Admin Seguradora Mais</title>
     <link rel="stylesheet" href="/css/main/app/adminDashboard.css">
+    <link rel="stylesheet" href="/css/components/roleQuickPanel.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body>
+<body class="role-dashboard-page">
 
 <header>
     <div class="header-brand">
+        <a class="role-brand" href="/dashboardAdmin"><span class="role-brand-mark"><i class="fa-solid fa-shield-heart" aria-hidden="true"></i></span><span class="role-brand-name">Seguradora Mais</span></a>
     </div>
     <div class="header-user">
         <div class="avatar"
@@ -73,6 +75,48 @@
 </nav>
 
 <main>
+    <section class="role-quick" aria-labelledby="admin-quick-title">
+        <div class="role-quick-heading">
+            <div>
+                <p class="role-quick-eyebrow">Painel rápido do administrador</p>
+                <h2 id="admin-quick-title">Olá, <span th:text="${admin.name}">Administrador</span>!</h2>
+            </div>
+            <span class="role-quick-avatar" th:text="${#strings.substring(admin.email, 0, 1)}" aria-hidden="true">A</span>
+        </div>
+
+        <div class="role-quick-actions" aria-label="Acessos rápidos do administrador">
+            <a class="role-quick-card" href="#clientes">
+                <span class="role-quick-icon"><i class="fa-regular fa-user" aria-hidden="true"></i></span>
+                <strong>Clientes</strong>
+                <span>Consulte os clientes recentes</span>
+            </a>
+            <a class="role-quick-card" href="#corretor">
+                <span class="role-quick-icon"><i class="fa-solid fa-user-tie" aria-hidden="true"></i></span>
+                <strong>Corretores</strong>
+                <span>Acesse a área de corretores</span>
+            </a>
+            <a class="role-quick-card" href="#sinistros">
+                <span class="role-quick-icon"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i></span>
+                <strong>Sinistros</strong>
+                <span>Veja os sinistros registrados</span>
+            </a>
+            <a class="role-quick-card" href="#relatorios">
+                <span class="role-quick-icon"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></span>
+                <strong>Relatórios</strong>
+                <span>Acesse os relatórios existentes</span>
+            </a>
+        </div>
+
+        <div class="role-quick-info" aria-labelledby="admin-quick-info-title">
+            <h3 id="admin-quick-info-title">Informações rápidas</h3>
+            <div class="role-quick-facts">
+                <div><span>Clientes cadastrados</span><strong th:text="${totalClientes != null ? totalClientes : 0}">0</strong></div>
+                <div><span>Apólices</span><strong th:text="${totalApolices != null ? totalApolices : 0}">0</strong></div>
+                <div><span>Sinistros registrados</span><strong th:text="${sinistros != null ? #lists.size(sinistros) : 0}">0</strong></div>
+                <div><span>Pagamentos recebidos</span><strong th:text="${'R$ ' + (total != null ? total : '0')}">R$ 0</strong></div>
+            </div>
+        </div>
+    </section>
 
     <section id="dashboard" class="dashboard">
 

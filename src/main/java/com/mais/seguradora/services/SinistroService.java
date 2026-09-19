@@ -74,7 +74,7 @@ public class SinistroService {
     }
 
     public List<Sinistro> buscarPorCliente(Cliente cliente) {
-        return sinistroRepository.findByCliente(cliente);
+        return sinistroRepository.findByClienteOrderByDataSinsitroDesc(cliente);
     }
 
     public List<Sinistro> buscarTodos() {

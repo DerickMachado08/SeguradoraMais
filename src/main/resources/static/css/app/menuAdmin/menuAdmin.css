@@ -1,9 +1,3 @@
-/* ============================================================
-   DASHBOARD ADMIN — mesma identidade visual do Dashboard Cliente
-   Base de cores: --primario (#0f172a) / tons de cinza do cliente
-   Tabelas: padrao visual da section "Pagamentos" do cliente
-   (somente aparencia; markup, links e logica preservados)
-   ============================================================ */
 
 :root {
     --font-display: 'DM Sans', sans-serif;

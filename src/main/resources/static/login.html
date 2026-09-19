@@ -29,7 +29,7 @@
     <section class="security-card" aria-labelledby="page-title">
         <div class="brand">
             <span class="brand-mark"><i class="fa-solid fa-shield-halved"></i></span>
-            <span class="eyebrow">Acesso seguro</span>
+            <span class="brand-copy"><strong>Seguradora Mais</strong><span class="eyebrow">Acesso seguro</span></span>
         </div>
         <h1 id="page-title">Bem-vindo de volta</h1>
         <p class="intro">Faça login para acessar sua conta e continuar de onde parou.</p>
@@ -72,6 +72,33 @@
             <p class="form-footnote">Não tem uma conta? <a href="/cadastro-cliente.html">Cadastre-se</a></p>
         </form>
     </section>
+
+    <aside class="login-showcase" aria-label="Apresentação do painel do cliente">
+        <div class="showcase-content">
+            <div class="showcase-heading">
+                <span class="showcase-kicker"><i class="fa-solid fa-shield-heart" aria-hidden="true"></i> Seguradora Mais</span>
+                <h2>Sua proteção em uma visão clara.</h2>
+                <p>Entre para acompanhar suas apólices, pagamentos e solicitações em um só lugar.</p>
+            </div>
+
+            <div class="showcase-preview" aria-hidden="true">
+                <div class="preview-topline"><span>Visão geral</span><span class="preview-dots"><i></i><i></i><i></i></span></div>
+                <div class="preview-chart">
+                    <div><span>Acompanhamento</span><strong>Proteção que acompanha você</strong></div>
+                    <svg viewBox="0 0 480 180" preserveAspectRatio="none" focusable="false">
+                        <defs><linearGradient id="chart-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ead9c1" stop-opacity=".5"/><stop offset="100%" stop-color="#ead9c1" stop-opacity="0"/></linearGradient></defs>
+                        <path class="chart-area" d="M0 155 C45 143 70 145 105 131 S165 112 199 119 S262 78 308 91 S368 56 400 63 S452 27 480 35 L480 180 L0 180 Z"/>
+                        <path class="chart-line" d="M0 155 C45 143 70 145 105 131 S165 112 199 119 S262 78 308 91 S368 56 400 63 S452 27 480 35"/>
+                    </svg>
+                </div>
+                <div class="preview-grid">
+                    <div class="preview-tile"><span class="preview-icon"><i class="fa-regular fa-file-lines"></i></span><strong>Apólices</strong><small>Suas proteções</small></div>
+                    <div class="preview-tile"><span class="preview-icon"><i class="fa-regular fa-credit-card"></i></span><strong>Pagamentos</strong><small>Acompanhe parcelas</small></div>
+                    <div class="preview-tile"><span class="preview-icon"><i class="fa-solid fa-clipboard-check"></i></span><strong>Sinistros</strong><small>Veja solicitações</small></div>
+                </div>
+            </div>
+        </div>
+    </aside>
 </main>
 
 <script src="/js/login.js"></script>
