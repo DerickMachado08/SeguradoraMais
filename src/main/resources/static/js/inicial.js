@@ -420,3 +420,53 @@ document.getElementById('telefone')?.addEventListener('input', function () {
     v = v.replace(/(\d{5})(\d{1,4})$/, '$1-$2');
     this.value = v;
 });
+
+/* ====== CARROSSEL DA EQUIPE ====== */
+(() => {
+    const trilha = document.getElementById('equipe-trilha');
+    const anterior = document.getElementById('equipe-anterior');
+    const proximo = document.getElementById('equipe-proximo');
+    const posicao = document.getElementById('equipe-posicao');
+    if (!trilha || !anterior || !proximo || !posicao) return;
+
+    const cartoes = [...trilha.querySelectorAll('.equipe-cartao')];
+    if (!cartoes.length) return;
+    let atual = 0;
+
+    function atualizar() {
+        posicao.textContent = `${atual + 1} / ${cartoes.length}`;
+        anterior.disabled = atual === 0;
+        proximo.disabled = atual === cartoes.length - 1;
+    }
+
+    function irPara(indice) {
+        atual = Math.max(0, Math.min(indice, cartoes.length - 1));
+        trilha.scrollTo({ left: cartoes[atual].offsetLeft - cartoes[0].offsetLeft, behavior: 'smooth' });
+        atualizar();
+    }
+
+    anterior.addEventListener('click', () => irPara(atual - 1));
+    proximo.addEventListener('click', () => irPara(atual + 1));
+    trilha.addEventListener('keydown', (evento) => {
+        if (evento.key === 'ArrowLeft' || evento.key === 'ArrowRight') {
+            evento.preventDefault();
+            irPara(atual + (evento.key === 'ArrowRight' ? 1 : -1));
+        }
+    });
+
+    let atualizacaoPendente = false;
+    trilha.addEventListener('scroll', () => {
+        if (atualizacaoPendente) return;
+        atualizacaoPendente = true;
+        requestAnimationFrame(() => {
+            atual = cartoes.reduce((melhor, cartao, indice) =>
+                Math.abs(cartao.offsetLeft - cartoes[0].offsetLeft - trilha.scrollLeft) <
+                Math.abs(cartoes[melhor].offsetLeft - cartoes[0].offsetLeft - trilha.scrollLeft)
+                    ? indice : melhor, 0);
+            atualizar();
+            atualizacaoPendente = false;
+        });
+    }, { passive: true });
+
+    atualizar();
+})();
