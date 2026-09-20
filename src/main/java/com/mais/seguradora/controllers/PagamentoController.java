@@ -44,7 +44,7 @@ public class PagamentoController {
         }
         model.addAttribute("cliente", cliente);
         model.addAttribute("pagamentos", pagamentoRepository.findByContratacao_ClienteOrderByDataVencimentoDesc(cliente));
-        return "pagamentosCliente";
+        return "pagamento/pagamentosCliente";
     }
 
     @PostMapping("/checkout/{idContratacao}")
@@ -91,6 +91,6 @@ public class PagamentoController {
 
         model.addAttribute("cliente", cliente);
 
-        return "pagamento-sucesso";
+        return "pagamento/pagamento-sucesso";
     }
 }

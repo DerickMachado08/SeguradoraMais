@@ -1,4 +1,4 @@
-package com.mais.seguradora.util;
+package com.mais.seguradora.utils;
 
 public class DocumentUtil {
 

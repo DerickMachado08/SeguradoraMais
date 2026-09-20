@@ -1,3 +1,3 @@
 function irCorretor() {
-    window.location.href = "/cadastro-corretor.html";
+    window.location.href = "/corretor/cadastrar";
 }

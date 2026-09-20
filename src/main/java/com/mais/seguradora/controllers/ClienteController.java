@@ -31,7 +31,7 @@ public class ClienteController {
 
     @GetMapping("/confirmar-exclusao")
     public String abrirConfirmacaoExclusao() {
-        return "confirmar-exclusao";
+        return "outros/confirmar-exclusao";
     }
 
     @GetMapping ("/{id}")

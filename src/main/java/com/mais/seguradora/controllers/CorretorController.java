@@ -32,7 +32,7 @@ public class CorretorController {
 
         model.addAttribute("apolices", apolices);
 
-        return "cadastrarCorretor";
+        return "outros/cadastrarCorretor";
     }
 
 

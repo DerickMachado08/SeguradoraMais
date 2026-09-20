@@ -79,7 +79,7 @@ public class ContratacaoController {
                 contratacaoService.totalApolicesEmitidas(contratacoes)
         );
 
-        return "minhasApolices";
+        return "seguro/minhasApolices";
     }
 
     @GetMapping("/cliente/contratar")
@@ -106,7 +106,7 @@ public class ContratacaoController {
                 contratacaoService.buscarTiposBloqueados(cliente)
         );
 
-        return "contratarSeguro";
+        return "seguro/contratarSeguro";
     }
 
     @PostMapping("/cliente/contratar")
@@ -161,7 +161,7 @@ public class ContratacaoController {
         model.addAttribute("idContratacao", id);
         model.addAttribute("bem", new BemPatrimonial());
 
-        return "cadastrarBem";
+        return "bens/cadastrarBem";
     }
 
     @PostMapping("/cliente/contratacao/bem")
@@ -192,7 +192,7 @@ public class ContratacaoController {
             model.addAttribute("idContratacao", idContratacao);
             model.addAttribute("erro", e.getMessage());
 
-            return "cadastrarBem";
+            return "bens/cadastrarBem";
         }
     }
 
@@ -248,7 +248,7 @@ public class ContratacaoController {
                         .orElse(null)
         );
 
-        return "bens";
+        return "bens/bens";
     }
 
     @PostMapping("/corretor/contratacao/{id}/deletar")

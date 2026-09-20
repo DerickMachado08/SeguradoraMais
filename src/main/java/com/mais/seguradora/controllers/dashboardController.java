@@ -2,7 +2,7 @@ package com.mais.seguradora.controllers;
 
 import com.mais.seguradora.model.*;
 import com.mais.seguradora.services.*;
-import com.mais.seguradora.util.DocumentUtil;
+import com.mais.seguradora.utils.DocumentUtil;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,7 +75,7 @@ public class dashboardController {
         model.addAttribute("corretor", corretor);
         model.addAttribute("contratacoesPendentes", contratacaoService.contratacoesPendentes(corretor));
 
-        return "dashboardCorretor";
+        return "cliente/dashboard/dashboardCorretor";
     }
 
     @GetMapping("/dashboardAdmin")
@@ -99,6 +99,6 @@ public class dashboardController {
         model.addAttribute("total", total);
         model.addAttribute("sinistros", sinistros);
 
-        return "dashboardAdmin";
+        return "cliente/dashboard/dashboardAdmin";
     }
 }

@@ -19,7 +19,7 @@
         <div class="avatar" th:unless="${cliente != null}">C</div>
         <span class="header-nome" th:if="${cliente != null}" th:text="${cliente.nome}">Cliente</span>
         <span class="header-nome" th:unless="${cliente != null}">Cliente</span>
-        <a href="/publico/index.html" class="btn-logout">
+        <a href="/index.html" class="btn-logout">
             <i class="fas fa-sign-out-alt"></i> Sair
         </a>
     </div>
