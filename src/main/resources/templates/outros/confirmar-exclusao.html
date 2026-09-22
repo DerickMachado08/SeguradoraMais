@@ -100,6 +100,18 @@
 
         const email = emailInput.value.trim();
 
+        if (!email || !emailInput.validity.valid) {
+            emailError.textContent = 'Informe um e-mail válido.';
+            emailInput.setAttribute('aria-invalid', 'true');
+            isValid = false;
+        }
+
+        if (!passwordInput.value || passwordInput.value.length < 6) {
+            passwordError.textContent = 'Informe sua senha com pelo menos 6 caracteres.';
+            passwordInput.setAttribute('aria-invalid', 'true');
+            isValid = false;
+        }
+
         return isValid;
     }
     function openModal(){

@@ -53,6 +53,36 @@
 
     <section id="sinistros" class="dashboard-section claims-section"><div class="section-intro"><div><p class="eyebrow">Acompanhamento</p><h2>Sinistros</h2><p>Veja a situação da sua solicitação mais recente e acesse suas apólices para iniciar uma nova.</p></div><span class="section-symbol"><i class="fa-solid fa-triangle-exclamation"></i></span></div><article class="claim-highlight" th:if="${!#lists.isEmpty(sinistros)}"><div class="claim-visual"><i class="fa-solid fa-clipboard-list"></i></div><div class="claim-content"><span class="status-badge status-review" th:text="${sinistros[0].status != null ? #strings.replace(sinistros[0].status.name(), '_', ' ') : 'SEM STATUS'}">ANALISANDO</span><h3>Último sinistro</h3><p th:text="${sinistros[0].descricao != null ? sinistros[0].descricao : 'Descrição não informada'}">Descrição do sinistro.</p><div class="claim-details"><span><i class="fa-regular fa-calendar"></i><b th:text="${sinistros[0].dataSinsitro != null ? #temporals.format(sinistros[0].dataSinsitro, 'dd/MM/yyyy') : 'Data não informada'}">--/--/----</b></span><span><i class="fa-solid fa-coins"></i><b th:text="${sinistros[0].valorPrejuizo != null ? #numbers.formatCurrency(sinistros[0].valorPrejuizo) : 'Valor não informado'}">R$ 0,00</b></span><span><i class="fa-solid fa-file-shield"></i><b th:text="${sinistros[0].apolice.numeroApolice}">AP0001</b></span></div></div><a class="card-link" href="/cliente/apolices">Ver detalhes <i class="fa-solid fa-arrow-up-right-from-square"></i></a></article><div class="section-empty claim-empty" th:if="${#lists.isEmpty(sinistros)}"><i class="fa-solid fa-clipboard-check"></i><h3>Você ainda não possui sinistros</h3><p>Quando precisar, acesse uma apólice emitida e quitada para abrir uma solicitação.</p></div><div class="section-footer"><a class="primary-action" href="/cliente/apolices"><i class="fa-solid fa-triangle-exclamation"></i> ACESSAR SINISTROS</a><span class="subtle-text">Os sinistros são abertos pela sua apólice ativa.</span></div></section>
 
-    <section id="perfil" class="dashboard-section profile-section"><div class="section-intro"><div><p class="eyebrow">Dados cadastrados</p><h2>Meu perfil</h2><p>Informações essenciais associadas à sua conta.</p></div><span class="section-symbol"><i class="fa-regular fa-id-card"></i></span></div><div class="profile-list"><div class="profile-item"><span>Nome</span><strong th:text="${cliente.nome}">Cliente</strong></div><div class="profile-item"><span>CPF</span><strong th:text="${cpfMascara}">000.000.000-00</strong></div><div class="profile-item"><span>E-mail</span><strong th:text="${cliente.email}">cliente@email.com</strong></div><div class="profile-item"><span>Telefone</span><strong th:text="${cliente.telefone}">(00) 00000-0000</strong></div><div class="profile-item"><span>Localidade</span><strong><span th:text="${cliente.cidade}">Cidade</span> / <span th:text="${cliente.estado}">UF</span></strong></div></div></section>
+    <section id="perfil" class="dashboard-section profile-section">
+        <div class="section-intro">
+            <div><p class="eyebrow">Dados cadastrados</p><h2>Meu perfil</h2><p>Informações essenciais associadas à sua conta.</p></div>
+            <span class="section-symbol"><i class="fa-regular fa-id-card"></i></span>
+        </div>
+        <div class="profile-layout">
+            <div class="profile-list">
+                <div class="profile-item"><span>Nome</span><strong th:text="${cliente.nome}">Cliente</strong></div>
+                <div class="profile-item"><span>CPF</span><strong th:text="${cpfMascara}">000.000.000-00</strong></div>
+                <div class="profile-item"><span>E-mail</span><strong th:text="${cliente.email}">cliente@email.com</strong></div>
+                <div class="profile-item"><span>Telefone</span><strong th:text="${cliente.telefone}">(00) 00000-0000</strong></div>
+                <div class="profile-item"><span>Localidade</span><strong><span th:text="${cliente.cidade}">Cidade</span> / <span th:text="${cliente.estado}">UF</span></strong></div>
+            </div>
+            <aside class="profile-actions" aria-label="Segurança da conta">
+                <div class="profile-actions-heading">
+                    <span class="profile-actions-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></span>
+                    <div><strong>Segurança da conta</strong><p>Gerencie sua senha ou solicite a exclusão da conta.</p></div>
+                </div>
+                <a class="profile-action profile-action-password" href="/alterar-senha/modificar">
+                    <span><i class="fa-solid fa-key" aria-hidden="true"></i></span>
+                    <div><strong>Alterar senha</strong><small>Confirme seu e-mail e crie uma nova senha.</small></div>
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                </a>
+                <a class="profile-action profile-action-delete" href="/cliente/confirmar-exclusao">
+                    <span><i class="fa-regular fa-trash-can" aria-hidden="true"></i></span>
+                    <div><strong>Excluir conta</strong><small>Confirme seu e-mail e senha para continuar.</small></div>
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                </a>
+            </aside>
+        </div>
+    </section>
     <section id="suporte" class="dashboard-section support-section"><div class="support-copy"><p class="eyebrow">Estamos aqui para você</p><h2>Precisa de ajuda?</h2><p>Nossa equipe está pronta para orientar você sobre proteções, pagamentos e solicitações.</p></div><div class="support-actions"><a class="primary-action" href="mailto:seguramais.corretora.seguros@gmail.com"><i class="fa-regular fa-envelope"></i> FALAR COM O SUPORTE</a><a class="support-secondary" href="/index.html#contato"><i class="fa-regular fa-message"></i> ENVIAR MENSAGEM</a></div><span class="support-art"><i class="fa-regular fa-comments"></i></span></section>
 </main><script src="/dashboard/dashboard.js"></script></body></html>

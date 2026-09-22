@@ -1,64 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Recupere o acesso à sua conta com segurança">
-    <title>Recuperar senha | Seguro Inteligente</title>
+    <title>Recuperar senha | Seguradora Mais</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/main/app/recuperarSenha.css">
 </head>
-<body>
+<body class="password-page">
 <main class="page-shell">
-    <span class="ambient-shape ambient-shape--navy" aria-hidden="true"></span>
-    <span class="ambient-shape ambient-shape--gold" aria-hidden="true"></span>
-
-    <svg class="flight-path" viewBox="0 0 410 300" aria-hidden="true" focusable="false">
-        <path d="M5 234 C88 252, 93 153, 183 179 S279 253, 337 134" />
-        <circle class="plane-dot" cx="5" cy="234" r="4" />
-        <g class="paper-plane" transform="translate(326 108) rotate(-19)">
-            <path d="M0 18 L58 0 L40 43 L26 28 Z" />
-            <path d="M26 28 L58 0 L32 35 Z" />
-            <path d="M26 28 L26 49 L32 35 Z" />
-        </g>
-    </svg>
-
-    <section class="security-card card" aria-labelledby="page-title">
+    <section class="security-card" aria-labelledby="page-title">
         <div class="brand">
-            <span class="brand-mark">&#128274;</span>
-            <span class="eyebrow">Recuperação de acesso</span>
+            <span class="brand-mark"><i class="fa-solid fa-shield-halved"></i></span>
+            <span class="brand-copy"><strong>Seguradora Mais</strong><span class="eyebrow">Recuperação de acesso</span></span>
         </div>
+        <div class="step-indicator" aria-label="Etapa 1 de 3"><span class="active">1</span><i></i><span>2</span><i></i><span>3</span></div>
+        <h1 id="page-title" th:text="${tipoFluxo == 'alteracao'} ? 'Altere sua senha' : 'Esqueceu sua senha?'">Esqueceu sua senha?</h1>
+        <p class="intro">Digite o e-mail cadastrado. Enviaremos um código para você definir uma nova senha.</p>
 
-        <h1 id="page-title">Quer modificar a sua senha?</h1>
-        <p class="intro">Digite o e-mail cadastrado e enviaremos um código de alteração para você criar uma nova senha.</p>
+        <div th:if="${erro}" class="mensagem erro" role="alert"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i><span th:text="${erro}"></span></div>
+        <div th:if="${sucesso}" class="mensagem sucesso" role="status"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span th:text="${sucesso}"></span></div>
 
-        <div th:if="${erro}" class="mensagem erro">
-            <span th:text="${erro}"></span>
-        </div>
-
-        <div th:if="${sucesso}" class="mensagem sucesso">
-            <span th:text="${sucesso}"></span>
-        </div>
-
-        <form th:action="${tipoFluxo == 'alteracao'}
-      ? @{/alterar-senha/enviar}
-      : @{/senha/enviar}"
-              method="post">
-            <div class="campo">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" autocomplete="email" placeholder="voce@exemplo.com" required>
-            </div>
-
+        <form th:action="${tipoFluxo == 'alteracao'} ? @{/alterar-senha/enviar} : @{/senha/enviar}" method="post">
+            <label class="field" for="email"><span>E-mail</span><input type="email" id="email" name="email" autocomplete="email" placeholder="voce@exemplo.com" required></label>
             <div class="actions">
-                <button class="button button--primary" type="submit">Enviar código</button>
-                <a class="button button--back" href="/login.html">Voltar para o login</a>
+                <button class="button button--primary" type="submit">Enviar código <i class="fa-solid fa-arrow-right"></i></button>
+                <a class="button button--back" th:href="${tipoFluxo == 'alteracao'} ? @{/dashboardCliente} : @{/login.html}"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
             </div>
         </form>
-
-        <p class="form-footnote">O código de recuperação expira em poucos minutos por segurança.</p>
+        <p class="form-footnote"><i class="fa-solid fa-lock" aria-hidden="true"></i> O código expira em poucos minutos por segurança.</p>
     </section>
+
+    <aside class="login-showcase password-showcase" aria-label="Recuperação segura de acesso">
+        <div class="showcase-content">
+            <div class="showcase-heading"><span class="showcase-kicker"><i class="fa-solid fa-shield-heart"></i> Seguradora Mais</span><h2>Recupere seu acesso com segurança.</h2><p>Confirme seu e-mail, valide o código recebido e escolha uma nova senha.</p></div>
+            <div class="recovery-preview" aria-hidden="true"><span class="recovery-icon"><i class="fa-regular fa-envelope"></i></span><div><small>ETAPA 1</small><strong>Confirme seu e-mail</strong><p>Usaremos o endereço cadastrado para validar sua identidade.</p></div></div>
+        </div>
+    </aside>
 </main>
 </body>
 </html>

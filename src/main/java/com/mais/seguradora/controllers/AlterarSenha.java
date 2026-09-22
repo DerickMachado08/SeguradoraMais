@@ -1,6 +1,7 @@
 package com.mais.seguradora.controllers;
 
 import com.mais.seguradora.services.RecuperacaoSenhaService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +36,7 @@ public class AlterarSenha {
 
         } catch (RuntimeException e){
             model.addAttribute("erro", e.getMessage());
+            model.addAttribute("tipoFluxo", "alteracao");
 
             return "senha/esqueci-senha";
         }
@@ -60,6 +62,7 @@ public class AlterarSenha {
             model.addAttribute("erro", e.getMessage());
 
             model.addAttribute("email", email);
+            model.addAttribute("tipoFluxo", "alteracao");
 
             return "senha/verificar-codigo";
         }
@@ -69,7 +72,8 @@ public class AlterarSenha {
     public String alterarSenha(@RequestParam("email") String email,
                                @RequestParam("novaSenha") String novaSenha,
                                @RequestParam("confirmarSenha") String confirmarSenha,
-                               Model model){
+                               Model model,
+                               HttpSession session){
 
         try {
             recuperacaoSenhaService.alterarSenha(email, novaSenha, confirmarSenha);
@@ -77,12 +81,15 @@ public class AlterarSenha {
             model.addAttribute("sucesso",
                     "Senha alterada com sucesso!");
 
-            return "redirect:/dashboardCliente";
+            session.invalidate();
+
+            return "redirect:/login.html";
 
         } catch (RuntimeException e){
             model.addAttribute("erro", e.getMessage());
 
             model.addAttribute("email", email);
+            model.addAttribute("tipoFluxo", "alteracao");
 
             return "senha/nova-senha";
         }

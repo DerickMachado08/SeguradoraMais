@@ -36,6 +36,7 @@ public class RecuperacaoSenhaController {
 
         } catch (RuntimeException e){
             model.addAttribute("erro", e.getMessage());
+            model.addAttribute("tipoFluxo", "recuperacao");
 
             return "senha/esqueci-senha";
         }
@@ -61,6 +62,7 @@ public class RecuperacaoSenhaController {
             model.addAttribute("erro", e.getMessage());
 
             model.addAttribute("email", email);
+            model.addAttribute("tipoFluxo", "recuperacao");
 
             return "senha/verificar-codigo";
         }
@@ -84,6 +86,7 @@ public class RecuperacaoSenhaController {
             model.addAttribute("erro", e.getMessage());
 
             model.addAttribute("email", email);
+            model.addAttribute("tipoFluxo", "recuperacao");
 
             return "senha/nova-senha";
         }

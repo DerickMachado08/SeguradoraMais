@@ -18,7 +18,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns(
                         "/cliente/**",
                         "/corretor/**",
-                        "/admin/**"
+                        "/admin/**",
+                        "/alterar-senha/**"
                 )
                 .excludePathPatterns(
                         "/cliente",

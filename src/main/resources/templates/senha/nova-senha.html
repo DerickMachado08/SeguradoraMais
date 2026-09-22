@@ -1,69 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Defina uma nova senha para sua conta">
-    <title>Nova senha | Seguro Inteligente</title>
+    <title>Nova senha | Seguradora Mais</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/main/app/recuperarSenha.css">
 </head>
-<body>
+<body class="password-page">
 <main class="page-shell">
-    <span class="ambient-shape ambient-shape--navy" aria-hidden="true"></span>
-    <span class="ambient-shape ambient-shape--gold" aria-hidden="true"></span>
-
-    <svg class="flight-path" viewBox="0 0 410 300" aria-hidden="true" focusable="false">
-        <path d="M5 234 C88 252, 93 153, 183 179 S279 253, 337 134" />
-        <circle class="plane-dot" cx="5" cy="234" r="4" />
-        <g class="paper-plane" transform="translate(326 108) rotate(-19)">
-            <path d="M0 18 L58 0 L40 43 L26 28 Z" />
-            <path d="M26 28 L58 0 L32 35 Z" />
-            <path d="M26 28 L26 49 L32 35 Z" />
-        </g>
-    </svg>
-
-    <section class="security-card card" aria-labelledby="page-title">
-        <div class="brand">
-            <span class="brand-mark">&#128273;</span>
-            <span class="eyebrow">Nova senha</span>
-        </div>
-
+    <section class="security-card" aria-labelledby="page-title">
+        <div class="brand"><span class="brand-mark"><i class="fa-solid fa-shield-halved"></i></span><span class="brand-copy"><strong>Seguradora Mais</strong><span class="eyebrow">Nova senha</span></span></div>
+        <div class="step-indicator" aria-label="Etapa 3 de 3"><span class="done"><i class="fa-solid fa-check"></i></span><i class="done"></i><span class="done"><i class="fa-solid fa-check"></i></span><i class="done"></i><span class="active">3</span></div>
         <h1 id="page-title">Crie uma nova senha</h1>
-        <p class="intro">Escolha uma senha segura, com pelo menos 6 caracteres, para proteger sua conta.</p>
+        <p class="intro">Escolha uma senha segura, com pelo menos 6 caracteres, e confirme para concluir.</p>
 
-        <div th:if="${erro}" class="mensagem erro">
-            <span th:text="${erro}"></span>
-        </div>
+        <div th:if="${erro}" class="mensagem erro" role="alert"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i><span th:text="${erro}"></span></div>
 
-        <form th:action="${tipoFluxo == 'alteracao'}
-      ? @{/alterar-senha/nova-senha}
-      : @{/senha/alterar}"
-              method="post">
+        <form th:action="${tipoFluxo == 'alteracao'} ? @{/alterar-senha/nova-senha} : @{/senha/alterar}" method="post">
             <input type="hidden" name="email" th:value="${email}">
-
-            <div class="campo">
-                <label for="novaSenha">Nova senha</label>
-                <input type="password" id="novaSenha" name="novaSenha" autocomplete="new-password"
-                       minlength="6" placeholder="Digite sua nova senha" required>
-            </div>
-
-            <div class="campo">
-                <label for="confirmarSenha">Confirmar senha</label>
-                <input type="password" id="confirmarSenha" name="confirmarSenha" autocomplete="new-password"
-                       minlength="6" placeholder="Confirme sua nova senha" required>
-            </div>
-
+            <label class="field" for="novaSenha"><span>Nova senha</span><input type="password" id="novaSenha" name="novaSenha" autocomplete="new-password" minlength="6" placeholder="Digite sua nova senha" required></label>
+            <label class="field" for="confirmarSenha"><span>Confirmar senha</span><input type="password" id="confirmarSenha" name="confirmarSenha" autocomplete="new-password" minlength="6" placeholder="Confirme sua nova senha" required></label>
             <div class="actions">
-                <button class="button button--primary" type="submit">Alterar senha</button>
-                <a class="button button--back" href="/login.html">Voltar para o login</a>
+                <button class="button button--primary" type="submit">Alterar senha <i class="fa-solid fa-check"></i></button>
+                <a class="button button--back" th:href="${tipoFluxo == 'alteracao'} ? @{/dashboardCliente} : @{/login.html}"><i class="fa-solid fa-arrow-left"></i> Cancelar</a>
             </div>
         </form>
-
-        <p class="form-footnote">Após alterar, use a nova senha para entrar na sua conta.</p>
+        <p class="form-footnote"><i class="fa-solid fa-lock" aria-hidden="true"></i> Após concluir, use a nova senha para acessar sua conta.</p>
     </section>
+
+    <aside class="login-showcase password-showcase" aria-label="Definição da nova senha">
+        <div class="showcase-content">
+            <div class="showcase-heading"><span class="showcase-kicker"><i class="fa-solid fa-shield-heart"></i> Seguradora Mais</span><h2>Seu acesso está quase recuperado.</h2><p>Defina uma nova senha para voltar a acompanhar suas apólices, pagamentos e solicitações.</p></div>
+            <div class="recovery-preview" aria-hidden="true"><span class="recovery-icon"><i class="fa-solid fa-lock"></i></span><div><small>ETAPA 3</small><strong>Proteja sua conta</strong><p>Escolha uma nova senha e conclua a recuperação.</p></div></div>
+        </div>
+    </aside>
 </main>
 </body>
 </html>

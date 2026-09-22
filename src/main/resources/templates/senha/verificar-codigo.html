@@ -1,68 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Confirme o código enviado para o seu e-mail">
-    <title>Verificar código | Seguro Inteligente</title>
+    <title>Verificar código | Seguradora Mais</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/main/app/recuperarSenha.css">
 </head>
-<body>
+<body class="password-page">
 <main class="page-shell">
-    <span class="ambient-shape ambient-shape--navy" aria-hidden="true"></span>
-    <span class="ambient-shape ambient-shape--gold" aria-hidden="true"></span>
-
-    <svg class="flight-path" viewBox="0 0 410 300" aria-hidden="true" focusable="false">
-        <path d="M5 234 C88 252, 93 153, 183 179 S279 253, 337 134" />
-        <circle class="plane-dot" cx="5" cy="234" r="4" />
-        <g class="paper-plane" transform="translate(326 108) rotate(-19)">
-            <path d="M0 18 L58 0 L40 43 L26 28 Z" />
-            <path d="M26 28 L58 0 L32 35 Z" />
-            <path d="M26 28 L26 49 L32 35 Z" />
-        </g>
-    </svg>
-
-    <section class="security-card card" aria-labelledby="page-title">
-        <div class="brand">
-            <span class="brand-mark">&#9993;</span>
-            <span class="eyebrow">Verificação em duas etapas</span>
-        </div>
-
+    <section class="security-card" aria-labelledby="page-title">
+        <div class="brand"><span class="brand-mark"><i class="fa-solid fa-shield-halved"></i></span><span class="brand-copy"><strong>Seguradora Mais</strong><span class="eyebrow">Verificação segura</span></span></div>
+        <div class="step-indicator" aria-label="Etapa 2 de 3"><span class="done"><i class="fa-solid fa-check"></i></span><i class="done"></i><span class="active">2</span><i></i><span>3</span></div>
         <h1 id="page-title">Verifique seu e-mail</h1>
-        <p class="intro">Enviamos um código de 6 dígitos para o seu e-mail. Informe-o abaixo para continuar a recuperação.</p>
+        <p class="intro">Informe o código de 6 dígitos enviado ao endereço cadastrado para continuar.</p>
 
-        <div th:if="${erro}" class="mensagem erro">
-            <span th:text="${erro}"></span>
-        </div>
+        <div th:if="${erro}" class="mensagem erro" role="alert"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i><span th:text="${erro}"></span></div>
+        <div class="notice" role="note"><i class="fa-solid fa-lock" aria-hidden="true"></i><span>Não compartilhe este código. Nossa equipe nunca solicita códigos de verificação.</span></div>
 
-        <div class="notice" role="note">
-            <span class="notice-mark" aria-hidden="true">!</span>
-            <span>Não compartilhe este código com ninguém. Nossa equipe nunca solicita códigos de verificação.</span>
-        </div>
-
-        <form th:action="${tipoFluxo == 'alteracao'}
-      ? @{/alterar-senha/verificar-codigo}
-      : @{/senha/verificar-codigo}"
-              method="post">
+        <form th:action="${tipoFluxo == 'alteracao'} ? @{/alterar-senha/verificar-codigo} : @{/senha/verificar-codigo}" method="post">
             <input type="hidden" name="email" th:value="${email}">
-
-            <div class="campo">
-                <label for="codigo">Código de recuperação</label>
-                <input class="codigo-input" type="text" id="codigo" name="codigo" inputmode="numeric" maxlength="6"
-                       autocomplete="one-time-code" placeholder="000000" required>
-            </div>
-
+            <label class="field" for="codigo"><span>Código de recuperação</span><input class="codigo-input" type="text" id="codigo" name="codigo" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" placeholder="000000" required autofocus></label>
             <div class="actions">
-                <button class="button button--primary" type="submit">Verificar código</button>
-                <a class="button button--back" href="/senha/esqueci">Usar outro e-mail</a>
+                <button class="button button--primary" type="submit">Verificar código <i class="fa-solid fa-arrow-right"></i></button>
+                <a class="button button--back" th:href="${tipoFluxo == 'alteracao'} ? @{/alterar-senha/modificar} : @{/senha/esqueci}"><i class="fa-solid fa-arrow-left"></i> Usar outro e-mail</a>
             </div>
         </form>
-
-        <p class="form-footnote">Não recebeu? Verifique a caixa de spam antes de solicitar um novo código.</p>
+        <p class="form-footnote">Não recebeu? Verifique sua caixa de spam antes de solicitar outro código.</p>
     </section>
+
+    <aside class="login-showcase password-showcase" aria-label="Validação do código de segurança">
+        <div class="showcase-content">
+            <div class="showcase-heading"><span class="showcase-kicker"><i class="fa-solid fa-shield-heart"></i> Seguradora Mais</span><h2>Uma etapa rápida para proteger você.</h2><p>O código confirma que a solicitação de troca de senha foi realmente feita por você.</p></div>
+            <div class="recovery-preview" aria-hidden="true"><span class="recovery-icon"><i class="fa-solid fa-key"></i></span><div><small>ETAPA 2</small><strong>Valide o código</strong><p>Digite os seis números enviados ao seu e-mail.</p></div></div>
+        </div>
+    </aside>
 </main>
 </body>
 </html>
