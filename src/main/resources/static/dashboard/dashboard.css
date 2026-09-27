@@ -66,3 +66,25 @@ a { color: inherit; } button { font: inherit; }
 
 @media (max-width:950px) { .profile-layout { grid-template-columns:1fr; } }
 @media (max-width:720px) { .profile-list,.profile-actions { padding:16px; }.profile-item { align-items:flex-start; flex-direction:column; gap:5px; }.profile-item strong { text-align:left; } }
+
+/* Identidade azul compartilhada pelas telas internas. */
+.brand-mark { box-shadow:0 7px 14px rgba(37,99,235,.22); }
+.sidebar { background:#fafdff; }
+.sidebar a:hover,.sidebar a.active { background:#eaf2ff; }
+.sidebar-foot,.profile-actions { background:#eef5ff; }
+.dashboard-hero { box-shadow:0 17px 36px rgba(18,59,114,.22); }
+.dashboard-hero .eyebrow,.hero-account span { color:#dbeafe; }
+.dashboard-hero p:not(.eyebrow) { color:#e8f1ff; }
+.metric:hover,.policy-card:hover,.client-quick-card:hover,.client-quick-card:focus-visible { box-shadow:0 15px 32px rgba(15,52,96,.12); }
+.metric-icon,.section-symbol,.policy-icon,.client-quick-icon,.profile-action>span { background:#eaf2ff; }
+.policy-card,.claims-section,.profile-list,.client-quick-card,.client-quick-profile-link { background:#fbfdff; }
+.section-empty { border-color:#bfd3ee; background:#f8fbff; }
+.payments-section { background:linear-gradient(135deg,#fff,#f5f9ff); }
+.payment-stat,.payment-current { background:#eaf2ff; }
+.payment-pending { background:linear-gradient(125deg,#123b72,#2563eb); box-shadow:0 13px 27px rgba(18,59,114,.22); }
+.payment-pending-head,.payment-pending p,.payment-date { color:#dbeafe; }
+.light-action:hover { background:#edf5ff; }
+.claim-details span { background:#f1f6fc; }
+.profile-actions-icon { background:#dbeafe; }
+.support-section { background:linear-gradient(125deg,#0f356c,#2563eb); box-shadow:0 18px 34px rgba(18,59,114,.24); }
+.support-section .eyebrow,.support-copy>p:not(.eyebrow) { color:#dbeafe; }

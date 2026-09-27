@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         :root {
             --bg-1: #0f172a;
@@ -218,8 +219,24 @@
             .visual { min-height: 240px; order: -1; }
         }
     </style>
+    <link rel="stylesheet" href="/css/app/dashboardTheme.css">
 </head>
-<body>
+<body class="dashboard-themed payment-page">
+<header>
+    <div class="header-user">
+        <div class="avatar">C</div>
+        <span class="header-nome">Área do cliente</span>
+        <a href="/index.html" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
+    </div>
+</header>
+<nav class="menu-lateral" aria-label="Navegação do cliente">
+    <ul>
+        <li class="item-menu"><a href="/dashboardCliente"><span class="icon"><i class="fa-solid fa-grip"></i></span><span class="txt-link">Dashboard</span></a></li>
+        <li class="item-menu"><a href="/cliente/contratar"><span class="icon"><i class="fa-regular fa-paste"></i></span><span class="txt-link">Contratar seguro</span></a></li>
+        <li class="item-menu"><a href="/cliente/apolices"><span class="icon"><i class="fa-solid fa-list-check"></i></span><span class="txt-link">Minhas apólices</span></a></li>
+        <li class="item-menu active"><a href="/pagamento/cliente"><span class="icon"><i class="fa-regular fa-credit-card"></i></span><span class="txt-link">Pagamentos</span></a></li>
+    </ul>
+</nav>
 <main class="shell">
     <section class="card">
         <div class="header">

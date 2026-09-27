@@ -1,0 +1,271 @@
+.hero.hero-scrub {
+    --hero-accent: #8f684d;
+    --hero-ink: #f8f3ea;
+    display: block;
+    height: 420vh;
+    min-height: 0;
+    padding: 0;
+    overflow: clip;
+    color: var(--hero-ink);
+    background: #21140f;
+}
+
+.hero-scrub__stage {
+    position: sticky;
+    top: 0;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100svh;
+    min-height: 620px;
+    overflow: hidden;
+}
+
+.hero-scrub__wash,
+.hero-scrub__glow,
+.hero-scrub__grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.hero-scrub__wash {
+    z-index: -4;
+    background:
+        linear-gradient(145deg, rgba(25, 15, 11, .42), rgba(25, 15, 11, .78)),
+        var(--hero-accent);
+}
+
+.hero-scrub__glow {
+    z-index: -3;
+    background:
+        radial-gradient(circle at 50% 34%, rgba(255, 244, 218, .18), transparent 38%),
+        radial-gradient(circle at 15% 80%, rgba(223, 176, 126, .13), transparent 32%),
+        radial-gradient(circle at center, transparent 45%, rgba(12, 7, 5, .72) 100%);
+}
+
+.hero-scrub__grain {
+    z-index: 5;
+    opacity: .13;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+}
+
+.hero-scrub__eyebrow {
+    position: absolute;
+    z-index: 10;
+    top: 112px;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateX(-50%);
+    color: rgba(255, 250, 242, .82);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.hero-scrub__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(7px, 1.2vh, 14px);
+    width: 100%;
+    height: 100%;
+    padding: 106px 2vw 80px;
+}
+
+.hero-scrub__title {
+    position: relative;
+    z-index: 3;
+    margin: 0;
+    color: var(--hero-ink);
+    font-family: var(--font-display);
+    font-size: clamp(3.2rem, 9.2vw, 9rem);
+    font-weight: 700;
+    line-height: .8;
+    letter-spacing: -.055em;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-shadow: 0 10px 40px rgba(0, 0, 0, .24);
+    will-change: transform, opacity;
+}
+
+.hero-scrub__title--bottom {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(2.7rem, 7.6vw, 7.4rem);
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+}
+
+.hero-scrub__card {
+    position: relative;
+    z-index: 2;
+    width: min(86vw, calc(56svh * 1.6));
+    height: min(56svh, calc(86vw / 1.6));
+    min-height: 230px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .15);
+    border-radius: 22px;
+    background: #1a110e;
+    box-shadow: 0 28px 100px rgba(0, 0, 0, .58);
+    transform: scale(.64);
+    transform-origin: 50% 50%;
+    will-change: transform;
+}
+
+.hero-scrub__fallback,
+.hero-scrub__canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-scrub__canvas { z-index: 1; }
+
+.hero-scrub__card-shade {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 150px rgba(0, 0, 0, .42);
+    background: linear-gradient(180deg, transparent 58%, rgba(11, 7, 5, .6));
+}
+
+.hero-scrub__caption {
+    position: absolute;
+    z-index: 3;
+    right: 24px;
+    bottom: 20px;
+    left: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, .9);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.hero-scrub__caption-index {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(255, 255, 255, .35);
+    border-radius: 50%;
+    backdrop-filter: blur(12px);
+}
+
+.hero-scrub__intro {
+    position: absolute;
+    z-index: 7;
+    bottom: 34px;
+    left: 5vw;
+    max-width: 370px;
+    color: rgba(255, 250, 242, .78);
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.hero-scrub__intro p { margin: 0 0 15px; }
+
+.hero-scrub__actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.hero-scrub__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 19px;
+    border: 1px solid rgba(255, 255, 255, .22);
+    border-radius: 999px;
+    background: var(--cream);
+    color: var(--brown-dark);
+    font: 700 13px var(--font-body);
+    cursor: pointer;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, .24);
+    transition: transform .25s ease, background .25s ease;
+}
+
+.hero-scrub__cta:hover { transform: translateY(-2px); background: #fff; }
+
+.hero-scrub__actions a {
+    color: rgba(255, 255, 255, .88);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration-color: rgba(255, 255, 255, .35);
+    text-underline-offset: 4px;
+}
+
+.hero-scrub__scroll {
+    position: absolute;
+    z-index: 7;
+    right: 5vw;
+    bottom: 42px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, .58);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.hero-scrub__scroll span {
+    width: 34px;
+    height: 1px;
+    background: rgba(255, 255, 255, .5);
+    transform-origin: left;
+    animation: hero-scroll-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes hero-scroll-pulse {
+    0%, 100% { transform: scaleX(.35); opacity: .45; }
+    50% { transform: scaleX(1); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .hero.hero-scrub { height: 380vh; text-align: initial; padding: 0; gap: 0; }
+    .hero-scrub__stage { min-height: 560px; }
+    .hero-scrub__eyebrow { top: 90px; max-width: 86vw; white-space: normal; }
+    .hero-scrub__content { padding: 94px 0 138px; }
+    .hero-scrub__title { font-size: clamp(3rem, 16vw, 5.2rem); }
+    .hero-scrub__title--bottom { font-size: clamp(2.35rem, 12.5vw, 4.1rem); }
+    .hero-scrub__card {
+        width: 92vw;
+        height: min(48svh, calc(92vw / 1.25));
+        transform: scale(.82);
+        border-radius: 16px;
+    }
+    .hero-scrub__intro { right: 20px; bottom: 28px; left: 20px; max-width: none; }
+    .hero-scrub__intro p { display: none; }
+    .hero-scrub__actions { justify-content: center; }
+    .hero-scrub__scroll { display: none; }
+    .hero-scrub__caption { right: 16px; bottom: 15px; left: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero.hero-scrub { height: 100svh; min-height: 680px; }
+    .hero-scrub__scroll span { animation: none; }
+    .hero-scrub__canvas { display: none; }
+    .hero-scrub__card { transform: none; }
+}

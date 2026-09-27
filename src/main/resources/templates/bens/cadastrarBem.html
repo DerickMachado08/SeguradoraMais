@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Bem Patrimonial</title>
     <link rel="stylesheet" href="/css/main/app/menuCliente/patrimonialBem.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/app/dashboardTheme.css">
 </head>
-<body>
+<body class="dashboard-themed">
 
 <header>
     <div class="header-user">
@@ -15,6 +17,15 @@
         <a href="/index.html" class="btn-logout">Sair</a>
     </div>
 </header>
+
+<nav class="menu-lateral" aria-label="Navegação do cliente">
+    <ul>
+        <li class="item-menu"><a href="/dashboardCliente"><span class="icon"><i class="fa-solid fa-grip"></i></span><span class="txt-link">Dashboard</span></a></li>
+        <li class="item-menu active"><a href="/cliente/contratar"><span class="icon"><i class="fa-regular fa-paste"></i></span><span class="txt-link">Contratar seguro</span></a></li>
+        <li class="item-menu"><a href="/cliente/apolices"><span class="icon"><i class="fa-solid fa-list-check"></i></span><span class="txt-link">Minhas apólices</span></a></li>
+        <li class="item-menu"><a href="/pagamento/cliente"><span class="icon"><i class="fa-regular fa-credit-card"></i></span><span class="txt-link">Pagamentos</span></a></li>
+    </ul>
+</nav>
 
 <main class="pagina-bem">
     <section class="cabecalho-bem">

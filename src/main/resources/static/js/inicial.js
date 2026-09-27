@@ -3,6 +3,130 @@ function irLogin(perfil) {
     window.location.href = "/login.html";
 }
 
+/* ====== HERO CINEMATOGRAFICO COM SCROLL SCRUB ====== */
+(function heroScrub() {
+    const section = document.querySelector('.hero-scrub');
+    const canvas = section?.querySelector('.hero-scrub__canvas');
+    if (!section || !canvas || !window.gsap || !window.ScrollTrigger) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const card = section.querySelector('.hero-scrub__card');
+    const titleTop = section.querySelector('.hero-scrub__title--top');
+    const titleBottom = section.querySelector('.hero-scrub__title--bottom');
+    const intro = section.querySelector('.hero-scrub__intro');
+    const eyebrow = section.querySelector('.hero-scrub__eyebrow');
+    const scrollHint = section.querySelector('.hero-scrub__scroll');
+    const captionIndex = section.querySelector('.hero-scrub__caption-index');
+    const captionName = section.querySelector('.hero-scrub__caption-name');
+    const context = canvas.getContext('2d');
+
+    const frames = [
+        { src: 'css/public/Inicial/imagesInicial/vida.jpg', label: 'Seguro Vida' },
+        { src: 'css/public/Inicial/imagesInicial/seguroResidencial.jpeg', label: 'Seguro Residencial' },
+        { src: 'css/public/Inicial/imagesInicial/seguroAuto.jpg', label: 'Seguro Auto' },
+        { src: 'css/public/Inicial/imagesInicial/viagemm.jpg', label: 'Seguro Viagem' },
+        { src: 'css/public/Inicial/imagesInicial/segurosEletronicos.jpg', label: 'Seguro Eletrônicos' },
+        { src: 'css/public/Inicial/imagesInicial/seguroBike.jpe', label: 'Seguro Bicicleta' },
+        { src: 'css/public/Inicial/imagesInicial/seguroCell.jpg', label: 'Seguro Celular' }
+    ];
+
+    let loaded = 0;
+    let lastPosition = -1;
+    const images = frames.map((frame) => {
+        const image = new Image();
+        image.decoding = 'async';
+        image.onload = () => {
+            loaded += 1;
+            if (loaded === 1) drawAt(0, true);
+        };
+        image.src = frame.src;
+        return image;
+    });
+
+    function drawCover(image, alpha) {
+        if (!image?.complete || !image.naturalWidth) return;
+        const scale = Math.max(canvas.width / image.naturalWidth, canvas.height / image.naturalHeight);
+        const width = image.naturalWidth * scale;
+        const height = image.naturalHeight * scale;
+        context.globalAlpha = alpha;
+        context.drawImage(image, (canvas.width - width) / 2, (canvas.height - height) / 2, width, height);
+    }
+
+    function drawAt(position, force) {
+        if (!context || (!force && Math.abs(position - lastPosition) < .015)) return;
+        lastPosition = position;
+        const current = Math.min(frames.length - 1, Math.floor(position));
+        const next = Math.min(frames.length - 1, current + 1);
+        const blend = position - current;
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.globalAlpha = 1;
+        context.fillStyle = '#1a110e';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        drawCover(images[current], 1);
+        if (next !== current) drawCover(images[next], blend);
+        context.globalAlpha = 1;
+
+        const active = blend > .55 ? next : current;
+        const number = String(active + 1).padStart(2, '0');
+        if (captionIndex.textContent !== number) {
+            captionIndex.textContent = number;
+            captionName.textContent = frames[active].label;
+        }
+    }
+
+    const startScale = () => window.innerWidth < 768 ? .82 : .64;
+    const immerseScale = () => {
+        const rect = card.getBoundingClientRect();
+        if (!rect.width || !rect.height) return 2;
+        return Math.max(window.innerWidth / rect.width, window.innerHeight / rect.height) * 1.06;
+    };
+
+    const gsapContext = gsap.context(() => {
+        gsap.timeline({ defaults: { ease: 'power3.out' }, delay: .15 })
+            .from('.hero-scrub__wash', { opacity: 0, duration: 1.2 })
+            .from(card, { opacity: 0, duration: 1 }, .2)
+            .from(titleTop, { opacity: 0, y: 26, duration: .9 }, .35)
+            .from(titleBottom, { opacity: 0, y: -22, duration: .9 }, .45)
+            .from([eyebrow, intro, scrollHint], { opacity: 0, y: 12, duration: .7, stagger: .08 }, .55);
+
+        gsap.set(card, { scale: startScale(), transformOrigin: '50% 50%' });
+
+        const timeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: section,
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: .45,
+                invalidateOnRefresh: true,
+                onUpdate: (self) => {
+                    const mapped = gsap.utils.clamp(0, 1, (self.progress - .12) / .68);
+                    drawAt(mapped * (frames.length - 1));
+                }
+            }
+        });
+
+        timeline.to(card, { scale: 1, ease: 'power2.out', duration: .14 }, 0)
+            .to(titleTop, { x: () => window.innerWidth < 768 ? '-78vw' : '-62vw', ease: 'power2.inOut', duration: .16 }, 0)
+            .to(titleBottom, { x: () => window.innerWidth < 768 ? '78vw' : '62vw', ease: 'power2.inOut', duration: .16 }, 0)
+            .to([intro, eyebrow, scrollHint], { opacity: 0, y: -10, ease: 'power1.in', duration: .1 }, 0)
+            .to(card, { scale: immerseScale, borderRadius: 0, ease: 'power2.in', duration: .64 }, .14)
+            .to([titleTop, titleBottom], { opacity: 0, ease: 'power1.in', duration: .18 }, .14)
+            .to(card, { scale: startScale, borderRadius: () => window.innerWidth < 768 ? 16 : 22, ease: 'power3.inOut', duration: .22 }, .78)
+            .to(titleTop, { x: 0, opacity: 1, ease: 'power2.inOut', duration: .22 }, .78)
+            .to(titleBottom, { x: 0, opacity: 1, ease: 'power2.inOut', duration: .22 }, .78)
+            .to([eyebrow, intro, scrollHint], { opacity: 1, y: 0, ease: 'power2.out', duration: .16 }, .84);
+    }, section);
+
+    window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+    window.addEventListener('resize', () => drawAt(lastPosition < 0 ? 0 : lastPosition, true));
+
+    return () => gsapContext.revert();
+})();
+
 /* ====== HEADER SCROLL ====== */
 window.addEventListener('scroll', () => {
     document.querySelector('.topo')?.classList.toggle('scrolled', window.scrollY > 20);
