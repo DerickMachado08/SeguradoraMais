@@ -25,6 +25,10 @@ public class PagamentoService {
         return pagamentos.stream().map(Pagamento::getValor).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    public List<Pagamento> buscarPagamentosAprovados() {
+        return pagamentoRepository.findByStatus(StatusPagamento.APROVADA);
+    }
+
     public boolean pagamentoAprovado(Integer idContratacao) {
 
         return pagamentoRepository

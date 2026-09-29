@@ -127,6 +127,52 @@ function irLogin(perfil) {
     return () => gsapContext.revert();
 })();
 
+/* ====== LINHA DO TEMPO DA TURMA ====== */
+(function jornadaTimeline() {
+    const section = document.querySelector('.jornada');
+    const track = section?.querySelector('.jornada-trilha');
+    if (!section || !track || !window.gsap || !window.ScrollTrigger) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) return;
+
+    const events = [...section.querySelectorAll('.jornada-marco')];
+    const axis = section.querySelector('.jornada-eixo span');
+    const progress = section.querySelector('.jornada-progresso__valor');
+
+    const journeyContext = gsap.context(() => {
+        const endX = () => Math.min(0, window.innerWidth - track.scrollWidth - window.innerWidth * .04);
+        const timeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: section,
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: .6,
+                invalidateOnRefresh: true
+            },
+            defaults: { ease: 'none' }
+        });
+
+        timeline.to(track, { x: endX, duration: 1 }, 0)
+            .to(axis, { scaleX: 1, duration: .88 }, .06)
+            .to(progress, { scaleX: 1, duration: 1 }, 0);
+
+        events.forEach((event, index) => {
+            const position = .08 + index * .115;
+            const stem = event.querySelector('.jornada-haste');
+            const dot = event.querySelector('.jornada-haste span');
+            const copy = event.querySelector('.jornada-texto');
+
+            timeline.to(stem, { scaleY: 1, duration: .055, ease: 'power1.out' }, position)
+                .to(dot, { scale: 1, duration: .045, ease: 'back.out(2)' }, position + .025)
+                .to(copy, { opacity: 1, y: 0, duration: .085, ease: 'power2.out' }, position + .035);
+        });
+    }, section);
+
+    window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+    return () => journeyContext.revert();
+})();
+
 /* ====== HEADER SCROLL ====== */
 window.addEventListener('scroll', () => {
     document.querySelector('.topo')?.classList.toggle('scrolled', window.scrollY > 20);
@@ -557,14 +603,60 @@ document.getElementById('telefone')?.addEventListener('input', function () {
     if (!cartoes.length) return;
     let atual = 0;
 
+    function quantidadeVisivel() {
+        const larguraCartao = cartoes[0].getBoundingClientRect().width;
+        const espacamento = parseFloat(getComputedStyle(trilha).gap) || 0;
+        return Math.max(1, Math.min(cartoes.length,
+            Math.round((trilha.clientWidth + espacamento) / (larguraCartao + espacamento))));
+    }
+
+    function indiceFinal() {
+        return Math.max(0, cartoes.length - quantidadeVisivel());
+    }
+
+    const permiteInclinacao = window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (permiteInclinacao) {
+        cartoes.forEach((cartao) => {
+            let quadroAnimacao = 0;
+
+            cartao.addEventListener('pointermove', (evento) => {
+                if (quadroAnimacao) cancelAnimationFrame(quadroAnimacao);
+
+                quadroAnimacao = requestAnimationFrame(() => {
+                    const { left, top, width, height } = cartao.getBoundingClientRect();
+                    const x = evento.clientX - left;
+                    const y = evento.clientY - top;
+                    const rotacaoX = ((y - height / 2) / (height / 2)) * -8;
+                    const rotacaoY = ((x - width / 2) / (width / 2)) * 8;
+
+                    cartao.style.transition = 'transform .1s ease-out, box-shadow .35s ease';
+                    cartao.style.transform = `perspective(1000px) rotateX(${rotacaoX}deg) rotateY(${rotacaoY}deg) scale3d(1.035, 1.035, 1.035)`;
+                    quadroAnimacao = 0;
+                });
+            });
+
+            cartao.addEventListener('pointerleave', () => {
+                if (quadroAnimacao) cancelAnimationFrame(quadroAnimacao);
+                quadroAnimacao = 0;
+                cartao.style.transition = 'transform .4s ease-in-out, box-shadow .35s ease';
+                cartao.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            });
+        });
+    }
+
     function atualizar() {
-        posicao.textContent = `${atual + 1} / ${cartoes.length}`;
+        const ultimoVisivel = Math.min(atual + quantidadeVisivel(), cartoes.length);
+        posicao.textContent = quantidadeVisivel() > 1
+            ? `${atual + 1}–${ultimoVisivel} / ${cartoes.length}`
+            : `${atual + 1} / ${cartoes.length}`;
         anterior.disabled = atual === 0;
-        proximo.disabled = atual === cartoes.length - 1;
+        proximo.disabled = atual === indiceFinal();
     }
 
     function irPara(indice) {
-        atual = Math.max(0, Math.min(indice, cartoes.length - 1));
+        atual = Math.max(0, Math.min(indice, indiceFinal()));
         trilha.scrollTo({ left: cartoes[atual].offsetLeft - cartoes[0].offsetLeft, behavior: 'smooth' });
         atualizar();
     }
@@ -583,13 +675,18 @@ document.getElementById('telefone')?.addEventListener('input', function () {
         if (atualizacaoPendente) return;
         atualizacaoPendente = true;
         requestAnimationFrame(() => {
-            atual = cartoes.reduce((melhor, cartao, indice) =>
+            atual = cartoes.slice(0, indiceFinal() + 1).reduce((melhor, cartao, indice) =>
                 Math.abs(cartao.offsetLeft - cartoes[0].offsetLeft - trilha.scrollLeft) <
                 Math.abs(cartoes[melhor].offsetLeft - cartoes[0].offsetLeft - trilha.scrollLeft)
                     ? indice : melhor, 0);
             atualizar();
             atualizacaoPendente = false;
         });
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+        atual = Math.min(atual, indiceFinal());
+        atualizar();
     }, { passive: true });
 
     atualizar();

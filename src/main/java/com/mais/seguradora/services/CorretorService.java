@@ -59,6 +59,10 @@ public class CorretorService {
         return corretorRepository.findAll();
     }
 
+    public long totalCorretores() {
+        return corretorRepository.count();
+    }
+
     public void deletarCorretor(Integer id) {
 
         Corretor corretor = corretorRepository

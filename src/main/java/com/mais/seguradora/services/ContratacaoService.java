@@ -37,6 +37,16 @@ public class ContratacaoService {
         return contratacaoRepository.findByCliente(cliente).stream().filter(c -> c.getStatus() != StatusContratacao.CANCELADA).toList();
     }
 
+    public List<Contratacao> buscarContratacoesAprovadas() {
+        return contratacaoRepository.findByStatusIn(
+                List.of(StatusContratacao.APROVADA, StatusContratacao.APOLICE_EMITIDA)
+        );
+    }
+
+    public long totalContratacoesAprovadas() {
+        return buscarContratacoesAprovadas().size();
+    }
+
     public Optional<Contratacao> buscarPorClienteAndApolice(Cliente cliente, Apolice apolice){
         return contratacaoRepository.findFirstByClienteAndApolice(cliente, apolice);
     }

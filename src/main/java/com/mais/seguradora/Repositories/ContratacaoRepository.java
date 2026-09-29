@@ -11,8 +11,11 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Collection;
 
 public interface ContratacaoRepository extends JpaRepository<Contratacao, Integer> {
+
+    List<Contratacao> findByStatusIn(Collection<StatusContratacao> status);
 
     List<Contratacao> findByCliente(Cliente cliente);
 
