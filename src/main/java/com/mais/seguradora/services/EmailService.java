@@ -3,7 +3,6 @@ package com.mais.seguradora.services;
 import com.mais.seguradora.Repositories.MensContatoRepsitory;
 import com.mais.seguradora.model.MensagemContato;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -16,12 +15,6 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    @Value("${spring.mail.username}")
-    private String remetente;
-
-    @Value("${app.mail.contact-to:${spring.mail.username}}")
-    private String destinatarioContato;
-
     public MensagemContato salvar(MensagemContato mensagemContato){
         return mensContatoRepsitory.save(mensagemContato);
     }
@@ -29,9 +22,7 @@ public class EmailService {
     public void enviarContato(String nome, String email, String  telefone, String assunto){
         SimpleMailMessage mensagem = new SimpleMailMessage();
 
-        mensagem.setFrom(remetente);
-        mensagem.setTo(destinatarioContato);
-        mensagem.setReplyTo(email);
+        mensagem.setTo("seguramais.corretora.seguros@gmail.com");
 
         mensagem.setSubject("Solicittação de mensagem de contato - seguradoraMais");
 

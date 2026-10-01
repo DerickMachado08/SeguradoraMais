@@ -555,68 +555,31 @@ insurancePanels.forEach((panel, index) => {
         const orig  = label?.textContent;
         if (label) label.textContent = 'Enviando...';
 
-        let res;
-
         try {
-            res = await fetch('/contato', {
+            const res = await fetch('http://localhost:8080/contato', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dados),
             });
-        } catch (erro) {
-            console.error('Falha de rede ao enviar o formulário de contato:', erro);
-            showFeedback('Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente.', 'error');
-            botao.disabled = false;
-            if (label) label.textContent = orig;
-            return;
-        }
 
-        let resposta;
-        try {
-            const contentType = res.headers.get('content-type') || '';
-            resposta = contentType.includes('application/json')
-                ? await res.json()
-                : await res.text();
-        } catch {
-            resposta = null;
-        }
-
-        if (res.ok) {
             const stamps = getStamps();
             stamps.push(Date.now());
             saveStamps(stamps);
 
-            const mensagem = resposta?.mensagem ||
-                (typeof resposta === 'string' ? resposta : 'Mensagem enviada com sucesso! Em breve entraremos em contato.');
-            showFeedback(mensagem, 'success');
-            form.reset();
-            startCooldownUI(60);
-            return;
+            if (res.ok) {
+                showFeedback('Mensagem enviada com sucesso! Em breve entraremos em contato.', 'success');
+                form.reset();
+                startCooldownUI(60);
+            } else {
+                showFeedback('Erro ao enviar mensagem. Tente novamente.', 'error');
+                botao.disabled = false;
+                if (label) label.textContent = orig;
+            }
+        } catch {
+            showFeedback('Erro de conexao com o servidor. Verifique sua internet.', 'error');
+            botao.disabled = false;
+            if (label) label.textContent = orig;
         }
-
-        let mensagemErro;
-        if (res.status === 400) {
-            const erros = resposta && typeof resposta === 'object'
-                ? Object.entries(resposta)
-                    .filter(([campo]) => campo !== 'codigo' && campo !== 'mensagem')
-                    .map(([, mensagem]) => mensagem)
-                    .join(' ')
-                : '';
-            mensagemErro = resposta?.mensagem || erros || 'Revise os dados informados e tente novamente.';
-        } else if (res.status === 404 || res.status === 405) {
-            mensagemErro = 'O serviço de contato não está disponível neste endereço.';
-        } else if (res.status === 502 || res.status === 503) {
-            mensagemErro = resposta?.mensagem || 'O servidor recebeu a solicitação, mas o serviço de e-mail está indisponível.';
-        } else if (res.status >= 500) {
-            mensagemErro = resposta?.mensagem || 'O servidor encontrou um erro interno. Tente novamente mais tarde.';
-        } else {
-            mensagemErro = resposta?.mensagem || `Não foi possível enviar a mensagem (HTTP ${res.status}).`;
-        }
-
-        console.error('Erro HTTP no formulário de contato:', res.status, resposta);
-        showFeedback(mensagemErro, 'error');
-        botao.disabled = false;
-        if (label) label.textContent = orig;
     });
 })();
 
