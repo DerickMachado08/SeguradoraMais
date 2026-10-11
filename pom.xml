@@ -82,6 +82,13 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <!-- Geracao do documento PDF da apolice -->
+        <dependency>
+            <groupId>com.github.librepdf</groupId>
+            <artifactId>openpdf</artifactId>
+            <version>3.0.5</version>
+        </dependency>
+
         <!-- stripe -->
         <dependency>
             <groupId>com.stripe</groupId>

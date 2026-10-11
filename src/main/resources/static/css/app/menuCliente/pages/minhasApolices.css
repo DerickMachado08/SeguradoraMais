@@ -252,8 +252,22 @@
 /* Card action buttons */
 .apolice-card-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 14px;
+}
+
+.apolice-card-actions .download-pdf {
+    flex: 1 1 100%;
+    background: #ecfdf5;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+    text-decoration: none;
+}
+
+.apolice-card-actions .download-pdf:hover {
+    background: #dcfce7;
+    color: #14532d;
 }
 
 .btn-action {

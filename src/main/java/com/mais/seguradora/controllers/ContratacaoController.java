@@ -11,6 +11,9 @@ import com.mais.seguradora.services.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +39,9 @@ public class ContratacaoController {
 
     @Autowired
     private PagamentoService pagamentoService;
+
+    @Autowired
+    private ApolicePdfService apolicePdfService;
 
     @GetMapping("/cliente/apolices")
     public String minhasApolices(
@@ -214,6 +220,24 @@ public class ContratacaoController {
 
             return "redirect:/cliente/apolices?erro=cancelamento";
         }
+    }
+
+    @GetMapping(value = "/cliente/contratacao/{id}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<byte[]> baixarApolicePdf(
+            @PathVariable("id") Integer id,
+            HttpSession session) {
+
+        Cliente cliente = (Cliente) session.getAttribute("usuarioLogado");
+        byte[] pdf = apolicePdfService.gerar(id, cliente);
+
+        return ResponseEntity.ok()
+                .header(
+                        HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=apolice-" + id + ".pdf"
+                )
+                .contentType(MediaType.APPLICATION_PDF)
+                .contentLength(pdf.length)
+                .body(pdf);
     }
 
     @PostMapping("/corretor/emitir-apolice")
