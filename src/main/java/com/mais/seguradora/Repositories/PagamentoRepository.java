@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PagamentoRepository extends JpaRepository<Pagamento, Integer> {
+
+    boolean existsByContratacao_Id(Integer contratacaoId);
     List<Pagamento> findByContratacao_ClienteOrderByDataVencimentoDesc(Cliente cliente);
 
     Optional<Pagamento> findFirstByContratacao_ClienteAndStatusOrderByContratacao_DataContratacaoDesc(

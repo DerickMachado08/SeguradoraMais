@@ -85,16 +85,10 @@ public class ClienteAreaService {
                 .sorted(Comparator.comparing(Contratacao::getId, Comparator.nullsLast(Comparator.reverseOrder()))).toList();
     }
     private Solicitacao resumo(Contratacao c) {
-        List<BemResumo> bens = c.getBensPatriomiais() == null ? List.of() : c.getBensPatriomiais().stream()
-                .filter(b -> b.getCliente() != null && Objects.equals(b.getCliente().getId(), c.getCliente().getId()))
-                .map(b -> new BemResumo(b.getTipoBem(), b.getDescricao(), b.getValorEstimado(), b.getDataAquisicao())).toList();
-        return new Solicitacao(c.getId(), c.getDataContratacao(), c.getStatus() == null ? null : c.getStatus().name(),
-                c.getApolice() == null ? null : produto(c.getApolice(), false, null), c.getValorContratacao(), bens);
+        return com.mais.seguradora.dto.SolicitacaoResumoMapper.resumo(c);
     }
     private static Produto produto(Apolice a, boolean disponivel, String motivo) {
-        List<CoberturaResumo> coberturas = a.getCoberturas() == null ? List.of() : a.getCoberturas().stream()
-                .map(c -> new CoberturaResumo(c.getNome(), c.getDescricao(), c.getTipoCobertura())).toList();
-        return new Produto(a.getId(), a.getTipoApolice(), a.getNumeroApolice(), a.getDescricao(), coberturas, disponivel, motivo);
+        return com.mais.seguradora.dto.SolicitacaoResumoMapper.produto(a, disponivel, motivo);
     }
     private static boolean bloqueia(StatusContratacao status) {
         return status != StatusContratacao.REJEITADA && status != StatusContratacao.CANCELADA && status != StatusContratacao.AGUARDANDO_BEM;

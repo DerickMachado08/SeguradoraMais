@@ -42,6 +42,9 @@ public final class AuthUiServer {
         Cliente empty = Cliente.builder().id(11).nome("Cliente Sem Pedidos").cpf("123.456.789-09")
                 .email("vazio@example.test").dataNascimento(LocalDate.of(1990,1,1)).senha(encoder.encode("Teste@123")).build();
         clients.put(empty.getEmail(), empty);
+        Cliente portfolio = Cliente.builder().id(12).nome("Cliente Carteira Teste").cpf("111.444.777-35")
+                .email("carteira@example.test").dataNascimento(LocalDate.of(1990,1,1)).senha(encoder.encode("Teste@123")).build();
+        clients.put(portfolio.getEmail(), portfolio);
         ClienteRepository repository = mock(ClienteRepository.class);
         when(repository.findByEmail(anyString())).thenAnswer(call -> Optional.ofNullable(clients.get(call.getArgument(0))));
         when(repository.existsByEmail(anyString())).thenAnswer(call -> clients.containsKey(call.getArgument(0)));
@@ -57,6 +60,8 @@ public final class AuthUiServer {
         Admin admin = new Admin(); admin.setId(30); admin.setName("Admin de Teste"); admin.setEmail("admin@example.test");
         CorretorService corretores = mock(CorretorService.class); AdminService admins = mock(AdminService.class);
         when(corretores.autenticar("corretor@example.test", "Teste@123")).thenReturn(corretor);
+        Corretor semCarteira = new Corretor(); semCarteira.setId(21); semCarteira.setNome("Corretor Sem Carteira"); semCarteira.setEmail("semcarteira@example.test");
+        when(corretores.autenticar("semcarteira@example.test", "Teste@123")).thenReturn(semCarteira);
         when(admins.autenticar("admin@example.test", "Teste@123")).thenReturn(admin);
         LoginController login = new LoginController();
         ReflectionTestUtils.setField(login, "clienteservice", clientes);
@@ -65,7 +70,8 @@ public final class AuthUiServer {
         ClienteController cadastro = new ClienteController(); ReflectionTestUtils.setField(cadastro, "service", clientes);
         ObjectMapper mapper = new ObjectMapper().findAndRegisterModules().disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean(); validator.afterPropertiesSet();
-        mvc = MockMvcBuilders.standaloneSetup(login, cadastro, new SessaoController(), ClienteUiFixtures.controller(repository, clients))
+        Object[] areas = ClienteUiFixtures.controllers(repository, clients, corretor);
+        mvc = MockMvcBuilders.standaloneSetup(login, cadastro, new SessaoController(), areas[0], areas[1])
                 .setControllerAdvice(new GlobalExceptionHandler()).setValidator(validator)
                 .setMessageConverters(new StringHttpMessageConverter(StandardCharsets.UTF_8), new MappingJackson2HttpMessageConverter(mapper)).build();
     }
@@ -73,7 +79,8 @@ public final class AuthUiServer {
         String path = exchange.getRequestURI().getPath(), method = exchange.getRequestMethod();
         if (!(method.equals("GET") && path.equals("/auten/sessao"))
                 && !(method.equals("POST") && Set.of("/auten/login", "/auten/logout", "/cliente").contains(path))
-                && !(Set.of("GET", "POST").contains(method) && path.startsWith("/api/cliente/"))) {
+                && !(Set.of("GET", "POST").contains(method) && path.startsWith("/api/cliente/"))
+                && !(Set.of("GET", "POST", "PUT").contains(method) && path.startsWith("/api/corretor/"))) {
             exchange.sendResponseHeaders(404, -1); exchange.close(); return;
         }
         try {
@@ -85,7 +92,7 @@ public final class AuthUiServer {
             }
             byte[] body = exchange.getRequestBody().readNBytes(16385);
             if (body.length > 16384) { exchange.sendResponseHeaders(413, -1); return; }
-            MockHttpServletRequestBuilder request = method.equals("GET") ? get(path) : post(path);
+            MockHttpServletRequestBuilder request = switch (method) { case "GET" -> get(path); case "PUT" -> put(path); default -> post(path); };
             String contentType = exchange.getRequestHeaders().getFirst("Content-Type");
             if (contentType != null) request.contentType(contentType);
             if (path.equals("/auten/login")) {
@@ -111,6 +118,8 @@ public final class AuthUiServer {
                     exchange.getResponseHeaders().add("Set-Cookie", "JSESSIONID=" + current.getId() + "; Path=/; HttpOnly; SameSite=Lax");
             }
             for (String name : response.getHeaderNames()) for (String value : response.getHeaders(name)) exchange.getResponseHeaders().add(name, value);
+            // Cada resposta fecha a conexão local: evita reuso de sockets ociosos nos roteiros longos.
+            exchange.getResponseHeaders().set("Connection", "close");
             byte[] output = response.getContentAsByteArray();
             exchange.sendResponseHeaders(response.getStatus(), output.length == 0 ? -1 : output.length);
             if (output.length > 0) exchange.getResponseBody().write(output);

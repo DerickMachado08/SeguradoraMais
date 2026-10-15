@@ -15,6 +15,15 @@ import java.util.Collection;
 
 public interface ContratacaoRepository extends JpaRepository<Contratacao, Integer> {
 
+    List<Contratacao> findDistinctByApolice_Corretores_Id(Integer corretorId);
+
+    Optional<Contratacao> findByIdAndApolice_Corretores_Id(Integer id, Integer corretorId);
+
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @Query("select c from contratacao c where c.id = :id and c.apolice.id in "
+            + "(select a.id from apolice a join a.corretores r where r.id = :corretorId)")
+    Optional<Contratacao> findForCorretorOperation(@Param("id") Integer id, @Param("corretorId") Integer corretorId);
+
     List<Contratacao> findByStatusIn(Collection<StatusContratacao> status);
 
     List<Contratacao> findByCliente(Cliente cliente);
