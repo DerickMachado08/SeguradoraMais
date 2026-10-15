@@ -2,6 +2,9 @@ package com.mais.seguradora.controllers;
 
 import com.mais.seguradora.model.Cliente;
 import com.mais.seguradora.services.ClienteService;
+import com.mais.seguradora.dto.CadastroClienteRequest;
+import com.mais.seguradora.dto.ClienteResponse;
+import org.springframework.http.CacheControl;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +27,9 @@ public class ClienteController {
     private ClienteService service;
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@Valid @RequestBody Cliente cliente) {
-        Cliente clienteSalvo = service.cadastrar(cliente);
-        return ResponseEntity.ok(clienteSalvo);
+    public ResponseEntity<?> cadastrar(@Valid @RequestBody CadastroClienteRequest cadastro) {
+        Cliente clienteSalvo = service.cadastrar(cadastro.toEntity());
+        return ResponseEntity.ok().cacheControl(CacheControl.noStore()).body(ClienteResponse.from(clienteSalvo));
     }
 
     @GetMapping("/confirmar-exclusao")
