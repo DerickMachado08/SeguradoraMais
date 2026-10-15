@@ -21,6 +21,8 @@ public interface ContratacaoRepository extends JpaRepository<Contratacao, Intege
 
     List<Contratacao> findByClienteId(Integer idCliente);
 
+    Optional<Contratacao> findByIdAndClienteId(Integer id, Integer idCliente);
+
     List<Contratacao> findByStatusAndApoliceCorretores(
             StatusContratacao status,
             Corretor corretor
