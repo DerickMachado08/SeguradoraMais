@@ -14,6 +14,9 @@ import java.util.Optional;
 import java.util.Collection;
 
 public interface ContratacaoRepository extends JpaRepository<Contratacao, Integer> {
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @Query("select c from contratacao c where c.id = :id and c.cliente.id = :clienteId")
+    Optional<Contratacao> findForPagamento(@Param("id") Integer id, @Param("clienteId") Integer clienteId);
 
     List<Contratacao> findDistinctByApolice_Corretores_Id(Integer corretorId);
 

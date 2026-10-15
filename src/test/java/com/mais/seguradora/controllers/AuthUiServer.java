@@ -34,7 +34,7 @@ public final class AuthUiServer {
     private final Map<String, Cliente> clients = new ConcurrentHashMap<>();
     private final Map<String, MockHttpSession> sessions = new ConcurrentHashMap<>();
     private final MockMvc mvc;
-    private AuthUiServer() {
+    private AuthUiServer(boolean paymentFixtures) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         Cliente cliente = Cliente.builder().id(10).nome("Cliente de Teste").cpf("529.982.247-25")
                 .email("cliente@example.test").dataNascimento(LocalDate.of(1990,1,1)).senha(encoder.encode("Teste@123")).build();
@@ -68,8 +68,8 @@ public final class AuthUiServer {
         ClienteController cadastro = new ClienteController(); ReflectionTestUtils.setField(cadastro, "service", clientes);
         ObjectMapper mapper = new ObjectMapper().findAndRegisterModules().disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean(); validator.afterPropertiesSet();
-        Object[] areas = ClienteUiFixtures.controllers(repository, clients, corretor, semCarteira, admin, corretores);
-        mvc = MockMvcBuilders.standaloneSetup(login, cadastro, new SessaoController(), areas[0], areas[1], areas[2])
+        Object[] areas = ClienteUiFixtures.controllers(repository, clients, corretor, semCarteira, admin, corretores, paymentFixtures);
+        mvc = MockMvcBuilders.standaloneSetup(login, cadastro, new SessaoController(), areas[0], areas[1], areas[2], areas[3])
                 .setControllerAdvice(new GlobalExceptionHandler()).setValidator(validator)
                 .setMessageConverters(new StringHttpMessageConverter(StandardCharsets.UTF_8), new MappingJackson2HttpMessageConverter(mapper)).build();
     }
@@ -129,7 +129,7 @@ public final class AuthUiServer {
         } finally { exchange.close(); }
     }
     public static void main(String[] args) throws Exception {
-        AuthUiServer test = new AuthUiServer();
+        AuthUiServer test = new AuthUiServer(args.length == 1 && "--payments".equals(args[0]));
         HttpServer server = HttpServer.create(new InetSocketAddress("127.0.0.1", 18081), 0);
         server.createContext("/", test::handle); server.setExecutor(Executors.newFixedThreadPool(4));
         Runtime.getRuntime().addShutdownHook(new Thread(() -> server.stop(0)));
