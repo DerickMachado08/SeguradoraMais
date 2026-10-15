@@ -36,9 +36,14 @@ public class ClienteService {
     public boolean existsByEmail;
 
     public Cliente cadastrar(Cliente cliente){
-        if(repository.existsByCpf(cliente.getCpf())){
+        String cpfDigits = cliente.getCpf().replaceAll("\\D", "");
+        String cpfMasked = cpfDigits.length() == 11
+                ? cpfDigits.substring(0, 3) + "." + cpfDigits.substring(3, 6) + "."
+                + cpfDigits.substring(6, 9) + "-" + cpfDigits.substring(9) : cliente.getCpf();
+        if(repository.existsByCpf(cpfMasked) || repository.existsByCpf(cpfDigits)){
             throw new RecursoDuplicadoException("Cpf ja cadastrado!");
         }
+        cliente.setCpf(cpfMasked);
         if (repository.existsByEmail(cliente.getEmail())){
             throw new RecursoDuplicadoException("Email ja cadastrado!");
         }

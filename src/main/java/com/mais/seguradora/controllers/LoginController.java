@@ -6,13 +6,17 @@ import com.mais.seguradora.model.Corretor;
 import com.mais.seguradora.services.AdminService;
 import com.mais.seguradora.services.ClienteService;
 import com.mais.seguradora.services.CorretorService;
+import com.mais.seguradora.config.SessionSecurity;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.CacheControl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.nio.charset.StandardCharsets;
 
 @Controller
 @RequestMapping("/auten")
@@ -28,13 +32,15 @@ public class LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<?> login(@RequestParam("email") String email, @RequestParam("senha") String senha, HttpSession session) {
+    public ResponseEntity<?> login(@RequestParam("email") String email, @RequestParam("senha") String senha, HttpServletRequest request) {
+        if (email.isBlank() || email.length() > 100 || senha.isEmpty()
+                || senha.getBytes(StandardCharsets.UTF_8).length > 72) return invalidLogin(request);
         Cliente cliente = clienteservice.autenticar(email, senha);
 
         if (cliente != null) {
-            session.setAttribute("usuarioLogado", cliente);
+            authenticateSession(request, cliente);
 
-            return ResponseEntity.ok(
+            return ResponseEntity.ok().cacheControl(CacheControl.noStore()).body(
                     Map.of(
                             "perfil", "CLIENTE", "redirect", "/dashboardCliente"
                     )
@@ -43,9 +49,9 @@ public class LoginController {
         Corretor corretor = corretorService.autenticar(email, senha);
 
         if (corretor != null) {
-            session.setAttribute("usuarioLogado", corretor);
+            authenticateSession(request, corretor);
 
-            return ResponseEntity.ok(
+            return ResponseEntity.ok().cacheControl(CacheControl.noStore()).body(
                     Map.of(
                             "perfil", "CORRETOR",
                             "redirect", "/dashboardCorretor"
@@ -56,9 +62,9 @@ public class LoginController {
         Admin admin = adminService.autenticar(email, senha);
 
         if (admin != null) {
-            session.setAttribute("usuarioLogado", admin);
+            authenticateSession(request, admin);
 
-            return ResponseEntity.ok(
+            return ResponseEntity.ok().cacheControl(CacheControl.noStore()).body(
                     Map.of(
                             "perfil", "ADMIN",
                             "redirect", "/dashboardAdmin"
@@ -66,8 +72,21 @@ public class LoginController {
             );
         }
 
-        return ResponseEntity.badRequest()
+        return invalidLogin(request);
+    }
+
+    private ResponseEntity<?> invalidLogin(HttpServletRequest request) {
+        HttpSession previous = request.getSession(false);
+        if (previous != null) previous.invalidate();
+        return ResponseEntity.badRequest().cacheControl(CacheControl.noStore())
                 .body("Email ou senha inválidos");
+    }
+
+    private void authenticateSession(HttpServletRequest request, Object user) {
+        HttpSession session = request.getSession();
+        request.changeSessionId();
+        session.setAttribute(SessionSecurity.USER_ATTRIBUTE, user);
+        SessionSecurity.renewToken(session);
     }
 
 }
