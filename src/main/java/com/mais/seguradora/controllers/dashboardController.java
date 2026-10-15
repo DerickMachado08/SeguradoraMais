@@ -10,12 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.math.BigDecimal;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 @Controller
@@ -39,6 +36,9 @@ public class dashboardController {
     @Autowired
     private SinistroService sinistroService;
 
+
+    @Autowired
+    private ReceitaDashboardService receitaDashboardService;
 
     @GetMapping("/dashboardCliente")
     public String dashboardCliente(HttpSession session, Model model) {
@@ -92,29 +92,13 @@ public class dashboardController {
             return "redirect:/login.html";
         }
 
-        BigDecimal total = pagamentoService.calcularTotalRecebido();
+        var receita = receitaDashboardService.resumo();
+        BigDecimal total = receita.totalRecebido();
         List<Sinistro> sinistros = sinistroService.buscarTodos();
-        List<Pagamento> pagamentosAprovados = pagamentoService.buscarPagamentosAprovados();
         List<Contratacao> contratacoesAprovadas = contratacaoService.buscarContratacoesAprovadas();
 
-        DateTimeFormatter mesFormatter = DateTimeFormatter.ofPattern("MMM", Locale.forLanguageTag("pt-BR"));
-        YearMonth mesAtual = YearMonth.now();
-        List<String> receitaLabels = new ArrayList<>();
-        List<BigDecimal> receitaValores = new ArrayList<>();
-
-        for (int indice = 5; indice >= 0; indice--) {
-            YearMonth mes = mesAtual.minusMonths(indice);
-            BigDecimal valorDoMes = pagamentosAprovados.stream()
-                    .filter(pagamento -> pagamento.getDataPagamento() != null)
-                    .filter(pagamento -> YearMonth.from(pagamento.getDataPagamento()).equals(mes))
-                    .map(Pagamento::getValor)
-                    .filter(valor -> valor != null)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-            String label = mes.format(mesFormatter);
-            receitaLabels.add(label.substring(0, 1).toUpperCase() + label.substring(1).replace(".", ""));
-            receitaValores.add(valorDoMes);
-        }
+        var receitaLabels = receita.meses().stream().map(ReceitaDashboardService.Mes::rotulo).toList();
+        var receitaValores = receita.meses().stream().map(ReceitaDashboardService.Mes::valor).toList();
 
         Map<String, Long> segurosContratados = new LinkedHashMap<>();
         contratacoesAprovadas.stream()

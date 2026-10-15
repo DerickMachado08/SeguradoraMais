@@ -17,6 +17,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     Optional<Cliente> findForSolicitacao(@Param("id") Integer id);
     boolean existsByCpf(String cpf);
     boolean existsByEmail(String email);
+    boolean existsByEmailIgnoreCase(String email);
     Optional<Cliente> findByEmail(String email);
     List<Cliente> findTop5ByOrderByIdDesc();
 }

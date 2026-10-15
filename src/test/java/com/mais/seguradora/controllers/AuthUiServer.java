@@ -58,10 +58,8 @@ public final class AuthUiServer {
         ReflectionTestUtils.setField(clientes, "passwordEncoder", encoder);
         Corretor corretor = new Corretor(); corretor.setId(20); corretor.setNome("Corretor de Teste"); corretor.setEmail("corretor@example.test");
         Admin admin = new Admin(); admin.setId(30); admin.setName("Admin de Teste"); admin.setEmail("admin@example.test");
-        CorretorService corretores = mock(CorretorService.class); AdminService admins = mock(AdminService.class);
-        when(corretores.autenticar("corretor@example.test", "Teste@123")).thenReturn(corretor);
+        CorretorService corretores = new CorretorService(); AdminService admins = mock(AdminService.class);
         Corretor semCarteira = new Corretor(); semCarteira.setId(21); semCarteira.setNome("Corretor Sem Carteira"); semCarteira.setEmail("semcarteira@example.test");
-        when(corretores.autenticar("semcarteira@example.test", "Teste@123")).thenReturn(semCarteira);
         when(admins.autenticar("admin@example.test", "Teste@123")).thenReturn(admin);
         LoginController login = new LoginController();
         ReflectionTestUtils.setField(login, "clienteservice", clientes);
@@ -70,8 +68,8 @@ public final class AuthUiServer {
         ClienteController cadastro = new ClienteController(); ReflectionTestUtils.setField(cadastro, "service", clientes);
         ObjectMapper mapper = new ObjectMapper().findAndRegisterModules().disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean(); validator.afterPropertiesSet();
-        Object[] areas = ClienteUiFixtures.controllers(repository, clients, corretor);
-        mvc = MockMvcBuilders.standaloneSetup(login, cadastro, new SessaoController(), areas[0], areas[1])
+        Object[] areas = ClienteUiFixtures.controllers(repository, clients, corretor, semCarteira, admin, corretores);
+        mvc = MockMvcBuilders.standaloneSetup(login, cadastro, new SessaoController(), areas[0], areas[1], areas[2])
                 .setControllerAdvice(new GlobalExceptionHandler()).setValidator(validator)
                 .setMessageConverters(new StringHttpMessageConverter(StandardCharsets.UTF_8), new MappingJackson2HttpMessageConverter(mapper)).build();
     }
@@ -80,7 +78,8 @@ public final class AuthUiServer {
         if (!(method.equals("GET") && path.equals("/auten/sessao"))
                 && !(method.equals("POST") && Set.of("/auten/login", "/auten/logout", "/cliente").contains(path))
                 && !(Set.of("GET", "POST").contains(method) && path.startsWith("/api/cliente/"))
-                && !(Set.of("GET", "POST", "PUT").contains(method) && path.startsWith("/api/corretor/"))) {
+                && !(Set.of("GET", "POST", "PUT").contains(method) && path.startsWith("/api/corretor/"))
+                && !(Set.of("GET", "POST", "PUT").contains(method) && path.startsWith("/api/admin/"))) {
             exchange.sendResponseHeaders(404, -1); exchange.close(); return;
         }
         try {
