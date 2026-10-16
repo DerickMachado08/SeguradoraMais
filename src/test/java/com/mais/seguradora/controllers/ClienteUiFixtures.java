@@ -15,7 +15,7 @@ import static org.mockito.ArgumentMatchers.*;
 
 /** Fixtures explícitas, exclusivas de teste. Não são carregadas pelo aplicativo nem pelo Spring Boot. */
 final class ClienteUiFixtures {
-    static Object[] controllers(ClienteRepository clients, Map<String, Cliente> identities, Corretor corretor, Corretor vazio, Admin admin, CorretorService registration, boolean paymentFixtures) {
+    static Object[] controllers(ClienteRepository clients, Map<String, Cliente> identities, Corretor corretor, Corretor vazio, Admin admin, CorretorService registration, boolean paymentFixtures, boolean stage7) {
         ApoliceRepository products = mock(ApoliceRepository.class);
         ContratacaoRepository requests = mock(ContratacaoRepository.class);
         BemPatrimonialRepository assets = mock(BemPatrimonialRepository.class);
@@ -116,8 +116,27 @@ final class ClienteUiFixtures {
         when(assets.findByContratacaoId(anyInt())).thenAnswer(i -> Optional.ofNullable(rows.get(i.getArgument(0))).flatMap(c->c.getBensPatriomiais().stream().findFirst()));
         when(assets.save(any())).thenAnswer(i -> { BemPatrimonial b=i.getArgument(0);b.setId(sequence.incrementAndGet());b.getContratacao().getBensPatriomiais().add(b);return b; });
         ContratacaoService flow = new ContratacaoService(); ReflectionTestUtils.setField(flow,"contratacaoRepository",requests); ReflectionTestUtils.setField(flow,"bemPatrimonialRepository",assets); ReflectionTestUtils.setField(flow,"emailService",mock(EmailService.class));
-        return new Object[] { new ClienteMobileController(new ClienteAreaService(clients,products,requests,flow)),
-                new CorretorMobileController(new CorretorAreaService(brokers,requests,assets,payments)), adminController, paymentController };
+        List<Object> controllers=new ArrayList<>(List.of(new ClienteMobileController(new ClienteAreaService(clients,products,requests,flow)),
+                new CorretorMobileController(new CorretorAreaService(brokers,requests,assets,payments)), adminController, paymentController));
+        if(stage7) {
+            identities.values().forEach(c -> c.setTelefone("11999999999"));
+            when(clients.findById(anyInt())).thenAnswer(i -> identities.values().stream().filter(c -> c.getId().equals(i.getArgument(0))).findFirst());
+            when(brokers.findById(anyInt())).thenAnswer(i -> Optional.ofNullable(brokerRows.get(i.getArgument(0))));
+            when(admins.findById(30)).thenReturn(Optional.of(admin));when(admins.findForPerfil(30)).thenReturn(Optional.of(admin));when(admins.save(any())).thenAnswer(i -> i.getArgument(0));
+            when(requests.findForSinistro(anyInt(),anyInt())).thenAnswer(i -> rows.values().stream().filter(c -> c.getCliente().getId().equals(i.getArgument(0))&&c.getApolice().getId().equals(i.getArgument(1))).sorted(Comparator.comparing(Contratacao::getId)).toList());
+            Contratacao eligible=new Contratacao();eligible.setId(109);eligible.setCliente(owner);eligible.setApolice(catalog.get(3));eligible.setStatus(StatusContratacao.APOLICE_EMITIDA);eligible.setDataContratacao(LocalDate.now().minusDays(5));eligible.setValorContratacao(new BigDecimal("65.50"));rows.put(109,eligible);
+            seedPayment(pendingPayments,507,eligible,"65.50",StatusPagamento.APROVADA,"FICTICIO",LocalDate.now().minusDays(2));
+            SinistroRepository claims=mock(SinistroRepository.class);Map<Integer,Sinistro> history=new ConcurrentHashMap<>();
+            for(int n=0;n<2;n++) {Sinistro s=new Sinistro();s.setId(701+n);s.setCliente(n==0?owner:portfolio);s.setApolice(catalog.get(n==0?0:4));s.setDescricao("Histórico sintético para consulta do aplicativo.");s.setDataSinsitro(LocalDate.now().minusDays(10+n));s.setValorPrejuizo(new BigDecimal(n==0?"120.50":"50.00"));s.setStatus(n==0?StatusSinistro.NEGADO:StatusSinistro.ANALISANDO);history.put(s.getId(),s);}
+            when(claims.findAll()).thenAnswer(i -> new ArrayList<>(history.values()));when(claims.findById(anyInt())).thenAnswer(i -> Optional.ofNullable(history.get(i.getArgument(0))));
+            when(claims.findByCliente_IdOrderByIdDesc(anyInt())).thenAnswer(i -> history.values().stream().filter(s -> s.getCliente().getId().equals(i.getArgument(0))).toList());
+            when(claims.findByIdAndCliente_Id(anyInt(),anyInt())).thenAnswer(i -> Optional.ofNullable(history.get(i.getArgument(0))).filter(s -> s.getCliente().getId().equals(i.getArgument(1))));
+            when(claims.existsByCliente_IdAndApolice_IdAndStatus(anyInt(),anyInt(),any())).thenAnswer(i -> history.values().stream().anyMatch(s -> s.getCliente().getId().equals(i.getArgument(0))&&s.getApolice().getId().equals(i.getArgument(1))&&s.getStatus()==i.getArgument(2)));
+            AtomicInteger claimSequence=new AtomicInteger(702);when(claims.save(any())).thenAnswer(i -> {Sinistro s=i.getArgument(0);s.setId(claimSequence.incrementAndGet());history.put(s.getId(),s);return s;});
+            controllers.add(new SinistroMobileController(new SinistroMobileService(claims,requests,payments,clients,admins)));
+            controllers.add(new PerfilMobileController(new PerfilMobileService(clients,brokers,admins)));
+        }
+        return controllers.toArray();
     }
     private static void seedPayment(Map<Integer,Pagamento> target,int id,Contratacao c,String value,StatusPagamento status,String method,LocalDate date) {
         Pagamento p=new Pagamento();p.setId(id);p.setContratacao(c);p.setValor(new BigDecimal(value));p.setStatus(status);p.setFormaPagamento(method);p.setDataPagamento(date);p.setDataVencimento(LocalDate.now().minusDays(2));

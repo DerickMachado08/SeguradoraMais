@@ -15,6 +15,9 @@ import java.util.Collection;
 
 public interface ContratacaoRepository extends JpaRepository<Contratacao, Integer> {
     @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @Query("select c from contratacao c where c.cliente.id = :clienteId and c.apolice.id = :apoliceId order by c.id")
+    List<Contratacao> findForSinistro(@Param("clienteId") Integer clienteId, @Param("apoliceId") Integer apoliceId);
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
     @Query("select c from contratacao c where c.id = :id and c.cliente.id = :clienteId")
     Optional<Contratacao> findForPagamento(@Param("id") Integer id, @Param("clienteId") Integer clienteId);
 
