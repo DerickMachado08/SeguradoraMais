@@ -1,0 +1,106 @@
+/* Creative direction reserved for the admin workspace. */
+body.admin-motion-dashboard {
+  --admin-glass: color-mix(in srgb, var(--admin-surface) 84%, transparent);
+  --admin-glow: color-mix(in srgb, var(--admin-blue) 10%, transparent);
+  background-image:
+    radial-gradient(ellipse at 78% 2%, color-mix(in srgb, var(--admin-blue) 13%, transparent), transparent 36%),
+    radial-gradient(ellipse at 8% 30%, color-mix(in srgb, #80a8d9 10%, transparent), transparent 28%);
+}
+body.admin-motion-dashboard > header,
+body.admin-motion-dashboard > .menu-lateral {
+  background: color-mix(in srgb, var(--admin-surface) 82%, transparent);
+  backdrop-filter: blur(24px) saturate(150%);
+}
+body.admin-motion-dashboard > main { padding-top: 112px; }
+body.admin-motion-dashboard .admin-overview { position: relative; }
+body.admin-motion-dashboard .admin-page-heading {
+  position: relative; min-height: 148px; align-items: center; margin-bottom: 25px;
+  padding: 26px 30px; overflow: hidden;
+  border: 1px solid var(--admin-border); border-radius: 22px;
+  background: linear-gradient(112deg, var(--admin-surface), color-mix(in srgb, var(--admin-blue-soft) 58%, var(--admin-surface)));
+  box-shadow: var(--admin-shadow);
+}
+body.admin-motion-dashboard .admin-page-heading::after {
+  content: ""; position: absolute; width: 280px; height: 280px; right: 8%; top: -210px;
+  border: 1px solid color-mix(in srgb, var(--admin-blue) 24%, transparent); border-radius: 50%;
+  box-shadow: 0 0 0 28px color-mix(in srgb, var(--admin-blue) 4%, transparent), 0 0 0 66px color-mix(in srgb, var(--admin-blue) 3%, transparent);
+  pointer-events: none;
+}
+body.admin-motion-dashboard .admin-page-heading > div,
+body.admin-motion-dashboard .admin-period { position: relative; z-index: 1; }
+body.admin-motion-dashboard .admin-page-heading h1 { max-width: 850px; font-size: clamp(2.2rem, 4.3vw, 3.65rem); line-height: 1.02; }
+body.admin-motion-dashboard .admin-page-heading h1 span { color: var(--admin-blue); }
+body.admin-motion-dashboard .admin-page-heading > div > p:last-child { max-width: 560px; font-size: .9rem; line-height: 1.55; }
+body.admin-motion-dashboard .admin-period { border-radius: 999px; background: var(--admin-glass); backdrop-filter: blur(14px); }
+body.admin-motion-dashboard .admin-stats { gap: 13px; margin-bottom: 18px; }
+body.admin-motion-dashboard .admin-stat-card {
+  --pointer-x: 50%; --pointer-y: 50%;
+  min-height: 152px; padding: 20px 21px; border-radius: 19px;
+  background-color: var(--admin-glass);
+  background-image: radial-gradient(220px circle at var(--pointer-x) var(--pointer-y), var(--admin-glow), transparent 70%);
+  backdrop-filter: blur(18px) saturate(125%);
+}
+body.admin-motion-dashboard .admin-stat-card::after { width: 130px; height: 130px; right: -52px; bottom: -74px; opacity: .7; }
+body.admin-motion-dashboard .admin-stat-card > strong { margin-top: 24px; font-size: clamp(1.7rem, 2.4vw, 2.25rem); }
+body.admin-motion-dashboard .admin-stat-top i { border-radius: 12px; box-shadow: 0 7px 18px color-mix(in srgb, var(--admin-blue) 14%, transparent); }
+body.admin-motion-dashboard .admin-panel {
+  --pointer-x: 50%; --pointer-y: 50%;
+  position: relative; overflow: hidden; border-radius: 21px;
+  background-color: var(--admin-glass);
+  background-image: radial-gradient(380px circle at var(--pointer-x) var(--pointer-y), color-mix(in srgb, var(--admin-blue) 5%, transparent), transparent 72%);
+  backdrop-filter: blur(20px) saturate(125%);
+}
+body.admin-motion-dashboard .revenue-panel { padding: clamp(24px, 3vw, 34px); }
+body.admin-motion-dashboard .admin-panel-heading h2 { font-size: 1.22rem; letter-spacing: -.035em; }
+body.admin-motion-dashboard .revenue-chart { height: clamp(260px, 34vh, 360px); }
+body.admin-motion-dashboard .revenue-chart .chart-line { stroke-width: 3.5; filter: drop-shadow(0 3px 5px color-mix(in srgb, var(--admin-blue) 32%, transparent)); }
+body.admin-motion-dashboard .revenue-chart .chart-point { transition: r .2s ease, filter .2s ease; }
+body.admin-motion-dashboard .revenue-chart .chart-point:hover { r: 6; filter: drop-shadow(0 0 7px var(--admin-blue)); }
+body.admin-motion-dashboard .admin-secondary-grid { gap: 18px; }
+body.admin-motion-dashboard .insurance-donut { filter: drop-shadow(0 14px 22px color-mix(in srgb, var(--admin-blue) 16%, transparent)); }
+body.admin-motion-dashboard .insurance-legend-item { padding: 7px 9px; border-radius: 9px; transition: color .2s ease, background .2s ease, transform .2s ease; }
+body.admin-motion-dashboard .insurance-legend-item:hover { color: var(--admin-text); background: var(--admin-surface-soft); transform: translateX(3px); }
+body.admin-motion-dashboard .recent-client-list li { transition: transform .2s ease, background .2s ease; }
+body.admin-motion-dashboard .recent-client-list li:hover { transform: translateX(3px); }
+body.admin-motion-dashboard .recent-client-avatar { box-shadow: 0 4px 12px color-mix(in srgb, var(--admin-blue) 12%, transparent); }
+body.admin-motion-dashboard .section-title { display: flex; align-items: center; gap: 11px; font-size: 1.1rem; letter-spacing: -.025em; }
+body.admin-motion-dashboard .section-title i { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid var(--admin-border); border-radius: 11px; background: var(--admin-surface); }
+body.admin-motion-dashboard .relatorios-grid { gap: 15px; }
+body.admin-motion-dashboard .relatorio-card,
+body.admin-motion-dashboard .profile-card { --pointer-x: 50%; --pointer-y: 50%; background-image: radial-gradient(260px circle at var(--pointer-x) var(--pointer-y), color-mix(in srgb, var(--admin-blue) 5%, transparent), transparent 72%); }
+body.admin-motion-dashboard .relatorio-card { position: relative; overflow: hidden; padding: 22px; border-radius: 18px; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
+body.admin-motion-dashboard .relatorio-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px color-mix(in srgb, var(--admin-blue) 11%, transparent); }
+body.admin-motion-dashboard .relatorio-icon { border-radius: 13px; box-shadow: 0 8px 17px color-mix(in srgb, var(--admin-blue) 22%, transparent); }
+body.admin-motion-dashboard .relatorio-actions { gap: 8px; }
+body.admin-motion-dashboard .btn-rel { transition: transform .2s ease, color .2s ease, background .2s ease, border-color .2s ease; }
+body.admin-motion-dashboard .btn-rel:hover { transform: translateY(-2px); }
+body.admin-motion-dashboard .profile-card { overflow-x: auto; border-radius: 18px; }
+body.admin-motion-dashboard .profile-card table { min-width: 680px; }
+body.admin-motion-dashboard .profile-card table thead td { position: sticky; top: 0; z-index: 1; font-size: .68rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+body.admin-motion-dashboard .profile-card table tbody tr { transition: background .18s ease; }
+body.admin-motion-dashboard .profile-card table tbody tr:hover { background: color-mix(in srgb, var(--admin-blue-soft) 72%, transparent); }
+body.admin-motion-dashboard .profile-card table button,
+body.admin-motion-dashboard .sinistro-acoes button { transition: transform .18s ease, box-shadow .18s ease; }
+body.admin-motion-dashboard .profile-card table button:hover,
+body.admin-motion-dashboard .sinistro-acoes button:hover { transform: translateY(-1px); box-shadow: 0 7px 16px rgba(18, 42, 75, .12); }
+body.admin-motion-dashboard .menu-lateral .item-menu.active a { position: relative; overflow: hidden; border-radius: 11px; }
+body.admin-motion-dashboard .menu-lateral .item-menu.active a::after { content: ""; position: absolute; left: 0; top: 12%; bottom: 12%; width: 3px; border-radius: 99px; background: var(--admin-blue); box-shadow: 0 0 14px color-mix(in srgb, var(--admin-blue) 72%, transparent); }
+body.admin-motion-dashboard :focus-visible { outline-offset: 4px; }
+@media (max-width: 1180px) {
+  body.admin-motion-dashboard .admin-page-heading { min-height: 130px; }
+  body.admin-motion-dashboard .admin-page-heading h1 { font-size: clamp(2rem, 5vw, 3rem); }
+}
+@media (max-width: 720px) {
+  body.admin-motion-dashboard > main { padding-top: 84px; }
+  body.admin-motion-dashboard .admin-page-heading { padding: 22px; border-radius: 18px; }
+  body.admin-motion-dashboard .admin-period { align-self: flex-start; }
+  body.admin-motion-dashboard .admin-stats { gap: 10px; }
+  body.admin-motion-dashboard .admin-stat-card { min-height: 126px; }
+  body.admin-motion-dashboard .revenue-chart { height: 230px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.admin-motion-dashboard .revenue-chart .chart-point { transition: none; }
+  body.admin-motion-dashboard .relatorio-card:hover,
+  body.admin-motion-dashboard .recent-client-list li:hover,
+  body.admin-motion-dashboard .insurance-legend-item:hover { transform: none; }
+}

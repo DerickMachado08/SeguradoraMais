@@ -1,0 +1,263 @@
+/* Adaptado do product hero: cada apólice é uma experiência de produto. */
+body.dashboard-themed .seguros-produto-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+body.dashboard-themed .seguro-produto-card {
+  --product-accent: #2f7ee8;
+  --product-tint: #d9edff;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(220px, .85fr) minmax(290px, 1.12fr);
+  min-height: 390px;
+  overflow: hidden;
+  border: 1px solid #cddff3;
+  border-radius: 24px;
+  background: #f8fbff;
+  box-shadow: 0 20px 50px rgba(15, 52, 96, .12);
+  isolation: isolate;
+  transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease, border-color .3s ease;
+}
+
+body.dashboard-themed .seguro-produto-card:hover {
+  transform: translateY(-4px);
+  border-color: #9ec4ee;
+  box-shadow: 0 28px 65px rgba(11, 54, 111, .17);
+}
+
+body.dashboard-themed .seguro-produto-card:nth-child(2n) { --product-accent: #0a8a73; --product-tint: #d4f2e9; }
+body.dashboard-themed .seguro-produto-card:nth-child(3n) { --product-accent: #674cbd; --product-tint: #e5dcff; }
+body.dashboard-themed .seguro-produto-card:nth-child(4n) { --product-accent: #c27529; --product-tint: #ffe6c8; }
+body.dashboard-themed .seguro-produto-card:nth-child(5n) { --product-accent: #b84761; --product-tint: #ffdce4; }
+
+body.dashboard-themed .seguro-produto-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -34%;
+  left: 20%;
+  width: 52%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--product-tint);
+  filter: blur(14px);
+  opacity: .7;
+}
+
+body.dashboard-themed .seguro-produto-card .seguro-card-header {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 13px;
+  padding: clamp(30px, 4vw, 56px);
+  color: var(--theme-text);
+  background: transparent;
+}
+
+body.dashboard-themed .seguro-product-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--product-accent);
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+body.dashboard-themed .seguro-produto-card .seguro-card-header h2 {
+  max-width: 10ch;
+  margin: 0;
+  color: var(--theme-blue-dark);
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.5vw, 3.75rem);
+  letter-spacing: -.06em;
+  line-height: .94;
+}
+
+body.dashboard-themed .seguro-product-kicker {
+  max-width: 28ch;
+  margin: 0;
+  color: var(--theme-muted);
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+body.dashboard-themed .seguro-produto-card .seguro-card-body {
+  display: grid;
+  grid-template-columns: minmax(180px, .75fr) minmax(250px, 1.1fr) minmax(210px, .72fr);
+  gap: clamp(16px, 2.5vw, 35px);
+  align-items: center;
+  padding: 28px clamp(26px, 3vw, 48px) 28px 0;
+}
+
+body.dashboard-themed .seguro-product-copy { align-self: center; }
+body.dashboard-themed .seguro-produto-card .numero-badge {
+  margin-bottom: 15px;
+  color: var(--product-accent);
+  background: color-mix(in srgb, var(--product-tint) 70%, white);
+}
+body.dashboard-themed .seguro-produto-card .numero-badge i { color: var(--product-accent); }
+body.dashboard-themed .seguro-produto-card .seguro-desc {
+  margin: 0;
+  color: var(--theme-muted);
+  font-size: .84rem;
+  line-height: 1.65;
+}
+body.dashboard-themed .seguro-produto-card .seguro-features { margin: 20px 0 0; }
+body.dashboard-themed .seguro-produto-card .seguro-features li { color: #415674; line-height: 1.35; }
+body.dashboard-themed .seguro-produto-card .seguro-features li i { color: var(--product-accent); }
+
+body.dashboard-themed .seguro-product-visual {
+  position: relative;
+  align-self: stretch;
+  min-height: 320px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--product-accent) 16%, white);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 55% 27%, rgba(255,255,255,.88), transparent 22%),
+    linear-gradient(145deg, color-mix(in srgb, var(--product-tint) 82%, white), color-mix(in srgb, var(--product-tint) 55%, #b7dcff));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 18px 30px color-mix(in srgb, var(--product-accent) 14%, transparent);
+}
+
+body.dashboard-themed .seguro-product-word {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180%;
+  color: color-mix(in srgb, var(--product-accent) 19%, white);
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  font-weight: 800;
+  letter-spacing: -.09em;
+  line-height: .8;
+  text-align: center;
+  text-transform: uppercase;
+  transform: translate(-50%, -50%) rotate(-11deg);
+  white-space: nowrap;
+}
+
+body.dashboard-themed .seguro-product-orb {
+  position: absolute;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--product-accent) 45%, white);
+  filter: blur(1px);
+  opacity: .45;
+}
+body.dashboard-themed .orb-one { top: 12%; right: 10%; width: 74px; aspect-ratio: 1; }
+body.dashboard-themed .orb-two { bottom: 12%; left: 9%; width: 43px; aspect-ratio: 1; opacity: .27; }
+
+body.dashboard-themed .seguro-product-shield {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: clamp(130px, 14vw, 190px);
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: 38% 62% 50% 50% / 45% 45% 60% 60%;
+  color: white;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--product-accent) 74%, white), var(--product-accent));
+  box-shadow: 0 28px 40px color-mix(in srgb, var(--product-accent) 33%, transparent), inset 0 1px 0 rgba(255,255,255,.45);
+  font-size: clamp(3rem, 5vw, 5.4rem);
+  transform: translate(-50%, -54%) rotate(-10deg);
+  animation: insurance-product-float 4.8s ease-in-out infinite alternate;
+}
+
+body.dashboard-themed .seguro-product-floor {
+  position: absolute;
+  z-index: 1;
+  bottom: 14%;
+  left: 50%;
+  width: 44%;
+  height: 18px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--product-accent) 38%, transparent);
+  filter: blur(10px);
+  transform: translateX(-50%);
+  animation: insurance-product-shadow 4.8s ease-in-out infinite alternate;
+}
+
+@keyframes insurance-product-float { to { transform: translate(-50%, -62%) rotate(-4deg); } }
+@keyframes insurance-product-shadow { to { transform: translateX(-50%) scaleX(.82); opacity: .62; } }
+
+body.dashboard-themed .seguro-product-action {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  min-width: 0;
+}
+body.dashboard-themed .seguro-product-label { color: var(--theme-muted); font-size: .68rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+body.dashboard-themed .seguro-product-rating { margin: 9px 0 20px; color: #3e5c82; font-size: .76rem; line-height: 1.4; }
+body.dashboard-themed .seguro-product-rating i { margin-right: 5px; color: #e49a24; }
+body.dashboard-themed .seguro-produto-card .form-contratar { margin: 0; }
+body.dashboard-themed .seguro-produto-card .btn-contratar {
+  min-height: 48px;
+  width: 100%;
+  padding: 0 14px;
+  border: 1px solid var(--product-accent);
+  border-radius: 12px;
+  color: #fff;
+  background: var(--product-accent);
+  box-shadow: 0 12px 22px color-mix(in srgb, var(--product-accent) 25%, transparent);
+  text-decoration: none;
+}
+body.dashboard-themed .seguro-produto-card .btn-contratar i:last-child { margin-left: auto; }
+body.dashboard-themed .seguro-produto-card .btn-contratar:hover:not(:disabled) { border-color: #143966; background: #143966; }
+body.dashboard-themed .seguro-produto-card .btn-contratar:disabled { color: #637891; border-color: #d2dde9; background: #e9f0f7; box-shadow: none; }
+body.dashboard-themed .seguro-produto-card .aviso-ja-contratado { margin: 0 0 13px; padding: 10px; border: 1px solid #f0cf98; border-radius: 10px; color: #80561b; background: #fff7e9; font-size: .73rem; line-height: 1.45; }
+body.dashboard-themed .seguro-product-action small { margin-top: 13px; color: #71839a; font-size: .68rem; text-align: center; }
+body.dashboard-themed .seguro-product-action small i { margin-right: 5px; color: var(--product-accent); }
+
+body.dashboard-themed .menu-lateral .item-menu-mode { margin-top: 19px; padding-top: 15px; border-top: 1px solid var(--theme-border); }
+body.dashboard-themed .menu-lateral .client-visual-mode {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  border: 0;
+  border-radius: 10px;
+  color: var(--theme-muted);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: .9rem;
+  font-weight: 600;
+  text-align: left;
+}
+body.dashboard-themed .menu-lateral .client-visual-mode:hover { color: var(--theme-blue-dark); background: var(--theme-blue-soft); }
+body.dashboard-themed .menu-lateral .client-visual-mode .icon { width: 18px; display: grid; place-items: center; }
+
+@media (max-width: 1120px) {
+  body.dashboard-themed .seguro-produto-card { grid-template-columns: 1fr; }
+  body.dashboard-themed .seguro-produto-card .seguro-card-header { padding-bottom: 8px; }
+  body.dashboard-themed .seguro-produto-card .seguro-card-body { grid-template-columns: minmax(190px, .85fr) minmax(270px, 1fr); padding: 20px clamp(26px, 4vw, 56px) 38px; }
+  body.dashboard-themed .seguro-product-action { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr auto minmax(240px, .8fr); gap: 14px; align-items: center; }
+  body.dashboard-themed .seguro-product-rating { margin: 0; }
+  body.dashboard-themed .seguro-product-action small { display: none; }
+}
+
+@media (max-width: 720px) {
+  body.dashboard-themed .seguro-produto-card { border-radius: 19px; }
+  body.dashboard-themed .seguro-produto-card .seguro-card-header { padding: 28px 24px 4px; }
+  body.dashboard-themed .seguro-produto-card .seguro-card-header h2 { font-size: 2.2rem; }
+  body.dashboard-themed .seguro-produto-card .seguro-card-body { grid-template-columns: 1fr; padding: 24px; }
+  body.dashboard-themed .seguro-product-visual { min-height: 250px; order: -1; }
+  body.dashboard-themed .seguro-product-action { display: flex; }
+  body.dashboard-themed .seguro-product-rating { margin: 8px 0 17px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.dashboard-themed .seguro-produto-card,
+  body.dashboard-themed .seguro-product-shield,
+  body.dashboard-themed .seguro-product-floor { animation: none; transition: none; }
+}
