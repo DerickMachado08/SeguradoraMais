@@ -1,0 +1,380 @@
+/* Painel do cliente — adaptação "glass workspace" sem dependências de React. */
+body.glass-dashboard {
+  --glass-panel: color-mix(in srgb, var(--glass-tint) calc(var(--glass-opacity) * 100%), transparent);
+  --glass-panel-strong: color-mix(in srgb, var(--glass-tint) calc((var(--glass-opacity) + .12) * 100%), transparent);
+  --glass-border: color-mix(in srgb, #ffffff calc(var(--glass-edge) * 34%), transparent);
+  --glass-border-soft: color-mix(in srgb, #ffffff calc(var(--glass-edge) * 17%), transparent);
+  --glass-shadow: rgba(3, 17, 35, .30);
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  color: var(--ink);
+  background: #0a1728;
+  background-image: none;
+}
+
+body.glass-dashboard::before { display: none; }
+
+.glass-scene {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #0a1728;
+}
+
+.glass-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgba(4, 16, 32, .94) 0%, rgba(5, 25, 50, .63) 50%, rgba(13, 41, 72, .74) 100%),
+    radial-gradient(circle at 84% 12%, rgba(87, 160, 227, .25), transparent 28%),
+    radial-gradient(circle at 11% 85%, rgba(28, 98, 166, .25), transparent 37%);
+}
+
+.glass-scene img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .82;
+  filter: saturate(.73) contrast(1.1) brightness(.6);
+  transform: scale(1.03);
+}
+
+body.glass-dashboard > .dashboard-main { position: relative; z-index: 1; }
+body.glass-dashboard > .dashboard-header { z-index: 20; }
+body.glass-dashboard > .sidebar { z-index: 10; }
+
+body.glass-dashboard .dashboard-header {
+  height: 82px;
+  margin: 14px 22px 0;
+  padding: 0 20px;
+  border: 1px solid var(--glass-border-soft);
+  border-radius: 20px;
+  color: #f5f9ff;
+  background: var(--glass-panel);
+  box-shadow: inset 0 1px 0 var(--glass-border-soft), 0 15px 44px var(--glass-shadow);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+}
+
+body.glass-dashboard .brand { color: #f5f9ff; }
+body.glass-dashboard .brand-mark {
+  border: 1px solid rgba(255, 255, 255, .33);
+  color: #eaf6ff;
+  background: linear-gradient(135deg, #2c88d8, #2153b4);
+  box-shadow: 0 9px 23px rgba(5, 25, 72, .43);
+}
+
+body.glass-dashboard .header-actions { gap: 9px; }
+body.glass-dashboard .profile-summary { color: #f5f9ff; }
+body.glass-dashboard .profile-summary small { color: rgba(236, 245, 255, .66); }
+body.glass-dashboard .avatar {
+  border: 1px solid rgba(255, 255, 255, .24);
+  color: #143c72;
+  background: #dceeff;
+}
+body.glass-dashboard .logout { color: rgba(242, 248, 255, .8); }
+body.glass-dashboard .logout:hover { color: #fff; }
+
+.glass-adjust-trigger,
+body.glass-dashboard .notification,
+body.glass-dashboard .motion-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: auto;
+  min-width: 38px;
+  height: 38px;
+  padding: 0 11px;
+  border: 1px solid var(--glass-border-soft);
+  border-radius: 11px;
+  color: rgba(244, 249, 255, .88);
+  background: rgba(255, 255, 255, .09);
+  box-shadow: none;
+  cursor: pointer;
+  font-size: .76rem;
+  font-weight: 700;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+
+body.glass-dashboard .notification { padding: 0; border-radius: 11px; }
+body.glass-dashboard .motion-theme-toggle { border-radius: 11px; color: rgba(244, 249, 255, .88); }
+.glass-adjust-trigger:hover,
+body.glass-dashboard .notification:hover,
+body.glass-dashboard .motion-theme-toggle:hover {
+  border-color: rgba(255, 255, 255, .45);
+  color: #fff;
+  background: rgba(255, 255, 255, .18);
+  transform: translateY(-1px);
+}
+
+body.glass-dashboard .sidebar {
+  top: 108px;
+  bottom: 22px;
+  left: 22px;
+  width: 247px;
+  padding: 17px 13px;
+  border: 1px solid var(--glass-border-soft);
+  border-radius: 20px;
+  color: #eaf3ff;
+  background: var(--glass-panel);
+  box-shadow: inset 0 1px 0 var(--glass-border-soft), 0 18px 48px var(--glass-shadow);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+}
+
+body.glass-dashboard .sidebar a {
+  border: 1px solid transparent;
+  color: rgba(235, 244, 255, .7);
+}
+body.glass-dashboard .sidebar a:hover,
+body.glass-dashboard .sidebar a.active {
+  border-color: rgba(255, 255, 255, .11);
+  color: #fff;
+  background: rgba(255, 255, 255, .14);
+  box-shadow: none;
+}
+body.glass-dashboard .sidebar a.active { box-shadow: inset 2px 0 0 #8bc8ff; }
+body.glass-dashboard .sidebar-foot {
+  border: 1px solid rgba(255, 255, 255, .09);
+  color: rgba(235, 244, 255, .67);
+  background: rgba(4, 20, 42, .22);
+}
+body.glass-dashboard .sidebar-foot strong { color: #f6fbff; }
+
+.dashboard-visual-mode {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 40px;
+  margin-top: 10px;
+  border: 1px solid var(--glass-border-soft);
+  border-radius: 11px;
+  color: rgba(238, 247, 255, .85);
+  background: rgba(255, 255, 255, .08);
+  cursor: pointer;
+  font: 700 .73rem 'DM Sans', sans-serif;
+}
+.dashboard-visual-mode:hover { color: #fff; background: rgba(255, 255, 255, .16); }
+
+body.glass-dashboard .dashboard-main {
+  max-width: 1650px;
+  margin-left: 269px;
+  padding: 39px clamp(22px, 4vw, 58px) 64px;
+}
+
+body.glass-dashboard .dashboard-section,
+body.glass-dashboard .metric,
+body.glass-dashboard .policy-card,
+body.glass-dashboard .claim-highlight,
+body.glass-dashboard .profile-list,
+body.glass-dashboard .profile-actions,
+body.glass-dashboard .client-quick-card,
+body.glass-dashboard .client-quick-profile-link,
+body.glass-dashboard .payment-stat,
+body.glass-dashboard .payment-current,
+body.glass-dashboard .section-empty {
+  border-color: var(--glass-border-soft);
+  background: var(--glass-panel);
+  box-shadow: inset 0 1px 0 var(--glass-border-soft), 0 18px 45px rgba(1, 12, 28, .18);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+}
+
+body.glass-dashboard .dashboard-section {
+  color: #f2f7ff;
+  border-radius: 24px;
+}
+body.glass-dashboard .dashboard-section:not(.dashboard-hero):not(.support-section) { color: #f2f7ff; }
+body.glass-dashboard .dashboard-section::before { display: none; }
+body.glass-dashboard .dashboard-section p,
+body.glass-dashboard .dashboard-section small,
+body.glass-dashboard .metric-top,
+body.glass-dashboard .metric small,
+body.glass-dashboard .payment-caption,
+body.glass-dashboard .subtle-text,
+body.glass-dashboard .subtle-action,
+body.glass-dashboard .profile-item > span,
+body.glass-dashboard .profile-actions-heading p,
+body.glass-dashboard .profile-action small,
+body.glass-dashboard .client-quick-card > span:last-child,
+body.glass-dashboard .policy-number,
+body.glass-dashboard .policy-description,
+body.glass-dashboard .claim-content > p,
+body.glass-dashboard .section-intro p:not(.eyebrow) { color: rgba(229, 240, 255, .7); }
+body.glass-dashboard .section-intro h2,
+body.glass-dashboard .dashboard-section h3,
+body.glass-dashboard .profile-actions-heading strong,
+body.glass-dashboard .profile-action,
+body.glass-dashboard .section-empty h3 { color: #f6faff; }
+body.glass-dashboard .eyebrow,
+body.glass-dashboard .client-quick-label { color: #9ed4ff; }
+
+body.glass-dashboard .dashboard-hero,
+body.glass-dashboard .support-section {
+  border: 1px solid rgba(192, 226, 255, .27);
+  background:
+    linear-gradient(112deg, rgba(7, 29, 64, .82), rgba(21, 77, 142, .56)),
+    url('/css/public/Inicial/imagesInicial/empresa.jpg') center / cover;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .24), 0 22px 55px rgba(0, 15, 36, .35);
+}
+body.glass-dashboard .dashboard-hero::before,
+body.glass-dashboard .support-section::before { display: none; }
+body.glass-dashboard .dashboard-hero::after {
+  z-index: 0;
+  border-color: rgba(190, 226, 255, .24);
+  box-shadow: 0 0 0 26px rgba(187, 224, 255, .05), 0 0 0 70px rgba(187, 224, 255, .035);
+}
+body.glass-dashboard .dashboard-hero > *,
+body.glass-dashboard .support-section > * { position: relative; z-index: 2; }
+body.glass-dashboard .dashboard-hero .eyebrow,
+body.glass-dashboard .support-section .eyebrow { color: #bfe3ff; }
+body.glass-dashboard .dashboard-hero p:not(.eyebrow),
+body.glass-dashboard .support-copy > p:not(.eyebrow) { color: rgba(239, 247, 255, .82); }
+body.glass-dashboard .hero-account {
+  border-color: rgba(255, 255, 255, .21);
+  background: rgba(237, 247, 255, .13);
+  backdrop-filter: blur(calc(var(--glass-blur) * .7));
+}
+
+body.glass-dashboard .metric,
+body.glass-dashboard .policy-card,
+body.glass-dashboard .client-quick-card { color: #f3f8ff; }
+body.glass-dashboard .metric::after { border-color: rgba(174, 216, 255, .19); box-shadow: 0 0 0 18px rgba(177, 217, 255, .04); }
+body.glass-dashboard .metric:hover,
+body.glass-dashboard .policy-card:hover,
+body.glass-dashboard .client-quick-card:hover,
+body.glass-dashboard .claim-highlight:hover,
+body.glass-dashboard .profile-action:hover {
+  border-color: var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-border), 0 25px 50px rgba(0, 10, 28, .3);
+}
+body.glass-dashboard :is(.metric-icon, .section-symbol, .policy-icon, .client-quick-icon, .profile-actions-icon, .profile-action > span) {
+  border: 1px solid rgba(180, 220, 255, .14);
+  color: #9fd4ff;
+  background: rgba(126, 193, 255, .13);
+}
+body.glass-dashboard .metric.success .metric-icon { color: #9ce5c8; background: rgba(58, 182, 128, .15); }
+body.glass-dashboard .metric.warning .metric-icon { color: #ffd28d; background: rgba(225, 157, 55, .15); }
+body.glass-dashboard .metric.danger .metric-icon { color: #ffb1bb; background: rgba(220, 89, 107, .14); }
+body.glass-dashboard .status-issued { color: #9ce5c8; background: rgba(54, 181, 123, .16); }
+body.glass-dashboard .status-pending { color: #ffd490; background: rgba(230, 159, 54, .17); }
+body.glass-dashboard .status-review { color: #d1c2ff; background: rgba(151, 117, 225, .17); }
+body.glass-dashboard .card-link { color: #9fd4ff; }
+body.glass-dashboard .card-link:hover { color: #fff; }
+body.glass-dashboard .client-quick-info { border-color: rgba(255, 255, 255, .12); }
+body.glass-dashboard .client-quick-info-grid > div,
+body.glass-dashboard .claim-details span {
+  color: rgba(229, 240, 255, .75);
+  background: rgba(6, 27, 54, .25);
+}
+body.glass-dashboard .client-quick-info-grid strong { color: #f7fbff; }
+body.glass-dashboard .client-quick-profile-link { color: #e6f4ff; }
+
+body.glass-dashboard .payments-section { background: var(--glass-panel); }
+body.glass-dashboard .payment-pending {
+  border: 1px solid rgba(182, 224, 255, .21);
+  background: linear-gradient(130deg, rgba(9, 45, 94, .78), rgba(34, 118, 202, .66));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 18px 36px rgba(0, 15, 43, .28);
+}
+body.glass-dashboard .payment-current .primary-action,
+body.glass-dashboard .primary-action,
+body.glass-dashboard .support-section .primary-action {
+  border: 1px solid rgba(255, 255, 255, .15);
+  color: #06264c;
+  background: #dff1ff;
+}
+body.glass-dashboard .primary-action:hover,
+body.glass-dashboard .payment-current .primary-action:hover { color: #031a38; background: #fff; }
+body.glass-dashboard .light-action { color: #06264c; background: #ecf7ff; }
+body.glass-dashboard .support-secondary { color: #fff; background: rgba(255, 255, 255, .08); }
+body.glass-dashboard .profile-action { border-color: rgba(255, 255, 255, .1); background: rgba(4, 25, 51, .22); }
+body.glass-dashboard .profile-item { border-color: rgba(255, 255, 255, .1); }
+body.glass-dashboard .section-empty { border-style: dashed; border-color: rgba(190, 225, 255, .33); }
+
+.glass-material,
+.glass-notifications {
+  position: fixed;
+  z-index: 60;
+  right: 22px;
+  top: 106px;
+  width: min(324px, calc(100vw - 28px));
+  max-height: calc(100svh - 128px);
+  overflow: auto;
+  padding: 21px;
+  border: 1px solid var(--glass-border);
+  border-radius: 22px;
+  color: #f2f8ff;
+  background: color-mix(in srgb, var(--glass-tint) 37%, rgba(4, 21, 43, .81));
+  box-shadow: inset 0 1px 0 var(--glass-border), 0 26px 80px rgba(0, 8, 22, .48);
+  backdrop-filter: blur(calc(var(--glass-blur) + 8px)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 8px)) saturate(var(--glass-saturation));
+}
+.glass-material[hidden], .glass-notifications[hidden] { display: none !important; }
+.glass-material-title,
+.glass-material-title > div,
+.glass-notifications > div { display: flex; align-items: center; }
+.glass-material-title { justify-content: space-between; gap: 12px; }
+.glass-material-title > div, .glass-notifications > div { gap: 10px; }
+.glass-material h2, .glass-notifications h2 { margin: 0; color: #fff; font-size: 1rem; letter-spacing: -.02em; }
+.glass-material > p, .glass-notifications p { margin: 7px 0 17px; color: rgba(230, 241, 255, .7); font-size: .75rem; line-height: 1.5; }
+.glass-material-icon { display: grid; width: 31px; height: 31px; place-items: center; border-radius: 10px; color: #bce1ff; background: rgba(129, 195, 255, .15); }
+.glass-close { display: grid; width: 30px; height: 30px; place-items: center; padding: 0; border: 0; border-radius: 9px; color: rgba(242, 248, 255, .8); background: transparent; cursor: pointer; }
+.glass-close:hover { color: #fff; background: rgba(255, 255, 255, .13); }
+.glass-material-sample { display: flex; align-items: center; justify-content: center; gap: 10px; height: 80px; margin-bottom: 16px; border: 1px solid var(--glass-border-soft); border-radius: 14px; color: rgba(244, 250, 255, .85); background: color-mix(in srgb, var(--glass-tint) calc(var(--glass-opacity) * 100%), transparent); font-size: .75rem; box-shadow: inset 0 1px 0 var(--glass-border-soft); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation)); }
+.glass-material-sample i { color: #a9d9ff; }
+.glass-presets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 17px; }
+.glass-presets button, .glass-reset { border: 1px solid var(--glass-border-soft); border-radius: 8px; color: rgba(244, 250, 255, .9); background: rgba(255, 255, 255, .07); cursor: pointer; font-size: .7rem; font-weight: 700; }
+.glass-presets button { min-height: 31px; }
+.glass-presets button:hover, .glass-reset:hover { background: rgba(255, 255, 255, .16); }
+.glass-range { display: block; margin: 15px 0; }
+.glass-range > span, .glass-tint { display: flex; align-items: center; justify-content: space-between; color: rgba(244, 250, 255, .85); font-size: .72rem; }
+.glass-range output { color: rgba(220, 237, 255, .6); font-size: .68rem; }
+.glass-range input { width: 100%; margin-top: 8px; accent-color: #8ecaff; cursor: pointer; }
+.glass-tint { margin-top: 19px; }
+.glass-tint input { width: 40px; height: 28px; padding: 2px; border: 1px solid var(--glass-border-soft); border-radius: 7px; background: transparent; cursor: pointer; }
+.glass-reset { width: 100%; min-height: 36px; margin-top: 21px; }
+.glass-notifications { top: 106px; width: min(290px, calc(100vw - 28px)); }
+.glass-notifications > div { justify-content: space-between; }
+.glass-notifications h2 { margin-top: 17px; font-size: .92rem; }
+
+html[data-theme="dark"] body.glass-dashboard { --glass-shadow: rgba(0, 0, 0, .4); }
+html[data-theme="dark"] body.glass-dashboard .dashboard-section,
+html[data-theme="dark"] body.glass-dashboard .metric,
+html[data-theme="dark"] body.glass-dashboard .policy-card,
+html[data-theme="dark"] body.glass-dashboard .claim-highlight,
+html[data-theme="dark"] body.glass-dashboard .profile-list,
+html[data-theme="dark"] body.glass-dashboard .profile-actions,
+html[data-theme="dark"] body.glass-dashboard .client-quick-card,
+html[data-theme="dark"] body.glass-dashboard .client-quick-profile-link,
+html[data-theme="dark"] body.glass-dashboard .payment-stat,
+html[data-theme="dark"] body.glass-dashboard .payment-current,
+html[data-theme="dark"] body.glass-dashboard .section-empty { color: #eff7ff; background: var(--glass-panel); border-color: var(--glass-border-soft); }
+
+body.glass-dashboard :focus-visible { outline: 3px solid #9bd2ff; outline-offset: 3px; }
+
+@media (max-width: 900px) {
+  body.glass-dashboard .dashboard-header { margin: 10px 12px 0; }
+  body.glass-dashboard .sidebar { top: 94px; bottom: 12px; left: 12px; }
+  body.glass-dashboard .dashboard-main { margin-left: 257px; }
+}
+
+@media (max-width: 720px) {
+  body.glass-dashboard .dashboard-header { height: 64px; margin: 8px 9px 0; padding: 0 12px; border-radius: 16px; }
+  body.glass-dashboard .sidebar { top: 80px; bottom: 9px; left: 9px; border-radius: 16px; }
+  body.glass-dashboard .dashboard-main { margin-left: 0; padding-top: 27px; }
+  .glass-adjust-trigger { padding: 0; width: 38px; }
+  .glass-adjust-trigger span { display: none; }
+  .glass-material, .glass-notifications { top: 78px; right: 9px; }
+  body.glass-dashboard .dashboard-section { border-radius: 19px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.glass-dashboard *, body.glass-dashboard *::before, body.glass-dashboard *::after { transition: none !important; }
+}

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/main/app/menuCliente/seguroContrato.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="/css/app/dashboardTheme.css">
+    <link rel="stylesheet" href="/css/app/insuranceProductHero.css">
 </head>
 <body class="dashboard-themed">
 
@@ -49,6 +50,12 @@
                 <span class="txt-link">Pagamento</span>
             </a>
         </li>
+        <li class="item-menu item-menu-mode">
+            <button type="button" class="client-visual-mode" aria-pressed="false">
+                <span class="icon"><i class="fa-solid fa-sun" aria-hidden="true"></i></span>
+                <span class="txt-link">Modo padrão</span>
+            </button>
+        </li>
     </ul>
 </nav>
 
@@ -71,61 +78,85 @@
         Voce ja possui uma solicitacao ou contratacao para esse tipo de seguro.
     </div>
 
-    <div class="seguros-grid">
-        <div th:each="apolice : ${apolices}" class="seguro-card"
+    <div class="seguros-grid seguros-produto-grid">
+        <article th:each="apolice, stat : ${apolices}" class="seguro-card seguro-produto-card"
              th:with="
                 idRascunho=${rascunhosPorApolice != null ? rascunhosPorApolice[apolice.id] : null},
                 tipoBloqueado=${tiposBloqueados != null and tiposBloqueados.contains(apolice.tipoApolice)},
                 jaContratou=${tipoBloqueado and idRascunho == null}
-             ">
+             " th:attr="data-product-index=${stat.index}">
 
             <div class="seguro-card-header">
-                <div class="seguro-card-icon">
-                    <i class="fas fa-shield-halved"></i>
-                </div>
+                <span class="seguro-product-eyebrow"><i class="fas fa-shield-halved" aria-hidden="true"></i> Proteção sob medida</span>
                 <h2 th:text="${apolice.tipoApolice}">Seguro de Vida</h2>
+                <p class="seguro-product-kicker">Escolha a cobertura e avance quando estiver pronto.</p>
             </div>
 
             <div class="seguro-card-body">
-                <div class="numero-badge">
-                    <i class="fas fa-hashtag"></i>
-                    <span th:text="${apolice.numeroApolice}">AP20260001</span>
+                <div class="seguro-product-copy">
+                    <div class="numero-badge">
+                        <i class="fas fa-hashtag" aria-hidden="true"></i>
+                        <span th:text="${apolice.numeroApolice}">AP20260001</span>
+                    </div>
+
+                    <p class="seguro-desc" th:text="${apolice.descricao}">
+                        Proteja o futuro da sua familia com nossa cobertura completa.
+                    </p>
+
+                    <ul class="seguro-features" aria-label="Destaques da cobertura">
+                        <li><i class="fas fa-circle-check" aria-hidden="true"></i> Contratação digital e segura</li>
+                        <li><i class="fas fa-circle-check" aria-hidden="true"></i> Cobertura pensada para o seu momento</li>
+                        <li><i class="fas fa-circle-check" aria-hidden="true"></i> Acompanhamento pelo seu painel</li>
+                    </ul>
                 </div>
 
-                <p class="seguro-desc" th:text="${apolice.descricao}">
-                    Proteja o futuro da sua familia com nossa cobertura completa.
-                </p>
-
-                <div th:if="${idRascunho != null}" class="aviso-ja-contratado">
-                    Voce iniciou esta solicitacao. Termine o cadastro do bem para enviar ao corretor.
+                <div class="seguro-product-visual" aria-hidden="true">
+                    <span class="seguro-product-word" th:text="${apolice.tipoApolice}">Seguro</span>
+                    <span class="seguro-product-orb orb-one"></span>
+                    <span class="seguro-product-orb orb-two"></span>
+                    <span class="seguro-product-shield"><i class="fas fa-shield-heart"></i></span>
+                    <span class="seguro-product-floor"></span>
                 </div>
 
-                <div th:if="${jaContratou}" class="aviso-ja-contratado">
-                    Voce ja solicitou ou contratou esse tipo de seguro.
-                </div>
+                <div class="seguro-product-action">
+                    <span class="seguro-product-label">Sua próxima proteção</span>
+                    <span class="seguro-product-rating"><i class="fas fa-star" aria-hidden="true"></i> Processo simples e transparente</span>
 
-                <form action="/cliente/contratar" method="post" class="form-contratar">
-                    <input type="hidden" name="idApolice" th:value="${apolice.id}">
+                    <div th:if="${idRascunho != null}" class="aviso-ja-contratado">
+                        Voce iniciou esta solicitacao. Termine o cadastro do bem para enviar ao corretor.
+                    </div>
 
-                    <button th:if="${!tipoBloqueado}" type="submit" class="btn-contratar">
-                        <i class="fas fa-file-signature"></i>
-                        Contratar Agora
-                    </button>
+                    <div th:if="${jaContratou}" class="aviso-ja-contratado">
+                        Voce ja solicitou ou contratou esse tipo de seguro.
+                    </div>
 
-                    <button th:if="${jaContratou}" type="button" class="btn-contratar" disabled>
+                    <form action="/cliente/contratar" method="post" class="form-contratar">
+                        <input type="hidden" name="idApolice" th:value="${apolice.id}">
+
+                        <button th:if="${!tipoBloqueado}" type="submit" class="btn-contratar">
+                            <i class="fas fa-file-signature"></i>
+                            Contratar Agora
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </button>
 
                         <a th:if="${idRascunho != null}"
-                           class="btn-contratar"
+                           class="btn-contratar btn-continuar"
                            th:href="@{/cliente/contratacao/{id}/bem(id=${idRascunho})}">
                             <i class="fas fa-pen-to-square"></i>
                             Continuar cadastro do bem
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
                         </a>
-                        Ja contratado
-                    </button>
 
-                </form>
+                        <button th:if="${jaContratou}" type="button" class="btn-contratar" disabled>
+                            <i class="fas fa-shield-check"></i>
+                            Seguro já contratado
+                        </button>
+
+                    </form>
+                    <small><i class="fas fa-lock" aria-hidden="true"></i> Seus dados continuam protegidos.</small>
+                </div>
             </div>
-        </div>
+        </article>
     </div>
 
     <div th:if="${#lists.isEmpty(apolices)}" class="empty-state">
@@ -143,6 +174,8 @@
 
 <script src="/js/clienteLayout.js"></script>
 <script src="/js/contratarSeguro.js"></script>
+<script src="/js/vendor/gsap.min.js"></script>
+<script src="/js/contratarProdutoHero.js"></script>
 
 </body>
 </html>

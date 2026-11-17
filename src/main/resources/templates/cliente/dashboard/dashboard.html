@@ -1,8 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Meu painel | Seguradora Mais</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><link rel="stylesheet" href="/dashboard/dashboard.css"></head>
-<body>
-<header class="dashboard-header"><a class="brand" href="/dashboardCliente"><span class="brand-mark"><i class="fa-solid fa-shield-heart"></i></span><span class="brand-name">Seguradora Mais</span></a><div class="header-actions"><button class="menu-toggle" type="button" aria-label="Abrir menu"><i class="fa-solid fa-bars"></i></button><span class="notification"><i class="fa-regular fa-bell"></i></span><a class="profile-summary" href="#perfil" aria-label="Ver meu perfil" title="Ver meu perfil"><div><small>Minha conta</small><strong th:text="${cliente.nome}">Cliente</strong></div><span class="avatar" th:text="${#strings.substring(cliente.nome, 0, 1)}">C</span></a><a class="logout" href="/index.html" title="Sair"><i class="fa-solid fa-arrow-right-from-bracket"></i></a></div></header>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Meu painel | Seguradora Mais</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><link rel="stylesheet" href="/dashboard/dashboard.css">
+    <link rel="stylesheet" href="/css/app/dashboardMotion.css">
+    <link rel="stylesheet" href="/dashboard/dashboardGlass.css">
+<script>(function(){try{var t=localStorage.getItem("admin-theme")||localStorage.getItem("seguradora-theme");if(!t&&matchMedia("(prefers-color-scheme:dark)").matches)t="dark";if(t)document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+</head>
+<body class="glass-dashboard" style="--glass-blur:22px;--glass-opacity:.30;--glass-saturation:1.2;--glass-tint:#e8f2ff;--glass-edge:.62">
+<div class="glass-scene" aria-hidden="true"><img src="/css/public/Inicial/imagesInicial/vida.jpg" alt=""></div>
+<header class="dashboard-header"><a class="brand" href="/dashboardCliente"><span class="brand-mark"><i class="fa-solid fa-shield-heart"></i></span><span class="brand-name">Seguradora Mais</span></a><div class="header-actions"><button class="menu-toggle" type="button" aria-label="Abrir menu"><i class="fa-solid fa-bars"></i></button><button class="glass-adjust-trigger" type="button" aria-label="Ajustar aparência do painel" aria-expanded="false" aria-controls="glass-material"><i class="fa-solid fa-sliders" aria-hidden="true"></i><span>Aparência</span></button><button class="notification glass-notification-trigger" type="button" aria-label="Ver notificações" aria-expanded="false" aria-controls="glass-notifications"><i class="fa-regular fa-bell" aria-hidden="true"></i></button><a class="profile-summary" href="#perfil" aria-label="Ver meu perfil" title="Ver meu perfil"><div><small>Minha conta</small><strong th:text="${cliente.nome}">Cliente</strong></div><span class="avatar" th:text="${#strings.substring(cliente.nome, 0, 1)}">C</span></a><a class="logout" href="/index.html" title="Sair"><i class="fa-solid fa-arrow-right-from-bracket"></i></a></div></header>
+<aside id="glass-material" class="glass-material" aria-label="Ajustes de aparência" hidden>
+    <div class="glass-material-title"><div><span class="glass-material-icon"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i></span><h2>Material do painel</h2></div><button class="glass-close" type="button" aria-label="Fechar ajustes"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div>
+    <p>Personalize o efeito de vidro sem alterar suas informações.</p>
+    <div class="glass-material-sample"><i class="fa-solid fa-shield-heart" aria-hidden="true"></i><span>Proteção com a sua identidade</span></div>
+    <div class="glass-presets" role="group" aria-label="Estilos prontos"><button type="button" data-glass-preset="cristal">Cristal</button><button type="button" data-glass-preset="azul">Azul</button><button type="button" data-glass-preset="noite">Noite</button></div>
+    <label class="glass-range"><span>Desfoque <output for="glass-blur">22 px</output></span><input id="glass-blur" name="blur" type="range" min="0" max="40" value="22"></label>
+    <label class="glass-range"><span>Opacidade <output for="glass-opacity">30%</output></span><input id="glass-opacity" name="opacity" type="range" min="8" max="85" value="30"></label>
+    <label class="glass-range"><span>Saturação <output for="glass-saturation">120%</output></span><input id="glass-saturation" name="saturation" type="range" min="50" max="180" value="120"></label>
+    <label class="glass-range"><span>Contorno <output for="glass-edge">62%</output></span><input id="glass-edge" name="edge" type="range" min="0" max="100" value="62"></label>
+    <label class="glass-tint"><span>Cor do vidro</span><input id="glass-tint" name="tint" type="color" value="#e8f2ff" aria-label="Cor do vidro"></label>
+    <button class="glass-reset" type="button">Restaurar padrão</button>
+</aside>
+<div id="glass-notifications" class="glass-notifications" role="status" hidden><div><span class="glass-material-icon"><i class="fa-regular fa-bell" aria-hidden="true"></i></span><button class="glass-close" type="button" aria-label="Fechar notificações"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div><h2>Sem novas notificações</h2><p>Quando houver uma atualização sobre apólices, pagamentos ou sinistros, ela aparecerá aqui.</p></div>
 <aside class="sidebar">
     <nav aria-label="Navegação do cliente">
         <a class="active" href="#inicio"><i class="fa-solid fa-grid-2"></i>Dashboard</a>
@@ -13,7 +31,9 @@
         <a href="#perfil"><i class="fa-regular fa-user"></i>Perfil</a>
         <a href="/index.html"><i class="fa-solid fa-arrow-right-from-bracket"></i>Sair</a>
     </nav>
-    <div class="sidebar-foot"><strong>Proteção que acompanha você.</strong>Consulte suas informações sempre que precisar.</div></aside>
+    <div class="sidebar-foot"><strong>Proteção que acompanha você.</strong>Consulte suas informações sempre que precisar.</div>
+    <button type="button" class="client-visual-mode dashboard-visual-mode" aria-pressed="false"><i class="fa-solid fa-sun" aria-hidden="true"></i><span>Modo padrão</span></button>
+</aside>
 
 <main class="dashboard-main">
     <section class="dashboard-section client-quick-panel" aria-labelledby="client-quick-title">
@@ -95,4 +115,4 @@
         </div>
     </section>
     <section id="suporte" class="dashboard-section support-section"><div class="support-copy"><p class="eyebrow">Estamos aqui para você</p><h2>Precisa de ajuda?</h2><p>Nossa equipe está pronta para orientar você sobre proteções, pagamentos e solicitações.</p></div><div class="support-actions"><a class="primary-action" href="mailto:seguramais.corretora.seguros@gmail.com"><i class="fa-regular fa-envelope"></i> FALAR COM O SUPORTE</a><a class="support-secondary" href="/index.html#contato"><i class="fa-regular fa-message"></i> ENVIAR MENSAGEM</a></div><span class="support-art"><i class="fa-regular fa-comments"></i></span></section>
-</main><script src="/dashboard/dashboard.js"></script></body></html>
+</main><script src="/dashboard/dashboard.js"></script><script src="/js/vendor/gsap.min.js"></script><script src="/js/vendor/ScrollTrigger.min.js"></script><script src="/js/dashboardMotion.js"></script></body></html>
